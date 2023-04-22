@@ -21,6 +21,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "husky": "^8.0.3"
   }
 }
