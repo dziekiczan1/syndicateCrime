@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 62.5%;
+}
+
 body {
-  background-color: $base-color;
+  background-color: $dark-gray;
 }

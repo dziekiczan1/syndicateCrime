@@ -4,3 +4,16 @@ $dark-gray: #333333;
 $dark-red: #990000;
 $base-gold: #ffd700;
 $base-orange: #ffa500;
+
+// Spacing variables
+
+$base-spacing: 0.4rem; // 4px
+$indent-4: $base-spacing; // 4px
+$indent-8: $base-spacing * 2; // 8px
+$indent-12: $base-spacing * 3; // 12px
+$indent-16: $base-spacing * 4; // 16px
+$indent-20: $base-spacing * 5; // 20px;
+$indent-24: $base-spacing * 6; // 24px
+$indent-32: $indent-16 * 2; // 32px;
+$indent-48: $indent-16 * 3; // 48px
+$indent-64: $indent-16 * 4; // 64px
