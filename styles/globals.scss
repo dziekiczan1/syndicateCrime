@@ -11,10 +11,11 @@ html {
 
 body {
   background-color: $dark-gray;
+  @include screen(mobile) {
+    background-color: $dark-red;
+  }
 }
 
-h1,
-h2,
-h3 {
+h1 {
   font-family: $font-base;
 }

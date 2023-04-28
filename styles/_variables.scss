@@ -22,3 +22,27 @@ $size-24: $base-size * 6; // 24px
 $size-32: $size-16 * 2; // 32px
 $size-48: $size-16 * 3; // 48px
 $size-64: $size-16 * 4; // 64px
+
+// Media queries
+
+$breakpoint-mobile: 48rem; // 768px
+$breakpoint-tablet: 64rem; // 1024px
+$breakpoint-desktop: 80rem; // 1280px
+
+@mixin screen($size) {
+  @if $size == "mobile" {
+    @media screen and (max-width: $breakpoint-mobile) {
+      @content;
+    }
+  } @else if $size == "tablet" {
+    @media screen and (max-width: $breakpoint-tablet) {
+      @content;
+    }
+  } @else if $size == "desktop" {
+    @media screen and (max-width: $breakpoint-med) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
