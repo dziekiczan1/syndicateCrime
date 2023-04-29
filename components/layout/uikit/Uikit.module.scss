@@ -1,0 +1,9 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  padding: $size-16 0;
+
+  h1 {
+    margin-bottom: $size-8;
+  }
+}
