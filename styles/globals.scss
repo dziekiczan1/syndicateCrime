@@ -10,12 +10,19 @@ html {
 }
 
 body {
+  font-family: $font-family-base;
   background-color: $dark-gray;
   @include screen(mobile) {
     background-color: $dark-red;
   }
 }
 
-h1 {
-  font-family: $font-base;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: $font-family-second;
 }
