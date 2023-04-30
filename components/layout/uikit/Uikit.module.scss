@@ -10,8 +10,9 @@
   }
 
   p {
-    width: 200px;
+    width: 350px;
     background-color: #7a6f6f;
+
     &:nth-of-type(1) {
       color: $color-base-light;
     }

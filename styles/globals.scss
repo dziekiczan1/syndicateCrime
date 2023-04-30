@@ -19,7 +19,7 @@ body {
   }
 }
 
-// TYPOGRAPHGY
+// TYPOGRAPHY
 
 %heading {
   font-family: $font-family-second;
@@ -30,5 +30,34 @@ body {
 
 h1 {
   @extend %heading;
-  @include font-size($size-48);
+  @include font-size($size-32);
+}
+
+h2 {
+  @extend %heading;
+  @include font-size($size-24);
+}
+
+h3 {
+  @extend %heading;
+  @include font-size($size-20);
+}
+
+h4 {
+  @extend %heading;
+  @include font-size($size-16);
+}
+
+h5 {
+  @extend %heading;
+  @include font-size($size-12);
+}
+
+h6 {
+  @extend %heading;
+  @include font-size($size-8);
+}
+
+p {
+  @include font-size($size-14);
 }
