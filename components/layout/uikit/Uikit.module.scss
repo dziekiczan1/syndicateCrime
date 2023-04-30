@@ -2,8 +2,28 @@
 
 .container {
   padding: $size-16 0;
+}
 
+.colors {
   h1 {
     margin-bottom: $size-8;
+  }
+
+  p {
+    width: 200px;
+    background-color: #7a6f6f;
+
+    &:nth-of-type(1) {
+      color: $dark-gray;
+    }
+    &:nth-of-type(2) {
+      color: $dark-red;
+    }
+    &:nth-of-type(3) {
+      color: $base-gold;
+    }
+    &:nth-of-type(4) {
+      color: $base-orange;
+    }
   }
 }
