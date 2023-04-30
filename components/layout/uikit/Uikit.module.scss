@@ -12,18 +12,20 @@
   p {
     width: 200px;
     background-color: #7a6f6f;
-
     &:nth-of-type(1) {
-      color: $dark-gray;
+      color: $color-base-light;
     }
     &:nth-of-type(2) {
-      color: $dark-red;
+      color: $color-base-dark;
     }
     &:nth-of-type(3) {
-      color: $base-gold;
+      color: $color-base-red;
     }
     &:nth-of-type(4) {
-      color: $base-orange;
+      color: $color-base-gold;
+    }
+    &:nth-of-type(5) {
+      color: $color-base-orange;
     }
   }
 }

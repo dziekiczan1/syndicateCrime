@@ -5,24 +5,30 @@
 @tailwind components;
 @tailwind utilities;
 
+// HTML and BODY
+
 html {
   font-size: 62.5%;
 }
 
 body {
   font-family: $font-family-base;
-  background-color: $dark-gray;
+  background-color: $color-base-dark;
   @include screen(mobile) {
-    background-color: $dark-red;
+    background-color: $color-base-orange;
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
+// TYPOGRAPHGY
+
+%heading {
   font-family: $font-family-second;
+  font-weight: $font-weight-bold;
+  color: $color-base-light;
+  margin: 0;
+}
+
+h1 {
+  @extend %heading;
+  @include font-size($size-48);
 }
