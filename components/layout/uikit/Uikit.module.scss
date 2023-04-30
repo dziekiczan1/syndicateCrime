@@ -2,17 +2,27 @@
 
 .container {
   padding: $size-16 0;
+
+  & > div {
+    margin-bottom: $size-64;
+  }
+}
+
+.heading {
+  margin-bottom: $size-8;
+  &::after {
+    content: "";
+    display: flex;
+    width: 100%;
+    height: $size-2;
+    background-color: $color-base-light;
+  }
 }
 
 .colors {
-  h1 {
-    margin-bottom: $size-8;
-  }
-
   p {
-    width: 350px;
-    background-color: #7a6f6f;
-
+    width: 100%;
+    background-color: #666666;
     &:nth-of-type(1) {
       color: $color-base-light;
     }
