@@ -31,6 +31,9 @@ button,
 textarea,
 select {
   font: inherit;
+  &:focus {
+    outline: none;
+  }
 }
 
 p,

@@ -61,3 +61,20 @@ h6 {
 p {
   @include font-size($size-14);
 }
+
+// FORMS AND INPUTS
+
+input,
+select,
+textarea {
+  @include font-size($size-14);
+  width: 100%;
+  border-color: $color-base-dark-100;
+  border-radius: $size-4;
+  padding: $size-12 $size-16;
+  color: $color-base-dark;
+
+  &::placeholder {
+    color: $color-base-dark-100;
+  }
+}
