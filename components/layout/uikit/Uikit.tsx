@@ -11,8 +11,13 @@ const UiKit: React.FC = () => {
         <p>$color-base-gold: #ffd700</p>
         <p>$color-base-orange: #ffa500</p>
       </div>
-      <div className={styles.headings}>
+      <div className={styles.typography}>
         <h1 className={styles.heading}>Typography</h1>
+        <p className={styles.mixin}>
+          Font size mixin <span>@include font-size($size-12)</span>
+        </p>
+        <p>$font-weight-normal</p>
+        <p>$font-weight-bold</p>
         <h1>Heading 1</h1>
         <h2>Heading 2</h2>
         <h3>Heading 3</h3>
@@ -20,6 +25,21 @@ const UiKit: React.FC = () => {
         <h5>Heading 5</h5>
         <h6>Heading 6</h6>
         <p>Paragraph</p>
+      </div>
+      <div className={styles.spacing}>
+        <h1 className={styles.heading}>Spacing</h1>
+        <p>$base-size: 0.4rem // 4px</p>
+        <p>$size-2: 2px</p>
+        <p>$size-4: 4px</p>
+        <p>$size-8: 8px</p>
+        <p>$size-12: 12px</p>
+        <p>$size-14: 14px</p>
+        <p>$size-16: 16px</p>
+        <p>$size-20: 20px</p>
+        <p>$size-24: 24px</p>
+        <p>$size-32: 32px</p>
+        <p>$size-48: 48px</p>
+        <p>$size-64: 64px</p>
       </div>
     </div>
   );

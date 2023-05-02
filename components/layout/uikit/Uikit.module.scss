@@ -19,6 +19,14 @@
   }
 }
 
+.mixin {
+  @include font-size($size-14);
+  color: $color-base-gold;
+  span {
+    font-weight: $font-weight-bold;
+  }
+}
+
 .colors {
   p {
     width: 100%;
@@ -37,6 +45,55 @@
     }
     &:nth-of-type(5) {
       color: $color-base-orange;
+    }
+  }
+}
+
+.typography {
+  p {
+    &:nth-of-type(2) {
+      font-weight: $font-weight-normal;
+    }
+    &:nth-of-type(3) {
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+.spacing {
+  p {
+    &:nth-of-type(2) {
+      margin-left: $size-2;
+    }
+    &:nth-of-type(3) {
+      margin-left: $size-4;
+    }
+    &:nth-of-type(4) {
+      margin-left: $size-8;
+    }
+    &:nth-of-type(5) {
+      margin-left: $size-12;
+    }
+    &:nth-of-type(6) {
+      margin-left: $size-14;
+    }
+    &:nth-of-type(7) {
+      margin-left: $size-16;
+    }
+    &:nth-of-type(8) {
+      margin-left: $size-20;
+    }
+    &:nth-of-type(9) {
+      margin-left: $size-24;
+    }
+    &:nth-of-type(10) {
+      margin-left: $size-32;
+    }
+    &:nth-of-type(11) {
+      margin-left: $size-48;
+    }
+    &:nth-of-type(12) {
+      margin-left: $size-64;
     }
   }
 }
