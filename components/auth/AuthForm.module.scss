@@ -1,9 +1,10 @@
+@import "../../styles/_variables.scss";
+
 .auth {
-  margin: 3rem auto;
-  width: 95%;
-  max-width: 25rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  width: 100%;
+  padding: $size-32;
+  background-color: transparentize($color-base-dark-100, 0.4);
+  border-radius: $size-8;
+  box-shadow: $shadow;
   text-align: center;
 }

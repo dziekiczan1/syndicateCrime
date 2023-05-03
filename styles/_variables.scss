@@ -9,7 +9,8 @@ $font-weight-bold: 700;
 
 $color-base-light: #f5f5f5;
 $color-base-dark: #333333;
-$color-base-dark-100: #666666;
+$color-base-dark-100: #404040;
+$color-base-dark-200: #666666;
 $color-base-red: #990000;
 $color-base-gold: #ffd700;
 $color-base-orange: #ffa500;
@@ -59,3 +60,7 @@ $breakpoint-desktop: 80rem; // 1280px
   font-size: $size;
   line-height: $size * 1.5;
 }
+
+// Box Shadow
+
+$shadow: 0 $size-2 $size-4 rgba(0, 0, 0, 0.2);

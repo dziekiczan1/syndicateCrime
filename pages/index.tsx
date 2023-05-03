@@ -12,9 +12,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <div className="flex justify-center">
-          <Logo width={674} height={301} alt="Syndicate Crime" />
-          <AuthForm />
+        <div className="flex flex-col justify-center items-center h-screen gap-8">
+          <div className="w-1/2">
+            <Logo width={674} height={301} alt="Syndicate Crime" />
+          </div>
+          <div className="w-1/2">
+            <AuthForm />
+          </div>
         </div>
       </main>
     </>
