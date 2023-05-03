@@ -19,14 +19,6 @@
   }
 }
 
-.mixin {
-  @include font-size($size-14);
-  color: $color-base-gold;
-  span {
-    font-weight: $font-weight-bold;
-  }
-}
-
 .colors {
   $colors: (
     1: $color-base-light,
@@ -40,7 +32,7 @@
 
   p {
     width: $full-size;
-    background-color: $color-base-dark-500;
+    background-color: transparentize($color-base-light, 0.6);
 
     @each $nth, $color in $colors {
       &:nth-of-type(#{$nth}) {
@@ -84,5 +76,12 @@
     p:nth-of-type(#{$nth}) {
       margin-left: $margin;
     }
+  }
+}
+
+.mixins {
+  span {
+    color: $color-base-gold;
+    font-weight: $font-weight-bold;
   }
 }

@@ -15,9 +15,6 @@ const UiKit: React.FC = () => {
       </div>
       <div className={styles.typography}>
         <h1 className={styles.heading}>Typography</h1>
-        <p className={styles.mixin}>
-          Font size mixin <span>@include font-size($size-12)</span>
-        </p>
         <p>$font-weight-normal</p>
         <p>$font-weight-bold</p>
         <h1>Heading 1</h1>
@@ -42,6 +39,24 @@ const UiKit: React.FC = () => {
         <p>$size-32: 32px</p>
         <p>$size-48: 48px</p>
         <p>$size-64: 64px</p>
+      </div>
+      <div className={styles.mixins}>
+        <h1 className={styles.heading}>Mixins</h1>
+        <p>
+          Font size mixin <span>@include font-size($size-12)</span>
+        </p>
+        <p>
+          Media queries mixin <span>@include screen(mobile)</span> /{" "}
+          <span>@include screen(tablet)</span> /{" "}
+          <span>@include screen(desktop)</span>
+        </p>
+        <p>
+          Flexbox mixin{" "}
+          <span>
+            @include flexbox($justify-content: space-between, $align-items:
+            flex-start);
+          </span>
+        </p>
       </div>
     </div>
   );

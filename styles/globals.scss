@@ -22,10 +22,10 @@ body {
 // TYPOGRAPHY
 
 %heading {
+  margin: $null;
+  color: $color-base-light;
   font-family: $font-family-second;
   font-weight: $font-weight-bold;
-  color: $color-base-light;
-  margin: 0;
 }
 
 h1 {
@@ -68,7 +68,7 @@ input,
 select,
 textarea {
   @include font-size($size-14);
-  width: 100%;
+  width: $full-size;
   border-color: $color-base-dark-100;
   border-radius: $size-4;
   padding: $size-12 $size-16;
