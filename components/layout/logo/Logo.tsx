@@ -19,6 +19,7 @@ const Logo: React.FC<ILogo> = ({ width, height, alt }) => {
         height={height}
         alt={alt}
         className={styles.logo}
+        unoptimized={true}
       />
     </Link>
   );

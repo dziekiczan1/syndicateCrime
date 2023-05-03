@@ -12,9 +12,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <h1>Syndicate Crime</h1>
-        <Logo width={674} height={297} alt="Syndicate Crime" />
-        <AuthForm />
+        <div className="flex justify-center">
+          <Logo width={674} height={301} alt="Syndicate Crime" />
+          <AuthForm />
+        </div>
       </main>
     </>
   );
