@@ -10,12 +10,15 @@ $font-weight-bold: 700;
 $color-base-light: #f5f5f5;
 $color-base-dark: #333333;
 $color-base-dark-100: #404040;
-$color-base-dark-200: #666666;
+$color-base-dark-500: #666666;
 $color-base-red: #990000;
 $color-base-gold: #ffd700;
 $color-base-orange: #ffa500;
 
 // Size variables
+
+$null: 0;
+$full-size: 100%;
 
 $base-size: 0.4rem; // 4px
 $size-2: $base-size / 2; // 2px
@@ -64,3 +67,21 @@ $breakpoint-desktop: 80rem; // 1280px
 // Box Shadow
 
 $shadow: 0 $size-2 $size-4 rgba(0, 0, 0, 0.2);
+
+// Flexbox
+
+@mixin flexbox(
+  $display: flex,
+  $flex-direction: row,
+  $flex-wrap: nowrap,
+  $justify-content: flex-start,
+  $align-items: stretch,
+  $align-content: stretch
+) {
+  display: $display;
+  flex-direction: $flex-direction;
+  flex-wrap: $flex-wrap;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}

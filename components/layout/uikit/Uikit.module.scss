@@ -1,7 +1,7 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  padding: $size-16 0;
+  padding: $size-16 $null;
 
   & > div {
     margin-bottom: $size-64;
@@ -11,9 +11,9 @@
 .heading {
   margin-bottom: $size-8;
   &::after {
+    @include flexbox();
     content: "";
-    display: flex;
-    width: 100%;
+    width: $full-size;
     height: $size-2;
     background-color: $color-base-light;
   }
@@ -28,72 +28,61 @@
 }
 
 .colors {
+  $colors: (
+    1: $color-base-light,
+    2: $color-base-dark,
+    3: $color-base-dark-100,
+    4: $color-base-dark-500,
+    5: $color-base-red,
+    6: $color-base-gold,
+    7: $color-base-orange,
+  );
+
   p {
-    width: 100%;
-    background-color: #666666;
-    &:nth-of-type(1) {
-      color: $color-base-light;
-    }
-    &:nth-of-type(2) {
-      color: $color-base-dark;
-    }
-    &:nth-of-type(3) {
-      color: $color-base-red;
-    }
-    &:nth-of-type(4) {
-      color: $color-base-gold;
-    }
-    &:nth-of-type(5) {
-      color: $color-base-orange;
+    width: $full-size;
+    background-color: $color-base-dark-500;
+
+    @each $nth, $color in $colors {
+      &:nth-of-type(#{$nth}) {
+        color: $color;
+      }
     }
   }
 }
 
 .typography {
+  $font-weights: (
+    2: $font-weight-normal,
+    3: $font-weight-bold,
+  );
+
   p {
-    &:nth-of-type(2) {
-      font-weight: $font-weight-normal;
-    }
-    &:nth-of-type(3) {
-      font-weight: $font-weight-bold;
+    @each $nth, $font-weight in $font-weights {
+      &:nth-of-type(#{$nth}) {
+        font-weight: $font-weight;
+      }
     }
   }
 }
 
 .spacing {
-  p {
-    &:nth-of-type(2) {
-      margin-left: $size-2;
-    }
-    &:nth-of-type(3) {
-      margin-left: $size-4;
-    }
-    &:nth-of-type(4) {
-      margin-left: $size-8;
-    }
-    &:nth-of-type(5) {
-      margin-left: $size-12;
-    }
-    &:nth-of-type(6) {
-      margin-left: $size-14;
-    }
-    &:nth-of-type(7) {
-      margin-left: $size-16;
-    }
-    &:nth-of-type(8) {
-      margin-left: $size-20;
-    }
-    &:nth-of-type(9) {
-      margin-left: $size-24;
-    }
-    &:nth-of-type(10) {
-      margin-left: $size-32;
-    }
-    &:nth-of-type(11) {
-      margin-left: $size-48;
-    }
-    &:nth-of-type(12) {
-      margin-left: $size-64;
+  $margins: (
+    2: $size-2,
+    3: $size-4,
+    4: $size-8,
+    5: $size-12,
+    6: $size-14,
+    7: $size-16,
+    8: $size-20,
+    9: $size-24,
+    10: $size-32,
+    11: $size-48,
+    12: $size-64,
+  );
+
+  @each $nth, $margin in $margins {
+    p:nth-of-type(#{$nth}) {
+      margin-left: $margin;
     }
   }
 }
