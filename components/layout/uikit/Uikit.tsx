@@ -51,12 +51,28 @@ const UiKit: React.FC = () => {
           <span>@include screen(desktop)</span>
         </p>
         <p>
-          Flexbox mixin{" "}
+          Flexbox mixin
           <span>
             @include flexbox($justify-content: space-between, $align-items:
             flex-start);
           </span>
         </p>
+      </div>
+      <div>
+        <h1 className={styles.heading}>Forms and Inputs</h1>
+        <label htmlFor="input-one">Input</label>
+        <input
+          type="text"
+          placeholder="Placeholder"
+          name="input"
+          id="input-one"
+        />
+        <label htmlFor="select-one">Select</label>
+        <select name="select" id="select-one">
+          <option value="one">One</option>
+          <option value="two">Two</option>
+          <option value="three">Three</option>
+        </select>
       </div>
     </div>
   );

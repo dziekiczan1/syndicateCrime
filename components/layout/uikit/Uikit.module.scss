@@ -72,9 +72,11 @@
     12: $size-64,
   );
 
-  @each $nth, $margin in $margins {
-    p:nth-of-type(#{$nth}) {
-      margin-left: $margin;
+  p {
+    @each $nth, $margin in $margins {
+      &:nth-of-type(#{$nth}) {
+        margin-left: $margin;
+      }
     }
   }
 }
