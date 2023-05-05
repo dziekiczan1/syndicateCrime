@@ -2,7 +2,14 @@ import { useRef, useState } from "react";
 
 import styles from "./AuthForm.module.scss";
 
-async function createUser(email: string, password: string) {
+export interface IUserSignupData {
+  email?: string;
+  password?: string;
+}
+
+async function createUser(signupData: IUserSignupData) {
+  const { email, password } = signupData;
+
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: JSON.stringify({ email, password }),
@@ -33,14 +40,17 @@ const AuthForm: React.FC = () => {
   async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current?.value as string;
-    const enteredPassword = passwordInputRef.current?.value as string;
+    const enteredEmail = emailInputRef.current?.value;
+    const enteredPassword = passwordInputRef.current?.value;
 
     if (isLogin) {
       console.log("User is logged in.");
     } else {
       try {
-        const result = await createUser(enteredEmail, enteredPassword);
+        const result = await createUser({
+          email: enteredEmail,
+          password: enteredPassword,
+        });
         console.log(result);
       } catch (error) {
         console.log(error);
