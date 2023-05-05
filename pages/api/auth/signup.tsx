@@ -9,8 +9,14 @@ export interface IUserSignupData {
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    return;
+  }
+
   const data = req.body;
   const { email, password } = data as IUserSignupData;
+
+  console.log(data);
 
   if (
     !email ||
@@ -29,7 +35,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const db = client.db();
 
-  const hashedPassword = hashPassword(password);
+  const hashedPassword = await hashPassword(password);
 
   const result = await db.collection("users").insertOne({
     email: email,
