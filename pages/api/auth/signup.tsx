@@ -1,5 +1,7 @@
-import { connectToDatabase } from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
+
+import { hashPassword } from "@/lib/auth";
+import { connectToDatabase } from "@/lib/db";
 
 export interface IUserSignupData {
   email: string;
@@ -27,10 +29,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const db = client.db();
 
-  db.collection("users").insertOne({
+  const hashedPassword = hashPassword(password);
+
+  const result = await db.collection("users").insertOne({
     email: email,
-    password: password,
+    password: hashedPassword,
   });
+
+  res.status(201).json({ message: "Created user!" });
 }
 
 export default handler;
