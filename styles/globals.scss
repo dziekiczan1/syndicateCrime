@@ -72,9 +72,23 @@ textarea {
   border-color: $color-base-dark-100;
   border-radius: $size-4;
   padding: $size-12 $size-16;
+  margin-bottom: $size-16;
   color: $color-base-dark;
+
+  &:focus {
+    outline: $size-1 solid $color-base-orange;
+    outline-offset: $size-2;
+  }
 
   &::placeholder {
     color: $color-base-dark-100;
   }
+}
+
+label {
+  @include font-size($size-8);
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  display: inline-block;
+  padding-bottom: $size-4;
 }

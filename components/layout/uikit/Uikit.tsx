@@ -28,6 +28,7 @@ const UiKit: React.FC = () => {
       <div className={styles.spacing}>
         <h1 className={styles.heading}>Spacing</h1>
         <p>$base-size: 0.4rem // 4px</p>
+        <p>$size-1: 1px</p>
         <p>$size-2: 2px</p>
         <p>$size-4: 4px</p>
         <p>$size-8: 8px</p>
