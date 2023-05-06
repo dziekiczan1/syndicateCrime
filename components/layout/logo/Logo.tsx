@@ -4,13 +4,13 @@ import Link from "next/link";
 import logo from "../../../public/assets/logo/logo-desktop.png";
 import styles from "./Logo.module.scss";
 
-export interface ILogo {
+export interface ILogoProps {
   width: number;
   height: number;
   alt: string;
 }
 
-const Logo: React.FC<ILogo> = ({ width, height, alt }) => {
+const Logo: React.FC<ILogoProps> = ({ width, height, alt }) => {
   return (
     <Link href="/">
       <Image

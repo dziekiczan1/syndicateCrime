@@ -14,5 +14,9 @@
 }
 
 .actions {
-  @include flexbox($gap: $size-32);
+  @include flexbox($justify-content: space-between, $gap: $size-32);
+  margin-top: $size-16;
+  button {
+    flex-basis: 50%;
+  }
 }

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 
+import Button from "../ui/button/Button";
 import styles from "./AuthForm.module.scss";
 
 export interface IUserSignupData {
@@ -76,14 +77,10 @@ const AuthForm: React.FC = () => {
           />
         </div>
         <div className={styles.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
-          <button
-            type="button"
-            className={styles.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? "Create new account" : "Login with existing account"}
-          </button>
+          <Button>{isLogin ? "Login" : "Create Account"}</Button>
+          <Button onClick={switchAuthModeHandler}>
+            {isLogin ? "New user" : "Existing user"}
+          </Button>
         </div>
       </form>
     </section>

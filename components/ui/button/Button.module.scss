@@ -1,0 +1,50 @@
+@import "../../../styles/_variables.scss";
+
+.btn {
+  @include letter-spacing;
+  @include transition(all, 0.5s);
+  position: relative;
+  padding: $size-8 $size-16;
+  cursor: pointer;
+  color: $color-base-light;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  text-align: center;
+
+  &::before {
+    @include transition(all);
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: $null;
+    left: $null;
+    width: $full-size;
+    height: $full-size;
+    background-color: rgba($color-base-light, 0.1);
+  }
+
+  &::after {
+    @include transition(all);
+    content: "";
+    position: absolute;
+    top: $null;
+    left: $null;
+    width: $full-size;
+    height: $full-size;
+    opacity: $null;
+    border: $size-1 solid rgba($color-base-light, 0.5);
+    transform: scale(1.2);
+  }
+
+  &:hover {
+    &::before {
+      opacity: $null;
+      transform: scale(0.5);
+    }
+
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
