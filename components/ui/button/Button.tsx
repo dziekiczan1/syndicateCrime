@@ -22,8 +22,8 @@ const Button: React.FC<IButtonProps> = ({
 
   if (link) {
     return (
-      <Link href={link} passHref>
-        <a className={className}>{children}</a>
+      <Link href={link} className={className} passHref>
+        {children}
       </Link>
     );
   }

@@ -1,8 +1,29 @@
+import { signOut, useSession } from "next-auth/react";
+
+import Button from "@/components/ui/button/Button";
 import styles from "./Uikit.module.scss";
 
 const UiKit: React.FC = () => {
+  const { data: session, status } = useSession();
+
+  function logoutHandler() {
+    signOut();
+  }
+
   return (
     <div className={styles.container}>
+      {!session && status !== "loading" && (
+        <div>
+          <h1>Zaloguj się</h1>
+          <Button link="/">Login</Button>
+        </div>
+      )}
+      {session && (
+        <div>
+          <h1>Jesteś zalogowany</h1>
+          <Button onClick={logoutHandler}>Logout</Button>
+        </div>
+      )}
       <div className={styles.colors}>
         <h1 className={styles.heading}>Color Variables</h1>
         <p>$color-base-light: #f5f5f5</p>

@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Manrope, Poppins } from "next/font/google";
 import Head from "next/head";
@@ -8,7 +9,10 @@ import "../styles/globals.scss";
 const manrope = Manrope({ weight: ["400", "700"], subsets: ["latin"] });
 const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <>
       <style jsx global>{`
@@ -17,17 +21,19 @@ export default function App({ Component, pageProps }: AppProps) {
           --poppins-font: ${poppins.style.fontFamily};
         }
       `}</style>
-      <PrimaryLayout>
-        <Head>
-          <title>Syndicate Crime</title>
-          <meta name="description" content="Syndicate Crime game" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device=width"
-          />
-        </Head>
-        <Component {...pageProps} />
-      </PrimaryLayout>
+      <SessionProvider session={session}>
+        <PrimaryLayout>
+          <Head>
+            <title>Syndicate Crime</title>
+            <meta name="description" content="Syndicate Crime game" />
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, width=device=width"
+            />
+          </Head>
+          <Component {...pageProps} />
+        </PrimaryLayout>
+      </SessionProvider>
     </>
   );
 }
