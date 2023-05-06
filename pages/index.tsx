@@ -1,7 +1,9 @@
 import Head from "next/head";
+import Image from "next/image";
 
 import AuthForm from "@/components/auth/AuthForm";
 import Logo from "@/components/layout/logo/Logo";
+import { images } from "@/constants";
 
 export default function Home() {
   return (
@@ -12,7 +14,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <div className="flex flex-col justify-center items-center h-screen gap-8">
+        <div className="absolute -z-10 h-screen w-screen">
+          <Image
+            src={images.loginBackground}
+            alt="chuj"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="object-cover w-full h-full"
+          />
+        </div>
+        <div className="flex flex-col justify-center items-center h-screen gap-8 z-1">
           <div className="w-1/2">
             <Logo width={674} height={301} alt="Syndicate Crime" />
           </div>

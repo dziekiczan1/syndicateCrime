@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "../../../public/assets/logo/logo-desktop.png";
+import { images } from "@/constants";
 import styles from "./Logo.module.scss";
 
 export interface ILogoProps {
@@ -14,7 +14,7 @@ const Logo: React.FC<ILogoProps> = ({ width, height, alt }) => {
   return (
     <Link href="/">
       <Image
-        src={logo}
+        src={images.logoDesktop}
         width={width}
         height={height}
         alt={alt}
