@@ -11,6 +11,8 @@ export interface IUserSignupData {
 async function createUser(signupData: IUserSignupData) {
   const { email, password } = signupData;
 
+  console.log(signupData);
+
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: JSON.stringify({ email, password }),
@@ -20,6 +22,8 @@ async function createUser(signupData: IUserSignupData) {
   });
 
   const data = await response.json();
+
+  console.log(data);
 
   if (!response.ok) {
     throw new Error(data.message || "Something went wrong");
@@ -78,7 +82,7 @@ const AuthForm: React.FC = () => {
         </div>
         <div className={styles.actions}>
           <Button>{isLogin ? "Login" : "Create Account"}</Button>
-          <Button onClick={switchAuthModeHandler}>
+          <Button onClick={switchAuthModeHandler} form={true}>
             {isLogin ? "New user" : "Existing user"}
           </Button>
         </div>

@@ -8,12 +8,14 @@ export interface IButtonProps {
   onClick?: () => void;
   link?: string;
   secondary?: boolean;
+  form?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
   children,
   secondary,
   link,
+  form,
   ...props
 }) => {
   const className = `${styles.btn} ${secondary && styles.secondary}`;
@@ -27,7 +29,7 @@ const Button: React.FC<IButtonProps> = ({
   }
 
   return (
-    <button type="button" className={className} {...props}>
+    <button type={form ? "submit" : "button"} className={className} {...props}>
       {children}
     </button>
   );
