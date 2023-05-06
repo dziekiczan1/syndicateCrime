@@ -1,3 +1,5 @@
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 import Button from "../ui/button/Button";
@@ -30,6 +32,7 @@ async function createUser(signupData: IUserSignupData) {
 
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +48,14 @@ const AuthForm: React.FC = () => {
     const enteredPassword = passwordInputRef.current?.value;
 
     if (isLogin) {
-      console.log("User is logged in.");
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: enteredEmail,
+        password: enteredPassword,
+      });
+      if (!result?.error) {
+        router.replace("/uikit");
+      }
     } else {
       try {
         const result = await createUser({
@@ -77,7 +87,7 @@ const AuthForm: React.FC = () => {
           />
         </div>
         <div className={styles.actions}>
-          <Button>{isLogin ? "Login" : "Create Account"}</Button>
+          <Button form={true}>{isLogin ? "Login" : "Create Account"}</Button>
           <Button onClick={switchAuthModeHandler} form={true}>
             {isLogin ? "New user" : "Existing user"}
           </Button>
