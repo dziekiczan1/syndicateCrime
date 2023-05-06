@@ -22,6 +22,7 @@ body {
 // TYPOGRAPHY
 
 %heading {
+  @include letter-spacing;
   margin: $null;
   color: $color-base-light;
   font-family: $font-family-second;
@@ -60,6 +61,7 @@ h6 {
 
 p {
   @include font-size($size-14);
+  @include letter-spacing;
 }
 
 // FORMS
@@ -87,6 +89,7 @@ textarea {
 
 label {
   @include font-size($size-8);
+  @include letter-spacing;
   font-weight: $font-weight-bold;
   text-transform: uppercase;
   display: inline-block;

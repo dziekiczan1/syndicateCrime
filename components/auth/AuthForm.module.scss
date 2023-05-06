@@ -12,3 +12,7 @@
     text-align: center;
   }
 }
+
+.actions {
+  @include flexbox($gap: $size-32);
+}
