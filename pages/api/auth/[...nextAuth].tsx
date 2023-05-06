@@ -1,8 +1,13 @@
-import { connectToDatabase } from "@/lib/db";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import { verifyPassword } from "@/lib/auth";
+import { connectToDatabase } from "@/lib/db";
+
 export default NextAuth({
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -17,7 +22,18 @@ export default NextAuth({
         });
 
         if (!user) {
+          client.close();
           throw new Error("No user found!");
+        }
+
+        const isValid = await verifyPassword(
+          credentials.password,
+          user.password
+        );
+
+        if (!isValid) {
+          client.close();
+          throw new Error("Could not log you in!");
         }
 
         client.close();
