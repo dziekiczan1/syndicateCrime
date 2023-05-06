@@ -17,7 +17,7 @@ export default function Home() {
         <div className="absolute -z-10 h-screen w-screen">
           <Image
             src={images.loginBackground}
-            alt="chuj"
+            alt="Login Background"
             width={0}
             height={0}
             sizes="100vw"

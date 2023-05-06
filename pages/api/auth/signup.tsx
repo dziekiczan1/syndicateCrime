@@ -16,8 +16,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const data = req.body;
   const { email, password } = data as IUserSignupData;
 
-  console.log(data);
-
   if (
     !email ||
     !email.includes("@") ||
@@ -35,6 +33,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const db = client.db();
 
+  const existingUser = await db.collection("users").findOne({ email: email });
+
+  if (existingUser) {
+    res.status(422).json({ message: "User exists already!" });
+    client.close();
+    return;
+  }
+
   const hashedPassword = await hashPassword(password);
 
   const result = await db.collection("users").insertOne({
@@ -43,6 +49,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   });
 
   res.status(201).json({ message: "Created user!" });
+  client.close();
 }
 
 export default handler;
