@@ -1,17 +1,29 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import Button from "../ui/button/Button";
 import styles from "./AuthForm.module.scss";
 
-export interface IUserSignupData {
-  email?: string;
-  password?: string;
-  username?: string;
-}
+type LoginFormInputs = {
+  email: string;
+  password: string;
+};
 
-async function createUser(signupData: IUserSignupData) {
+type SignupFormInputs = {
+  email: string;
+  password: string;
+  username: string;
+};
+
+type AuthFormProps = {
+  isLogin: boolean;
+};
+
+type AuthFormInputs = LoginFormInputs & SignupFormInputs;
+
+async function createUser(signupData: SignupFormInputs) {
   const { email, password, username } = signupData;
 
   const response = await fetch("/api/auth/signup", {
@@ -31,44 +43,37 @@ async function createUser(signupData: IUserSignupData) {
   return data;
 }
 
-const AuthForm: React.FC = () => {
+const AuthForm: React.FC<AuthFormProps> = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const router = useRouter();
+  const [isInvalid, setIsInvalid] = useState<string | null>(null);
 
-  const emailInputRef = useRef<HTMLInputElement>(null);
-  const passwordInputRef = useRef<HTMLInputElement>(null);
-  const usernameInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthFormInputs>();
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
 
-  async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const enteredEmail = emailInputRef.current?.value;
-    const enteredPassword = passwordInputRef.current?.value;
-    const enteredUsername = usernameInputRef.current?.value;
-
+  async function onSubmit(data: LoginFormInputs | SignupFormInputs) {
     if (isLogin) {
       const result = await signIn("credentials", {
         redirect: false,
-        email: enteredEmail,
-        password: enteredPassword,
+        email: data.email,
+        password: data.password,
       });
       if (!result?.error) {
         router.replace("/uikit");
       }
     } else {
       try {
-        const result = await createUser({
-          email: enteredEmail,
-          password: enteredPassword,
-          username: enteredUsername,
-        });
+        const result = await createUser(data as SignupFormInputs);
         console.log(result);
       } catch (error) {
-        console.log(error);
+        setIsInvalid((error as Error).message);
       }
     }
   }
@@ -76,24 +81,41 @@ const AuthForm: React.FC = () => {
   return (
     <section className={styles.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form onSubmit={submitHandler}>
+      {isInvalid && <p className={styles.message}>{isInvalid}</p>}
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required ref={emailInputRef} />
+          <input
+            type="email"
+            id="email"
+            {...register("email", { required: true })}
+          />
+          {errors.email && (
+            <p className={styles.message}>This field is required</p>
+          )}
         </div>
         <div className={styles.control}>
           <label htmlFor="password">Your Password</label>
           <input
             type="password"
             id="password"
-            required
-            ref={passwordInputRef}
+            {...register("password", { required: true })}
           />
+          {errors.password && (
+            <p className={styles.message}>This field is required</p>
+          )}
         </div>
         {!isLogin && (
           <div className={styles.control}>
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" required ref={usernameInputRef} />
+            <input
+              type="text"
+              id="username"
+              {...register("username", { required: true })}
+            />
+            {errors.username && (
+              <p className={styles.message}>This field is required</p>
+            )}
           </div>
         )}
         <div className={styles.actions}>

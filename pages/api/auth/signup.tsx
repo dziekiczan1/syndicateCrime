@@ -25,8 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     !username
   ) {
     res.status(422).json({
-      message:
-        "Invalid input - password should also be at least 8 characters long.",
+      message: "Password should be at least 8 characters long.",
     });
     return;
   }

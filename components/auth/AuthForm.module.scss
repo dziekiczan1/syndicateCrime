@@ -11,12 +11,31 @@
     margin-bottom: $size-16;
     text-align: center;
   }
+
+  .message {
+    @include error;
+    text-align: center;
+  }
+}
+
+.form {
+  @include flexbox($flex-direction: column, $gap: $size-8);
+}
+
+.control {
+  position: relative;
+  .message {
+    @include font-size($size-8);
+    position: absolute;
+    text-align: left;
+    bottom: -$size-12;
+  }
 }
 
 .actions {
   @include flexbox($justify-content: space-between, $gap: $size-32);
-  margin-top: $size-16;
   button {
     flex-basis: 50%;
+    margin-top: $size-16;
   }
 }

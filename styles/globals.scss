@@ -79,7 +79,6 @@ textarea {
 
   &:focus {
     outline: $size-1 solid $color-base-orange;
-    outline-offset: $size-2;
   }
 
   &::placeholder {

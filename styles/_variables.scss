@@ -12,6 +12,7 @@ $color-base-dark: #333333;
 $color-base-dark-100: #404040;
 $color-base-dark-500: #666666;
 $color-base-red: #990000;
+$color-base-red-500: #cc0303;
 $color-base-gold: #ffd700;
 $color-base-orange: #ffa500;
 
@@ -103,4 +104,13 @@ $breakpoint-desktop: 80rem; // 1280px
   -webkit-transition: $properties $duration $timing-function;
   -moz-transition: $properties $duration $timing-function;
   -o-transition: $properties $duration $timing-function;
+}
+
+// Error mixin
+
+@mixin error {
+  @include font-size($size-16);
+  font-weight: $font-weight-bold;
+  color: $color-base-red-500;
+  margin-bottom: $size-8;
 }
