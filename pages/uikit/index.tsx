@@ -8,9 +8,7 @@ export default function Uikit() {
       <Head>
         <title>Syndicate Crime Uikit</title>
       </Head>
-      <main>
-        <UiKit />
-      </main>
+      <UiKit />
     </>
   );
 }
