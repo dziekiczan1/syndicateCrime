@@ -8,14 +8,15 @@ import styles from "./AuthForm.module.scss";
 export interface IUserSignupData {
   email?: string;
   password?: string;
+  username?: string;
 }
 
 async function createUser(signupData: IUserSignupData) {
-  const { email, password } = signupData;
+  const { email, password, username } = signupData;
 
   const response = await fetch("/api/auth/signup", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, username }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -36,6 +37,7 @@ const AuthForm: React.FC = () => {
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
+  const usernameInputRef = useRef<HTMLInputElement>(null);
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -46,6 +48,7 @@ const AuthForm: React.FC = () => {
 
     const enteredEmail = emailInputRef.current?.value;
     const enteredPassword = passwordInputRef.current?.value;
+    const enteredUsername = usernameInputRef.current?.value;
 
     if (isLogin) {
       const result = await signIn("credentials", {
@@ -61,6 +64,7 @@ const AuthForm: React.FC = () => {
         const result = await createUser({
           email: enteredEmail,
           password: enteredPassword,
+          username: enteredUsername,
         });
         console.log(result);
       } catch (error) {
@@ -86,9 +90,15 @@ const AuthForm: React.FC = () => {
             ref={passwordInputRef}
           />
         </div>
+        {!isLogin && (
+          <div className={styles.control}>
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" required ref={usernameInputRef} />
+          </div>
+        )}
         <div className={styles.actions}>
           <Button form={true}>{isLogin ? "Login" : "Create Account"}</Button>
-          <Button onClick={switchAuthModeHandler} form={true}>
+          <Button onClick={switchAuthModeHandler}>
             {isLogin ? "New user" : "Existing user"}
           </Button>
         </div>

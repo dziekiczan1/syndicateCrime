@@ -6,6 +6,7 @@ import { connectToDatabase } from "@/lib/db";
 export interface IUserSignupData {
   email: string;
   password: string;
+  username: string;
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -14,13 +15,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const data = req.body;
-  const { email, password } = data as IUserSignupData;
+  const { email, password, username } = data as IUserSignupData;
 
   if (
     !email ||
     !email.includes("@") ||
     !password ||
-    password.trim().length < 8
+    password.trim().length < 8 ||
+    !username
   ) {
     res.status(422).json({
       message:
@@ -34,8 +36,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const db = client.db();
 
   const existingUser = await db.collection("users").findOne({ email: email });
+  const existingUsername = await db
+    .collection("users")
+    .findOne({ username: username });
 
-  if (existingUser) {
+  if (existingUser || existingUsername) {
     res.status(422).json({ message: "User exists already!" });
     client.close();
     return;
@@ -46,6 +51,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const result = await db.collection("users").insertOne({
     email: email,
     password: hashedPassword,
+    username: username,
   });
 
   res.status(201).json({ message: "Created user!" });
