@@ -24,7 +24,7 @@ export default function Home() {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="flex flex-col justify-center items-center h-screen gap-8 z-1">
+        <div className="no-scrollbar relative flex flex-col items-center h-screen gap-8 z-1 overflow-y-scroll py-8">
           <div className="w-1/2">
             <Logo width={674} height={301} alt="Syndicate Crime" />
           </div>

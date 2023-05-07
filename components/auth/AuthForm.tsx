@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { avatars } from "@/constants";
 import Button from "../ui/button/Button";
+import Avatar from "../user/avatar/Avatar";
 import styles from "./AuthForm.module.scss";
 
 type LoginFormInputs = {
@@ -15,6 +17,7 @@ type SignupFormInputs = {
   email: string;
   password: string;
   username: string;
+  avatar: string;
 };
 
 type AuthFormInputs = LoginFormInputs & SignupFormInputs;
@@ -42,6 +45,7 @@ async function createUser(signupData: SignupFormInputs) {
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isInvalid, setIsInvalid] = useState<string | null>(null);
+  console.log(avatars);
 
   const router = useRouter();
   const {
@@ -102,17 +106,42 @@ const AuthForm: React.FC = () => {
           )}
         </div>
         {!isLogin && (
-          <div className={styles.control}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              {...register("username", { required: true })}
-            />
-            {errors.username && (
-              <p className={styles.message}>This field is required</p>
-            )}
-          </div>
+          <>
+            <div className={styles.control}>
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                {...register("username", { required: true })}
+              />
+              {errors.username && (
+                <p className={styles.message}>This field is required</p>
+              )}
+            </div>
+            <div className={styles.control}>
+              <label htmlFor="username">Your Avatar</label>
+              <input
+                type="hidden"
+                id="avatar"
+                {...register("avatar", { required: true })}
+              />
+              <div className={styles.avatars}>
+                {avatars.map((avatar) => (
+                  <div key={avatar.src}>
+                    <Avatar
+                      src={avatar.src}
+                      width={100}
+                      height={100}
+                      alt={avatar.src}
+                    />
+                  </div>
+                ))}
+              </div>
+              {errors.username && (
+                <p className={styles.message}>This field is required</p>
+              )}
+            </div>
+          </>
         )}
         <div className={styles.actions}>
           <Button form={true}>{isLogin ? "Login" : "Create Account"}</Button>

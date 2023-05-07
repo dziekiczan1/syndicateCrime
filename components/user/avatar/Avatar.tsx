@@ -12,7 +12,7 @@ export interface IAvatarProps {
 const Avatar: React.FC<IAvatarProps> = ({ src, width, height, alt }) => {
   return (
     <Image
-      src={src}
+      src={`/assets/avatars/${src}.webp`}
       width={width}
       height={height}
       alt={alt}
