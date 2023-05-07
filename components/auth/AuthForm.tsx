@@ -17,10 +17,6 @@ type SignupFormInputs = {
   username: string;
 };
 
-type AuthFormProps = {
-  isLogin: boolean;
-};
-
 type AuthFormInputs = LoginFormInputs & SignupFormInputs;
 
 async function createUser(signupData: SignupFormInputs) {
@@ -43,7 +39,7 @@ async function createUser(signupData: SignupFormInputs) {
   return data;
 }
 
-const AuthForm: React.FC<AuthFormProps> = () => {
+const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isInvalid, setIsInvalid] = useState<string | null>(null);
 
