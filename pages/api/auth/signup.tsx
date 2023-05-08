@@ -7,6 +7,7 @@ export interface IUserSignupData {
   email: string;
   password: string;
   username: string;
+  avatar: string;
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -15,17 +16,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const data = req.body;
-  const { email, password, username } = data as IUserSignupData;
+  const { email, password, username, avatar } = data as IUserSignupData;
+
+  console.log(data);
 
   if (
     !email ||
     !email.includes("@") ||
     !password ||
     password.trim().length < 8 ||
-    !username
+    !username ||
+    !avatar
   ) {
     res.status(422).json({
-      message: "Password should be at least 8 characters long.",
+      message:
+        "Oops! There seems to be an issue with your input. Please make sure your password is at least 8 characters long.",
     });
     return;
   }
@@ -51,6 +56,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     email: email,
     password: hashedPassword,
     username: username,
+    avatar: avatar,
   });
 
   res.status(201).json({ message: "Created user!" });

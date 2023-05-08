@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { avatars } from "@/constants";
@@ -23,11 +23,12 @@ type SignupFormInputs = {
 type AuthFormInputs = LoginFormInputs & SignupFormInputs;
 
 async function createUser(signupData: SignupFormInputs) {
-  const { email, password, username } = signupData;
+  const { email, password, username, avatar } = signupData;
+  console.log(signupData);
 
   const response = await fetch("/api/auth/signup", {
     method: "POST",
-    body: JSON.stringify({ email, password, username }),
+    body: JSON.stringify({ email, password, username, avatar }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -45,11 +46,14 @@ async function createUser(signupData: SignupFormInputs) {
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isInvalid, setIsInvalid] = useState<string | null>(null);
-  console.log(avatars);
+  const [selectedAvatar, setSelectedAvatar] = useState("");
+
+  console.log(selectedAvatar);
 
   const router = useRouter();
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthFormInputs>();
@@ -57,6 +61,12 @@ const AuthForm: React.FC = () => {
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
+
+  const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSelectedAvatar(value);
+    setValue("avatar", value);
+  };
 
   async function onSubmit(data: LoginFormInputs | SignupFormInputs) {
     if (isLogin) {
@@ -119,7 +129,7 @@ const AuthForm: React.FC = () => {
               )}
             </div>
             <div className={styles.control}>
-              <label htmlFor="username">Your Avatar</label>
+              <label htmlFor="avatar">Your Avatar</label>
               <input
                 type="hidden"
                 id="avatar"
@@ -128,16 +138,26 @@ const AuthForm: React.FC = () => {
               <div className={styles.avatars}>
                 {avatars.map((avatar) => (
                   <div key={avatar.src}>
-                    <Avatar
-                      src={avatar.src}
-                      width={100}
-                      height={100}
-                      alt={avatar.src}
+                    <input
+                      type="radio"
+                      id={avatar.src}
+                      name="avatar"
+                      value={avatar.src}
+                      onChange={handleAvatarChange}
+                      checked={selectedAvatar === avatar.src}
                     />
+                    <label htmlFor={avatar.src}>
+                      <Avatar
+                        src={avatar.src}
+                        width={100}
+                        height={100}
+                        alt={avatar.src}
+                      />
+                    </label>
                   </div>
                 ))}
               </div>
-              {errors.username && (
+              {errors.avatar && (
                 <p className={styles.message}>This field is required</p>
               )}
             </div>
