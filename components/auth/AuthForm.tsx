@@ -77,11 +77,17 @@ const AuthForm: React.FC = () => {
         password: data.password,
       });
       if (!result?.error) {
-        router.replace("/uikit");
+        router.replace("/game");
       }
     } else {
       try {
-        const result = await createUser(data as SignupFormInputs);
+        await createUser(data as SignupFormInputs);
+        await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
+        router.replace("/game");
       } catch (error) {
         setIsInvalid((error as Error).message);
       }
