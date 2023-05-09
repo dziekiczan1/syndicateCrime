@@ -28,8 +28,20 @@
     @include font-size($size-8);
     position: absolute;
     text-align: left;
-    bottom: -$size-12;
+    bottom: -$size-8;
   }
+}
+
+.label {
+  width: $full-size;
+}
+
+.input {
+  margin-top: $size-4;
+}
+
+.radio {
+  display: none;
 }
 
 .avatars {
@@ -38,6 +50,21 @@
     $justify-content: space-between,
     $gap: $size-4
   );
+}
+
+.avatar {
+  .radio {
+    &:hover {
+      + img {
+        cursor: pointer;
+      }
+    }
+    &:checked {
+      + img {
+        outline: $size-1 solid $color-base-gold;
+      }
+    }
+  }
 }
 
 .actions {

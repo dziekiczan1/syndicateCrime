@@ -1,30 +1,28 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { avatars } from "@/constants";
 import Button from "../ui/button/Button";
 import Avatar from "../user/avatar/Avatar";
 import styles from "./AuthForm.module.scss";
+import InputField from "./InputField";
 
-type LoginFormInputs = {
+export interface LoginFormInputs {
   email: string;
   password: string;
-};
+}
 
-type SignupFormInputs = {
-  email: string;
-  password: string;
+export interface SignupFormInputs extends LoginFormInputs {
   username: string;
-  avatar: string;
-};
+  avatar?: string;
+}
 
 type AuthFormInputs = LoginFormInputs & SignupFormInputs;
 
 async function createUser(signupData: SignupFormInputs) {
   const { email, password, username, avatar } = signupData;
-  console.log(signupData);
 
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -48,15 +46,14 @@ const AuthForm: React.FC = () => {
   const [isInvalid, setIsInvalid] = useState<string | null>(null);
   const [selectedAvatar, setSelectedAvatar] = useState("");
 
-  console.log(selectedAvatar);
-
   const router = useRouter();
   const {
     register,
     setValue,
     handleSubmit,
+    clearErrors,
     formState: { errors },
-  } = useForm<AuthFormInputs>();
+  } = useForm<AuthFormInputs>({ mode: "onChange" });
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -65,8 +62,12 @@ const AuthForm: React.FC = () => {
   const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSelectedAvatar(value);
-    setValue("avatar", value);
+    clearErrors("avatar");
   };
+
+  useEffect(() => {
+    setValue("avatar", selectedAvatar);
+  }, [selectedAvatar, setValue]);
 
   async function onSubmit(data: LoginFormInputs | SignupFormInputs) {
     if (isLogin) {
@@ -81,7 +82,6 @@ const AuthForm: React.FC = () => {
     } else {
       try {
         const result = await createUser(data as SignupFormInputs);
-        console.log(result);
       } catch (error) {
         setIsInvalid((error as Error).message);
       }
@@ -94,72 +94,70 @@ const AuthForm: React.FC = () => {
       {isInvalid && <p className={styles.message}>{isInvalid}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.control}>
-          <label htmlFor="email">Your Email</label>
-          <input
-            type="email"
+          <InputField
+            label="Your Email"
             id="email"
-            {...register("email", { required: true })}
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            register={register("email", { required: true })}
+            error={errors.email && "This field is required"}
           />
-          {errors.email && (
-            <p className={styles.message}>This field is required</p>
-          )}
         </div>
         <div className={styles.control}>
-          <label htmlFor="password">Your Password</label>
-          <input
-            type="password"
+          <InputField
+            label="Your Password"
             id="password"
-            {...register("password", { required: true })}
+            type="password"
+            name="password"
+            placeholder="Your Password"
+            register={register("password", { required: true })}
+            error={errors.password && "This field is required"}
           />
-          {errors.password && (
-            <p className={styles.message}>This field is required</p>
-          )}
         </div>
         {!isLogin && (
           <>
             <div className={styles.control}>
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
+              <InputField
+                label="Username"
                 id="username"
-                {...register("username", { required: true })}
+                type="text"
+                name="username"
+                placeholder="Username"
+                register={register("username", { required: true })}
+                error={errors.username && "This field is required"}
               />
-              {errors.username && (
-                <p className={styles.message}>This field is required</p>
-              )}
             </div>
             <div className={styles.control}>
-              <label htmlFor="avatar">Your Avatar</label>
-              <input
-                type="hidden"
+              <InputField
                 id="avatar"
-                {...register("avatar", { required: true })}
+                type="hidden"
+                register={register("avatar", {
+                  required: selectedAvatar ? false : true,
+                })}
+                error={errors.avatar && "This field is required"}
               />
               <div className={styles.avatars}>
                 {avatars.map((avatar) => (
-                  <div key={avatar.src}>
-                    <input
-                      type="radio"
+                  <div key={avatar.src} className={styles.avatar}>
+                    <InputField
                       id={avatar.src}
+                      type="radio"
                       name="avatar"
                       value={avatar.src}
                       onChange={handleAvatarChange}
                       checked={selectedAvatar === avatar.src}
-                    />
-                    <label htmlFor={avatar.src}>
+                    >
                       <Avatar
                         src={avatar.src}
                         width={100}
                         height={100}
                         alt={avatar.src}
                       />
-                    </label>
+                    </InputField>
                   </div>
                 ))}
               </div>
-              {errors.avatar && (
-                <p className={styles.message}>This field is required</p>
-              )}
             </div>
           </>
         )}

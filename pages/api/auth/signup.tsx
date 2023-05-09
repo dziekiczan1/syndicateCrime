@@ -10,23 +10,35 @@ export interface IUserSignupData {
   avatar: string;
 }
 
+export interface IUser extends IUserSignupData {
+  defaultParams: {
+    class: string;
+    morale: string;
+    respect: number;
+    energy: number;
+    life: number;
+    addiction: number;
+    intelligence: number;
+    strength: number;
+    endurance: number;
+    money: number;
+  };
+}
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return;
   }
 
-  const data = req.body;
-  const { email, password, username, avatar } = data as IUserSignupData;
-
-  console.log(data);
+  const data = req.body as IUserSignupData;
 
   if (
-    !email ||
-    !email.includes("@") ||
-    !password ||
-    password.trim().length < 8 ||
-    !username ||
-    !avatar
+    !data.email ||
+    !data.email.includes("@") ||
+    !data.password ||
+    data.password.trim().length < 8 ||
+    !data.username ||
+    !data.avatar
   ) {
     res.status(422).json({
       message:
@@ -39,10 +51,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const db = client.db();
 
-  const existingUser = await db.collection("users").findOne({ email: email });
+  const existingUser = await db
+    .collection<IUser>("users")
+    .findOne({ email: data.email });
   const existingUsername = await db
-    .collection("users")
-    .findOne({ username: username });
+    .collection<IUser>("users")
+    .findOne({ username: data.username });
 
   if (existingUser || existingUsername) {
     res.status(422).json({ message: "User exists already!" });
@@ -50,14 +64,30 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const hashedPassword = await hashPassword(password);
+  const hashedPassword = await hashPassword(data.password);
 
-  const result = await db.collection("users").insertOne({
-    email: email,
+  const defaultParams = {
+    class: "Begginer",
+    morale: "Extremly high",
+    respect: 0,
+    energy: 100,
+    life: 100,
+    addiction: 0,
+    intelligence: 10,
+    strength: 10,
+    endurance: 10,
+    money: 10,
+  };
+
+  const user: IUser = {
+    email: data.email,
     password: hashedPassword,
-    username: username,
-    avatar: avatar,
-  });
+    username: data.username,
+    avatar: data.avatar,
+    defaultParams: defaultParams,
+  };
+
+  const result = await db.collection<IUser>("users").insertOne(user);
 
   res.status(201).json({ message: "Created user!" });
   client.close();

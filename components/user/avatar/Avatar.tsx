@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import styles from "./Avatar.module.scss";
-
 export interface IAvatarProps {
   src: string;
   width: number;
@@ -16,7 +14,6 @@ const Avatar: React.FC<IAvatarProps> = ({ src, width, height, alt }) => {
       width={width}
       height={height}
       alt={alt}
-      className={styles.avatar}
     />
   );
 };
