@@ -1,6 +1,6 @@
-import { signOut, useSession } from "next-auth/react";
-
 import Button from "@/components/ui/button/Button";
+import { signOut, useSession } from "next-auth/react";
+import Avatar from "../avatar/Avatar";
 import styles from "./UserInterface.module.scss";
 
 export interface IUserInterface {
@@ -26,6 +26,12 @@ const UserInterface: React.FC<IUserInterface> = ({ user }) => {
       )}
       {session && (
         <div>
+          <Avatar
+            width={300}
+            height={300}
+            src={user?.avatar}
+            alt={user?.username}
+          />
           <h1>Jesteś zalogowany jako {user?.username}</h1>
           <Button onClick={logoutHandler}>Logout</Button>
         </div>

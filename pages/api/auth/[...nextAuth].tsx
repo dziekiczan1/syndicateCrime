@@ -4,10 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyPassword } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 
-export default NextAuth({
-  session: {
-    strategy: "jwt",
-  },
+export const authOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -46,4 +44,6 @@ export default NextAuth({
       },
     }),
   ],
-});
+};
+
+export default NextAuth(authOptions);
