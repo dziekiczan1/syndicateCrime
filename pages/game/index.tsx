@@ -63,8 +63,6 @@ export const getServerSideProps: GetServerSideProps<
     _id: user._id.toString(),
   };
 
-  console.log(serializedUser);
-
   return {
     props: { session, user: serializedUser },
   };

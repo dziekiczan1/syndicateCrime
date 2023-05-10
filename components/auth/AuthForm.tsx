@@ -8,20 +8,21 @@ import Button from "../ui/button/Button";
 import Avatar from "../user/avatar/Avatar";
 import styles from "./AuthForm.module.scss";
 import InputField from "./InputField";
+import LoginForm from "./LoginForm";
 
-export interface LoginFormInputs {
+export interface ILoginFormInputs {
   email: string;
   password: string;
 }
 
-export interface SignupFormInputs extends LoginFormInputs {
+export interface ISignupFormInputs extends ILoginFormInputs {
   username: string;
   avatar?: string;
 }
 
-type AuthFormInputs = LoginFormInputs & SignupFormInputs;
+type AuthFormInputs = ILoginFormInputs & ISignupFormInputs;
 
-async function createUser(signupData: SignupFormInputs) {
+async function createUser(signupData: ISignupFormInputs) {
   const { email, password, username, avatar } = signupData;
 
   const response = await fetch("/api/auth/signup", {
@@ -69,7 +70,7 @@ const AuthForm: React.FC = () => {
     setValue("avatar", selectedAvatar);
   }, [selectedAvatar, setValue]);
 
-  async function onSubmit(data: LoginFormInputs | SignupFormInputs) {
+  async function onSubmit(data: ILoginFormInputs | ISignupFormInputs) {
     if (isLogin) {
       const result = await signIn("credentials", {
         redirect: false,
@@ -81,7 +82,7 @@ const AuthForm: React.FC = () => {
       }
     } else {
       try {
-        await createUser(data as SignupFormInputs);
+        await createUser(data as ISignupFormInputs);
         await signIn("credentials", {
           email: data.email,
           password: data.password,
@@ -99,28 +100,7 @@ const AuthForm: React.FC = () => {
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       {isInvalid && <p className={styles.message}>{isInvalid}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <div className={styles.control}>
-          <InputField
-            label="Your Email"
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            register={register("email", { required: true })}
-            error={errors.email && "This field is required"}
-          />
-        </div>
-        <div className={styles.control}>
-          <InputField
-            label="Your Password"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Your Password"
-            register={register("password", { required: true })}
-            error={errors.password && "This field is required"}
-          />
-        </div>
+        <LoginForm register={register} errors={errors} />
         {!isLogin && (
           <>
             <div className={styles.control}>

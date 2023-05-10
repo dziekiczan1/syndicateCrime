@@ -12,7 +12,7 @@ export interface IInputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   register?: any;
   checked?: boolean;
-  error?: string;
+  error?: string | undefined;
   children?: ReactNode;
 }
 

@@ -20,12 +20,12 @@ export interface IUser {
   };
 }
 
-interface UserContextType {
+export interface IUserContextType {
   user: IUser | null;
   setUser: React.Dispatch<React.SetStateAction<IUser | null>> | null;
 }
 
-const UserContext = createContext<UserContextType>({
+const UserContext = createContext<IUserContextType>({
   user: null,
   setUser: null,
 });
