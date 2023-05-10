@@ -7,17 +7,16 @@ import styles from "./Logo.module.scss";
 export interface ILogoProps {
   width: number;
   height: number;
-  alt: string;
 }
 
-const Logo: React.FC<ILogoProps> = ({ width, height, alt }) => {
+const Logo: React.FC<ILogoProps> = ({ width, height }) => {
   return (
     <Link href="/">
       <Image
         src={images.logoDesktop}
         width={width}
         height={height}
-        alt={alt}
+        alt="Syndicate Crime"
         className={styles.logo}
         unoptimized={true}
       />

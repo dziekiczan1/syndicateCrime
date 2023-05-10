@@ -1,16 +1,18 @@
-import Button from "@/components/ui/button/Button";
 import { signOut, useSession } from "next-auth/react";
+import { useContext } from "react";
+
+import Button from "@/components/ui/button/Button";
+import UserContext from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
 import styles from "./UserInterface.module.scss";
 
 export interface IUserInterface {
-  user?: {
-    [key: string]: any;
-  };
+  user?: { [key: string]: any } | null;
 }
 
-const UserInterface: React.FC<IUserInterface> = ({ user }) => {
+const UserInterface: React.FC<IUserInterface> = () => {
   const { data: session, status } = useSession();
+  const { user } = useContext(UserContext);
 
   function logoutHandler() {
     signOut();
@@ -26,12 +28,15 @@ const UserInterface: React.FC<IUserInterface> = ({ user }) => {
       )}
       {session && (
         <div>
-          <Avatar
-            width={300}
-            height={300}
-            src={user?.avatar}
-            alt={user?.username}
-          />
+          <div className={styles.avatar}>
+            <Avatar
+              width={180}
+              height={180}
+              src={user?.avatar}
+              alt={user?.username}
+            />
+          </div>
+          <p>{user?.defaultParams.strength}</p>
           <h1>Jesteś zalogowany jako {user?.username}</h1>
           <Button onClick={logoutHandler}>Logout</Button>
         </div>

@@ -26,7 +26,7 @@ export default function Home() {
         </div>
         <div className="no-scrollbar relative flex flex-col items-center h-screen gap-8 z-1 overflow-y-scroll py-8">
           <div className="w-1/2 flex justify-center">
-            <Logo width={674} height={301} alt="Syndicate Crime" />
+            <Logo width={674} height={301} />
           </div>
           <div className="w-1/2">
             <AuthForm />
