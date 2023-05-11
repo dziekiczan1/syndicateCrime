@@ -1,17 +1,20 @@
+import { FieldErrors, UseFormRegister } from "react-hook-form";
+
 import styles from "./AuthForm.module.scss";
 import InputField from "./InputField";
+import { ISignupFormInputs } from "./SignupForm";
 
-export interface LoginFormInputs {
+export interface ILoginFormInputs {
   email: string;
   password: string;
 }
 
-interface LoginComponentProps {
-  errors: Record<string, unknown>;
-  register?: any;
+export interface ILoginComponentProps {
+  errors: FieldErrors<ISignupFormInputs>;
+  register: UseFormRegister<ISignupFormInputs>;
 }
 
-const LoginForm: React.FC<LoginComponentProps> = ({ errors, register }) => {
+const LoginForm: React.FC<ILoginComponentProps> = ({ errors, register }) => {
   return (
     <>
       <div className={styles.control}>

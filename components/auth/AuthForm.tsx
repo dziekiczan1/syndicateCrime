@@ -1,24 +1,12 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { avatars } from "@/constants";
 import Button from "../ui/button/Button";
-import Avatar from "../user/avatar/Avatar";
 import styles from "./AuthForm.module.scss";
-import InputField from "./InputField";
-import LoginForm from "./LoginForm";
-
-export interface ILoginFormInputs {
-  email: string;
-  password: string;
-}
-
-export interface ISignupFormInputs extends ILoginFormInputs {
-  username: string;
-  avatar?: string;
-}
+import LoginForm, { ILoginFormInputs } from "./LoginForm";
+import SignupForm, { ISignupFormInputs } from "./SignupForm";
 
 type AuthFormInputs = ILoginFormInputs & ISignupFormInputs;
 
@@ -45,7 +33,6 @@ async function createUser(signupData: ISignupFormInputs) {
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isInvalid, setIsInvalid] = useState<string | null>(null);
-  const [selectedAvatar, setSelectedAvatar] = useState("");
 
   const router = useRouter();
   const {
@@ -59,16 +46,6 @@ const AuthForm: React.FC = () => {
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
-
-  const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSelectedAvatar(value);
-    clearErrors("avatar");
-  };
-
-  useEffect(() => {
-    setValue("avatar", selectedAvatar);
-  }, [selectedAvatar, setValue]);
 
   async function onSubmit(data: ILoginFormInputs | ISignupFormInputs) {
     if (isLogin) {
@@ -102,50 +79,12 @@ const AuthForm: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <LoginForm register={register} errors={errors} />
         {!isLogin && (
-          <>
-            <div className={styles.control}>
-              <InputField
-                label="Username"
-                id="username"
-                type="text"
-                name="username"
-                placeholder="Username"
-                register={register("username", { required: true })}
-                error={errors.username && "This field is required"}
-              />
-            </div>
-            <div className={styles.control}>
-              <InputField
-                id="avatar"
-                type="hidden"
-                register={register("avatar", {
-                  required: selectedAvatar ? false : true,
-                })}
-                error={errors.avatar && "This field is required"}
-              />
-              <div className={styles.avatars}>
-                {avatars.map((avatar) => (
-                  <div key={avatar.src} className={styles.avatar}>
-                    <InputField
-                      id={avatar.src}
-                      type="radio"
-                      name="avatar"
-                      value={avatar.src}
-                      onChange={handleAvatarChange}
-                      checked={selectedAvatar === avatar.src}
-                    >
-                      <Avatar
-                        src={avatar.src}
-                        width={100}
-                        height={100}
-                        alt={avatar.src}
-                      />
-                    </InputField>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
+          <SignupForm
+            register={register}
+            errors={errors}
+            setValue={setValue}
+            clearErrors={clearErrors}
+          />
         )}
         <div className={styles.actions}>
           <Button form={true}>{isLogin ? "Login" : "Create Account"}</Button>
