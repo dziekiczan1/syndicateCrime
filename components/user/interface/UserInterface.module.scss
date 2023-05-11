@@ -1,12 +1,23 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  color: white;
+  width: $full-size;
+  padding: $size-16;
+  background-color: transparentize($color-base-dark-100, 0.4);
+  border-radius: $size-8;
+  box-shadow: $shadow;
 }
 
-.avatar {
-  border-radius: 50%;
-  overflow: hidden;
-  width: 18rem;
-  height: 18rem;
+.panelContainer {
+  @include flexbox($gap: $size-8);
+
+  .avatar {
+    border-radius: $size-8;
+    overflow: hidden;
+    width: 18rem;
+    height: 18rem;
+  }
+  .user {
+    @include flexbox($flex-direction: column, $gap: $size-8);
+  }
 }

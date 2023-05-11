@@ -13,6 +13,7 @@ export interface IUserInterface {
 const UserInterface: React.FC<IUserInterface> = () => {
   const { data: session, status } = useSession();
   const { user } = useContext(UserContext);
+  const userStats = user?.defaultParams;
 
   function logoutHandler() {
     signOut();
@@ -27,7 +28,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
         </div>
       )}
       {session && user && (
-        <div>
+        <div className={styles.panelContainer}>
           <div className={styles.avatar}>
             <Avatar
               width={180}
@@ -36,9 +37,24 @@ const UserInterface: React.FC<IUserInterface> = () => {
               alt={user.username}
             />
           </div>
-          <p>{user.defaultParams.strength}</p>
-          <h1>Jesteś zalogowany jako {user.username}</h1>
-          <Button onClick={logoutHandler}>Logout</Button>
+          <div className={styles.user}>
+            <h1>{user.username}</h1>
+            {userStats && (
+              <div className={styles.stats}>
+                <p>class: {userStats.class}</p>
+                <p>morale: {userStats.morale}</p>
+                <p>respect: {userStats.respect}</p>
+                <p>energy: {userStats.energy}</p>
+                <p>life: {userStats.life}</p>
+                <p>addiction: {userStats.addiction}</p>
+                <p>intelligence: {userStats.intelligence}</p>
+                <p>strength: {userStats.strength}</p>
+                <p>endurance: {userStats.endurance}</p>
+                <p>money: {userStats.money}</p>
+              </div>
+            )}
+            <Button onClick={logoutHandler}>Logout</Button>
+          </div>
         </div>
       )}
     </div>
