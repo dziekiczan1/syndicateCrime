@@ -14,9 +14,7 @@ html {
 body {
   font-family: $font-family-base;
   background-color: $color-base-dark;
-  @include screen(mobile) {
-    background-color: $color-base-orange;
-  }
+  overflow: hidden;
 }
 
 // TYPOGRAPHY

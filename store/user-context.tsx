@@ -16,6 +16,7 @@ export interface IUser {
     intelligence: number;
     strength: number;
     endurance: number;
+    charisma: number;
     money: number;
   };
 }

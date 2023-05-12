@@ -1,11 +1,15 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  width: $full-size;
+  width: 75%;
   padding: $size-16;
   background-color: transparentize($color-base-dark-100, 0.4);
   border-radius: $size-8;
   box-shadow: $shadow;
+}
+
+.userContainer {
+  @include flexbox($flex-direction: column, $gap: $size-8);
 }
 
 .panelContainer {
@@ -14,10 +18,17 @@
   .avatar {
     border-radius: $size-8;
     overflow: hidden;
-    width: 18rem;
-    height: 18rem;
+    width: auto;
   }
+
   .user {
-    @include flexbox($flex-direction: column, $gap: $size-8);
+    @include flexbox($flex-direction: column, $gap: $size-4);
+    width: $full-size;
+  }
+
+  .class {
+    @include font-size($size-12);
+    font-weight: $font-weight-bold;
+    color: $color-base-orange;
   }
 }

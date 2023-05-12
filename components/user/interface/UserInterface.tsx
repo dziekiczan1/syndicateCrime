@@ -28,36 +28,35 @@ const UserInterface: React.FC<IUserInterface> = () => {
           <Button link="/">Login</Button>
         </div>
       )}
-      {session && user && (
-        <div className={styles.panelContainer}>
-          <div className={styles.avatar}>
-            <Avatar
-              width={180}
-              height={180}
-              src={user.avatar}
-              alt={user.username}
-            />
-          </div>
-          <div className={styles.user}>
-            <h1>{user.username}</h1>
-            {userStats && (
+      {session && user && userStats && (
+        <div className={styles.userContainer}>
+          <div className={styles.panelContainer}>
+            <div className={styles.avatar}>
+              <Avatar
+                width={380}
+                height={380}
+                src={user.avatar}
+                alt={user.username}
+              />
+            </div>
+            <div className={styles.user}>
+              <h4>{user.username}</h4>
+              <p className={styles.class}>{userStats.class}</p>
+              <p className={styles.class}>{userStats.morale}</p>
               <div className={styles.stats}>
-                <p>class: {userStats.class}</p>
-                <p>morale: {userStats.morale}</p>
-                <p>respect: {userStats.respect}</p>
                 <ProgressBar name="Energy" completed={userStats.energy} />
                 <ProgressBar name="Life" completed={userStats.life} />
                 <ProgressBar name="Addiction" completed={userStats.addiction} />
-                <p>intelligence: {userStats.intelligence}</p>
-                <p>strength: {userStats.strength}</p>
-                <p>endurance: {userStats.endurance}</p>
-                <p>money: {userStats.money}</p>
               </div>
-            )}
-            <Button onClick={logoutHandler}>Logout</Button>
+            </div>
+          </div>
+          <div className={styles.user}>
+            <p>{userStats.class}</p>
+            <p>{userStats.morale}</p>
           </div>
         </div>
       )}
+      <Button onClick={logoutHandler}>Logout</Button>
     </div>
   );
 };

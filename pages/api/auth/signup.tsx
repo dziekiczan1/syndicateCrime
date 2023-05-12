@@ -76,6 +76,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     intelligence: 10,
     strength: 10,
     endurance: 10,
+    charisma: 10,
     money: 10,
   };
 
