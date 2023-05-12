@@ -68,6 +68,21 @@ $breakpoint-desktop: 80rem; // 1280px
   }
 }
 
+// Border mixin
+
+@mixin border(
+  $width: $size-1,
+  $style: solid,
+  $color: $color-base-light,
+  $side: null
+) {
+  @if $side {
+    border-#{$side}: $width $style $color;
+  } @else {
+    border: $width $style $color;
+  }
+}
+
 // Font size mixin
 
 @mixin font-size($size) {

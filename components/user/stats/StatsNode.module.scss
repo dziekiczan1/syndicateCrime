@@ -3,20 +3,22 @@
 .container {
   @include flexbox();
   .icon {
+    @include border($color: $color-base-dark-500, $side: right);
     padding-right: $size-8;
-    border-right: $size-1 solid $color-base-dark-200;
   }
 
   .stats {
     @include flexbox(
       $flex-direction: column,
       $justify-content: $center,
-      $align-items: $center
+      $align-items: $center,
+      $gap: $size-4
     );
     width: $full-size;
+    background-color: rgba($color-base-dark-500, 0.3);
     .statsValue {
-      color: $color-base-orange;
       font-weight: $font-weight-bold;
+      color: $color-base-orange;
     }
   }
 }

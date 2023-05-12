@@ -2,10 +2,10 @@
 
 .container {
   @include flexbox($flex-direction: column);
+  @include border;
   max-width: 80vw;
   margin: $size-8 $auto;
   padding: $size-8 $null;
-  border: $size-1 solid $color-base-light;
   & > div {
     width: $full-size;
     margin-bottom: $size-64;
@@ -15,7 +15,7 @@
 .heading {
   margin-bottom: $size-8;
   &::after {
-    @include flexbox();
+    @include flexbox;
     content: "";
     width: $full-size;
     height: $size-2;

@@ -25,6 +25,7 @@
 
   &::after {
     @include transition(all);
+    @include border($color: rgba($color-base-light, 0.5));
     content: "";
     position: absolute;
     top: $null;
@@ -32,7 +33,6 @@
     width: $full-size;
     height: $full-size;
     opacity: $null;
-    border: $size-1 solid rgba($color-base-light, 0.5);
     transform: scale(1.2);
   }
 

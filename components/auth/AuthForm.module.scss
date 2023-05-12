@@ -70,7 +70,7 @@
 .actions {
   @include flexbox($justify-content: space-between, $gap: $size-32);
   button {
-    flex-basis: 50%;
+    flex-basis: $half-size;
     margin-top: $size-16;
   }
 }

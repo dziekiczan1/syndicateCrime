@@ -95,6 +95,24 @@ const UserInterface: React.FC<IUserInterface> = () => {
               statsValue={userStats.intelligence}
               statsName="Intelligence"
             />
+            <StatsNode
+              component={IntelligenceIcon}
+              fill={iconColor}
+              width={48}
+              height={48}
+              viewBox="32 32"
+              statsValue={userStats.intelligence}
+              statsName="Intelligence"
+            />
+            <StatsNode
+              component={IntelligenceIcon}
+              fill={iconColor}
+              width={48}
+              height={48}
+              viewBox="32 32"
+              statsValue={userStats.intelligence}
+              statsName="Intelligence"
+            />
             <p>{userStats.class}</p>
             <p>{userStats.morale}</p>
           </div>

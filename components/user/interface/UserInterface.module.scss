@@ -36,7 +36,8 @@
 .userStats {
   @include flexbox($flex-wrap: wrap, $gap: $size-8);
   width: $full-size;
+  margin: $size-16 $null;
   & > div {
-    width: calc($half-size - $size-8);
+    width: calc($third-size - $size-8);
   }
 }
