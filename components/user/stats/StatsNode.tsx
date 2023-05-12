@@ -7,7 +7,8 @@ export interface IStatsNode {
   width: number;
   height: number;
   viewBox: string;
-  stats: number;
+  statsValue: number;
+  statsName: string;
 }
 
 const StatsNode: React.FC<IStatsNode> = ({
@@ -16,7 +17,8 @@ const StatsNode: React.FC<IStatsNode> = ({
   fill,
   viewBox,
   component,
-  stats,
+  statsValue,
+  statsName,
 }) => {
   return (
     <div className={styles.container}>
@@ -30,7 +32,8 @@ const StatsNode: React.FC<IStatsNode> = ({
         />
       </div>
       <div className={styles.stats}>
-        <p>{stats}</p>
+        <p className={styles.statsValue}>{statsValue}</p>
+        <p className="custom-label">{statsName}</p>
       </div>
     </div>
   );

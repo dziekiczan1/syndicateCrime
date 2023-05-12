@@ -3,7 +3,7 @@
 .container {
   @include flexbox($flex-direction: column);
   max-width: 80vw;
-  margin: $size-8 auto;
+  margin: $size-8 $auto;
   padding: $size-8 $null;
   border: $size-1 solid $color-base-light;
   & > div {

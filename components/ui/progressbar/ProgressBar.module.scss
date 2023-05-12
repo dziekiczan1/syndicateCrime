@@ -11,7 +11,7 @@
 }
 
 .progressBg {
-  @include flexbox($justify-content: flex-end, $align-items: center);
+  @include flexbox($justify-content: flex-end, $align-items: $center);
   height: $full-size;
   border-radius: inherit;
   text-align: right;

@@ -9,12 +9,12 @@
 
   h1 {
     margin-bottom: $size-16;
-    text-align: center;
+    text-align: $center;
   }
 
   .message {
     @include error;
-    text-align: center;
+    text-align: $center;
   }
 }
 

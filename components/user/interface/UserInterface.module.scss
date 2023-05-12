@@ -34,6 +34,9 @@
 }
 
 .userStats {
-  @include flexbox($flex-direction: column, $gap: $size-12);
+  @include flexbox($flex-wrap: wrap, $gap: $size-8);
   width: $full-size;
+  & > div {
+    width: calc($half-size - $size-8);
+  }
 }

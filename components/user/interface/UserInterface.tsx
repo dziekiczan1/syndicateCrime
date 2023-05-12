@@ -22,6 +22,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
   const { data: session, status } = useSession();
   const { user } = useContext(UserContext);
   const userStats = user?.defaultParams;
+  const iconColor = "#666666";
 
   function logoutHandler() {
     signOut();
@@ -60,35 +61,39 @@ const UserInterface: React.FC<IUserInterface> = () => {
           <div className={styles.userStats}>
             <StatsNode
               component={StrengthIcon}
-              fill="#ffffff"
+              fill={iconColor}
               width={48}
               height={48}
               viewBox="512 512"
-              stats={userStats.strength}
+              statsValue={userStats.strength}
+              statsName="Strength"
             />
             <StatsNode
               component={EnduranceIcon}
-              fill="#ffffff"
+              fill={iconColor}
               width={48}
               height={48}
               viewBox="256 256"
-              stats={userStats.endurance}
+              statsValue={userStats.endurance}
+              statsName="Endurance"
             />
             <StatsNode
               component={CharismaIcon}
-              fill="#ffffff"
+              fill={iconColor}
               width={48}
               height={48}
               viewBox="512 512"
-              stats={userStats.charisma}
+              statsValue={userStats.charisma}
+              statsName="Charisma"
             />
             <StatsNode
               component={IntelligenceIcon}
-              fill="#ffffff"
+              fill={iconColor}
               width={48}
               height={48}
               viewBox="32 32"
-              stats={userStats.intelligence}
+              statsValue={userStats.intelligence}
+              statsName="Intelligence"
             />
             <p>{userStats.class}</p>
             <p>{userStats.morale}</p>

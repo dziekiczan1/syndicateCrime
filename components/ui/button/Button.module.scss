@@ -9,7 +9,7 @@
   color: $color-base-light;
   font-weight: $font-weight-bold;
   text-transform: uppercase;
-  text-align: center;
+  text-align: $center;
 
   &::before {
     @include transition(all);

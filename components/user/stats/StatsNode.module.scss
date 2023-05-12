@@ -2,4 +2,21 @@
 
 .container {
   @include flexbox();
+  .icon {
+    padding-right: $size-8;
+    border-right: $size-1 solid $color-base-dark-200;
+  }
+
+  .stats {
+    @include flexbox(
+      $flex-direction: column,
+      $justify-content: $center,
+      $align-items: $center
+    );
+    width: $full-size;
+    .statsValue {
+      color: $color-base-orange;
+      font-weight: $font-weight-bold;
+    }
+  }
 }

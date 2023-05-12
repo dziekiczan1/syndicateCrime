@@ -1,9 +1,9 @@
 @import "../../../styles/_variables.scss";
 
 .logo {
-  @include flexbox($align-items: center);
+  @include flexbox($align-items: $center);
   img {
     max-width: $full-size;
-    height: auto;
+    height: $auto;
   }
 }
