@@ -11,6 +11,7 @@ import {
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import UserContext, { IUser } from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
+import StatsNode from "../stats/StatsNode";
 import styles from "./UserInterface.module.scss";
 
 export interface IUserInterface {
@@ -57,10 +58,38 @@ const UserInterface: React.FC<IUserInterface> = () => {
             </div>
           </div>
           <div className={styles.userStats}>
-            <StrengthIcon width={24} height={24} fill="#ffffff" />
-            <EnduranceIcon width={24} height={24} fill="#ffffff" />
-            <IntelligenceIcon width={24} height={24} fill="#ffffff" />
-            <CharismaIcon width={24} height={24} fill="#ffffff" />
+            <StatsNode
+              component={StrengthIcon}
+              fill="#ffffff"
+              width={48}
+              height={48}
+              viewBox="512 512"
+              stats={userStats.strength}
+            />
+            <StatsNode
+              component={EnduranceIcon}
+              fill="#ffffff"
+              width={48}
+              height={48}
+              viewBox="256 256"
+              stats={userStats.endurance}
+            />
+            <StatsNode
+              component={CharismaIcon}
+              fill="#ffffff"
+              width={48}
+              height={48}
+              viewBox="512 512"
+              stats={userStats.charisma}
+            />
+            <StatsNode
+              component={IntelligenceIcon}
+              fill="#ffffff"
+              width={48}
+              height={48}
+              viewBox="32 32"
+              stats={userStats.intelligence}
+            />
             <p>{userStats.class}</p>
             <p>{userStats.morale}</p>
           </div>

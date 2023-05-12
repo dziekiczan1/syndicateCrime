@@ -1,18 +1,6 @@
-import { ISvgIcon } from "./StrengthIcon";
-
-const IntelligenceIcon: React.FC<ISvgIcon> = ({
-  fill = "#333333",
-  width,
-  height,
-}) => {
+const IntelligenceIcon: React.FC = () => {
   return (
-    <svg
-      fill={fill}
-      width={width}
-      height={height}
-      viewBox="0 0 32 32"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <>
       <path
         d="M18.912,1.245c-0.15-0.036-0.298-0.053-0.444-0.053c-1.059,0-1.968,0.896-1.968,2.012v8.38
 	c0,0.276-0.224,0.5-0.5,0.5c-0.276,0-0.5-0.224-0.5-0.5v-8.38c0-1.116-0.909-2.012-1.968-2.012c-0.146,0-0.295,0.017-0.444,0.053
@@ -47,7 +35,7 @@ const IntelligenceIcon: React.FC<ISvgIcon> = ({
 	c-0.03,0.244-0.228,0.432-0.474,0.432h-0.038c-0.289,0-0.516-0.243-0.484-0.523c0.216-1.851,1.567-3.35,3.336-3.81
 	c0.305-0.079,0.606,0.151,0.617,0.466v0.001C29.06,17.399,28.915,17.607,28.696,17.663z"
       />
-    </svg>
+    </>
   );
 };
 
