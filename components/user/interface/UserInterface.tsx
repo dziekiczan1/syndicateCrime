@@ -2,6 +2,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useContext } from "react";
 
 import Button from "@/components/ui/button/Button";
+import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import UserContext, { IUser } from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
 import styles from "./UserInterface.module.scss";
@@ -45,6 +46,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
                 <p>morale: {userStats.morale}</p>
                 <p>respect: {userStats.respect}</p>
                 <p>energy: {userStats.energy}</p>
+                <ProgressBar name="Energy" completed={userStats.energy} />
                 <p>life: {userStats.life}</p>
                 <p>addiction: {userStats.addiction}</p>
                 <p>intelligence: {userStats.intelligence}</p>

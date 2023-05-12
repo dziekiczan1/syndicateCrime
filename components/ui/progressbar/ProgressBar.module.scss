@@ -1,0 +1,23 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  height: $size-16;
+  width: $full-size;
+  background-color: $color-base-dark-100;
+  border: $size-1 solid $color-base-dark-200;
+  border-radius: $size-4;
+  box-shadow: $shadow;
+}
+
+.filter {
+  @include flexbox($justify-content: flex-end, $align-items: center);
+  height: $full-size;
+  border-radius: inherit;
+  text-align: right;
+}
+
+.label {
+  color: $color-base-dark;
+  font-weight: $font-weight-bold;
+  margin-right: $size-4;
+}

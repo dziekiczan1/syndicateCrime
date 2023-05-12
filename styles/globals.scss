@@ -86,7 +86,8 @@ textarea {
   }
 }
 
-label {
+label,
+.custom-label {
   @include font-size($size-8);
   @include letter-spacing;
   font-weight: $font-weight-bold;
