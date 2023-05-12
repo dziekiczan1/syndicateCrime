@@ -2,6 +2,12 @@ import { signOut, useSession } from "next-auth/react";
 import { useContext } from "react";
 
 import Button from "@/components/ui/button/Button";
+import {
+  CharismaIcon,
+  EnduranceIcon,
+  IntelligenceIcon,
+  StrengthIcon,
+} from "@/components/ui/icons";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import UserContext, { IUser } from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
@@ -40,7 +46,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
               />
             </div>
             <div className={styles.user}>
-              <h4>{user.username}</h4>
+              <h3>{user.username}</h3>
               <p className={styles.class}>{userStats.class}</p>
               <p className={styles.class}>{userStats.morale}</p>
               <div className={styles.stats}>
@@ -50,7 +56,11 @@ const UserInterface: React.FC<IUserInterface> = () => {
               </div>
             </div>
           </div>
-          <div className={styles.user}>
+          <div className={styles.userStats}>
+            <StrengthIcon width={24} height={24} fill="#ffffff" />
+            <EnduranceIcon width={24} height={24} fill="#ffffff" />
+            <IntelligenceIcon width={24} height={24} fill="#ffffff" />
+            <CharismaIcon width={24} height={24} fill="#ffffff" />
             <p>{userStats.class}</p>
             <p>{userStats.morale}</p>
           </div>

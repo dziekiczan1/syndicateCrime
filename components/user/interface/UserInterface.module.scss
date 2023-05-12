@@ -18,12 +18,12 @@
   .avatar {
     border-radius: $size-8;
     overflow: hidden;
-    width: auto;
+    width: $half-size;
   }
 
   .user {
     @include flexbox($flex-direction: column, $gap: $size-4);
-    width: $full-size;
+    width: $half-size;
   }
 
   .class {
@@ -31,4 +31,9 @@
     font-weight: $font-weight-bold;
     color: $color-base-orange;
   }
+}
+
+.userStats {
+  @include flexbox($flex-direction: column, $gap: $size-12);
+  width: $full-size;
 }
