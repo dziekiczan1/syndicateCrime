@@ -9,15 +9,14 @@
   box-shadow: $shadow;
 }
 
-.filter {
+.progressBg {
   @include flexbox($justify-content: flex-end, $align-items: center);
   height: $full-size;
   border-radius: inherit;
   text-align: right;
 }
 
-.label {
-  color: $color-base-dark;
+.progressText {
+  width: $full-size;
   font-weight: $font-weight-bold;
-  margin-right: $size-4;
 }

@@ -11,15 +11,23 @@ const ProgressBar: React.FC<IProgressBar> = ({
   name,
   bgcolor = "linear-gradient(to left, #ffa500, #525252)",
 }) => {
+  const isCompletedNull = completed === 0 && true;
+
   return (
     <>
       <span className="custom-label">{name}</span>
       <div className={styles.container}>
         <div
-          className={styles.filter}
+          className={styles.progressBg}
           style={{ width: `${completed}%`, background: bgcolor }}
         >
-          <span className={styles.label}>{`${completed}%`}</span>
+          <span
+            className={styles.progressText}
+            style={{
+              color: isCompletedNull ? "#f5f5f5" : "#333333",
+              marginRight: isCompletedNull ? "0" : "0.4rem",
+            }}
+          >{`${completed}%`}</span>
         </div>
       </div>
     </>

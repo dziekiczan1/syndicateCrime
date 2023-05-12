@@ -45,10 +45,9 @@ const UserInterface: React.FC<IUserInterface> = () => {
                 <p>class: {userStats.class}</p>
                 <p>morale: {userStats.morale}</p>
                 <p>respect: {userStats.respect}</p>
-                <p>energy: {userStats.energy}</p>
                 <ProgressBar name="Energy" completed={userStats.energy} />
-                <p>life: {userStats.life}</p>
-                <p>addiction: {userStats.addiction}</p>
+                <ProgressBar name="Life" completed={userStats.life} />
+                <ProgressBar name="Addiction" completed={userStats.addiction} />
                 <p>intelligence: {userStats.intelligence}</p>
                 <p>strength: {userStats.strength}</p>
                 <p>endurance: {userStats.endurance}</p>
