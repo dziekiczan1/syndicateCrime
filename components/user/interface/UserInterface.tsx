@@ -6,6 +6,8 @@ import {
   CharismaIcon,
   EnduranceIcon,
   IntelligenceIcon,
+  MoneyIcon,
+  RespectIcon,
   StrengthIcon,
 } from "@/components/ui/icons";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
@@ -38,6 +40,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
       )}
       {session && user && userStats && (
         <div className={styles.userContainer}>
+          <Button onClick={logoutHandler}>Logout</Button>
           <div className={styles.panelContainer}>
             <div className={styles.avatar}>
               <Avatar
@@ -78,6 +81,24 @@ const UserInterface: React.FC<IUserInterface> = () => {
               statsName="Endurance"
             />
             <StatsNode
+              component={MoneyIcon}
+              fill={iconColor}
+              width={48}
+              height={48}
+              viewBox="48 48"
+              statsValue={userStats.money}
+              statsName="Money"
+            />
+            <StatsNode
+              component={IntelligenceIcon}
+              fill={iconColor}
+              width={48}
+              height={48}
+              viewBox="32 32"
+              statsValue={userStats.intelligence}
+              statsName="Intelligence"
+            />
+            <StatsNode
               component={CharismaIcon}
               fill={iconColor}
               width={48}
@@ -87,38 +108,17 @@ const UserInterface: React.FC<IUserInterface> = () => {
               statsName="Charisma"
             />
             <StatsNode
-              component={IntelligenceIcon}
+              component={RespectIcon}
               fill={iconColor}
               width={48}
               height={48}
-              viewBox="32 32"
-              statsValue={userStats.intelligence}
-              statsName="Intelligence"
+              viewBox="512 512"
+              statsValue={userStats.respect}
+              statsName="Respect"
             />
-            <StatsNode
-              component={IntelligenceIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="32 32"
-              statsValue={userStats.intelligence}
-              statsName="Intelligence"
-            />
-            <StatsNode
-              component={IntelligenceIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="32 32"
-              statsValue={userStats.intelligence}
-              statsName="Intelligence"
-            />
-            <p>{userStats.class}</p>
-            <p>{userStats.morale}</p>
           </div>
         </div>
       )}
-      <Button onClick={logoutHandler}>Logout</Button>
     </div>
   );
 };

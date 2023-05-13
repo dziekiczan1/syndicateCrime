@@ -32,7 +32,9 @@ const StatsNode: React.FC<IStatsNode> = ({
         />
       </div>
       <div className={styles.stats}>
-        <p className={styles.statsValue}>{statsValue}</p>
+        <p className={styles.statsValue}>
+          {statsName === "Money" ? `$${statsValue}` : statsValue}
+        </p>
         <p className="custom-label">{statsName}</p>
       </div>
     </div>
