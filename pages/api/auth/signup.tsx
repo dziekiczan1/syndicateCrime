@@ -21,6 +21,7 @@ export interface IUser extends IUserSignupData {
     intelligence: number;
     strength: number;
     endurance: number;
+    charisma: number;
     money: number;
   };
 }
