@@ -1,0 +1,19 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  @include flexbox($gap: $size-8);
+  width: $full-size;
+  .action {
+    @include flexbox(
+      $flex-direction: column,
+      $justify-content: $center,
+      $align-items: $center,
+      $gap: $size-4
+    );
+    width: $full-size;
+    padding: $size-16;
+    background-color: transparentize($color-base-dark-100, 0.4);
+    border-radius: $size-8;
+    box-shadow: $shadow;
+  }
+}

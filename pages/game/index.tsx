@@ -2,12 +2,12 @@ import { GetServerSideProps } from "next";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { w3cwebsocket } from "websocket";
 
+import Logo from "@/components/layout/logo/Logo";
+import ActionsInterface from "@/components/user/actions/ActionsInterface";
 import UserInterface from "@/components/user/interface/UserInterface";
-import { images } from "@/constants";
 import { connectToDatabase } from "@/lib/db";
 import UserContext, { IUser } from "@/store/user-context";
 
@@ -39,7 +39,7 @@ export default function GameMainScreen(props: IGameMainScreenProps) {
         <title>Syndicate Crime</title>
       </Head>
       <div>
-        <div className="absolute -z-10 h-screen w-screen">
+        {/* <div className="absolute -z-10 h-screen w-screen">
           <Image
             src={images.loginBackground}
             alt="Login Background"
@@ -48,14 +48,15 @@ export default function GameMainScreen(props: IGameMainScreenProps) {
             sizes="100vw"
             className="object-cover w-full h-full"
           />
-        </div>
+        </div> */}
         <div className="no-scrollbar relative z-1 overflow-y-scroll">
           <div className="flex p-8">
-            <div className="flex w-1/2">
+            <div className="flex flex-col w-1/2">
               <UserInterface />
+              <ActionsInterface />
             </div>
             <div className="flex justify-center w-1/2">
-              {/* <Logo width={300} height={180} /> */}
+              <Logo width={300} height={180} />
             </div>
           </div>
         </div>

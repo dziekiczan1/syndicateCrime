@@ -1,5 +1,5 @@
 @import "../../../styles/_variables.scss";
 
-.main {
-  color: $base-color-light;
+.container {
+  @include flexbox();
 }
