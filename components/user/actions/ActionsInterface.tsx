@@ -1,35 +1,22 @@
 import ActionNode from "@/components/ui/action/ActionNode";
-import { RespectIcon } from "@/components/ui/icons";
+import userActions from "@/constants/actions";
 
 import styles from "./ActionsInterface.module.scss";
 
 const ActionsInterface: React.FC = () => {
   return (
     <div className={styles.container}>
-      <ActionNode
-        component={RespectIcon}
-        fill="#666666"
-        width={48}
-        height={48}
-        viewBox="512 512"
-        actionName="Robbery"
-      />
-      <ActionNode
-        component={RespectIcon}
-        fill="#666666"
-        width={48}
-        height={48}
-        viewBox="512 512"
-        actionName="Robbery"
-      />
-      <ActionNode
-        component={RespectIcon}
-        fill="#666666"
-        width={48}
-        height={48}
-        viewBox="512 512"
-        actionName="Robbery"
-      />
+      {userActions.map((action) => (
+        <ActionNode
+          key={action.actionName}
+          component={action.component}
+          fill={action.fill}
+          width={action.width}
+          height={action.height}
+          viewBox={action.viewBox}
+          actionName={action.actionName}
+        />
+      ))}
     </div>
   );
 };

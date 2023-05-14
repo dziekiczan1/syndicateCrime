@@ -51,11 +51,11 @@ export default function GameMainScreen(props: IGameMainScreenProps) {
         </div> */}
         <div className="no-scrollbar relative z-1 overflow-y-scroll">
           <div className="flex p-8">
-            <div className="flex flex-col w-1/2">
+            <div className="flex flex-col gap-8 w-1/2">
               <UserInterface />
               <ActionsInterface />
             </div>
-            <div className="flex justify-center w-1/2">
+            <div className="flex justify-center w-1/2 h-fit">
               <Logo width={300} height={180} />
             </div>
           </div>

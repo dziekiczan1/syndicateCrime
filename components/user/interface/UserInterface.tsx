@@ -2,15 +2,8 @@ import { signOut, useSession } from "next-auth/react";
 import { useContext } from "react";
 
 import Button from "@/components/ui/button/Button";
-import {
-  CharismaIcon,
-  EnduranceIcon,
-  IntelligenceIcon,
-  MoneyIcon,
-  RespectIcon,
-  StrengthIcon,
-} from "@/components/ui/icons";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
+import { getUserStatistics } from "@/constants/userstats";
 import UserContext, { IUser } from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
 import StatsNode from "../stats/StatsNode";
@@ -24,7 +17,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
   const { data: session, status } = useSession();
   const { user } = useContext(UserContext);
   const userStats = user?.defaultParams;
-  const iconColor = "#666666";
+  const userStatistics = getUserStatistics(userStats);
 
   function logoutHandler() {
     signOut();
@@ -62,60 +55,18 @@ const UserInterface: React.FC<IUserInterface> = () => {
             </div>
           </div>
           <div className={styles.userStats}>
-            <StatsNode
-              component={StrengthIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="512 512"
-              statsValue={userStats.strength}
-              statsName="Strength"
-            />
-            <StatsNode
-              component={EnduranceIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="256 256"
-              statsValue={userStats.endurance}
-              statsName="Endurance"
-            />
-            <StatsNode
-              component={MoneyIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="48 48"
-              statsValue={userStats.money}
-              statsName="Money"
-            />
-            <StatsNode
-              component={IntelligenceIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="32 32"
-              statsValue={userStats.intelligence}
-              statsName="Intelligence"
-            />
-            <StatsNode
-              component={CharismaIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="512 512"
-              statsValue={userStats.charisma}
-              statsName="Charisma"
-            />
-            <StatsNode
-              component={RespectIcon}
-              fill={iconColor}
-              width={48}
-              height={48}
-              viewBox="512 512"
-              statsValue={userStats.respect}
-              statsName="Respect"
-            />
+            {userStatistics.map((stat) => (
+              <StatsNode
+                key={stat.statsName}
+                component={stat.component}
+                fill={stat.fill}
+                width={stat.width}
+                height={stat.height}
+                viewBox={stat.viewBox}
+                statsValue={stat.statsValue}
+                statsName={stat.statsName}
+              />
+            ))}
           </div>
         </div>
       )}

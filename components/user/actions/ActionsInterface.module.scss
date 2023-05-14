@@ -1,5 +1,5 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  @include flexbox();
+  @include flexbox($gap: $size-16);
 }
