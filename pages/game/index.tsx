@@ -3,9 +3,9 @@ import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { w3cwebsocket } from "websocket";
 
-import Logo from "@/components/layout/logo/Logo";
 import UserInterface from "@/components/user/interface/UserInterface";
 import { images } from "@/constants";
 import { connectToDatabase } from "@/lib/db";
@@ -19,6 +19,19 @@ export interface IGameMainScreenProps {
 export default function GameMainScreen(props: IGameMainScreenProps) {
   const [user, setUser] = useState<IUser | null>(props.user);
   const contextValue = { user, setUser };
+
+  useEffect(() => {
+    const socket = new w3cwebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
+
+    socket.onmessage = (event) => {
+      const userData = JSON.parse(event.data.toString());
+      setUser(userData.payload);
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   return (
     <UserContext.Provider value={contextValue}>
@@ -42,7 +55,7 @@ export default function GameMainScreen(props: IGameMainScreenProps) {
               <UserInterface />
             </div>
             <div className="flex justify-center w-1/2">
-              <Logo width={300} height={180} />
+              {/* <Logo width={300} height={180} /> */}
             </div>
           </div>
         </div>
