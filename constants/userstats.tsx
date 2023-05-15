@@ -9,46 +9,46 @@ import {
 
 export const getUserStatistics = (userStats: any) => {
   const iconColor = "#666666";
-  const obj = { fill: iconColor, width: 48, height: 48 };
+  const userStatsStyles = { fill: iconColor, width: 48, height: 48 };
 
   return [
     {
-      ...obj,
+      ...userStatsStyles,
       component: StrengthIcon,
       viewBox: "512 512",
       statsValue: userStats.strength,
       statsName: "Strength",
     },
     {
-      ...obj,
+      ...userStatsStyles,
       component: EnduranceIcon,
       viewBox: "256 256",
       statsValue: userStats.endurance,
       statsName: "Endurance",
     },
     {
-      ...obj,
+      ...userStatsStyles,
       component: MoneyIcon,
       viewBox: "48 48",
       statsValue: userStats.money,
       statsName: "Money",
     },
     {
-      ...obj,
+      ...userStatsStyles,
       component: IntelligenceIcon,
       viewBox: "32 32",
       statsValue: userStats.intelligence,
       statsName: "Intelligence",
     },
     {
-      ...obj,
+      ...userStatsStyles,
       component: CharismaIcon,
       viewBox: "512 512",
       statsValue: userStats.charisma,
       statsName: "Charisma",
     },
     {
-      ...obj,
+      ...userStatsStyles,
       component: RespectIcon,
       viewBox: "512 512",
       statsValue: userStats.respect,

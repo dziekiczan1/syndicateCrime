@@ -2,7 +2,7 @@
 
 .container {
   @include flexbox();
-  width: $full-size;
+  width: calc($quarter-size - $size-16);
   .action {
     @include flexbox(
       $flex-direction: column,
