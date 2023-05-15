@@ -28,7 +28,10 @@
     @include font-size($size-8);
     position: absolute;
     text-align: left;
-    bottom: -$size-8;
+    bottom: $null;
+    & + .avatars {
+      margin-bottom: $size-8;
+    }
   }
 }
 

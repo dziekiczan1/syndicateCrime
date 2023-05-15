@@ -57,6 +57,7 @@ const SignupForm: React.FC<ISignupFormComponentProps> = ({
       </div>
       <div className={styles.control}>
         <InputField
+          label="Avatar"
           id="avatar"
           type="hidden"
           register={register("avatar", {
