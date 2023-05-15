@@ -1,4 +1,10 @@
-import { RespectIcon } from "@/components/ui/icons";
+import {
+  ClubIcon,
+  GangIcon,
+  RespectIcon,
+  RobberyIcon,
+  SabotageIcon,
+} from "@/components/ui/icons";
 
 const iconColor = "#666666";
 const actionIconsStyles = { fill: iconColor, width: 48, height: 48 };
@@ -6,25 +12,25 @@ const actionIconsStyles = { fill: iconColor, width: 48, height: 48 };
 const userActions = [
   {
     ...actionIconsStyles,
-    component: RespectIcon,
+    component: RobberyIcon,
     viewBox: "512 512",
     actionName: "Robbery",
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
+    component: GangIcon,
     viewBox: "512 512",
     actionName: "Gang",
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
-    viewBox: "512 512",
+    component: ClubIcon,
+    viewBox: "48 48",
     actionName: "Night club",
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
+    component: SabotageIcon,
     viewBox: "512 512",
     actionName: "Sabotage",
   },

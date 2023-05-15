@@ -38,18 +38,18 @@ export default function GameMainScreen(props: IGameMainScreenProps) {
       <Head>
         <title>Syndicate Crime</title>
       </Head>
-      <div>
-        {/* <div className="absolute -z-10 h-screen w-screen">
-          <Image
+      <div className="h-screen no-scrollbar overflow-y-scroll">
+        <div className="absolute -z-10 h-screen w-screen">
+          {/* <Image
             src={images.loginBackground}
             alt="Login Background"
             width={0}
             height={0}
             sizes="100vw"
             className="object-cover w-full h-full"
-          />
-        </div> */}
-        <div className="no-scrollbar relative z-1 overflow-y-scroll">
+          /> */}
+        </div>
+        <div className="relative z-1">
           <div className="flex p-8">
             <div className="flex flex-col gap-8 w-1/2">
               <UserInterface />
