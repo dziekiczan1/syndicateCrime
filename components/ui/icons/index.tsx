@@ -1,7 +1,10 @@
+export { default as AlleyIcon } from "./AlleyIcon";
 export { default as BlackmarketIcon } from "./BlackmarketIcon";
+export { default as BuildingsIcon } from "./BuildingsIcon";
 export { default as CharismaIcon } from "./CharismaIcon";
 export { default as ClubIcon } from "./ClubIcon";
 export { default as DealerIcon } from "./DealerIcon";
+export { default as DistrictsIcon } from "./DistrictsIcon";
 export { default as EnduranceIcon } from "./EnduranceIcon";
 export { default as GangIcon } from "./GangIcon";
 export { default as Icon } from "./Icon";
@@ -13,3 +16,4 @@ export { default as RespectIcon } from "./RespectIcon";
 export { default as RobberyIcon } from "./RobberyIcon";
 export { default as SabotageIcon } from "./SabotageIcon";
 export { default as StrengthIcon } from "./StrengthIcon";
+export { default as UniversityIcon } from "./UniversityIcon";

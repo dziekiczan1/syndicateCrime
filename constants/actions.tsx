@@ -1,13 +1,17 @@
 import {
+  AlleyIcon,
   BlackmarketIcon,
+  BuildingsIcon,
   ClubIcon,
   DealerIcon,
+  DistrictsIcon,
   GangIcon,
   LadyIcon,
   MarketIcon,
   RespectIcon,
   RobberyIcon,
   SabotageIcon,
+  UniversityIcon,
 } from "@/components/ui/icons";
 
 const iconColor = "#666666";
@@ -64,26 +68,26 @@ const userActions = [
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
-    viewBox: "512 512",
+    component: BuildingsIcon,
+    viewBox: "54 54",
     actionName: "Buildings",
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
+    component: DistrictsIcon,
     viewBox: "512 512",
     actionName: "Districts",
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
-    viewBox: "512 512",
+    component: AlleyIcon,
+    viewBox: "420 420",
     actionName: "Alley",
   },
   {
     ...actionIconsStyles,
-    component: RespectIcon,
-    viewBox: "512 512",
+    component: UniversityIcon,
+    viewBox: "481 481",
     actionName: "University",
   },
   {
