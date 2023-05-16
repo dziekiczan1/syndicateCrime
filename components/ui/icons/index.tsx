@@ -1,9 +1,13 @@
+export { default as BlackmarketIcon } from "./BlackmarketIcon";
 export { default as CharismaIcon } from "./CharismaIcon";
 export { default as ClubIcon } from "./ClubIcon";
+export { default as DealerIcon } from "./DealerIcon";
 export { default as EnduranceIcon } from "./EnduranceIcon";
 export { default as GangIcon } from "./GangIcon";
 export { default as Icon } from "./Icon";
 export { default as IntelligenceIcon } from "./IntelligenceIcon";
+export { default as LadyIcon } from "./LadyIcon";
+export { default as MarketIcon } from "./MarketIcon";
 export { default as MoneyIcon } from "./MoneyIcon";
 export { default as RespectIcon } from "./RespectIcon";
 export { default as RobberyIcon } from "./RobberyIcon";
