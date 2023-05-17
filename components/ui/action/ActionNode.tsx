@@ -1,4 +1,5 @@
 import Icon from "@/components/ui/icons/Icon";
+import Link from "next/link";
 import styles from "./ActionNode.module.scss";
 
 export interface IActionNode {
@@ -8,6 +9,7 @@ export interface IActionNode {
   height: number;
   viewBox: string;
   actionName: string;
+  href: string;
 }
 
 const ActionNode: React.FC<IActionNode> = ({
@@ -17,9 +19,10 @@ const ActionNode: React.FC<IActionNode> = ({
   viewBox,
   component,
   actionName,
+  href,
 }) => {
   return (
-    <div className={styles.container}>
+    <Link href={href} className={styles.container}>
       <div className={styles.action}>
         <div className={styles.icon}>
           <Icon
@@ -34,7 +37,7 @@ const ActionNode: React.FC<IActionNode> = ({
           <p className="custom-label">{actionName}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

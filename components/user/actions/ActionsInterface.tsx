@@ -15,6 +15,7 @@ const ActionsInterface: React.FC = () => {
           height={action.height}
           viewBox={action.viewBox}
           actionName={action.actionName}
+          href={action.href}
         />
       ))}
     </div>
