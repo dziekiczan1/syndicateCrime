@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import { w3cwebsocket } from "websocket";
 
 import GameLayout from "@/components/layout/game/GameLayout";
-import { images } from "@/constants";
 import { connectToDatabase } from "@/lib/db";
 import UserContext, { IUser } from "@/store/user-context";
-import Image from "next/image";
 
 export interface IGameMainScreenProps {
   session: Session;
@@ -39,15 +37,15 @@ export default function GameMainScreen(props: IGameMainScreenProps) {
         <title>Syndicate Crime</title>
       </Head>
       <div className="h-screen no-scrollbar overflow-y-scroll">
-        <div className="absolute -z-10 h-screen w-screen grayscale opacity-25">
-          <Image
+        <div className="absolute -z-10 h-screen w-screen">
+          {/* <Image
             src={images.loginBackground}
             alt="Login Background"
             width={0}
             height={0}
             sizes="100vw"
             className="object-cover w-full h-full"
-          />
+          /> */}
         </div>
         <GameLayout />
       </div>

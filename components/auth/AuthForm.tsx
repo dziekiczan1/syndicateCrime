@@ -54,6 +54,9 @@ const AuthForm: React.FC = () => {
         email: data.email,
         password: data.password,
       });
+      if (result?.error) {
+        setIsInvalid(result.error);
+      }
       if (!result?.error) {
         router.replace("/game");
       }

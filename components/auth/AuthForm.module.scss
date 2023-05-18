@@ -14,7 +14,9 @@
 
   .message {
     @include error;
+    @include font-size($size-12);
     text-align: $center;
+    margin-bottom: $size-16;
   }
 }
 
@@ -26,8 +28,10 @@
   position: relative;
   .message {
     @include font-size($size-8);
+    font-weight: $font-weight-bold;
     position: absolute;
     text-align: left;
+    margin: $null;
     bottom: $null;
     & + .avatars {
       margin-bottom: $size-8;
