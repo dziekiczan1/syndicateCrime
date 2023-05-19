@@ -13,23 +13,23 @@ export default function UserContextProvider({
   const contextValue = { user, setUser };
   const { data: session, status } = useSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (status === "authenticated" && session) {
-          const response = await fetch("/api/user/getuser");
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-          } else {
-            console.error("Failed to fetch user data:", response.status);
-          }
+  const fetchData = async () => {
+    try {
+      if (status === "authenticated" && session) {
+        const response = await fetch("/api/user/getuser");
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          console.error("Failed to fetch user data:", response.status);
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [status, session]);
 
@@ -45,6 +45,12 @@ export default function UserContextProvider({
       socket.close();
     };
   }, []);
+
+  useEffect(() => {
+    if (status === "authenticated" && session && !user) {
+      fetchData();
+    }
+  }, [status, session, user]);
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

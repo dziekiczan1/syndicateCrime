@@ -1,8 +1,9 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import UserContext from "@/store/user-context";
 import Button from "../ui/button/Button";
 import styles from "./AuthForm.module.scss";
 import LoginForm, { ILoginFormInputs } from "./LoginForm";
@@ -43,6 +44,8 @@ const AuthForm: React.FC = () => {
     formState: { errors },
   } = useForm<AuthFormInputs>({ mode: "onChange" });
 
+  const { setUser } = useContext(UserContext);
+
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
@@ -58,6 +61,11 @@ const AuthForm: React.FC = () => {
         setIsInvalid(result.error);
       }
       if (!result?.error) {
+        const response = await fetch("/api/user/getuser");
+        const userData = await response.json();
+        if (setUser) {
+          setUser(userData);
+        }
         router.replace("/game");
       }
     } else {
@@ -68,6 +76,11 @@ const AuthForm: React.FC = () => {
           password: data.password,
           redirect: false,
         });
+        const response = await fetch("/api/user/getuser");
+        const userData = await response.json();
+        if (setUser) {
+          setUser(userData);
+        }
         router.replace("/game");
       } catch (error) {
         setIsInvalid((error as Error).message);
