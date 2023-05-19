@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { w3cwebsocket } from "websocket";
 
 import UserContext, { IUser } from "@/store/user-context";
@@ -13,7 +13,7 @@ export default function UserContextProvider({
   const contextValue = { user, setUser };
   const { data: session, status } = useSession();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       if (status === "authenticated" && session) {
         const response = await fetch("/api/user/getuser");
@@ -27,11 +27,11 @@ export default function UserContextProvider({
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
-  };
+  }, [status, session]);
 
   useEffect(() => {
     fetchData();
-  }, [status, session]);
+  }, [status, session, fetchData]);
 
   useEffect(() => {
     const socket = new w3cwebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
@@ -50,7 +50,7 @@ export default function UserContextProvider({
     if (status === "authenticated" && session && !user) {
       fetchData();
     }
-  }, [status, session, user]);
+  }, [status, session, user, fetchData]);
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
