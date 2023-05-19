@@ -10,7 +10,6 @@ const ActionsInterface: React.FC = () => {
         <ActionNode
           key={action.actionName}
           component={action.component}
-          fill={action.fill}
           width={action.width}
           height={action.height}
           viewBox={action.viewBox}

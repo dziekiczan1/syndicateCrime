@@ -17,8 +17,7 @@ import {
   UniversityIcon,
 } from "@/components/ui/icons";
 
-const iconColor = "#666666";
-const actionIconsStyles = { fill: iconColor, width: 48, height: 48 };
+const actionIconsStyles = { width: 48, height: 48 };
 
 const userActions = [
   {

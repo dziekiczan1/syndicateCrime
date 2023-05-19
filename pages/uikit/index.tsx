@@ -8,7 +8,9 @@ export default function Uikit() {
       <Head>
         <title>Syndicate Crime Uikit</title>
       </Head>
-      <UiKit />
+      <div className="h-screen no-scrollbar overflow-y-scroll">
+        <UiKit />
+      </div>
     </>
   );
 }

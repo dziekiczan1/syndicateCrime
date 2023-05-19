@@ -33,7 +33,7 @@ const ActionNode: React.FC<IActionNode> = ({
             viewBox={viewBox}
           />
         </div>
-        <div>
+        <div className={styles.name}>
           <p className="custom-label">{actionName}</p>
         </div>
       </div>

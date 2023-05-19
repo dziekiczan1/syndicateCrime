@@ -3,6 +3,7 @@
 .container {
   @include flexbox();
   width: calc($quarter-size - $size-16);
+
   .action {
     @include flexbox(
       $flex-direction: column,
@@ -10,10 +11,39 @@
       $align-items: $center,
       $gap: $size-4
     );
+    @include border($color: $color-base-dark-100);
     width: $full-size;
     padding: $size-16;
     background-color: transparentize($color-base-dark-100, 0.4);
     border-radius: $size-8;
     box-shadow: $shadow;
+  }
+
+  .icon {
+    svg {
+      fill: $color-base-dark-500;
+    }
+  }
+
+  .name {
+    text-align: $center;
+  }
+
+  &:hover {
+    svg,
+    .name {
+      @include transition(all, $duration: 0.3s, $timing-function: ease);
+      fill: $color-base-orange;
+      color: $color-base-orange;
+    }
+
+    svg {
+      transform: scale(1.1);
+    }
+
+    .action {
+      @include border($color: $color-base-orange);
+      @include transition(all, $duration: 0.3s, $timing-function: ease-in-out);
+    }
   }
 }
