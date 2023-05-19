@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Manrope, Poppins } from "next/font/google";
 import Head from "next/head";
 
+import UserContextProvider from "@/components/providers/UserProvider";
 import PrimaryLayout from "../components/layout/primary/PrimaryLayout";
 import "../styles/globals.scss";
 
@@ -22,17 +23,19 @@ export default function App({
         }
       `}</style>
       <SessionProvider session={session}>
-        <PrimaryLayout>
-          <Head>
-            <title>Syndicate Crime</title>
-            <meta name="description" content="Syndicate Crime game" />
-            <meta
-              name="viewport"
-              content="initial-scale=1.0, width=device=width"
-            />
-          </Head>
-          <Component {...pageProps} />
-        </PrimaryLayout>
+        <UserContextProvider {...pageProps}>
+          <PrimaryLayout>
+            <Head>
+              <title>Syndicate Crime</title>
+              <meta name="description" content="Syndicate Crime game" />
+              <meta
+                name="viewport"
+                content="initial-scale=1.0, width=device=width"
+              />
+            </Head>
+            <Component {...pageProps} />
+          </PrimaryLayout>
+        </UserContextProvider>
       </SessionProvider>
     </>
   );
