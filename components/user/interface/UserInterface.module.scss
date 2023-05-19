@@ -2,7 +2,7 @@
 
 .container {
   @include border($color: $color-base-dark-100);
-  width: calc($three-quarters-size - $size-16);
+  width: $full-size;
   padding: $size-16;
   background-color: transparentize($color-base-dark-100, 0.4);
   border-radius: $size-8;

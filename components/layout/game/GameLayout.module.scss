@@ -1,0 +1,37 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  @include flexbox();
+  position: relative;
+  z-index: 1;
+
+  .actions {
+    padding: $size-16;
+    width: $half-size;
+  }
+
+  .sidebar {
+    @include flexbox($flex-direction: column, $gap: $size-16);
+  }
+
+  .userWrapper {
+    @include flexbox();
+  }
+
+  .userInterface {
+    width: calc($three-quarters-size - $size-16);
+    z-index: 1;
+  }
+
+  .navigation {
+    width: $quarter-size;
+    margin: $size-16 $null;
+  }
+
+  .content {
+    @include flexbox($flex-direction: column, $justify-content: flex-start);
+    width: $half-size;
+    background-color: darken($color-base-dark, 10%);
+    margin-right: $size-16;
+  }
+}

@@ -1,0 +1,9 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  width: $full-size;
+  height: $full-size;
+  background-color: darken($color-base-dark, 10%);
+  border-radius: $null $size-8 $size-8 $null;
+  box-shadow: $shadow;
+}
