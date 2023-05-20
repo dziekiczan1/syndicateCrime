@@ -1,0 +1,21 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  @include flexbox();
+  width: $full-size;
+
+  .icon {
+    svg {
+      fill: $color-base-dark-500;
+    }
+  }
+
+  &:hover {
+    svg,
+    .name {
+      @include transition(all, $duration: 0.3s, $timing-function: ease);
+      fill: $color-base-orange;
+      color: $color-base-orange;
+    }
+  }
+}
