@@ -1,8 +1,12 @@
-@import "../../../styles/_variables.scss";
+@import "../../../../styles/_variables.scss";
 
 .container {
-  @include flexbox();
-  width: $full-size;
+  @include flexbox($flex-direction: column);
+
+  .items {
+    @include flexbox($gap: $size-8, $align-items: $center);
+    width: $full-size;
+  }
 
   .icon {
     svg {
@@ -10,10 +14,23 @@
     }
   }
 
+  .name {
+    p {
+      padding-bottom: $null;
+    }
+  }
+
+  .underline {
+    width: $three-quarters-size;
+    height: $size-1;
+    background-color: rgba($color-base-orange, 0.8);
+    margin: $size-8 $null;
+  }
+
   &:hover {
     svg,
     .name {
-      @include transition(all, $duration: 0.3s, $timing-function: ease);
+      @include transition(all);
       fill: $color-base-orange;
       color: $color-base-orange;
     }

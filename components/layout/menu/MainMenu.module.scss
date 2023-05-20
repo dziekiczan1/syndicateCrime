@@ -10,8 +10,12 @@
 }
 
 .content {
+  @include flexbox($flex-direction: column, $gap: $size-16);
+  @include transition(all);
   width: $three-quarters-size;
-  height: $full-size;
+  padding: $size-16 $size-8;
+  opacity: $null;
+  white-space: nowrap;
 }
 
 .sidebar {
@@ -36,7 +40,10 @@
   height: $full-size;
 
   .content {
+    @include flexbox($flex-direction: column, $gap: $size-16);
     width: $full-size;
+    padding: $size-16;
+    opacity: 1;
   }
 
   .sidebar {

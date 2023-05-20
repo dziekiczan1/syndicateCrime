@@ -6,7 +6,7 @@
   z-index: 1;
 
   .actions {
-    padding: $size-16;
+    padding: $size-16 $null $size-16 $size-16;
     width: $half-size;
   }
 

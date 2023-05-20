@@ -24,18 +24,21 @@ const NavItem: React.FC<INavItem> = ({
 }) => {
   return (
     <Link href={href} className={styles.container}>
-      <div className={styles.icon}>
-        <Icon
-          component={component}
-          width={width}
-          height={height}
-          fill={fill}
-          viewBox={viewBox}
-        />
+      <div className={styles.items}>
+        <div className={styles.icon}>
+          <Icon
+            component={component}
+            width={width}
+            height={height}
+            fill={fill}
+            viewBox={viewBox}
+          />
+        </div>
+        <div className={styles.name}>
+          <p className="custom-label">{actionName}</p>
+        </div>
       </div>
-      <div className={styles.name}>
-        <p className="custom-label">{actionName}</p>
-      </div>
+      <div className={styles.underline}></div>
     </Link>
   );
 };
