@@ -4,7 +4,7 @@
   @include border($color: $color-base-dark-100);
   width: $full-size;
   padding: $size-16;
-  background-color: transparentize($color-base-dark-100, 0.4);
+  background-color: $color-base-dark-50;
   border-radius: $size-8;
   box-shadow: $shadow;
 }

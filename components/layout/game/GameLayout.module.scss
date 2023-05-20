@@ -24,8 +24,14 @@
   }
 
   .navigation {
+    @include transition(all, $duration: 0.5s, $timing-function: ease-in-out);
     width: $quarter-size;
     margin: $size-16 $null;
+    transform: translateX(-$three-quarters-size);
+  }
+
+  .open {
+    transform: translateX(0);
   }
 
   .content {

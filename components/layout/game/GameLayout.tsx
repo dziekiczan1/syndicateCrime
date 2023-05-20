@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
@@ -11,6 +11,12 @@ export interface IGameLayout {
 }
 
 const GameLayout: React.FC<IGameLayout> = ({ children }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
@@ -19,8 +25,11 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             <div className={styles.userInterface}>
               <UserInterface />
             </div>
-            <div className={styles.navigation}>
-              <MainMenu />
+            <div
+              onClick={toggleMenu}
+              className={`${styles.navigation} ${isMenuOpen && styles.open}`}
+            >
+              <MainMenu isMenuOpen={isMenuOpen} />
             </div>
           </div>
           <ActionsInterface />

@@ -3,7 +3,43 @@
 .container {
   width: $full-size;
   height: $full-size;
+  cursor: pointer;
   background-color: darken($color-base-dark, 10%);
   border-radius: $null $size-8 $size-8 $null;
   box-shadow: $shadow;
+}
+
+.content {
+  width: $three-quarters-size;
+  height: $full-size;
+}
+
+.sidebar {
+  @include flexbox($align-items: $center, $justify-content: $center);
+  position: absolute;
+  right: $null;
+  top: $null;
+  height: $full-size;
+  width: $quarter-size;
+  background-color: darken($color-base-dark, 10%);
+  border-radius: $null $size-8 $size-8 $null;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+
+  p {
+    @include font-size($size-12);
+  }
+}
+
+.open {
+  width: $full-size;
+  height: $full-size;
+
+  .content {
+    width: $full-size;
+  }
+
+  .sidebar {
+    display: none;
+  }
 }
