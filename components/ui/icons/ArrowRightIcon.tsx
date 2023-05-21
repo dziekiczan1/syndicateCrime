@@ -1,8 +1,8 @@
-const ArrowLeftIcon: React.FC = () => {
+const ArrowRightIcon: React.FC = () => {
   return (
     <g>
       <path
-        d="M17 12H7M7 12L11 16M7 12L11 8"
+        d="M7 12H17M17 12L13 8M17 12L13 16"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -11,4 +11,4 @@ const ArrowLeftIcon: React.FC = () => {
   );
 };
 
-export default ArrowLeftIcon;
+export default ArrowRightIcon;

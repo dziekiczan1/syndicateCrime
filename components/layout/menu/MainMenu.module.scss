@@ -54,6 +54,7 @@
 
 .icon {
   position: absolute;
+  z-index: 2;
   bottom: $null;
   right: $null;
   padding: $size-4;
