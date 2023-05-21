@@ -34,6 +34,8 @@ async function createUser(signupData: ISignupFormInputs) {
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isInvalid, setIsInvalid] = useState<string | null>(null);
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+  const [isLoadingSignup, setIsLoadingSignup] = useState(false);
 
   const router = useRouter();
   const {
@@ -52,6 +54,7 @@ const AuthForm: React.FC = () => {
 
   async function onSubmit(data: ILoginFormInputs | ISignupFormInputs) {
     if (isLogin) {
+      setIsLoadingLogin(true);
       const result = await signIn("credentials", {
         redirect: false,
         email: data.email,
@@ -68,7 +71,9 @@ const AuthForm: React.FC = () => {
         }
         router.replace("/game");
       }
+      setIsLoadingLogin(false);
     } else {
+      setIsLoadingSignup(true);
       try {
         await createUser(data as ISignupFormInputs);
         await signIn("credentials", {
@@ -85,6 +90,7 @@ const AuthForm: React.FC = () => {
       } catch (error) {
         setIsInvalid((error as Error).message);
       }
+      setIsLoadingSignup(false);
     }
   }
 
@@ -103,9 +109,19 @@ const AuthForm: React.FC = () => {
           />
         )}
         <div className={styles.actions}>
-          <Button form={true}>{isLogin ? "Login" : "Create Account"}</Button>
+          <Button form={true}>
+            {isLoadingLogin
+              ? "Loading..."
+              : isLogin
+              ? "Login"
+              : "Create Account"}
+          </Button>
           <Button onClick={switchAuthModeHandler}>
-            {isLogin ? "New user" : "Existing user"}
+            {isLoadingSignup
+              ? "Loading..."
+              : isLogin
+              ? "New user"
+              : "Existing user"}
           </Button>
         </div>
       </form>
