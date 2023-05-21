@@ -5,7 +5,7 @@ import styles from "./ActionsInterface.module.scss";
 
 const ActionsInterface: React.FC = () => {
   return (
-    <div className={styles.container}>
+    <ul className={styles.container}>
       {userActions.map((action) => (
         <ActionNode
           key={action.actionName}
@@ -17,7 +17,7 @@ const ActionsInterface: React.FC = () => {
           href={action.href}
         />
       ))}
-    </div>
+    </ul>
   );
 };
 

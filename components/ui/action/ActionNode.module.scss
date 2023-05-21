@@ -4,6 +4,10 @@
   @include flexbox();
   width: calc($quarter-size - $size-16);
 
+  a {
+    width: $full-size;
+  }
+
   .action {
     @include flexbox(
       $flex-direction: column,

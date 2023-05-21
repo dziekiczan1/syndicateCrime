@@ -11,10 +11,10 @@ export interface IGameLayout {
 }
 
 const GameLayout: React.FC<IGameLayout> = ({ children }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prevState) => !prevState);
   };
 
   return (

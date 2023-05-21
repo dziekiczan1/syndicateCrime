@@ -8,8 +8,8 @@ export interface IMainMenu {
 
 const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
   return (
-    <div className={`${styles.container} ${isMenuOpen && styles.open}`}>
-      <div className={styles.content}>
+    <nav className={`${styles.container} ${isMenuOpen && styles.open}`}>
+      <ul className={styles.content}>
         {menuItems.map((item) => (
           <NavItem
             key={item.actionName}
@@ -21,11 +21,20 @@ const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
             href={item.href}
           />
         ))}
-      </div>
+      </ul>
+      {/* <div className={styles.icon}>
+            <Icon
+              component={component}
+              width={width}
+              height={height}
+              fill={fill}
+              viewBox={viewBox}
+            />
+          </div> */}
       <div className={styles.sidebar}>
         <p className="custom-label">Main Menu</p>
       </div>
-    </div>
+    </nav>
   );
 };
 

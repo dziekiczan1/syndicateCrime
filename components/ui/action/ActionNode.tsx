@@ -22,22 +22,24 @@ const ActionNode: React.FC<IActionNode> = ({
   href,
 }) => {
   return (
-    <Link href={href} className={styles.container}>
-      <div className={styles.action}>
-        <div className={styles.icon}>
-          <Icon
-            component={component}
-            width={width}
-            height={height}
-            fill={fill}
-            viewBox={viewBox}
-          />
+    <li className={styles.container}>
+      <Link href={href}>
+        <div className={styles.action}>
+          <div className={styles.icon}>
+            <Icon
+              component={component}
+              width={width}
+              height={height}
+              fill={fill}
+              viewBox={viewBox}
+            />
+          </div>
+          <div className={styles.name}>
+            <p className="custom-label">{actionName}</p>
+          </div>
         </div>
-        <div className={styles.name}>
-          <p className="custom-label">{actionName}</p>
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </li>
   );
 };
 
