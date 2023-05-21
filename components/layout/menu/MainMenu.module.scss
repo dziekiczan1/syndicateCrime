@@ -1,6 +1,7 @@
 @import "../../../styles/_variables.scss";
 
 .container {
+  position: relative;
   width: $full-size;
   height: $full-size;
   cursor: pointer;
@@ -48,5 +49,18 @@
 
   .sidebar {
     display: none;
+  }
+}
+
+.icon {
+  position: absolute;
+  bottom: $null;
+  right: $null;
+  padding: $size-4;
+  svg {
+    fill: $color-base-orange;
+    path {
+      stroke: $color-base-orange;
+    }
   }
 }

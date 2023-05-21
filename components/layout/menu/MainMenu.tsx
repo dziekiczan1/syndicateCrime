@@ -1,3 +1,5 @@
+import { ArrowLeftIcon } from "@/components/ui/icons";
+import Icon from "@/components/ui/icons/Icon";
 import menuItems from "@/constants/menu";
 import styles from "./MainMenu.module.scss";
 import NavItem from "./navitem/NavItem";
@@ -22,15 +24,14 @@ const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
           />
         ))}
       </ul>
-      {/* <div className={styles.icon}>
-            <Icon
-              component={component}
-              width={width}
-              height={height}
-              fill={fill}
-              viewBox={viewBox}
-            />
-          </div> */}
+      <div className={styles.icon}>
+        <Icon
+          component={ArrowLeftIcon}
+          width={24}
+          height={24}
+          viewBox="24 24"
+        />
+      </div>
       <div className={styles.sidebar}>
         <p className="custom-label">Main Menu</p>
       </div>
