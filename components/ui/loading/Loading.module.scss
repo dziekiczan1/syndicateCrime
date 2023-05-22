@@ -1,0 +1,35 @@
+@import "../../../styles/_variables.scss";
+
+.loading {
+  @include border($size-4, solid, $color-base-light, top);
+  @include border($size-4, solid, transparent, right);
+  display: block;
+  width: $size-48;
+  height: $size-48;
+  border-radius: $half-size;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+  &::after {
+    @include border($size-4, solid, $color-base-red-500, left);
+    @include border($size-4, solid, transparent, bottom);
+    content: "";
+    position: absolute;
+    left: $null;
+    top: $null;
+    width: $size-48;
+    height: $size-48;
+    border-radius: $half-size;
+    box-sizing: border-box;
+    animation: rotation 0.5s linear infinite reverse;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

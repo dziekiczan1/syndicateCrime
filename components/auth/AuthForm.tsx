@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import UserContext from "@/store/user-context";
 import Button from "../ui/button/Button";
+import Loading from "../ui/loading/Loading";
 import styles from "./AuthForm.module.scss";
 import LoginForm, { ILoginFormInputs } from "./LoginForm";
 import SignupForm, { ISignupFormInputs } from "./SignupForm";
@@ -96,7 +97,13 @@ const AuthForm: React.FC = () => {
 
   return (
     <section className={styles.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      {isLoadingLogin || isLoadingSignup ? (
+        <div className={styles.loader}>
+          <Loading />
+        </div>
+      ) : (
+        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      )}
       {isInvalid && <p className={styles.message}>{isInvalid}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <LoginForm register={register} errors={errors} />
@@ -109,19 +116,9 @@ const AuthForm: React.FC = () => {
           />
         )}
         <div className={styles.actions}>
-          <Button form={true}>
-            {isLoadingLogin
-              ? "Loading..."
-              : isLogin
-              ? "Login"
-              : "Create Account"}
-          </Button>
+          <Button form={true}>{isLogin ? "Login" : "Create Account"}</Button>
           <Button onClick={switchAuthModeHandler}>
-            {isLoadingSignup
-              ? "Loading..."
-              : isLogin
-              ? "New user"
-              : "Existing user"}
+            {isLogin ? "New user" : "Existing user"}
           </Button>
         </div>
       </form>
