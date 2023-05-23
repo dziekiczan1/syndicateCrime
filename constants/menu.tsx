@@ -6,8 +6,13 @@ import {
   ProfileIcon,
   StatsIcon,
 } from "@/components/ui/icons";
+import { signOut } from "next-auth/react";
 
 const menuIconsStyles = { width: 24, height: 24 };
+
+function logoutHandler() {
+  signOut();
+}
 
 const menuItems = [
   {
@@ -51,6 +56,7 @@ const menuItems = [
     viewBox: "512 512",
     actionName: "Logout",
     href: "/",
+    onClick: logoutHandler,
   },
 ];
 export default menuItems;

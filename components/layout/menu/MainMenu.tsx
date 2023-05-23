@@ -21,6 +21,7 @@ const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
             viewBox={item.viewBox}
             actionName={item.actionName}
             href={item.href}
+            {...("onClick" in item && { onClick: item.onClick })}
           />
         ))}
       </ul>

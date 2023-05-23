@@ -18,7 +18,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.strength,
       statsName: "Strength",
-      tooltipText: "lorem ipsum",
+      tooltipText: "Get strength by robbing some banks!",
     },
     {
       ...userStatsStyles,

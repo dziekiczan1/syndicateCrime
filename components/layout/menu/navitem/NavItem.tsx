@@ -11,6 +11,7 @@ export interface INavItem {
   viewBox: string;
   actionName: string;
   href: string;
+  onClick?: () => void;
 }
 
 const NavItem: React.FC<INavItem> = ({
@@ -21,10 +22,11 @@ const NavItem: React.FC<INavItem> = ({
   component,
   actionName,
   href,
+  onClick,
 }) => {
   return (
     <li>
-      <Link href={href} className={styles.container}>
+      <Link href={href} className={styles.container} onClick={onClick}>
         <div className={styles.items}>
           <div className={styles.icon}>
             <Icon
