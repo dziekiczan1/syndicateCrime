@@ -3,6 +3,7 @@ import { useContext } from "react";
 
 import Button from "@/components/ui/button/Button";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
+import Tooltip from "@/components/ui/tooltip/Tooltip";
 import { getUserStatistics } from "@/constants/userstats";
 import UserContext, { IUser } from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
@@ -56,16 +57,17 @@ const UserInterface: React.FC<IUserInterface> = () => {
           </div>
           <div className={styles.userStats}>
             {userStatistics.map((stat) => (
-              <StatsNode
-                key={stat.statsName}
-                component={stat.component}
-                fill={stat.fill}
-                width={stat.width}
-                height={stat.height}
-                viewBox={stat.viewBox}
-                statsValue={stat.statsValue}
-                statsName={stat.statsName}
-              />
+              <Tooltip key={stat.statsName} text={stat.tooltipText}>
+                <StatsNode
+                  component={stat.component}
+                  fill={stat.fill}
+                  width={stat.width}
+                  height={stat.height}
+                  viewBox={stat.viewBox}
+                  statsValue={stat.statsValue}
+                  statsName={stat.statsName}
+                />
+              </Tooltip>
             ))}
           </div>
         </div>

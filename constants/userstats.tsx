@@ -18,6 +18,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.strength,
       statsName: "Strength",
+      tooltipText: "lorem ipsum",
     },
     {
       ...userStatsStyles,
@@ -25,6 +26,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "256 256",
       statsValue: userStats?.endurance,
       statsName: "Endurance",
+      tooltipText: "lorem ipsum",
     },
     {
       ...userStatsStyles,
@@ -32,6 +34,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "48 48",
       statsValue: userStats?.money,
       statsName: "Money",
+      tooltipText: "lorem ipsum",
     },
     {
       ...userStatsStyles,
@@ -39,6 +42,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "32 32",
       statsValue: userStats?.intelligence,
       statsName: "Intelligence",
+      tooltipText: "lorem ipsum",
     },
     {
       ...userStatsStyles,
@@ -46,6 +50,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.charisma,
       statsName: "Charisma",
+      tooltipText: "lorem ipsum",
     },
     {
       ...userStatsStyles,
@@ -53,6 +58,7 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.respect,
       statsName: "Respect",
+      tooltipText: "lorem ipsum",
     },
   ];
 };
