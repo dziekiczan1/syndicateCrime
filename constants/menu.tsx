@@ -10,8 +10,7 @@ import { signOut } from "next-auth/react";
 
 const menuIconsStyles = { width: 24, height: 24 };
 
-function logoutHandler(e: React.SyntheticEvent) {
-  e.preventDefault();
+function logoutHandler() {
   signOut();
 }
 
