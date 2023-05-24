@@ -11,7 +11,7 @@ export interface INavItem {
   viewBox: string;
   actionName: string;
   href: string;
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
 }
 
 const NavItem: React.FC<INavItem> = ({

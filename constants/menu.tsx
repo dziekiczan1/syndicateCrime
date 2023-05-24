@@ -7,10 +7,12 @@ import {
   StatsIcon,
 } from "@/components/ui/icons";
 import { signOut } from "next-auth/react";
+import { MouseEvent } from "react";
 
 const menuIconsStyles = { width: 24, height: 24 };
 
-function logoutHandler() {
+function logoutHandler(e: MouseEvent<HTMLElement>) {
+  e.preventDefault();
   signOut();
 }
 

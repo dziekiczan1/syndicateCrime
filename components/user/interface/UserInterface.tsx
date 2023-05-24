@@ -34,7 +34,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
       )}
       {session && user && userStats && (
         <div className={styles.userContainer}>
-          <Button onClick={logoutHandler}>Logout</Button>
+          {/* <Button onClick={logoutHandler}>Logout</Button> */}
           <div className={styles.panelContainer}>
             <div className={styles.avatar}>
               <Avatar
