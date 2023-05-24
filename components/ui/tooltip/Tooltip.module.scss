@@ -3,24 +3,37 @@
 .container {
   position: relative;
 
-  &:hover .tooltip {
-    opacity: 1;
+  .tooltip {
+    @include border($color: $color-base-orange);
+    position: fixed;
+    padding: $size-8;
+    margin-left: $size-24;
+    background-color: $color-base-dark;
+    z-index: 2;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: $half-size;
+      transform: translate(-$half-size, -$half-size) rotate(90deg);
+    }
+
+    &::before {
+      @include border($width: $size-6, $style: solid, $color: transparent);
+      border-top-color: $color-base-dark;
+      left: -$size-6;
+    }
+
+    &::after {
+      @include border($width: $size-8, $style: solid, $color: transparent);
+      border-top-color: $color-base-orange;
+      left: -$size-8;
+      z-index: -1;
+    }
+
+    p {
+      @include font-size($size-12);
+    }
   }
-}
-
-.tooltip {
-  @include border($color: $color-base-orange);
-  position: fixed;
-  padding: $size-8;
-  margin-left: $size-16;
-  background-color: $color-base-dark;
-  z-index: 2;
-
-  p {
-    @include font-size($size-12);
-  }
-}
-
-.tooltip.show {
-  opacity: 1;
 }
