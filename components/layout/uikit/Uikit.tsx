@@ -7,9 +7,12 @@ const UiKit: React.FC = () => {
         <h1 className={styles.heading}>Color Variables</h1>
         <p>$color-base-light: #f5f5f5</p>
         <p>$color-base-dark: #333333</p>
+        <p>$color-base-dark-50: #3a3a3a</p>
         <p>$color-base-dark-100: #404040</p>
+        <p>$color-base-dark-200: #525252</p>
         <p>$color-base-dark-500: #666666</p>
         <p>$color-base-red: #990000</p>
+        <p>$color-base-red-500: #cc0303</p>
         <p>$color-base-gold: #ffd700</p>
         <p>$color-base-orange: #ffa500</p>
       </div>
@@ -31,7 +34,9 @@ const UiKit: React.FC = () => {
         <p>$size-1: 1px</p>
         <p>$size-2: 2px</p>
         <p>$size-4: 4px</p>
+        <p>$size-6: 6px</p>
         <p>$size-8: 8px</p>
+        <p>$size-10: 10px</p>
         <p>$size-12: 12px</p>
         <p>$size-14: 14px</p>
         <p>$size-16: 16px</p>
