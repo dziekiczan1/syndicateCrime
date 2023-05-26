@@ -1,28 +1,28 @@
-.section {
-  background-color: #f5f3ea;
-  padding: 30px;
-  color: #000000;
-}
+@import "../../../styles/_variables.scss";
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-}
+  background-color: $color-base-dark-50;
+  padding: $size-32 $size-16;
+  height: $full-size;
 
-.header {
-  text-align: center;
-}
+  .header {
+    text-align: $center;
+    h2 {
+      font-size: $size-40;
+      font-family: $font-family-third;
+      font-weight: $font-weight-semibold;
+    }
+  }
 
-.content {
-  margin-top: 30px;
-}
+  .content {
+    margin-top: $size-32;
+  }
 
-.subtitle {
-  margin-bottom: 20px;
-}
+  .subtitle {
+    margin-bottom: $size-32;
+  }
 
-.description {
-  font-size: 18px;
-  line-height: 1.5;
-  margin-bottom: 15px;
+  .description {
+    margin-bottom: $size-8;
+  }
 }

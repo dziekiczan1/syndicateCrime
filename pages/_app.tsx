@@ -1,6 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import { Manrope, Poppins } from "next/font/google";
+import { Manrope, Newsreader, Poppins } from "next/font/google";
 import Head from "next/head";
 
 import UserContextProvider from "@/components/providers/UserProvider";
@@ -9,6 +9,7 @@ import "../styles/globals.scss";
 
 const manrope = Manrope({ weight: ["400", "700"], subsets: ["latin"] });
 const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
+const newsreader = Newsreader({ weight: ["500", "600"], subsets: ["latin"] });
 
 export default function App({
   Component,
@@ -20,6 +21,7 @@ export default function App({
         :root {
           --manrope-font: ${manrope.style.fontFamily};
           --poppins-font: ${poppins.style.fontFamily};
+          --newsreader-font: ${newsreader.style.fontFamily};
         }
       `}</style>
       <SessionProvider session={session}>
