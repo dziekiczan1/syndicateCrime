@@ -23,7 +23,7 @@ const Button: React.FC<IButtonProps> = ({
   if (link) {
     return (
       <Link href={link} className={className} passHref>
-        {children}
+        <span>{children}</span>
       </Link>
     );
   }
