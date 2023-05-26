@@ -18,7 +18,8 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.strength,
       statsName: "Strength",
-      tooltipText: "Get strength by robbing some banks!",
+      tooltipText:
+        "Strength represents your physical power and ability to overpower obstacles or opponents. A higher strength level allows you to execute robberies more efficiently and handle challenging situations with ease.",
     },
     {
       ...userStatsStyles,

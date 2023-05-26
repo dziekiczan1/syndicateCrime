@@ -1,3 +1,4 @@
+import Button from "@/components/ui/button/Button";
 import styles from "./MainContent.module.scss";
 
 const MainContent: React.FC = () => {
@@ -48,6 +49,9 @@ const MainContent: React.FC = () => {
           mobster. The city is yours for the taking. Play now and become the
           ultimate crime lord!
         </p>
+      </div>
+      <div className={styles.actions}>
+        <Button secondary>Enter the Syndicate!</Button>
       </div>
     </section>
   );

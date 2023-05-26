@@ -6,16 +6,13 @@
   position: relative;
   padding: $size-8 $size-16;
   cursor: pointer;
-  color: $color-base-light;
-  font-weight: $font-weight-bold;
-  text-transform: uppercase;
   text-align: $center;
 
   &::before {
     @include transition(all);
     content: "";
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     top: $null;
     left: $null;
     width: $full-size;
@@ -46,5 +43,23 @@
       opacity: 1;
       transform: scale(1);
     }
+  }
+
+  span {
+    position: relative;
+    color: $color-base-light;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+}
+
+.secondary {
+  &::before {
+    background-color: rgba($color-base-orange, 0.7);
+  }
+
+  &::after {
+    @include border($color: rgba($color-base-orange, 0.9));
   }
 }

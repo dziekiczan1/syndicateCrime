@@ -30,7 +30,7 @@ const Button: React.FC<IButtonProps> = ({
 
   return (
     <button type={form ? "submit" : "button"} className={className} {...props}>
-      {children}
+      <span>{children}</span>
     </button>
   );
 };

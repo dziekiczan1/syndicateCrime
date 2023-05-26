@@ -25,4 +25,9 @@
   .description {
     margin-bottom: $size-8;
   }
+
+  .actions {
+    @include flexbox($align-items: $center, $justify-content: $center);
+    margin-top: $size-32;
+  }
 }
