@@ -1,3 +1,4 @@
+import RobberyContent from "@/components/content/robbery/RobberyContent";
 import GameLayout from "@/components/layout/game/GameLayout";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
@@ -5,7 +6,9 @@ import { getSession } from "next-auth/react";
 export default function GameMainScreen() {
   return (
     <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>Robbery</GameLayout>
+      <GameLayout>
+        <RobberyContent />
+      </GameLayout>
     </div>
   );
 }

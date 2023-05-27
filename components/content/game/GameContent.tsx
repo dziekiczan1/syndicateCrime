@@ -1,7 +1,7 @@
 import Button from "@/components/ui/button/Button";
-import styles from "./MainContent.module.scss";
+import styles from "./GameContent.module.scss";
 
-const MainContent: React.FC = () => {
+const GameContent: React.FC = () => {
   return (
     <section className={styles.container}>
       <div className={styles.header}>
@@ -57,4 +57,4 @@ const MainContent: React.FC = () => {
   );
 };
 
-export default MainContent;
+export default GameContent;
