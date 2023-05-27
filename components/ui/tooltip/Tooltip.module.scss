@@ -1,21 +1,26 @@
 @import "../../../styles/_variables.scss";
 
+// Variables
+
+$tooltip__max-width: 35rem;
+
 .container {
   position: relative;
 
   .tooltip {
     @include border($color: $color-base-orange);
     position: fixed;
+    z-index: 2;
+    max-width: $tooltip__max-width;
     padding: $size-8;
     margin-left: $size-24;
     background-color: $color-base-dark;
-    z-index: 2;
 
     &::before,
     &::after {
       content: "";
       position: absolute;
-      top: $half-size;
+      top: $quarter-size;
       transform: translate(-$half-size, -$half-size) rotate(90deg);
     }
 
