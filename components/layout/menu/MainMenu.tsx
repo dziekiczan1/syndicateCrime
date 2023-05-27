@@ -6,9 +6,10 @@ import NavItem from "./navitem/NavItem";
 
 export interface IMainMenu {
   isMenuOpen?: boolean;
+  toggleMenu: () => void;
 }
 
-const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
+const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen, toggleMenu }) => {
   return (
     <nav className={`${styles.container} ${isMenuOpen && styles.open}`}>
       <ul className={styles.content}>
@@ -25,7 +26,7 @@ const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
           />
         ))}
       </ul>
-      <div className={styles.icon}>
+      <div className={styles.icon} onClick={toggleMenu}>
         {isMenuOpen ? (
           <Icon
             component={ArrowLeftIcon}
@@ -42,7 +43,7 @@ const MainMenu: React.FC<IMainMenu> = ({ isMenuOpen }) => {
           />
         )}
       </div>
-      <div className={styles.sidebar}>
+      <div className={styles.sidebar} onClick={toggleMenu}>
         <p className="custom-label">Main Menu</p>
       </div>
     </nav>

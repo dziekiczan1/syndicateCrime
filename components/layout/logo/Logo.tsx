@@ -18,7 +18,8 @@ const Logo: React.FC<ILogoProps> = ({ width, height }) => {
         height={height}
         alt="Syndicate Crime"
         className={styles.logo}
-        unoptimized={true}
+        placeholder="blur"
+        priority={true}
       />
     </Link>
   );

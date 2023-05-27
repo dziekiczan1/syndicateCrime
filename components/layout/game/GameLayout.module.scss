@@ -37,7 +37,7 @@
   .content {
     @include flexbox($flex-direction: column, $justify-content: flex-start);
     width: $half-size;
-    background-color: darken($color-base-dark, 10%);
+    background-color: $color-base-dark-50;
     margin-right: $size-16;
   }
 }

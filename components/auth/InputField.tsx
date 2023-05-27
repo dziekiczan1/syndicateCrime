@@ -50,7 +50,11 @@ const InputField: React.FC<IInputProps> = ({
         ) : (
           <>
             {label}
-            <input {...inputProps} className={styles.input} />
+            <input
+              {...inputProps}
+              className={styles.input}
+              autoComplete="true"
+            />
           </>
         )}
       </label>

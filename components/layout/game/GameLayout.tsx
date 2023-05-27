@@ -26,10 +26,9 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <UserInterface />
             </div>
             <div
-              onClick={toggleMenu}
               className={`${styles.navigation} ${isMenuOpen && styles.open}`}
             >
-              <MainMenu isMenuOpen={isMenuOpen} />
+              <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
             </div>
           </div>
           <ActionsInterface />
