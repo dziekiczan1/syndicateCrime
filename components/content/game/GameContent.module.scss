@@ -29,7 +29,7 @@
     @include flexbox($align-items: $center, $justify-content: $center);
     margin-top: $size-32;
 
-    button {
+    a {
       padding: $size-16 $size-32;
       font-size: $size-12;
     }
