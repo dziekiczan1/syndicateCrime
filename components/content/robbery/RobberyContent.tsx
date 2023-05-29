@@ -9,7 +9,7 @@ interface Place {
 }
 
 const RobberyContent: React.FC = () => {
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<any>(null);
 
   // const handlePlaceSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
   //   const selectedPlaceName = event.target.value;
