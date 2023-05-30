@@ -1,5 +1,7 @@
+import { useContext, useState } from "react";
+
 import InputField from "@/components/auth/InputField";
-import { useState } from "react";
+import UserContext from "@/store/user-context";
 import styles from "./RobberyContent.module.scss";
 
 interface Place {
@@ -10,6 +12,7 @@ interface Place {
 
 const RobberyContent: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const { setUser } = useContext(UserContext);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -33,6 +36,9 @@ const RobberyContent: React.FC = () => {
         // Handle the response and update the user's stats in your application state
         if (response.ok) {
           const updatedUser = await response.json();
+          if (setUser) {
+            setUser(updatedUser);
+          }
           // Update the user's stats in your application state here
         } else {
           console.error("Error updating user stats:", response.statusText);

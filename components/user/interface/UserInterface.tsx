@@ -20,8 +20,6 @@ const UserInterface: React.FC<IUserInterface> = () => {
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
 
-  console.log("info", session);
-
   return (
     <div className={styles.container}>
       {!session && status !== "loading" && (

@@ -41,11 +41,13 @@ export default async function handler(
       { $set: { defaultParams: updatedStats } }
     );
 
-    const serializedUser: IUser = {
-      ...user,
+    const { password, ...userWithoutPassword } = user;
+
+    const serializedUser = {
+      ...userWithoutPassword,
       _id: user._id.toString(),
       defaultParams: updatedStats,
-    };
+    } as IUser;
 
     return res.status(200).json(serializedUser);
   } catch (error) {
