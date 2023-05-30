@@ -9,18 +9,39 @@ interface Place {
 }
 
 const RobberyContent: React.FC = () => {
-  const [selectedPlace, setSelectedPlace] = useState<any>(null);
-
-  // const handlePlaceSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedPlaceName = event.target.value;
-  //   const place = places.find((p) => p.name === selectedPlaceName) || null;
-  //   setSelectedPlace(place);
-  // };
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const selected = places.find((place) => place.name === value);
-    setSelectedPlace(selected);
+    setSelectedPlace(selected || null);
+  };
+
+  const handleRobbery = async () => {
+    if (selectedPlace) {
+      try {
+        const response = await fetch("/api/user/update-stats", {
+          method: "POST",
+          body: JSON.stringify({
+            selectedPlace: selectedPlace.name,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        // Handle the response and update the user's stats in your application state
+        if (response.ok) {
+          const updatedUser = await response.json();
+          // Update the user's stats in your application state here
+        } else {
+          console.error("Error updating user stats:", response.statusText);
+        }
+      } catch (error) {
+        // Handle error
+        console.error("Error updating user stats:", error);
+      }
+    }
   };
 
   const places: Place[] = [
@@ -57,23 +78,6 @@ const RobberyContent: React.FC = () => {
           crime and become a legend?
         </p>
       </div>
-      {/* <div>
-        <h2>Select a place for robbery</h2>
-        <select value={selectedPlace?.name || ""} onChange={handlePlaceSelect}>
-          <option value="">Select a place</option>
-          {places.map((place, index) => (
-            <option key={index} value={place.name}>
-              {place.name}
-            </option>
-          ))}
-        </select>
-        {selectedPlace && (
-          <div>
-            <p>Energy Cost: {selectedPlace.energyCost}</p>
-            <p>Success Probability: {selectedPlace.successProbability}%</p>
-          </div>
-        )}
-      </div> */}
       <div>
         <h2>Select a place for robbery</h2>
         {places.map((place, index) => (
@@ -94,6 +98,7 @@ const RobberyContent: React.FC = () => {
             <p>Energy Cost: {selectedPlace.energyCost}</p>
           </div>
         )}
+        {selectedPlace && <button onClick={handleRobbery}>Rob</button>}
       </div>
     </section>
   );

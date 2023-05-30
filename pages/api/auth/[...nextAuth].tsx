@@ -1,11 +1,11 @@
+import type { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { verifyPassword } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 
-export const authOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -44,6 +44,22 @@ export const authOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
+  callbacks: {
+    // Using the `...rest` parameter to be able to narrow down the type based on `trigger`
+    jwt({ token, trigger, session }) {
+      if (trigger === "update" && session?.name) {
+        // Note, that `session` can be any arbitrary object, remember to validate it!
+        token.name = session;
+      }
+      return token;
+    },
+  },
 };
 
 export default NextAuth(authOptions);

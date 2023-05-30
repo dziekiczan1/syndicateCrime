@@ -1,4 +1,4 @@
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useContext } from "react";
 
 import Button from "@/components/ui/button/Button";
@@ -20,9 +20,7 @@ const UserInterface: React.FC<IUserInterface> = () => {
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
 
-  function logoutHandler() {
-    signOut();
-  }
+  console.log("info", session);
 
   return (
     <div className={styles.container}>
