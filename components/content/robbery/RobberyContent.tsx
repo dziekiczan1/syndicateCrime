@@ -7,19 +7,28 @@ import styles from "./RobberyContent.module.scss";
 interface Place {
   name: string;
   energyCost: number;
+  successProbability: number;
 }
 
 const RobberyContent: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [placeEnergyCosts, setPlaceEnergyCosts] = useState<Place[]>([]);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const fetchPlaceEnergyCosts = async () => {
       try {
-        const response = await fetch("/api/user/places");
+        const response = await fetch("/api/user/places", {
+          method: "POST",
+          body: JSON.stringify({ respect: user?.defaultParams.respect }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setPlaceEnergyCosts(data);
         } else {
           console.error(
@@ -33,13 +42,14 @@ const RobberyContent: React.FC = () => {
     };
 
     fetchPlaceEnergyCosts();
-  }, []);
+  }, [user?.defaultParams.respect]);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const selected = placeEnergyCosts.find((place) => place.name === value);
     setSelectedPlace(selected || null);
   };
+
   const handleRobbery = async () => {
     if (selectedPlace) {
       try {
@@ -53,13 +63,11 @@ const RobberyContent: React.FC = () => {
           },
         });
 
-        // Handle the response and update the user's stats in your application state
         if (response.ok) {
           const updatedUser = await response.json();
           if (setUser) {
             setUser(updatedUser);
           }
-          // Update the user's stats in your application state here
         } else {
           console.error("Error updating user stats:", response.statusText);
         }
@@ -94,6 +102,7 @@ const RobberyContent: React.FC = () => {
               onChange={handlePlaceSelect}
             />
             <label htmlFor={`place-${index}`}>{place.name}</label>
+            <p>Success Probability: {place.successProbability}%</p>
           </div>
         ))}
         {selectedPlace && (
