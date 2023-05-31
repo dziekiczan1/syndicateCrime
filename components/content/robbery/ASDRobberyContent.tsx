@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import UserContext from "@/store/user-context";
@@ -7,43 +7,23 @@ import styles from "./RobberyContent.module.scss";
 interface Place {
   name: string;
   energyCost: number;
+  successProbability: number;
 }
 
 const RobberyContent: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [placeEnergyCosts, setPlaceEnergyCosts] = useState<Place[]>([]);
   const { setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    const fetchPlaceEnergyCosts = async () => {
-      try {
-        const response = await fetch("/api/user/places");
-        if (response.ok) {
-          const data = await response.json();
-          setPlaceEnergyCosts(data);
-        } else {
-          console.error(
-            "Error fetching place energy costs:",
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching place energy costs:", error);
-      }
-    };
-
-    fetchPlaceEnergyCosts();
-  }, []);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const selected = placeEnergyCosts.find((place) => place.name === value);
+    const selected = places.find((place) => place.name === value);
     setSelectedPlace(selected || null);
   };
+
   const handleRobbery = async () => {
     if (selectedPlace) {
       try {
-        const response = await fetch("/api/user/stats", {
+        const response = await fetch("/api/user/update-stats", {
           method: "POST",
           body: JSON.stringify({
             selectedPlace: selectedPlace.name,
@@ -70,6 +50,29 @@ const RobberyContent: React.FC = () => {
     }
   };
 
+  const places: Place[] = [
+    { name: "Warehouse", energyCost: 5, successProbability: 100 },
+    { name: "Antique Store", energyCost: 8, successProbability: 37 },
+    { name: "Hotel", energyCost: 10, successProbability: 18 },
+    { name: "Train Station", energyCost: 12, successProbability: 7 },
+    { name: "Art Gallery", energyCost: 15, successProbability: 3 },
+    { name: "Penthouse", energyCost: 20, successProbability: 1 },
+    { name: "Museum", energyCost: 25, successProbability: 0 },
+    { name: "Mall", energyCost: 30, successProbability: 0 },
+    { name: "Mansion", energyCost: 35, successProbability: 0 },
+    { name: "Amusement Park", energyCost: 40, successProbability: 0 },
+    { name: "Jewelry Store", energyCost: 40, successProbability: 0 },
+    { name: "Diamond Exchange", energyCost: 45, successProbability: 0 },
+    { name: "Sports Stadium", energyCost: 45, successProbability: 0 },
+    { name: "Bank", energyCost: 50, successProbability: 0 },
+    { name: "Government Building", energyCost: 50, successProbability: 0 },
+    { name: "Corporate Office", energyCost: 50, successProbability: 0 },
+    { name: "Yacht", energyCost: 50, successProbability: 0 },
+    { name: "Luxury Car Dealership", energyCost: 50, successProbability: 0 },
+    { name: "Casino", energyCost: 50, successProbability: 0 },
+    { name: "Airport Vault", energyCost: 50, successProbability: 0 },
+  ];
+
   return (
     <section className={styles.container}>
       <div>
@@ -83,7 +86,7 @@ const RobberyContent: React.FC = () => {
       </div>
       <div>
         <h2>Select a place for robbery</h2>
-        {placeEnergyCosts.map((place, index) => (
+        {places.map((place, index) => (
           <div key={index}>
             <InputField
               type="radio"
