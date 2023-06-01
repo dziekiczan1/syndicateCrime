@@ -58,33 +58,43 @@ async function calculateUpdatedStats(
   stats: IUser["defaultParams"],
   selectedPlace: string
 ): Promise<IUser["defaultParams"]> {
-  const energyPointsCost = await getEnergyPointsCost(selectedPlace);
+  const energyPointsCost = await getEnergyPointsCost(stats, selectedPlace);
+  const energyResCost = energyPointsCost.energyCost;
 
   console.log("energyPointsCost", energyPointsCost);
 
   const updatedStats = {
     ...stats,
-    energy: stats.energy - energyPointsCost,
+    energy: stats.energy - energyResCost,
   };
 
   return updatedStats;
 }
 
-async function getEnergyPointsCost(selectedPlace: string): Promise<number> {
+async function getEnergyPointsCost(
+  stats: IUser["defaultParams"],
+  selectedPlace: string
+): Promise<any> {
   try {
-    const response = await fetch("http://localhost:3000/api/user/places");
+    const response = await fetch("http://localhost:3000/api/user/places", {
+      method: "POST",
+      body: JSON.stringify({ respect: stats.respect }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (response.ok) {
       const placeEnergyCosts = await response.json();
 
-      // Find the object with the matching name
       const selectedPlaceObject = placeEnergyCosts.find(
         (place: { name: string; energyCost: number }) =>
           place.name === selectedPlace
       );
 
       if (selectedPlaceObject) {
-        return selectedPlaceObject.energyCost;
+        console.log("selectedPlaceObject", selectedPlaceObject);
+        return selectedPlaceObject;
       } else {
         console.error("Selected place not found in placeEnergyCosts");
       }
