@@ -65,6 +65,7 @@ const RobberyContent: React.FC = () => {
 
         if (response.ok) {
           const updatedUser = await response.json();
+          console.log("updatedUser", updatedUser);
           if (setUser) {
             setUser(updatedUser);
           }

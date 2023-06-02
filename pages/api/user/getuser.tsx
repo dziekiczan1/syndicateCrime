@@ -23,10 +23,12 @@ export default async function handler(
       return res.status(404).json({ error: "User not found" });
     }
 
-    const serializedUser: IUser = {
-      ...user,
+    const { password, ...userWithoutPassword } = user;
+
+    const serializedUser = {
+      ...userWithoutPassword,
       _id: user._id.toString(),
-    };
+    } as IUser;
 
     return res.status(200).json(serializedUser);
   } catch (error) {

@@ -54,12 +54,30 @@ export default async function handler(
   }
 }
 
+// async function calculateUpdatedStats(
+//   stats: IUser["defaultParams"],
+//   selectedPlace: string
+// ): Promise<IUser["defaultParams"]> {
+//   const energyPointsCost = await getEnergyPointsCost(stats, selectedPlace);
+//   const energyResCost = energyPointsCost.energyCost;
+
+//   console.log("energyPointsCost", energyPointsCost);
+
+//   const updatedStats = {
+//     ...stats,
+//     energy: stats.energy - energyResCost,
+//   };
+
+//   return updatedStats;
+// }
+
 async function calculateUpdatedStats(
   stats: IUser["defaultParams"],
   selectedPlace: string
 ): Promise<IUser["defaultParams"]> {
   const energyPointsCost = await getEnergyPointsCost(stats, selectedPlace);
   const energyResCost = energyPointsCost.energyCost;
+  const successProbability = energyPointsCost.successProbability;
 
   console.log("energyPointsCost", energyPointsCost);
 
@@ -68,7 +86,36 @@ async function calculateUpdatedStats(
     energy: stats.energy - energyResCost,
   };
 
+  const robberySuccessful = isRobberySuccessful(successProbability);
+
+  if (robberySuccessful) {
+    const minPrice = energyPointsCost.minPrice;
+    const maxPrice = energyPointsCost.maxPrice;
+    const moneyEarned = generateRandomNumber(minPrice, maxPrice);
+    updatedStats.money += moneyEarned;
+    console.log("pass");
+  } else {
+    updatedStats.respect = stats.respect - 1;
+    console.log("fail");
+  }
+
   return updatedStats;
+}
+
+function isRobberySuccessful(successProbability: number): boolean {
+  if (successProbability === 100) {
+    return true;
+  }
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
+  const adjustedSuccessProbability = Math.floor(
+    randomNumber / successProbability
+  );
+
+  return adjustedSuccessProbability < 100;
+}
+
+function generateRandomNumber(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 async function getEnergyPointsCost(
@@ -88,8 +135,7 @@ async function getEnergyPointsCost(
       const placeEnergyCosts = await response.json();
 
       const selectedPlaceObject = placeEnergyCosts.find(
-        (place: { name: string; energyCost: number }) =>
-          place.name === selectedPlace
+        (place: { name: string }) => place.name === selectedPlace
       );
 
       if (selectedPlaceObject) {

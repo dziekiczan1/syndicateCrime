@@ -3,7 +3,7 @@ import { createContext } from "react";
 export interface IUser {
   _id: string;
   email: string;
-  password: string;
+  password?: string;
   username: string;
   avatar: string;
   defaultParams: {
