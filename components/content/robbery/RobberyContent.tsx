@@ -13,6 +13,11 @@ interface Place {
 const RobberyContent: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [placeEnergyCosts, setPlaceEnergyCosts] = useState<Place[]>([]);
+  const [isRobberySuccessful, setIsRobberySuccessful] = useState<
+    boolean | null
+  >(null);
+  const [receivedData, setReceivedData] = useState<any>(null);
+
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -28,7 +33,6 @@ const RobberyContent: React.FC = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setPlaceEnergyCosts(data);
         } else {
           console.error(
@@ -65,10 +69,22 @@ const RobberyContent: React.FC = () => {
 
         if (response.ok) {
           const updatedUser = await response.json();
-          console.log("updatedUser", updatedUser);
+
+          console.log(updatedUser);
+
+          if (updatedUser.defaultParams.robberySuccessful) {
+            setIsRobberySuccessful(true);
+          } else {
+            setIsRobberySuccessful(false);
+          }
+
           if (setUser) {
             setUser(updatedUser);
           }
+
+          setTimeout(() => {
+            setIsRobberySuccessful(null);
+          }, 10000);
         } else {
           console.error("Error updating user stats:", response.statusText);
         }
@@ -91,6 +107,7 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <div>
+        {isRobberySuccessful && <p>{receivedData?.money}</p>}
         <h2>Select a place for robbery</h2>
         {placeEnergyCosts.map((place, index) => (
           <div key={index}>

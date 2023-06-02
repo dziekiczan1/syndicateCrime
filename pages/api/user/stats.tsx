@@ -5,9 +5,28 @@ import { IUser } from "@/store/user-context";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
+interface IUserWithRobbery extends IUser {
+  defaultParams: {
+    class: string;
+    morale: string;
+    respect: number;
+    energy: number;
+    life: number;
+    addiction: number;
+    intelligence: number;
+    strength: number;
+    endurance: number;
+    charisma: number;
+    money: number;
+    robberySuccessful?: boolean;
+    moneyEarned?: number;
+    message?: string;
+  };
+}
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IUser | { error: string }>
+  res: NextApiResponse<IUserWithRobbery | { error: string }>
 ) {
   try {
     const session = await getServerSession(req, res, authOptions);
@@ -25,15 +44,12 @@ export default async function handler(
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Calculate the updated stats based on the selected place and user's respect points
-
     const selectedPlace = req.body.selectedPlace;
     const updatedStats = await calculateUpdatedStats(
       user.defaultParams,
       selectedPlace
     );
 
-    // Update the user's stats in the database
     await usersCollection.updateOne(
       { _id: user._id },
       { $set: { defaultParams: updatedStats } }
@@ -41,11 +57,15 @@ export default async function handler(
 
     const { password, ...userWithoutPassword } = user;
 
-    const serializedUser = {
+    const serializedUser: IUserWithRobbery = {
       ...userWithoutPassword,
       _id: user._id.toString(),
-      defaultParams: updatedStats,
-    } as IUser;
+      defaultParams: {
+        ...updatedStats,
+        robberySuccessful: updatedStats.robberySuccessful,
+        moneyEarned: updatedStats.moneyEarned,
+      },
+    };
 
     return res.status(200).json(serializedUser);
   } catch (error) {
@@ -54,52 +74,39 @@ export default async function handler(
   }
 }
 
-// async function calculateUpdatedStats(
-//   stats: IUser["defaultParams"],
-//   selectedPlace: string
-// ): Promise<IUser["defaultParams"]> {
-//   const energyPointsCost = await getEnergyPointsCost(stats, selectedPlace);
-//   const energyResCost = energyPointsCost.energyCost;
-
-//   console.log("energyPointsCost", energyPointsCost);
-
-//   const updatedStats = {
-//     ...stats,
-//     energy: stats.energy - energyResCost,
-//   };
-
-//   return updatedStats;
-// }
-
 async function calculateUpdatedStats(
   stats: IUser["defaultParams"],
   selectedPlace: string
-): Promise<IUser["defaultParams"]> {
+): Promise<IUserWithRobbery["defaultParams"]> {
   const energyPointsCost = await getEnergyPointsCost(stats, selectedPlace);
   const energyResCost = energyPointsCost.energyCost;
   const successProbability = energyPointsCost.successProbability;
 
-  console.log("energyPointsCost", energyPointsCost);
+  if (stats.energy < energyResCost) {
+    return {
+      ...stats,
+      message: "Insufficient energy for the robbery",
+    };
+  }
 
   const updatedStats = {
     ...stats,
-    energy: stats.energy - energyResCost,
+    energy: Math.max(stats.energy - energyResCost, 0),
   };
 
   const robberySuccessful = isRobberySuccessful(successProbability);
+  let moneyEarned = 0;
 
   if (robberySuccessful) {
     const minPrice = energyPointsCost.minPrice;
     const maxPrice = energyPointsCost.maxPrice;
-    const moneyEarned = generateRandomNumber(minPrice, maxPrice);
+    moneyEarned = generateRandomNumber(minPrice, maxPrice);
+    console.log("moneyEarned", moneyEarned);
     updatedStats.money += moneyEarned;
-    console.log("pass");
   } else {
     updatedStats.respect = stats.respect - 1;
-    console.log("fail");
   }
-
-  return updatedStats;
+  return { ...updatedStats, robberySuccessful, moneyEarned };
 }
 
 function isRobberySuccessful(successProbability: number): boolean {
@@ -139,7 +146,6 @@ async function getEnergyPointsCost(
       );
 
       if (selectedPlaceObject) {
-        console.log("selectedPlaceObject", selectedPlaceObject);
         return selectedPlaceObject;
       } else {
         console.error("Selected place not found in placeEnergyCosts");
@@ -151,6 +157,5 @@ async function getEnergyPointsCost(
     console.error("Error fetching place energy costs:", error);
   }
 
-  // Return a default value or handle the error case
   return 0;
 }
