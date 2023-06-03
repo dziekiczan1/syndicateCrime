@@ -3,4 +3,44 @@
 .container {
   padding: $size-32 $size-16;
   height: $full-size;
+
+  .description {
+    margin-bottom: $size-32;
+  }
+
+  .robberyContainer {
+    @include flexbox($flex-wrap: wrap);
+    column-gap: $size-8;
+
+    .robberyResultInfo {
+      flex: 1;
+    }
+
+    .placeContainer {
+      align-self: flex-start;
+      background-color: $color-base-dark;
+      padding: $size-8;
+      width: calc($half-size - $size-8);
+      margin-bottom: $size-16;
+    }
+
+    .detailsContainer {
+      @include flexbox($gap: $size-8, $align-items: $center);
+
+      .robberyInfo {
+        width: $two-thirds;
+        p {
+          @include font-size($size-12);
+        }
+
+        span {
+          font-weight: $font-weight-bold;
+        }
+      }
+      .robberyAction {
+        padding: $size-8;
+        flex: 1;
+      }
+    }
+  }
 }

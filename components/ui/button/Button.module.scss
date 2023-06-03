@@ -45,6 +45,10 @@
     }
   }
 
+  &.fullSize {
+    width: $full-size;
+  }
+
   span {
     position: relative;
     color: $color-base-light;

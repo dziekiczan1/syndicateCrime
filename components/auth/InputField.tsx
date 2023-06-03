@@ -53,7 +53,7 @@ const InputField: React.FC<IInputProps> = ({
                     checked && styles.checked
                   }`}
                 ></span>
-                {label}
+                <span>{label}</span>
               </div>
             )}
             <input {...inputProps} className={styles.radio} />

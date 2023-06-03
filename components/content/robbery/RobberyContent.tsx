@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
+import Button from "@/components/ui/button/Button";
 import UserContext from "@/store/user-context";
 import styles from "./RobberyContent.module.scss";
 
@@ -8,6 +9,8 @@ interface Place {
   name: string;
   energyCost: number;
   successProbability: number;
+  minPrice: number;
+  maxPrice: number;
 }
 
 const RobberyContent: React.FC = () => {
@@ -98,7 +101,7 @@ const RobberyContent: React.FC = () => {
 
   return (
     <section className={styles.container}>
-      <div>
+      <div className={styles.description}>
         <p>
           Experience the thrill of high-stakes robberies. Plan, execute, and
           reap the rewards as you embark on daring heists in pursuit of wealth
@@ -107,11 +110,15 @@ const RobberyContent: React.FC = () => {
           crime and become a legend?
         </p>
       </div>
-      <div>
-        {isRobberySuccessful && <p>{receivedData?.money}</p>}
-        <h2>Select a place for robbery</h2>
+      <h2 className={styles.title}>Select a place for robbery</h2>
+      <div className={styles.robberyContainer}>
+        {isRobberySuccessful && (
+          <div className={styles.robberyResultInfo}>
+            {receivedData?.robberyMoney}
+          </div>
+        )}
         {placeEnergyCosts.map((place, index) => (
-          <div key={index}>
+          <div key={index} className={styles.placeContainer}>
             <InputField
               type="radio"
               id={`place-${index}`}
@@ -122,15 +129,31 @@ const RobberyContent: React.FC = () => {
               checkbox
               label={place.name}
             />
-            <p>Success Probability: {place.successProbability}%</p>
+            <div className={styles.detailsContainer}>
+              <div className={styles.robberyInfo}>
+                <p>
+                  Energy Cost: <span>{place.energyCost}</span>
+                </p>
+                <p>
+                  Price reward:{" "}
+                  <span>
+                    ${place.minPrice} - ${place.maxPrice}
+                  </span>
+                </p>
+                <p>
+                  Success Probability: <span>{place.successProbability}%</span>
+                </p>
+              </div>
+              <div className={styles.robberyAction}>
+                {selectedPlace?.name === place.name && (
+                  <Button onClick={handleRobbery} secondary fullSize>
+                    Rob
+                  </Button>
+                )}
+              </div>
+            </div>
           </div>
         ))}
-        {selectedPlace && (
-          <div>
-            <p>Energy Cost: {selectedPlace.energyCost}</p>
-          </div>
-        )}
-        {selectedPlace && <button onClick={handleRobbery}>Rob</button>}
       </div>
     </section>
   );

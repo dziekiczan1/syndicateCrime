@@ -92,7 +92,10 @@
 
 .checkbox {
   @include flexbox($align-items: $center, $gap: $size-8);
+  @include font-size($size-12);
+  line-height: $size-12;
   cursor: pointer;
+
   .customCheckbox {
     @include border($size-2, solid, $color-base-dark-500);
     @include transition(all);

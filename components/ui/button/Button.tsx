@@ -9,6 +9,7 @@ export interface IButtonProps {
   link?: string;
   secondary?: boolean;
   form?: boolean;
+  fullSize?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -16,9 +17,12 @@ const Button: React.FC<IButtonProps> = ({
   secondary,
   link,
   form,
+  fullSize,
   ...props
 }) => {
-  const className = `${styles.btn} ${secondary && styles.secondary}`;
+  const className = `${styles.btn} ${secondary && styles.secondary} ${
+    fullSize && styles.fullSize
+  }`;
 
   if (link) {
     return (
