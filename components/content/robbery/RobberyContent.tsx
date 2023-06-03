@@ -73,13 +73,9 @@ const RobberyContent: React.FC = () => {
         if (response.ok) {
           const updatedUser = await response.json();
 
-          console.log("updatedUser", updatedUser);
+          console.log(updatedUser);
 
-          if (updatedUser.lastRobbery.robberySuccessful) {
-            setIsRobberySuccessful(true);
-          } else {
-            setIsRobberySuccessful(false);
-          }
+          setIsRobberySuccessful(true);
 
           if (setUser) {
             setUser(updatedUser);
@@ -111,11 +107,20 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
-      {isRobberySuccessful && (
-        <div className={styles.robberyResultInfo}>
-          {receivedData?.robberyMoney}
-        </div>
-      )}
+      <div className={styles.placeholder}>
+        {isRobberySuccessful && (
+          <div
+            className={`${styles.robberyResultInfo} ${
+              !receivedData.robberySuccessful && styles.robberryFailed
+            }`}
+          >
+            <p>
+              You {receivedData.robberySuccessful ? "won: " : "lost: "}
+              <span>${receivedData?.robberyMoney}</span>
+            </p>
+          </div>
+        )}
+      </div>
       <div className={styles.robberyContainer}>
         {placeEnergyCosts.map((place, index) => (
           <div key={index} className={styles.placeContainer}>

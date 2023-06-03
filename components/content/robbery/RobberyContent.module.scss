@@ -8,8 +8,25 @@
     margin-bottom: $size-32;
   }
 
+  .placeholder {
+    min-height: $size-64;
+    margin: $size-16 $size-8 $size-16 $null;
+  }
+
   .robberyResultInfo {
+    @include border($size-4, solid, $color-base-green, left);
     width: $full-size;
+    min-height: $size-64;
+    padding-left: $size-8;
+    background-color: $color-base-dark;
+
+    span {
+      font-weight: $font-weight-bold;
+    }
+
+    &.robberryFailed {
+      @include border($size-4, solid, $color-base-red, left);
+    }
   }
 
   .robberyContainer {
@@ -37,6 +54,7 @@
           font-weight: $font-weight-bold;
         }
       }
+
       .robberyAction {
         padding: $size-8;
         flex: 1;

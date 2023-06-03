@@ -11,7 +11,7 @@ const ProgressBar: React.FC<IProgressBar> = ({
   name,
   bgcolor = "linear-gradient(to left, #ffa500, #525252)",
 }) => {
-  const isCompletedLessThanTen = completed < 10 && true;
+  const isCompletedLessThanTen = completed < 20 && true;
 
   return (
     <>
