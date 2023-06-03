@@ -6,23 +6,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
 interface IUserWithRobbery extends IUser {
-  defaultParams: {
-    class: string;
-    morale: string;
-    respect: number;
-    energy: number;
-    life: number;
-    addiction: number;
-    intelligence: number;
-    strength: number;
-    endurance: number;
-    charisma: number;
-    money: number;
+  lastRobbery: {
     robberySuccessful?: boolean;
-    moneyEarned?: number;
+    robberyMoney?: number;
     message?: string;
   };
 }
+
+type UpdatedStats = IUserWithRobbery["lastRobbery"] &
+  IUserWithRobbery["defaultParams"];
 
 export default async function handler(
   req: NextApiRequest,
@@ -56,14 +48,19 @@ export default async function handler(
     );
 
     const { password, ...userWithoutPassword } = user;
+    const { robberySuccessful, robberyMoney, message, ...defautlParams } =
+      updatedStats;
 
     const serializedUser: IUserWithRobbery = {
       ...userWithoutPassword,
       _id: user._id.toString(),
       defaultParams: {
-        ...updatedStats,
-        robberySuccessful: updatedStats.robberySuccessful,
-        moneyEarned: updatedStats.moneyEarned,
+        ...defautlParams,
+      },
+      lastRobbery: {
+        robberySuccessful: robberySuccessful,
+        robberyMoney: robberyMoney,
+        message: message,
       },
     };
 
@@ -77,8 +74,8 @@ export default async function handler(
 async function calculateUpdatedStats(
   stats: IUser["defaultParams"],
   selectedPlace: string
-): Promise<IUserWithRobbery["defaultParams"]> {
-  const energyPointsCost = await getEnergyPointsCost(stats, selectedPlace);
+): Promise<UpdatedStats> {
+  const energyPointsCost = await getRobberyPlaceInfo(stats, selectedPlace);
   const energyResCost = energyPointsCost.energyCost;
   const successProbability = energyPointsCost.successProbability;
 
@@ -86,7 +83,7 @@ async function calculateUpdatedStats(
     return {
       ...stats,
       message: "Insufficient energy for the robbery",
-    };
+    } as UpdatedStats;
   }
 
   const updatedStats = {
@@ -95,18 +92,24 @@ async function calculateUpdatedStats(
   };
 
   const robberySuccessful = isRobberySuccessful(successProbability);
-  let moneyEarned = 0;
+
+  let robberyMoney = 0;
+  const minPrice = energyPointsCost.minPrice;
+  const maxPrice = energyPointsCost.maxPrice;
+  robberyMoney = generateRandomNumber(minPrice, maxPrice);
 
   if (robberySuccessful) {
-    const minPrice = energyPointsCost.minPrice;
-    const maxPrice = energyPointsCost.maxPrice;
-    moneyEarned = generateRandomNumber(minPrice, maxPrice);
-    console.log("moneyEarned", moneyEarned);
-    updatedStats.money += moneyEarned;
+    updatedStats.money += robberyMoney;
   } else {
-    updatedStats.respect = stats.respect - 1;
+    updatedStats.money -= robberyMoney;
+    updatedStats.money = Math.max(updatedStats.money, 0);
+    updatedStats.respect = Math.max(stats.respect - 1, 0);
   }
-  return { ...updatedStats, robberySuccessful, moneyEarned };
+  return {
+    ...updatedStats,
+    robberySuccessful,
+    robberyMoney,
+  } as UpdatedStats;
 }
 
 function isRobberySuccessful(successProbability: number): boolean {
@@ -125,7 +128,7 @@ function generateRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-async function getEnergyPointsCost(
+async function getRobberyPlaceInfo(
   stats: IUser["defaultParams"],
   selectedPlace: string
 ): Promise<any> {
@@ -157,5 +160,5 @@ async function getEnergyPointsCost(
     console.error("Error fetching place energy costs:", error);
   }
 
-  return 0;
+  return null;
 }

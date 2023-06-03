@@ -46,6 +46,9 @@
 
 .label {
   width: $full-size;
+  &:has(.checkbox) {
+    width: auto;
+  }
 }
 
 .input {
@@ -84,5 +87,42 @@
   button {
     flex-basis: $half-size;
     margin-top: $size-16;
+  }
+}
+
+.checkbox {
+  @include flexbox($align-items: $center, $gap: $size-8);
+  cursor: pointer;
+  .customCheckbox {
+    @include border($size-2, solid, $color-base-dark-500);
+    @include transition(all);
+    display: inline-block;
+    position: relative;
+    width: $size-16;
+    height: $size-16;
+    background-color: $color-base-dark-100;
+    border-radius: $size-4;
+
+    &::before {
+      @include transition(opacity);
+      content: "";
+      position: absolute;
+      top: $size-1;
+      left: $size-1;
+      width: $size-10;
+      height: $size-10;
+      background-color: $color-base-dark;
+      opacity: 0;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    &.checked {
+      @include border($size-2, solid, $color-base-orange);
+      background-color: $color-base-orange;
+    }
+
+    &.checked::before {
+      opacity: 1;
+    }
   }
 }

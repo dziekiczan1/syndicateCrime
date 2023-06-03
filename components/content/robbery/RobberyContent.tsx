@@ -70,9 +70,9 @@ const RobberyContent: React.FC = () => {
         if (response.ok) {
           const updatedUser = await response.json();
 
-          console.log(updatedUser);
+          console.log("updatedUser", updatedUser);
 
-          if (updatedUser.defaultParams.robberySuccessful) {
+          if (updatedUser.lastRobbery.robberySuccessful) {
             setIsRobberySuccessful(true);
           } else {
             setIsRobberySuccessful(false);
@@ -82,6 +82,8 @@ const RobberyContent: React.FC = () => {
             setUser(updatedUser);
           }
 
+          setReceivedData(updatedUser.lastRobbery);
+
           setTimeout(() => {
             setIsRobberySuccessful(null);
           }, 10000);
@@ -89,7 +91,6 @@ const RobberyContent: React.FC = () => {
           console.error("Error updating user stats:", response.statusText);
         }
       } catch (error) {
-        // Handle error
         console.error("Error updating user stats:", error);
       }
     }
@@ -118,8 +119,9 @@ const RobberyContent: React.FC = () => {
               value={place.name}
               checked={selectedPlace?.name === place.name}
               onChange={handlePlaceSelect}
+              checkbox
+              label={place.name}
             />
-            <label htmlFor={`place-${index}`}>{place.name}</label>
             <p>Success Probability: {place.successProbability}%</p>
           </div>
         ))}

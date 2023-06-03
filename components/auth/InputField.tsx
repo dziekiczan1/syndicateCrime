@@ -14,6 +14,7 @@ export interface IInputProps {
   checked?: boolean;
   error?: string | undefined;
   children?: ReactNode;
+  checkbox?: boolean;
 }
 
 const InputField: React.FC<IInputProps> = ({
@@ -28,6 +29,7 @@ const InputField: React.FC<IInputProps> = ({
   checked,
   error,
   children,
+  checkbox,
 }) => {
   const inputProps = {
     type,
@@ -44,6 +46,16 @@ const InputField: React.FC<IInputProps> = ({
       <label htmlFor={id} className={styles.label}>
         {type === "radio" ? (
           <>
+            {checkbox && (
+              <div className={styles.checkbox}>
+                <span
+                  className={`${styles.customCheckbox} ${
+                    checked && styles.checked
+                  }`}
+                ></span>
+                {label}
+              </div>
+            )}
             <input {...inputProps} className={styles.radio} />
             {children}
           </>
