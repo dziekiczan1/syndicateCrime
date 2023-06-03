@@ -13,6 +13,8 @@ export default function UserContextProvider({
   const contextValue = { user, setUser };
   const { data: session, status } = useSession();
 
+  console.log(user);
+
   const fetchData = useCallback(async () => {
     try {
       if (status === "authenticated" && session) {

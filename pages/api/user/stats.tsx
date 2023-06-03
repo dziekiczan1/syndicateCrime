@@ -1,8 +1,8 @@
-import { connectToDatabase } from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
-
-import { IUser } from "@/store/user-context";
 import { getServerSession } from "next-auth";
+
+import { connectToDatabase } from "@/lib/db";
+import { IUser } from "@/store/user-context";
 import { authOptions } from "../auth/[...nextauth]";
 
 interface IUserWithRobbery extends IUser {
@@ -29,7 +29,7 @@ export default async function handler(
 
     const { email } = session.user!;
     const client = await connectToDatabase();
-    const usersCollection = client.db().collection<IUser>("users");
+    const usersCollection = client.db().collection<IUserWithRobbery>("users");
     const user = await usersCollection.findOne({ email: email as string });
 
     if (!user) {
@@ -40,11 +40,6 @@ export default async function handler(
     const updatedStats = await calculateUpdatedStats(
       user.defaultParams,
       selectedPlace
-    );
-
-    await usersCollection.updateOne(
-      { _id: user._id },
-      { $set: { defaultParams: updatedStats } }
     );
 
     const { password, ...userWithoutPassword } = user;
@@ -63,6 +58,20 @@ export default async function handler(
         message: message,
       },
     };
+
+    await usersCollection.updateOne(
+      { _id: user._id },
+      {
+        $set: {
+          defaultParams: { ...defautlParams },
+          lastRobbery: {
+            robberySuccessful,
+            robberyMoney,
+            message,
+          },
+        },
+      }
+    );
 
     return res.status(200).json(serializedUser);
   } catch (error) {
