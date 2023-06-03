@@ -20,6 +20,7 @@ const RobberyContent: React.FC = () => {
     boolean | null
   >(null);
   const [receivedData, setReceivedData] = useState<any>(null);
+  const [animateRobberyResult, setAnimateRobberyResult] = useState(false);
 
   const { user, setUser } = useContext(UserContext);
 
@@ -82,9 +83,11 @@ const RobberyContent: React.FC = () => {
           }
 
           setReceivedData(updatedUser.lastRobbery);
+          setAnimateRobberyResult(true);
 
           setTimeout(() => {
             setIsRobberySuccessful(null);
+            setAnimateRobberyResult(false);
           }, 10000);
         } else {
           console.error("Error updating user stats:", response.statusText);
@@ -107,20 +110,25 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
-      <div className={styles.placeholder}>
-        {isRobberySuccessful && (
-          <div
-            className={`${styles.robberyResultInfo} ${
-              !receivedData.robberySuccessful && styles.robberryFailed
-            }`}
-          >
-            <p>
-              You {receivedData.robberySuccessful ? "won: " : "lost: "}
-              <span>${receivedData?.robberyMoney}</span>
-            </p>
-          </div>
-        )}
-      </div>
+      {isRobberySuccessful && (
+        <div
+          className={`${styles.robberyResultInfo} ${
+            !receivedData.robberySuccessful && styles.robberryFailed
+          } ${animateRobberyResult && styles.robberyResultInfoShow}`}
+        >
+          {receivedData.robberyMoney ? (
+            <>
+              <p>{receivedData.message}</p>
+              <p>
+                You {receivedData.robberySuccessful ? "won: " : "lost: "}
+                <span>${receivedData.robberyMoney}</span>
+              </p>
+            </>
+          ) : (
+            <p>{receivedData.message}</p>
+          )}
+        </div>
+      )}
       <div className={styles.robberyContainer}>
         {placeEnergyCosts.map((place, index) => (
           <div key={index} className={styles.placeContainer}>
