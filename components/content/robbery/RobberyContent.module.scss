@@ -8,13 +8,13 @@
     margin-bottom: $size-32;
   }
 
+  .robberyResultInfo {
+    width: $full-size;
+  }
+
   .robberyContainer {
     @include flexbox($flex-wrap: wrap);
     column-gap: $size-8;
-
-    .robberyResultInfo {
-      flex: 1;
-    }
 
     .placeContainer {
       align-self: flex-start;

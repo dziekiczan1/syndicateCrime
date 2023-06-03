@@ -11,7 +11,7 @@ const ProgressBar: React.FC<IProgressBar> = ({
   name,
   bgcolor = "linear-gradient(to left, #ffa500, #525252)",
 }) => {
-  const isCompletedNull = completed === 0 && true;
+  const isCompletedLessThanTen = completed < 10 && true;
 
   return (
     <>
@@ -24,8 +24,8 @@ const ProgressBar: React.FC<IProgressBar> = ({
           <span
             className={styles.progressText}
             style={{
-              color: isCompletedNull ? "#f5f5f5" : "#333333",
-              marginRight: isCompletedNull ? "0" : "0.4rem",
+              color: isCompletedLessThanTen ? "#f5f5f5" : "#333333",
+              marginRight: isCompletedLessThanTen ? "0" : "0.4rem",
             }}
           >{`${completed}%`}</span>
         </div>

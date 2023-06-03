@@ -111,12 +111,12 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
+      {isRobberySuccessful && (
+        <div className={styles.robberyResultInfo}>
+          {receivedData?.robberyMoney}
+        </div>
+      )}
       <div className={styles.robberyContainer}>
-        {isRobberySuccessful && (
-          <div className={styles.robberyResultInfo}>
-            {receivedData?.robberyMoney}
-          </div>
-        )}
         {placeEnergyCosts.map((place, index) => (
           <div key={index} className={styles.placeContainer}>
             <InputField
