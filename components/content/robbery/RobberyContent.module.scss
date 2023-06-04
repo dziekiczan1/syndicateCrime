@@ -13,40 +13,6 @@
     margin-bottom: $size-16;
   }
 
-  .robberyResultInfo {
-    @include border($size-4, solid, $color-base-green, left);
-    width: calc($full-size - $size-8);
-    min-height: $size-64;
-    padding: $size-4 $size-8;
-    margin-bottom: $size-16;
-    background-color: $color-base-dark;
-
-    p:not(.message) {
-      @include font-size($size-12);
-    }
-
-    span {
-      font-weight: $font-weight-bold;
-    }
-
-    &.robberryFailed {
-      @include border($size-4, solid, $color-base-red, left);
-    }
-
-    .message {
-      color: $color-base-green-500;
-      margin-bottom: $size-4;
-    }
-
-    .messageFailed {
-      color: $color-base-red-500;
-    }
-  }
-
-  .robberyResultInfoShow {
-    animation: slideIn 0.5s ease-in-out;
-  }
-
   .robberyContainer {
     @include flexbox($flex-wrap: wrap);
     column-gap: $size-8;
@@ -81,16 +47,5 @@
         }
       }
     }
-  }
-}
-
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0%);
   }
 }

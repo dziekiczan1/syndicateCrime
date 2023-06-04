@@ -4,6 +4,7 @@ export interface Place {
   minimumRespect: number;
   minPrice: number;
   maxPrice: number;
+  successProbability?: number;
   strength?: number;
   intelligence?: number;
   endurance?: number;

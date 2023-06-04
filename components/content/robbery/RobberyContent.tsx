@@ -2,16 +2,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
+import { Place } from "@/constants/places";
+import { fetchPlaceEnergyCosts, updateStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
 import styles from "./RobberyContent.module.scss";
-
-interface Place {
-  name: string;
-  energyCost: number;
-  successProbability: number;
-  minPrice: number;
-  maxPrice: number;
-}
+import RobberyResultInfo from "./RobberyResultInfo";
 
 const RobberyContent: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
@@ -26,31 +21,14 @@ const RobberyContent: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchPlaceEnergyCosts = async () => {
-      try {
-        const response = await fetch("/api/user/places", {
-          method: "POST",
-          body: JSON.stringify({ respect: user?.defaultParams.respect }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setPlaceEnergyCosts(data);
-        } else {
-          console.error(
-            "Error fetching place energy costs:",
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching place energy costs:", error);
+    const fetchPlaceEnergyCostsData = async () => {
+      const data = await fetchPlaceEnergyCosts(user?.defaultParams.respect);
+      if (data) {
+        setPlaceEnergyCosts(data);
       }
     };
 
-    fetchPlaceEnergyCosts();
+    fetchPlaceEnergyCostsData();
   }, [user?.defaultParams.respect]);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,27 +44,12 @@ const RobberyContent: React.FC = () => {
 
     if (selectedPlace) {
       try {
-        const response = await fetch("/api/user/stats", {
-          method: "POST",
-          body: JSON.stringify({
-            selectedPlace: selectedPlace.name,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const updatedUser = await response.json();
-
-          console.log(updatedUser);
-
+        const updatedUser = await updateStats(selectedPlace.name);
+        if (updatedUser) {
           setIsRobberySuccessful(true);
-
           if (setUser) {
             setUser(updatedUser);
           }
-
           setReceivedData(updatedUser.lastRobbery);
           setAnimateRobberyResult(true);
 
@@ -94,8 +57,6 @@ const RobberyContent: React.FC = () => {
             setIsRobberySuccessful(null);
             setAnimateRobberyResult(false);
           }, 10000);
-        } else {
-          console.error("Error updating user stats:", response.statusText);
         }
       } catch (error) {
         console.error("Error updating user stats:", error);
@@ -116,45 +77,10 @@ const RobberyContent: React.FC = () => {
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
       {isRobberySuccessful && (
-        <div
-          className={`${styles.robberyResultInfo} ${
-            !receivedData.robberySuccessful && styles.robberryFailed
-          } ${animateRobberyResult && styles.robberyResultInfoShow}`}
-        >
-          {receivedData.robberyMoney ? (
-            <>
-              <p
-                className={`${styles.message} ${
-                  !receivedData.robberySuccessful && styles.messageFailed
-                }`}
-              >
-                {receivedData.message}
-              </p>
-              <p>
-                You {receivedData.robberySuccessful ? "won: " : "lost: "}
-                <span>${receivedData.robberyMoney.toLocaleString()}</span>
-              </p>
-              {receivedData.robberySuccessful && (
-                <>
-                  <p>
-                    Strength: <span>{receivedData.strengthValue}</span>
-                  </p>
-                  <p>
-                    Intelligence: <span>{receivedData.intelligenceValue}</span>
-                  </p>
-                  <p>
-                    Endurance: <span>{receivedData.enduranceValue}</span>
-                  </p>
-                  <p>
-                    Charisma: <span>{receivedData.charismaValue}</span>
-                  </p>
-                </>
-              )}
-            </>
-          ) : (
-            <p className={styles.messageFailed}>{receivedData.message}</p>
-          )}
-        </div>
+        <RobberyResultInfo
+          receivedData={receivedData}
+          animateRobberyResult={animateRobberyResult}
+        />
       )}
       <div className={styles.robberyContainer}>
         {placeEnergyCosts.map((place, index) => (
