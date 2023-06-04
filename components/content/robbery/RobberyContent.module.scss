@@ -17,9 +17,13 @@
     @include border($size-4, solid, $color-base-green, left);
     width: calc($full-size - $size-8);
     min-height: $size-64;
-    padding-left: $size-8;
+    padding: $size-4 $size-8;
     margin-bottom: $size-16;
     background-color: $color-base-dark;
+
+    p:not(.message) {
+      @include font-size($size-12);
+    }
 
     span {
       font-weight: $font-weight-bold;
@@ -28,6 +32,15 @@
     &.robberryFailed {
       @include border($size-4, solid, $color-base-red, left);
     }
+
+    .message {
+      color: $color-base-green-500;
+      margin-bottom: $size-4;
+    }
+  }
+
+  .messageFailed {
+    color: $color-base-red-500;
   }
 
   .robberyResultInfoShow {
@@ -47,21 +60,21 @@
     }
 
     .detailsContainer {
-      @include flexbox($gap: $size-8, $align-items: $center);
+      @include flexbox($flex-direction: column, $gap: $size-8);
 
       .robberyInfo {
-        width: $two-thirds;
         p {
           @include font-size($size-12);
+          color: $color-base-orange;
         }
 
         span {
           font-weight: $font-weight-bold;
+          color: $color-base-light;
         }
       }
 
       .robberyAction {
-        padding: $size-8;
         flex: 1;
       }
     }

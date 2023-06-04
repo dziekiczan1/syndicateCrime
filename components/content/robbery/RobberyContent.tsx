@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
@@ -22,6 +22,7 @@ const RobberyContent: React.FC = () => {
   const [receivedData, setReceivedData] = useState<any>(null);
   const [animateRobberyResult, setAnimateRobberyResult] = useState(false);
 
+  const timeoutRef = useRef<number | null>(null);
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -59,6 +60,10 @@ const RobberyContent: React.FC = () => {
   };
 
   const handleRobbery = async () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     if (selectedPlace) {
       try {
         const response = await fetch("/api/user/stats", {
@@ -85,7 +90,7 @@ const RobberyContent: React.FC = () => {
           setReceivedData(updatedUser.lastRobbery);
           setAnimateRobberyResult(true);
 
-          setTimeout(() => {
+          timeoutRef.current = window.setTimeout(() => {
             setIsRobberySuccessful(null);
             setAnimateRobberyResult(false);
           }, 10000);
@@ -118,14 +123,32 @@ const RobberyContent: React.FC = () => {
         >
           {receivedData.robberyMoney ? (
             <>
-              <p className={styles.message}>{receivedData.message}</p>
+              <p
+                className={`${styles.message} ${
+                  !receivedData.robberySuccessful && styles.messageFailed
+                }`}
+              >
+                {receivedData.message}
+              </p>
               <p>
                 You {receivedData.robberySuccessful ? "won: " : "lost: "}
-                <span>${receivedData.robberyMoney}</span>
+                <span>${receivedData.robberyMoney.toLocaleString()}</span>
+              </p>
+              <p>
+                Strength: <span>{receivedData.strengthValue}</span>
+              </p>
+              <p>
+                Intelligence: <span>{receivedData.intelligenceValue}</span>
+              </p>
+              <p>
+                Endurance: <span>{receivedData.enduranceValue}</span>
+              </p>
+              <p>
+                Charisma: <span>{receivedData.charismaValue}</span>
               </p>
             </>
           ) : (
-            <p>{receivedData.message}</p>
+            <p className={styles.messageFailed}>{receivedData.message}</p>
           )}
         </div>
       )}
@@ -150,7 +173,8 @@ const RobberyContent: React.FC = () => {
                 <p>
                   Price reward:{" "}
                   <span>
-                    ${place.minPrice} - ${place.maxPrice}
+                    ${place.minPrice.toLocaleString()} - $
+                    {place.maxPrice.toLocaleString()}
                   </span>
                 </p>
                 <p>
@@ -160,7 +184,7 @@ const RobberyContent: React.FC = () => {
               <div className={styles.robberyAction}>
                 {selectedPlace?.name === place.name && (
                   <Button onClick={handleRobbery} secondary fullSize>
-                    Rob
+                    Execute the robbery!
                   </Button>
                 )}
               </div>

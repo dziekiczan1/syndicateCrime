@@ -13,6 +13,7 @@ interface IUserWithRobbery extends IUser {
     strengthValue?: number;
     intelligenceValue?: number;
     enduranceValue?: number;
+    charismaValue?: number;
     respectValue?: number;
   };
 }
@@ -54,6 +55,7 @@ export default async function handler(
       strengthValue,
       intelligenceValue,
       enduranceValue,
+      charismaValue,
       respectValue,
       ...defautlParams
     } = updatedStats;
@@ -71,6 +73,7 @@ export default async function handler(
         strengthValue: strengthValue,
         intelligenceValue: intelligenceValue,
         enduranceValue: enduranceValue,
+        charismaValue: charismaValue,
         respectValue: respectValue,
       },
     };
@@ -87,6 +90,7 @@ export default async function handler(
             strengthValue,
             intelligenceValue,
             enduranceValue,
+            charismaValue,
             respectValue,
           },
         },
@@ -133,6 +137,7 @@ async function calculateUpdatedStats(
   const strengthValue = energyPointsCost.strength;
   const intelligenceValue = energyPointsCost.intelligence;
   const enduranceValue = energyPointsCost.endurance;
+  const charismaValue = energyPointsCost.charisma;
   const respectValue = energyPointsCost.respect;
 
   if (robberySuccessful) {
@@ -140,6 +145,7 @@ async function calculateUpdatedStats(
     updatedStats.strength += strengthValue;
     updatedStats.intelligence += intelligenceValue;
     updatedStats.endurance += enduranceValue;
+    updatedStats.charisma += charismaValue;
     updatedStats.respect += respectValue;
     message = getFunnyMessage(true);
   } else {
@@ -156,6 +162,7 @@ async function calculateUpdatedStats(
     strengthValue,
     intelligenceValue,
     enduranceValue,
+    charismaValue,
     respectValue,
   } as UpdatedStats;
 }
