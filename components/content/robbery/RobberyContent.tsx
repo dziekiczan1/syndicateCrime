@@ -79,6 +79,8 @@ const RobberyContent: React.FC = () => {
         if (response.ok) {
           const updatedUser = await response.json();
 
+          console.log(updatedUser);
+
           setIsRobberySuccessful(true);
 
           if (setUser) {
@@ -113,7 +115,7 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
-      {isRobberySuccessful && user && (
+      {isRobberySuccessful && (
         <div
           className={`${styles.robberyResultInfo} ${
             !receivedData.robberySuccessful && styles.robberryFailed
@@ -132,18 +134,22 @@ const RobberyContent: React.FC = () => {
                 You {receivedData.robberySuccessful ? "won: " : "lost: "}
                 <span>${receivedData.robberyMoney.toLocaleString()}</span>
               </p>
-              <p>
-                Strength: <span>{receivedData.strengthValue}</span>
-              </p>
-              <p>
-                Intelligence: <span>{receivedData.intelligenceValue}</span>
-              </p>
-              <p>
-                Endurance: <span>{receivedData.enduranceValue}</span>
-              </p>
-              <p>
-                Charisma: <span>{receivedData.charismaValue}</span>
-              </p>
+              {receivedData.robberySuccessful && (
+                <>
+                  <p>
+                    Strength: <span>{receivedData.strengthValue}</span>
+                  </p>
+                  <p>
+                    Intelligence: <span>{receivedData.intelligenceValue}</span>
+                  </p>
+                  <p>
+                    Endurance: <span>{receivedData.enduranceValue}</span>
+                  </p>
+                  <p>
+                    Charisma: <span>{receivedData.charismaValue}</span>
+                  </p>
+                </>
+              )}
             </>
           ) : (
             <p className={styles.messageFailed}>{receivedData.message}</p>
