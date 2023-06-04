@@ -10,6 +10,10 @@ interface IUserWithRobbery extends IUser {
     robberySuccessful?: boolean;
     robberyMoney?: number;
     message?: string;
+    strengthValue?: number;
+    intelligenceValue?: number;
+    enduranceValue?: number;
+    respectValue?: number;
   };
 }
 
@@ -43,8 +47,16 @@ export default async function handler(
     );
 
     const { password, ...userWithoutPassword } = user;
-    const { robberySuccessful, robberyMoney, message, ...defautlParams } =
-      updatedStats;
+    const {
+      robberySuccessful,
+      robberyMoney,
+      message,
+      strengthValue,
+      intelligenceValue,
+      enduranceValue,
+      respectValue,
+      ...defautlParams
+    } = updatedStats;
 
     const serializedUser: IUserWithRobbery = {
       ...userWithoutPassword,
@@ -56,6 +68,10 @@ export default async function handler(
         robberySuccessful: robberySuccessful,
         robberyMoney: robberyMoney,
         message: message,
+        strengthValue: strengthValue,
+        intelligenceValue: intelligenceValue,
+        enduranceValue: enduranceValue,
+        respectValue: respectValue,
       },
     };
 
@@ -68,6 +84,10 @@ export default async function handler(
             robberySuccessful,
             robberyMoney,
             message,
+            strengthValue,
+            intelligenceValue,
+            enduranceValue,
+            respectValue,
           },
         },
       }
@@ -110,13 +130,22 @@ async function calculateUpdatedStats(
   const maxPrice = energyPointsCost.maxPrice;
   robberyMoney = generateRandomNumber(minPrice, maxPrice);
 
+  const strengthValue = energyPointsCost.strength;
+  const intelligenceValue = energyPointsCost.intelligence;
+  const enduranceValue = energyPointsCost.endurance;
+  const respectValue = energyPointsCost.respect;
+
   if (robberySuccessful) {
     updatedStats.money += robberyMoney;
+    updatedStats.strength += strengthValue;
+    updatedStats.intelligence += intelligenceValue;
+    updatedStats.endurance += enduranceValue;
+    updatedStats.respect += respectValue;
     message = getFunnyMessage(true);
   } else {
     updatedStats.money -= robberyMoney;
     updatedStats.money = Math.max(updatedStats.money, 0);
-    updatedStats.respect = Math.max(stats.respect - 1, 0);
+    updatedStats.respect = Math.max(stats.respect - respectValue, 0);
     message = getFunnyMessage(false);
   }
   return {
@@ -124,6 +153,10 @@ async function calculateUpdatedStats(
     robberySuccessful,
     robberyMoney,
     message,
+    strengthValue,
+    intelligenceValue,
+    enduranceValue,
+    respectValue,
   } as UpdatedStats;
 }
 
@@ -153,13 +186,6 @@ function isRobberySuccessful(successProbability: number): boolean {
   if (successProbability === 100) {
     return true;
   }
-
-  // const randomNumber = Math.floor(Math.random() * 100) + 1;
-  // const adjustedSuccessProbability = Math.floor(
-  //   randomNumber / successProbability
-  // );
-
-  // return adjustedSuccessProbability < 100;
 
   const randomNumber = Math.random() * 100;
 

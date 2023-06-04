@@ -74,7 +74,7 @@ const RobberyContent: React.FC = () => {
         if (response.ok) {
           const updatedUser = await response.json();
 
-          console.log(updatedUser);
+          console.log("updated", updatedUser);
 
           setIsRobberySuccessful(true);
 
@@ -118,7 +118,7 @@ const RobberyContent: React.FC = () => {
         >
           {receivedData.robberyMoney ? (
             <>
-              <p>{receivedData.message}</p>
+              <p className={styles.message}>{receivedData.message}</p>
               <p>
                 You {receivedData.robberySuccessful ? "won: " : "lost: "}
                 <span>${receivedData.robberyMoney}</span>
