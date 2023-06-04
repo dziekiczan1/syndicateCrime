@@ -1,10 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
-import InputField from "@/components/auth/InputField";
-import Button from "@/components/ui/button/Button";
 import { Place } from "@/constants/places";
 import { fetchPlaceEnergyCosts, updateStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
+import PlaceItem from "./PlaceItem";
 import styles from "./RobberyContent.module.scss";
 import RobberyResultInfo from "./RobberyResultInfo";
 
@@ -47,9 +46,11 @@ const RobberyContent: React.FC = () => {
         const updatedUser = await updateStats(selectedPlace.name);
         if (updatedUser) {
           setIsRobberySuccessful(true);
+
           if (setUser) {
             setUser(updatedUser);
           }
+
           setReceivedData(updatedUser.lastRobbery);
           setAnimateRobberyResult(true);
 
@@ -84,42 +85,14 @@ const RobberyContent: React.FC = () => {
       )}
       <div className={styles.robberyContainer}>
         {placeEnergyCosts.map((place, index) => (
-          <div key={index} className={styles.placeContainer}>
-            <InputField
-              type="radio"
-              id={`place-${index}`}
-              name="selectedPlace"
-              value={place.name}
-              checked={selectedPlace?.name === place.name}
-              onChange={handlePlaceSelect}
-              checkbox
-              label={place.name}
-            />
-            <div className={styles.detailsContainer}>
-              <div className={styles.robberyInfo}>
-                <p>
-                  Energy Cost: <span>{place.energyCost}</span>
-                </p>
-                <p>
-                  Price reward:{" "}
-                  <span>
-                    ${place.minPrice.toLocaleString()} - $
-                    {place.maxPrice.toLocaleString()}
-                  </span>
-                </p>
-                <p>
-                  Success Probability: <span>{place.successProbability}%</span>
-                </p>
-              </div>
-              <div className={styles.robberyAction}>
-                {selectedPlace?.name === place.name && (
-                  <Button onClick={handleRobbery} secondary fullSize>
-                    Execute the robbery!
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
+          <PlaceItem
+            key={index}
+            place={place}
+            index={index}
+            selectedPlace={selectedPlace}
+            handlePlaceSelect={handlePlaceSelect}
+            handleRobbery={handleRobbery}
+          />
         ))}
       </div>
     </section>
