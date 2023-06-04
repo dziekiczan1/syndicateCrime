@@ -79,8 +79,6 @@ const RobberyContent: React.FC = () => {
         if (response.ok) {
           const updatedUser = await response.json();
 
-          console.log("updated", updatedUser);
-
           setIsRobberySuccessful(true);
 
           if (setUser) {
@@ -115,7 +113,7 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
-      {isRobberySuccessful && (
+      {isRobberySuccessful && user && (
         <div
           className={`${styles.robberyResultInfo} ${
             !receivedData.robberySuccessful && styles.robberryFailed

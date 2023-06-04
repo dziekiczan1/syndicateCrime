@@ -60,7 +60,7 @@
     }
 
     .detailsContainer {
-      @include flexbox($flex-direction: column, $gap: $size-8);
+      @include flexbox($flex-direction: column);
 
       .robberyInfo {
         p {
@@ -76,6 +76,9 @@
 
       .robberyAction {
         flex: 1;
+        &:has(button) {
+          margin-top: $size-8;
+        }
       }
     }
   }
