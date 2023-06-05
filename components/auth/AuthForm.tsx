@@ -65,7 +65,7 @@ const AuthForm: React.FC = () => {
         setIsInvalid(result.error);
       }
       if (!result?.error) {
-        const response = await fetch("/api/user/getuser");
+        const response = await fetch("/api/user/getUser");
         const userData = await response.json();
         if (setUser) {
           setUser(userData);
@@ -82,7 +82,7 @@ const AuthForm: React.FC = () => {
           password: data.password,
           redirect: false,
         });
-        const response = await fetch("/api/user/getuser");
+        const response = await fetch("/api/user/getUser");
         const userData = await response.json();
         if (setUser) {
           setUser(userData);

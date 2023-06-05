@@ -157,7 +157,7 @@ async function calculateUpdatedStats(
   } else {
     updatedStats.money -= robberyMoney;
     updatedStats.money = Math.max(updatedStats.money, 0);
-    updatedStats.respect = Math.max(stats.respect - respectValue, 0);
+    updatedStats.respect = Math.max(stats.respect - respectValue, 1);
     message = getRobberyResultMessage(false);
   }
   return {

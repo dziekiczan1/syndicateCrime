@@ -16,7 +16,7 @@ export default function UserContextProvider({
   const fetchData = useCallback(async () => {
     try {
       if (status === "authenticated" && session) {
-        const response = await fetch("/api/user/getuser");
+        const response = await fetch("/api/user/getUser");
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
