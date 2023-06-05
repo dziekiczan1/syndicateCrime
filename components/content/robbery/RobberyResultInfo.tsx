@@ -1,52 +1,52 @@
 import styles from "./RobberyResultInfo.module.scss";
 
 interface IProps {
-  receivedData: any;
+  userLastRobbery: any;
   animateRobberyResult: boolean;
 }
 
 const RobberyResultInfo: React.FC<IProps> = ({
-  receivedData,
+  userLastRobbery,
   animateRobberyResult,
 }) => {
   return (
     <div
       className={`${styles.robberyResultInfo} ${
-        !receivedData.robberySuccessful && styles.robberryFailed
+        !userLastRobbery.robberySuccessful && styles.robberryFailed
       } ${animateRobberyResult && styles.robberyResultInfoShow}`}
     >
-      {receivedData.robberyMoney ? (
+      {userLastRobbery.robberyMoney ? (
         <>
           <p
             className={`${styles.message} ${
-              !receivedData.robberySuccessful && styles.messageFailed
+              !userLastRobbery.robberySuccessful && styles.messageFailed
             }`}
           >
-            {receivedData.message}
+            {userLastRobbery.message}
           </p>
           <p>
-            You {receivedData.robberySuccessful ? "won: " : "lost: "}
-            <span>${receivedData.robberyMoney.toLocaleString()}</span>
+            You {userLastRobbery.robberySuccessful ? "won: " : "lost: "}
+            <span>${userLastRobbery.robberyMoney.toLocaleString()}</span>
           </p>
-          {receivedData.robberySuccessful && (
+          {userLastRobbery.robberySuccessful && (
             <>
               <p>
-                Strength: <span>{receivedData.strengthValue}</span>
+                Strength: <span>{userLastRobbery.strengthValue}</span>
               </p>
               <p>
-                Intelligence: <span>{receivedData.intelligenceValue}</span>
+                Intelligence: <span>{userLastRobbery.intelligenceValue}</span>
               </p>
               <p>
-                Endurance: <span>{receivedData.enduranceValue}</span>
+                Endurance: <span>{userLastRobbery.enduranceValue}</span>
               </p>
               <p>
-                Charisma: <span>{receivedData.charismaValue}</span>
+                Charisma: <span>{userLastRobbery.charismaValue}</span>
               </p>
             </>
           )}
         </>
       ) : (
-        <p className={styles.messageFailed}>{receivedData.message}</p>
+        <p className={styles.messageFailed}>{userLastRobbery.message}</p>
       )}
     </div>
   );

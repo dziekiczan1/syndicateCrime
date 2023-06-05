@@ -1,4 +1,4 @@
-export async function fetchPlaceEnergyCosts(respect: number | undefined) {
+export async function fetchPlaceInformation(respect: number | undefined) {
   try {
     const response = await fetch("/api/user/places", {
       method: "POST",
@@ -21,7 +21,7 @@ export async function fetchPlaceEnergyCosts(respect: number | undefined) {
   return null;
 }
 
-export async function updateStats(selectedPlace: string) {
+export async function fetchUpdatedStats(selectedPlace: string) {
   try {
     const response = await fetch("/api/user/stats", {
       method: "POST",

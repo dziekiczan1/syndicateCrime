@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import { Place } from "@/constants/places";
-import { fetchPlaceEnergyCosts, updateStats } from "@/lib/robbery";
+import { fetchPlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
 import PlaceItem from "./PlaceItem";
 import styles from "./RobberyContent.module.scss";
@@ -9,30 +9,34 @@ import RobberyResultInfo from "./RobberyResultInfo";
 
 const RobberyContent: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [placeEnergyCosts, setPlaceEnergyCosts] = useState<Place[]>([]);
+  const [selectedPlaceInformation, setSelectedPlaceInformation] = useState<
+    Place[]
+  >([]);
   const [isRobberySuccessful, setIsRobberySuccessful] = useState<
     boolean | null
   >(null);
-  const [receivedData, setReceivedData] = useState<any>(null);
+  const [userLastRobbery, setUserLastRobbery] = useState<any>(null);
   const [animateRobberyResult, setAnimateRobberyResult] = useState(false);
 
   const timeoutRef = useRef<number | null>(null);
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchPlaceEnergyCostsData = async () => {
-      const data = await fetchPlaceEnergyCosts(user?.defaultParams.respect);
+    const fetchPlaceInformationData = async () => {
+      const data = await fetchPlaceInformation(user?.defaultParams.respect);
       if (data) {
-        setPlaceEnergyCosts(data);
+        setSelectedPlaceInformation(data);
       }
     };
 
-    fetchPlaceEnergyCostsData();
+    fetchPlaceInformationData();
   }, [user?.defaultParams.respect]);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const selected = placeEnergyCosts.find((place) => place.name === value);
+    const selected = selectedPlaceInformation.find(
+      (place) => place.name === value
+    );
     setSelectedPlace(selected || null);
   };
 
@@ -43,7 +47,7 @@ const RobberyContent: React.FC = () => {
 
     if (selectedPlace) {
       try {
-        const updatedUser = await updateStats(selectedPlace.name);
+        const updatedUser = await fetchUpdatedStats(selectedPlace.name);
         if (updatedUser) {
           setIsRobberySuccessful(true);
 
@@ -51,7 +55,7 @@ const RobberyContent: React.FC = () => {
             setUser(updatedUser);
           }
 
-          setReceivedData(updatedUser.lastRobbery);
+          setUserLastRobbery(updatedUser.lastRobbery);
           setAnimateRobberyResult(true);
 
           timeoutRef.current = window.setTimeout(() => {
@@ -79,12 +83,12 @@ const RobberyContent: React.FC = () => {
       <h2 className={styles.title}>Select a place for robbery</h2>
       {isRobberySuccessful && (
         <RobberyResultInfo
-          receivedData={receivedData}
+          userLastRobbery={userLastRobbery}
           animateRobberyResult={animateRobberyResult}
         />
       )}
       <div className={styles.robberyContainer}>
-        {placeEnergyCosts.map((place, index) => (
+        {selectedPlaceInformation.map((place, index) => (
           <PlaceItem
             key={index}
             place={place}
