@@ -1,4 +1,4 @@
-export function getFunnyMessage(isSuccess: boolean): string {
+export function getRobberyResultMessage(isSuccess: boolean): string {
   const successMessages = [
     "You hit the jackpot! Time to buy that private island.",
     "You're on a roll! The money keeps flowing.",
@@ -20,7 +20,7 @@ export function getFunnyMessage(isSuccess: boolean): string {
   return messages[randomIndex];
 }
 
-export function isRobberySuccessful(successProbability: number): boolean {
+export function isRobberySuccessfull(successProbability: number): boolean {
   if (successProbability === 100) {
     return true;
   }

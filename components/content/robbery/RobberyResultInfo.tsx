@@ -12,23 +12,23 @@ const RobberyResultInfo: React.FC<IProps> = ({
   return (
     <div
       className={`${styles.robberyResultInfo} ${
-        !userLastRobbery.robberySuccessful && styles.robberryFailed
+        !userLastRobbery.robberySuccessfull && styles.robberryFailed
       } ${animateRobberyResult && styles.robberyResultInfoShow}`}
     >
       {userLastRobbery.robberyMoney ? (
         <>
           <p
             className={`${styles.message} ${
-              !userLastRobbery.robberySuccessful && styles.messageFailed
+              !userLastRobbery.robberySuccessfull && styles.messageFailed
             }`}
           >
             {userLastRobbery.message}
           </p>
           <p>
-            You {userLastRobbery.robberySuccessful ? "won: " : "lost: "}
+            You {userLastRobbery.robberySuccessfull ? "won: " : "lost: "}
             <span>${userLastRobbery.robberyMoney.toLocaleString()}</span>
           </p>
-          {userLastRobbery.robberySuccessful && (
+          {userLastRobbery.robberySuccessfull && (
             <>
               <p>
                 Strength: <span>{userLastRobbery.strengthValue}</span>
@@ -41,6 +41,9 @@ const RobberyResultInfo: React.FC<IProps> = ({
               </p>
               <p>
                 Charisma: <span>{userLastRobbery.charismaValue}</span>
+              </p>
+              <p>
+                Respect: <span>{userLastRobbery.respectValue}</span>
               </p>
             </>
           )}

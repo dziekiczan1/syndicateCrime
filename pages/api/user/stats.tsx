@@ -2,17 +2,18 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 
 import { connectToDatabase } from "@/lib/db";
+import { calculatePlaceInformation } from "@/lib/robbery";
 import {
   generateRandomNumber,
-  getFunnyMessage,
-  isRobberySuccessful,
+  getRobberyResultMessage,
+  isRobberySuccessfull,
 } from "@/lib/stats";
 import { IUser } from "@/store/user-context";
 import { authOptions } from "../auth/[...nextauth]";
 
 export interface IUserWithRobbery extends IUser {
   lastRobbery: {
-    robberySuccessful?: boolean;
+    robberySuccessfull?: boolean;
     robberyMoney?: number;
     message?: string;
     strengthValue?: number;
@@ -54,7 +55,7 @@ export default async function handler(
 
     const { password, ...userWithoutPassword } = user;
     const {
-      robberySuccessful,
+      robberySuccessfull,
       robberyMoney,
       message,
       strengthValue,
@@ -72,7 +73,7 @@ export default async function handler(
         ...defautlParams,
       },
       lastRobbery: {
-        robberySuccessful: robberySuccessful,
+        robberySuccessfull: robberySuccessfull,
         robberyMoney: robberyMoney,
         message: message,
         strengthValue: strengthValue,
@@ -89,7 +90,7 @@ export default async function handler(
         $set: {
           defaultParams: { ...defautlParams },
           lastRobbery: {
-            robberySuccessful,
+            robberySuccessfull,
             robberyMoney,
             message,
             strengthValue,
@@ -121,7 +122,7 @@ async function calculateUpdatedStats(
     return {
       ...stats,
       message: "Insufficient energy for the robbery",
-      robberySuccessful: false,
+      robberySuccessfull: false,
     } as UpdatedStats;
   }
 
@@ -130,7 +131,7 @@ async function calculateUpdatedStats(
     energy: Math.max(stats.energy - energyResCost, 0),
   };
 
-  const robberySuccessful = isRobberySuccessful(successProbability);
+  const robberySuccessfull = isRobberySuccessfull(successProbability);
 
   let robberyMoney = 0;
   let message;
@@ -145,23 +146,23 @@ async function calculateUpdatedStats(
   const charismaValue = energyPointsCost.charisma;
   const respectValue = energyPointsCost.respect;
 
-  if (robberySuccessful) {
+  if (robberySuccessfull) {
     updatedStats.money += robberyMoney;
     updatedStats.strength += strengthValue;
     updatedStats.intelligence += intelligenceValue;
     updatedStats.endurance += enduranceValue;
     updatedStats.charisma += charismaValue;
     updatedStats.respect += respectValue;
-    message = getFunnyMessage(true);
+    message = getRobberyResultMessage(true);
   } else {
     updatedStats.money -= robberyMoney;
     updatedStats.money = Math.max(updatedStats.money, 0);
     updatedStats.respect = Math.max(stats.respect - respectValue, 0);
-    message = getFunnyMessage(false);
+    message = getRobberyResultMessage(false);
   }
   return {
     ...updatedStats,
-    robberySuccessful,
+    robberySuccessfull,
     robberyMoney,
     message,
     strengthValue,
@@ -177,31 +178,19 @@ async function getRobberyPlaceInfo(
   selectedPlace: string
 ): Promise<any> {
   try {
-    const response = await fetch("http://localhost:3000/api/user/places", {
-      method: "POST",
-      body: JSON.stringify({ respect: stats.respect }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const placeInformationData = calculatePlaceInformation(stats.respect);
 
-    if (response.ok) {
-      const placeEnergyCosts = await response.json();
+    const selectedPlaceObject = placeInformationData.find(
+      (place: { name: string }) => place.name === selectedPlace
+    );
 
-      const selectedPlaceObject = placeEnergyCosts.find(
-        (place: { name: string }) => place.name === selectedPlace
-      );
-
-      if (selectedPlaceObject) {
-        return selectedPlaceObject;
-      } else {
-        console.error("Selected place not found in placeEnergyCosts");
-      }
+    if (selectedPlaceObject) {
+      return selectedPlaceObject;
     } else {
-      console.error("Error fetching place energy costs:", response.statusText);
+      console.error("Selected place not found in placeInformationData");
     }
   } catch (error) {
-    console.error("Error fetching place energy costs:", error);
+    console.error("Error calculating place information:", error);
   }
 
   return null;

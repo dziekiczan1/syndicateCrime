@@ -12,7 +12,7 @@ export interface Place {
   respect?: number;
 }
 
-export const placeEnergyCosts: Place[] = [
+export const placeInformation: Place[] = [
   {
     name: "Warehouse",
     energyCost: 5,

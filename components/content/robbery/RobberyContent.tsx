@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import { Place } from "@/constants/places";
-import { fetchPlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
+import { calculatePlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
 import PlaceItem from "./PlaceItem";
 import styles from "./RobberyContent.module.scss";
@@ -12,7 +12,7 @@ const RobberyContent: React.FC = () => {
   const [selectedPlaceInformation, setSelectedPlaceInformation] = useState<
     Place[]
   >([]);
-  const [isRobberySuccessful, setIsRobberySuccessful] = useState<
+  const [isRobberySuccessfull, setIsRobberySuccessfull] = useState<
     boolean | null
   >(null);
   const [userLastRobbery, setUserLastRobbery] = useState<any>(null);
@@ -22,14 +22,9 @@ const RobberyContent: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchPlaceInformationData = async () => {
-      const data = await fetchPlaceInformation(user?.defaultParams.respect);
-      if (data) {
-        setSelectedPlaceInformation(data);
-      }
-    };
-
-    fetchPlaceInformationData();
+    const respect = user?.defaultParams.respect ?? 1;
+    const placeInformationData = calculatePlaceInformation(respect);
+    setSelectedPlaceInformation(placeInformationData);
   }, [user?.defaultParams.respect]);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +44,7 @@ const RobberyContent: React.FC = () => {
       try {
         const updatedUser = await fetchUpdatedStats(selectedPlace.name);
         if (updatedUser) {
-          setIsRobberySuccessful(true);
+          setIsRobberySuccessfull(true);
 
           if (setUser) {
             setUser(updatedUser);
@@ -59,7 +54,7 @@ const RobberyContent: React.FC = () => {
           setAnimateRobberyResult(true);
 
           timeoutRef.current = window.setTimeout(() => {
-            setIsRobberySuccessful(null);
+            setIsRobberySuccessfull(null);
             setAnimateRobberyResult(false);
           }, 10000);
         }
@@ -81,7 +76,7 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
-      {isRobberySuccessful && (
+      {isRobberySuccessfull && (
         <RobberyResultInfo
           userLastRobbery={userLastRobbery}
           animateRobberyResult={animateRobberyResult}

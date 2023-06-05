@@ -1,24 +1,18 @@
-export async function fetchPlaceInformation(respect: number | undefined) {
-  try {
-    const response = await fetch("/api/user/places", {
-      method: "POST",
-      body: JSON.stringify({ respect }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+import { placeInformation } from "@/constants/places";
 
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      console.error("Error fetching place energy costs:", response.statusText);
-    }
-  } catch (error) {
-    console.error("Error fetching place energy costs:", error);
-  }
+export function calculatePlaceInformation(userRespect: number) {
+  const placeInformationData = placeInformation.map((place) => {
+    let successProbability = (userRespect / place.minimumRespect) * 100;
+    successProbability =
+      successProbability < 1 ? 0 : Math.floor(successProbability);
+    successProbability = successProbability > 100 ? 100 : successProbability;
+    return {
+      ...place,
+      successProbability,
+    };
+  });
 
-  return null;
+  return placeInformationData;
 }
 
 export async function fetchUpdatedStats(selectedPlace: string) {
