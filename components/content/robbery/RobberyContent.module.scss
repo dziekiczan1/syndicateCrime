@@ -10,7 +10,14 @@
   }
 
   .title {
-    margin-bottom: $size-16;
+    margin-bottom: $size-32;
+  }
+
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
+    padding-right: $size-8;
   }
 
   .robberyContainer {

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
+import Loading from "@/components/ui/loading/Loading";
 import { Place } from "@/constants/places";
 import { calculatePlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
@@ -17,6 +18,7 @@ const RobberyContent: React.FC = () => {
   >(null);
   const [userLastRobbery, setUserLastRobbery] = useState<any>(null);
   const [animateRobberyResult, setAnimateRobberyResult] = useState(false);
+  const [isLoadingRobbery, setIsLoadingRobbery] = useState(false);
 
   const timeoutRef = useRef<number | null>(null);
   const { user, setUser } = useContext(UserContext);
@@ -42,7 +44,11 @@ const RobberyContent: React.FC = () => {
 
     if (selectedPlace) {
       try {
+        setIsLoadingRobbery(true);
+
         const updatedUser = await fetchUpdatedStats(selectedPlace.name);
+
+        setIsLoadingRobbery(false);
         if (updatedUser) {
           setIsRobberySuccessfull(true);
 
@@ -60,6 +66,7 @@ const RobberyContent: React.FC = () => {
         }
       } catch (error) {
         console.error("Error updating user stats:", error);
+        setIsLoadingRobbery(false);
       }
     }
   };
@@ -76,6 +83,11 @@ const RobberyContent: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Select a place for robbery</h2>
+      {isLoadingRobbery && (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
+      )}
       {isRobberySuccessfull && (
         <RobberyResultInfo
           userLastRobbery={userLastRobbery}

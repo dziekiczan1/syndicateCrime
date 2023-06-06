@@ -5,7 +5,7 @@
   width: calc($full-size - $size-8);
   min-height: $size-64;
   padding: $size-4 $size-8;
-  margin-bottom: $size-16;
+  margin-bottom: $size-32;
   background-color: $color-base-dark;
 
   p:not(.message, .messageFailed) {
