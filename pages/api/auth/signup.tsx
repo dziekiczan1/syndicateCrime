@@ -70,7 +70,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const defaultParams = {
     class: "Begginer",
     morale: "Extremly high",
-    respect: 0,
+    respect: 1,
     energy: 100,
     life: 100,
     addiction: 0,
