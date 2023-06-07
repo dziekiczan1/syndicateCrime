@@ -1,9 +1,51 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  color: $color-base-light;
-}
+  width: $full-size;
+  height: $full-size;
+  padding: $size-32 $size-16;
 
-.currentUserRow {
-  background-color: red;
+  .description {
+    margin-bottom: $size-32;
+  }
+
+  .title {
+    margin-bottom: $size-32;
+  }
+
+  .table {
+    width: $full-size;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid $color-base-orange;
+
+    p {
+      @include font-size($size-12);
+    }
+  }
+
+  th {
+    background-color: $color-base-dark-200;
+  }
+
+  .currentUserRow {
+    background-color: $color-base-dark-100;
+  }
+
+  .currentUserTopTenRow {
+    font-weight: bold;
+  }
+
+  .currentUserRow,
+  .ellipsisRow,
+  .currentUserTopTenRow {
+    td {
+      border: none;
+    }
+  }
 }

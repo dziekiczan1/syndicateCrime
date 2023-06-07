@@ -28,67 +28,87 @@ const Statistics: React.FC = () => {
     fetchData();
   }, [status, session, fetchData]);
 
+  const currentUserIndex = players.findIndex(
+    (player) => player.email === user?.email
+  );
+  const isCurrentUserInTopTen = currentUserIndex >= 10;
+
   return (
     <div className={styles.container}>
+      <div className={styles.description}>
+        <p>
+          Unleash the power of statistics and dive into the world of competitive
+          gaming. Explore rankings, leaderboards, and player standings as you
+          witness the pursuit of excellence. Discover the secrets of success and
+          join the elite in their quest for glory. Are you ready to embrace the
+          challenge and make your mark among the top players? Step into the
+          realm of statistics and let the adventure unfold.
+        </p>
+      </div>
+      <h2 className={styles.title}>Player Rankings: Rise to the Top!</h2>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Position</th>
-            <th>Username</th>
-            <th>User Respect</th>
-            <th>User Strength</th>
+            <th>
+              <p>Position</p>
+            </th>
+            <th>
+              <p>Username</p>
+            </th>
+            <th>
+              <p>User Respect</p>
+            </th>
+            <th>
+              <p>User Strength</p>
+            </th>
           </tr>
         </thead>
         <tbody>
           {players
-            .sort((a, b) => b.userRespect - a.userRespect)
+            .sort((a, b) => b.defaultParams.respect - a.defaultParams.respect)
             .slice(0, 10)
             .map((player, index) => (
               <tr
                 key={player.username}
                 className={
-                  session?.user?.email === player.email
-                    ? styles.currentUserRow
-                    : ""
+                  user?.email === player.email ? styles.currentUserRow : ""
                 }
               >
-                <td>{index + 1}</td>
-                <td>{player.username}</td>
-                <td>{player.defaultParams.respect}</td>
-                <td>{player.defaultParams.strength}</td>
+                <td>
+                  <p>#{index + 1}</p>
+                </td>
+                <td>
+                  <p>{player.username}</p>
+                </td>
+                <td>
+                  <p>{player.defaultParams.respect}</p>
+                </td>
+                <td>
+                  <p>{player.defaultParams.strength}</p>
+                </td>
               </tr>
             ))}
           {players.length > 10 && (
             <tr className={styles.ellipsisRow}>
-              <td>...</td>
+              <td>
+                <p>...</p>
+              </td>
               <td colSpan={3}></td>
             </tr>
           )}
-          {players.findIndex((player) => player.email === user?.email) >=
-            10 && (
-            <tr
-              className={
-                players.findIndex((player) => player.email === user?.email)
-                  ? styles.currentUserRow
-                  : ""
-              }
-            >
+          {isCurrentUserInTopTen && (
+            <tr className={`${styles.currentUserRow}`}>
               <td>
-                {players.findIndex((player) => player.email === user?.email) +
-                  1}
-              </td>
-              <td>{session?.user?.name}</td>
-              <td>
-                {
-                  players.find((player) => player.email === user?.email)
-                    ?.defaultParams.userRespect
-                }
+                <p>#{currentUserIndex + 1}</p>
               </td>
               <td>
-                {
-                  players.find((player) => player.email === user?.email)
-                    ?.defaultParams.userStrength
-                }
+                <p>{user?.username}</p>
+              </td>
+              <td>
+                <p>{user?.defaultParams.respect}</p>
+              </td>
+              <td>
+                <p>{user?.defaultParams.strength}</p>
               </td>
             </tr>
           )}
