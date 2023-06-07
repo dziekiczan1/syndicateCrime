@@ -13,6 +13,10 @@
     margin-bottom: $size-32;
   }
 
+  .loading {
+    @include flexbox($justify-content: $center, $align-items: $center);
+  }
+
   .table {
     width: $full-size;
     border-collapse: collapse;
@@ -20,9 +24,9 @@
 
   th,
   td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid $color-base-orange;
+    @include border($color: $color-base-orange, $side: bottom);
+    padding: $size-10;
+    text-align: $center;
 
     p {
       @include font-size($size-12);
@@ -34,11 +38,13 @@
   }
 
   .currentUserRow {
-    background-color: $color-base-dark-100;
+    background-color: $color-base-orange;
+    color: $color-base-dark;
+    font-weight: $font-weight-bold;
   }
 
   .currentUserTopTenRow {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
   }
 
   .currentUserRow,
