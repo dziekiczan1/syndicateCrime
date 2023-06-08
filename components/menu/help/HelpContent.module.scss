@@ -1,0 +1,7 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  width: $full-size;
+  height: $full-size;
+  padding: $size-32 $size-16;
+}
