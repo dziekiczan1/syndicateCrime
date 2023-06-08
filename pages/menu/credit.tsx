@@ -1,13 +1,13 @@
 import GameLayout from "@/components/layout/game/GameLayout";
-import ProfileContent from "@/components/menu/profile/ProfileContent";
+import CreditContent from "@/components/menu/credit/CreditContent";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 
-export default function Profile() {
+export default function Credit() {
   return (
     <div className="h-screen no-scrollbar overflow-y-scroll">
       <GameLayout>
-        <ProfileContent />
+        <CreditContent />
       </GameLayout>
     </div>
   );

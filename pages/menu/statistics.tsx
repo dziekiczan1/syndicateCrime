@@ -3,7 +3,7 @@ import StatisticsContent from "@/components/menu/statistics/StatisticsContent";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 
-export default function GameMainScreen() {
+export default function Statistics() {
   return (
     <div className="h-screen no-scrollbar overflow-y-scroll">
       <GameLayout>
