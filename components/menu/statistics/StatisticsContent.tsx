@@ -2,7 +2,7 @@ import Loading from "@/components/ui/loading/Loading";
 import UserContext from "@/store/user-context";
 import { useSession } from "next-auth/react";
 import { useCallback, useContext, useEffect, useState } from "react";
-import styles from "./Statistics.module.scss";
+import styles from "./StatisticsContent.module.scss";
 
 const Statistics: React.FC = () => {
   const { data: session, status } = useSession();

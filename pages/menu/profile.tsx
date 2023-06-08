@@ -1,5 +1,5 @@
 import GameLayout from "@/components/layout/game/GameLayout";
-import StatisticsContent from "@/components/menu/statistics/StatisticsContent";
+import ProfileContent from "@/components/menu/profile/ProfileContent";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 
@@ -7,7 +7,7 @@ export default function GameMainScreen() {
   return (
     <div className="h-screen no-scrollbar overflow-y-scroll">
       <GameLayout>
-        <StatisticsContent />
+        <ProfileContent />
       </GameLayout>
     </div>
   );
