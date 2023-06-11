@@ -13,7 +13,7 @@ const Statistics: React.FC = () => {
   const fetchData = useCallback(async () => {
     try {
       if (status === "authenticated" && session) {
-        const response = await fetch("/api/user/getUsers");
+        const response = await fetch("/api/user/getAllUsers");
         if (response.ok) {
           const playersData = await response.json();
           setPlayers(playersData);
