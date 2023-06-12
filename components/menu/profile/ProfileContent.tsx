@@ -26,26 +26,29 @@ const BaseTemplate: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Player Profile: A Journey of Success</h2>
-      <div className={styles.avatars}>
-        {avatars.map((avatar) => (
-          <div key={avatar.src} className={styles.avatar}>
-            <InputField
-              id={avatar.src}
-              type="radio"
-              name="avatar"
-              value={avatar.src}
-              onChange={handleAvatarChange}
-              checked={selectedAvatar === avatar.src}
-            >
-              <Avatar
-                src={avatar.src}
-                width={100}
-                height={100}
-                alt={avatar.src}
-              />
-            </InputField>
-          </div>
-        ))}
+      <div className={styles.control}>
+        <InputField label="Avatar" id="avatar" type="hidden" />
+        <div className={styles.avatars}>
+          {avatars.map((avatar) => (
+            <div key={avatar.src} className={styles.avatar}>
+              <InputField
+                id={avatar.src}
+                type="radio"
+                name="avatar"
+                value={avatar.src}
+                onChange={handleAvatarChange}
+                checked={selectedAvatar === avatar.src}
+              >
+                <Avatar
+                  src={avatar.src}
+                  width={150}
+                  height={150}
+                  alt={avatar.src}
+                />
+              </InputField>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

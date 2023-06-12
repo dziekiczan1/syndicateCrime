@@ -12,4 +12,33 @@
   .title {
     margin-bottom: $size-32;
   }
+
+  .avatars {
+    @include flexbox(
+      $flex-wrap: wrap,
+      $justify-content: space-between,
+      $gap: $size-4
+    );
+  }
+
+  .avatar {
+    width: calc($quarter-size - $size-4);
+
+    label {
+      padding-bottom: $null;
+    }
+
+    input[type="radio"] {
+      &:hover {
+        + img {
+          cursor: pointer;
+        }
+      }
+      &:checked {
+        + img {
+          outline: $size-1 solid $color-base-gold;
+        }
+      }
+    }
+  }
 }
