@@ -1,6 +1,18 @@
+import { ChangeEvent, useState } from "react";
+
+import InputField from "@/components/auth/InputField";
+import Avatar from "@/components/user/avatar/Avatar";
+import avatars from "@/constants/avatars";
 import styles from "./ProfileContent.module.scss";
 
 const BaseTemplate: React.FC = () => {
+  const [selectedAvatar, setSelectedAvatar] = useState("");
+
+  const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSelectedAvatar(value);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.description}>
@@ -14,6 +26,27 @@ const BaseTemplate: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Player Profile: A Journey of Success</h2>
+      <div className={styles.avatars}>
+        {avatars.map((avatar) => (
+          <div key={avatar.src} className={styles.avatar}>
+            <InputField
+              id={avatar.src}
+              type="radio"
+              name="avatar"
+              value={avatar.src}
+              onChange={handleAvatarChange}
+              checked={selectedAvatar === avatar.src}
+            >
+              <Avatar
+                src={avatar.src}
+                width={100}
+                height={100}
+                alt={avatar.src}
+              />
+            </InputField>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
