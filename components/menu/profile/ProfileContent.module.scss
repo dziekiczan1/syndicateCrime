@@ -13,6 +13,45 @@
     margin-bottom: $size-32;
   }
 
+  .stats {
+    @include flexbox($flex-wrap: wrap, $gap: $size-8);
+    @include border($width: $size-2, $color: $color-base-orange, $side: left);
+    background-color: $color-base-dark;
+    padding: $size-8;
+    margin-bottom: $size-16;
+
+    .params {
+      width: $half-size;
+
+      p:first-of-type {
+        margin-bottom: $size-32;
+      }
+    }
+
+    .photo {
+      @include flexbox($justify-content: $center);
+      width: calc($half-size - $size-8);
+      img {
+        border-radius: $size-8;
+      }
+    }
+
+    .userStats {
+      @include flexbox($flex-wrap: wrap, $gap: $size-8);
+      @include border(
+        $width: $size-1,
+        $color: $color-base-dark-200,
+        $side: top
+      );
+      width: $full-size;
+      padding-top: $size-16;
+
+      & > div {
+        width: calc($third-size - $size-8);
+      }
+    }
+  }
+
   .avatars {
     @include flexbox(
       $flex-wrap: wrap,

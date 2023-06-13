@@ -1,12 +1,18 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import Avatar from "@/components/user/avatar/Avatar";
+import StatsNode from "@/components/user/stats/StatsNode";
 import avatars from "@/constants/avatars";
+import { getUserStatistics } from "@/constants/userstats";
+import UserContext from "@/store/user-context";
 import styles from "./ProfileContent.module.scss";
 
 const BaseTemplate: React.FC = () => {
-  const [selectedAvatar, setSelectedAvatar] = useState("");
+  const { user } = useContext(UserContext);
+  const [selectedAvatar, setSelectedAvatar] = useState(user!.avatar);
+  const userStats = user?.defaultParams;
+  const userStatistics = getUserStatistics(userStats);
 
   const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -26,8 +32,43 @@ const BaseTemplate: React.FC = () => {
         </p>
       </div>
       <h2 className={styles.title}>Player Profile: A Journey of Success</h2>
+      {user && (
+        <div className={styles.stats}>
+          <div className={styles.params}>
+            <h3>{user.username}</h3>
+            <p>{user.email}</p>
+            <p>Class: {user.defaultParams.class}</p>
+            <p>Morale: {user.defaultParams.morale}</p>
+            <p>Energy: {user.defaultParams.energy}%</p>
+            <p>Life: {user.defaultParams.life}%</p>
+            <p>Addiction: {user.defaultParams.addiction}%</p>
+          </div>
+          <div className={styles.photo}>
+            <Avatar
+              width={200}
+              height={200}
+              src={selectedAvatar}
+              alt={user.username}
+            />
+          </div>
+          <div className={styles.userStats}>
+            {userStatistics.map((stat) => (
+              <StatsNode
+                key={stat.statsName}
+                component={stat.component}
+                fill={stat.fill}
+                width={stat.width}
+                height={stat.height}
+                viewBox={stat.viewBox}
+                statsValue={stat.statsValue}
+                statsName={stat.statsName}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <div className={styles.control}>
-        <InputField label="Avatar" id="avatar" type="hidden" />
+        <InputField label="Change Your Avatar" id="avatar" type="hidden" />
         <div className={styles.avatars}>
           {avatars.map((avatar) => (
             <div key={avatar.src} className={styles.avatar}>
