@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import Avatar from "@/components/user/avatar/Avatar";
@@ -8,15 +8,37 @@ import { getUserStatistics } from "@/constants/userstats";
 import UserContext from "@/store/user-context";
 import styles from "./ProfileContent.module.scss";
 
-const BaseTemplate: React.FC = () => {
-  const { user } = useContext(UserContext);
+const ProfileContent: React.FC = () => {
+  const { user, setUser } = useContext(UserContext);
   const [selectedAvatar, setSelectedAvatar] = useState(user!.avatar);
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
 
-  const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSelectedAvatar(value);
+  const handleAvatarChange = (selectedAvatar: string) => {
+    setSelectedAvatar(selectedAvatar);
+  };
+
+  const handleAvatarSubmit = async () => {
+    try {
+      const response = await fetch("/api/user/updateStat", {
+        method: "POST",
+        body: JSON.stringify({
+          statToUpdate: "avatar",
+          valueToUpdate: selectedAvatar,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      const updatedUser = { ...data, avatar: data.avatar as string };
+      if (setUser) {
+        setUser(updatedUser);
+      }
+    } catch (error) {
+      console.error("Error updating avatar:", error);
+    }
   };
 
   return (
@@ -77,7 +99,7 @@ const BaseTemplate: React.FC = () => {
                 type="radio"
                 name="avatar"
                 value={avatar.src}
-                onChange={handleAvatarChange}
+                onChange={() => handleAvatarChange(avatar.src)}
                 checked={selectedAvatar === avatar.src}
               >
                 <Avatar
@@ -90,9 +112,10 @@ const BaseTemplate: React.FC = () => {
             </div>
           ))}
         </div>
+        <button onClick={handleAvatarSubmit}>Change Avatar</button>
       </div>
     </div>
   );
 };
 
-export default BaseTemplate;
+export default ProfileContent;
