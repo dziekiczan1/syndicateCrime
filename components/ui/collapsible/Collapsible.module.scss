@@ -2,4 +2,15 @@
 
 .container {
   color: $color-base-light;
+
+  .icon {
+    svg {
+      fill: $color-base-orange;
+    }
+  }
+
+  .answer {
+    @include transition(height, $timing-function: ease-in-out);
+    overflow: hidden;
+  }
 }
