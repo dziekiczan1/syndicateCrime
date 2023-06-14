@@ -18,7 +18,7 @@
     @include border($width: $size-2, $color: $color-base-orange, $side: left);
     background-color: $color-base-dark;
     padding: $size-8;
-    margin-bottom: $size-16;
+    margin-bottom: $size-32;
 
     .params {
       width: $half-size;
@@ -58,6 +58,7 @@
       $justify-content: space-between,
       $gap: $size-4
     );
+    margin-bottom: $size-16;
   }
 
   .avatar {

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
+import Button from "@/components/ui/button/Button";
 import Avatar from "@/components/user/avatar/Avatar";
 import StatsNode from "@/components/user/stats/StatsNode";
 import avatars from "@/constants/avatars";
@@ -112,7 +113,9 @@ const ProfileContent: React.FC = () => {
             </div>
           ))}
         </div>
-        <button onClick={handleAvatarSubmit}>Change Avatar</button>
+        <Button onClick={handleAvatarSubmit} fullSize secondary>
+          Change Your Avatar
+        </Button>
       </div>
     </div>
   );
