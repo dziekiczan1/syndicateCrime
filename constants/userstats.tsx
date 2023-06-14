@@ -33,7 +33,7 @@ export const getUserStatistics = (userStats: any) => {
       ...userStatsStyles,
       component: MoneyIcon,
       viewBox: "48 48",
-      statsValue: userStats?.money,
+      statsValue: userStats?.money.toLocaleString(),
       statsName: "Money",
       tooltipText: "lorem ipsum",
     },
