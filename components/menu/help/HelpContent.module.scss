@@ -12,4 +12,8 @@
   .title {
     margin-bottom: $size-32;
   }
+
+  .faq {
+    @include flexbox($flex-direction: column, $gap: $size-16);
+  }
 }

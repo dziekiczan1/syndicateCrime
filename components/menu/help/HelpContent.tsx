@@ -1,4 +1,5 @@
 import Collapsible from "@/components/ui/collapsible/Collapsible";
+import faqData from "@/constants/faq";
 import styles from "./HelpContent.module.scss";
 
 const HelpContent: React.FC = () => {
@@ -16,10 +17,11 @@ const HelpContent: React.FC = () => {
       </div>
       <h2 className={styles.title}>Help: Your Ultimate Guide to Mastery</h2>
       <div className={styles.faq}>
-        <Collapsible title="How can I increase my respect?">
-          The easiest way to increase your respect is to do a lot of robberies.
-          You can also increase your respect by assaulting other players.
-        </Collapsible>
+        {faqData.map((faq, idx) => (
+          <Collapsible title={faq.question} key={idx}>
+            {faq.answer}
+          </Collapsible>
+        ))}
       </div>
     </div>
   );

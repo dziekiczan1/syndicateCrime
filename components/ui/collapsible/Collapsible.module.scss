@@ -3,6 +3,21 @@
 .container {
   color: $color-base-light;
 
+  .heading {
+    @include flexbox($align-items: $center, $justify-content: space-between);
+    background-color: $color-base-dark;
+    box-shadow: $shadow;
+    padding: $size-8;
+    cursor: pointer;
+
+    .question {
+      @include transition(color, $timing-function: ease);
+      &.active {
+        color: $color-base-orange;
+      }
+    }
+  }
+
   .icon {
     svg {
       fill: $color-base-orange;
@@ -12,5 +27,14 @@
   .answer {
     @include transition(height, $timing-function: ease-in-out);
     overflow: hidden;
+
+    .answerContainer {
+      background-color: $color-base-dark-200;
+
+      p {
+        @include font-size($size-12);
+        padding: $size-8 $size-16;
+      }
+    }
   }
 }

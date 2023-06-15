@@ -39,31 +39,32 @@ const Collapsible: React.FC<ICollapsible> = ({ open, children, title }) => {
 
   return (
     <div className={styles.container}>
-      <div>
-        <div className="p-3 border-bottom d-flex justify-content-between">
-          <h6 className="font-weight-bold">{title}</h6>
-          <div onClick={handleFilterOpening} className={styles.icon}>
-            {!isOpen ? (
-              <Icon
-                component={ArrowDownIcon}
-                width={24}
-                height={24}
-                viewBox="20 20"
-              />
-            ) : (
-              <Icon
-                component={ArrowUpIcon}
-                width={24}
-                height={24}
-                viewBox="20 20"
-              />
-            )}
-          </div>
+      <div className={styles.heading} onClick={handleFilterOpening}>
+        <p className={`${styles.question} ${isOpen && styles.active}`}>
+          {title}
+        </p>
+        <div className={styles.icon}>
+          {!isOpen ? (
+            <Icon
+              component={ArrowDownIcon}
+              width={20}
+              height={20}
+              viewBox="24 24"
+            />
+          ) : (
+            <Icon
+              component={ArrowUpIcon}
+              width={20}
+              height={20}
+              viewBox="24 24"
+            />
+          )}
         </div>
       </div>
-
       <div className={styles.answer} style={{ height }}>
-        <div ref={ref}>{isOpen && <div className="p-3">{children}</div>}</div>
+        <div ref={ref} className={styles.answerContainer}>
+          {isOpen && <p>{children}</p>}
+        </div>
       </div>
     </div>
   );
