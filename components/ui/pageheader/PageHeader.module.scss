@@ -1,0 +1,9 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  margin-bottom: $size-32;
+
+  .description {
+    margin-bottom: $size-32;
+  }
+}
