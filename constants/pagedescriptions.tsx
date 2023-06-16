@@ -31,6 +31,21 @@ const pageDescriptions: IPageDescriptions = {
       "Experience the thrill of high-stakes robberies. Plan, execute, and reap the rewards as you embark on daring heists in pursuit of wealth and notoriety. Test your skills, outsmart security systems, and leave your mark as a master thief. Are you ready to step into the world of crime and become a legend?",
     title: "Select a place for robbery",
   },
+  gang: {
+    description:
+      "Step into the gritty world of organized crime and join a formidable gang. Collaborate with fellow gangsters, plan strategic moves, and expand your empire. From illicit operations to turf wars, navigate the treacherous landscape of the underworld. Establish dominance, accumulate wealth, and command respect as you climb the ranks of the criminal hierarchy. Are you ready to unleash your inner gangster and seize control of the city? Brace yourself for an adrenaline-fueled journey where loyalty, ambition, and survival are paramount.",
+    title: "Gangster's Paradise: Conquer the Underworld",
+  },
+  nightclub: {
+    description:
+      "Welcome to the electrifying world of the Nightclub, where the rhythm takes over and the party never ends. Immerse yourself in the vibrant atmosphere of pulsating music, dazzling lights, and energetic crowds. Dance to the hottest beats, socialize with fellow partygoers, and experience the ultimate nightlife adventure. From top DJs spinning the latest tracks to captivating performances, the Nightclub is your gateway to a world of excitement and indulgence. Get ready to let loose, create unforgettable memories, and embrace the night like never before. Join us at the Nightclub and become a part of the exhilarating nightlife scene that will keep you coming back for more.",
+    title: "Nightclub: Where the Beats Come Alive",
+  },
+  sabotage: {
+    description:
+      "Immerse yourself in the treacherous world of organized crime and become a master of sabotage. Join forces with your fellow gangsters to carry out calculated acts of mayhem and disrupt the operations of rival gangs. From sabotaging illicit businesses to crippling their operations, leave a trail of chaos and seize control of the underworld. Employ cunning strategies, exploit weaknesses, and strike fear into the hearts of your enemies. As a ruthless mobster, you hold the power to undermine the very foundations of rival gangs and establish your dominance. Are you ready to unleash havoc and cement your place as a feared and respected figure in the criminal underworld?",
+    title: "Sabotage: Unleash Chaos and Disrupt the Order",
+  },
   dealer: {
     description:
       "Explore the clandestine world of the Dealer, where forbidden substances hold the key to unlocking hidden powers. Enhance your energy levels and gain a competitive edge through the purchase of potent drugs. But beware, as these substances come with the risk of addiction, leading to unforeseen consequences. Exercise caution as you navigate this treacherous path, balancing the benefits of increased energy with the dangers of spiraling into dependency. Are you ready to tread the thin line between power and peril?",

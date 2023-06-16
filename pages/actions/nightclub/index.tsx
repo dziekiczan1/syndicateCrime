@@ -1,13 +1,13 @@
-import DealerContent from "@/components/content/dealer/DealerContent";
+import NightclubContent from "@/components/content/nightclub/NightclubContent";
 import GameLayout from "@/components/layout/game/GameLayout";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 
-export default function DealerScreen() {
+export default function NightclubScreen() {
   return (
     <div className="h-screen no-scrollbar overflow-y-scroll">
       <GameLayout>
-        <DealerContent />
+        <NightclubContent />
       </GameLayout>
     </div>
   );

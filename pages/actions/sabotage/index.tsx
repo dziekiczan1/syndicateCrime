@@ -1,13 +1,13 @@
-import DealerContent from "@/components/content/dealer/DealerContent";
+import SabotageContent from "@/components/content/sabotage/SabotageContent";
 import GameLayout from "@/components/layout/game/GameLayout";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 
-export default function DealerScreen() {
+export default function SabotageScreen() {
   return (
     <div className="h-screen no-scrollbar overflow-y-scroll">
       <GameLayout>
-        <DealerContent />
+        <SabotageContent />
       </GameLayout>
     </div>
   );
