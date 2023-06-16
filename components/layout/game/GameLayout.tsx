@@ -34,7 +34,9 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
           <ActionsInterface />
         </div>
       </div>
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content}>
+        <div className={styles.contentContainer}>{children}</div>
+      </div>
     </div>
   );
 };

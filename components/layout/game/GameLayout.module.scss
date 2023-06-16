@@ -40,4 +40,10 @@
     background-color: $color-base-dark-50;
     margin-right: $size-16;
   }
+
+  .contentContainer {
+    width: $full-size;
+    height: $full-size;
+    padding: $size-32 $size-16;
+  }
 }
