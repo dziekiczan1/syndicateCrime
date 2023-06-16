@@ -31,5 +31,10 @@ const pageDescriptions: IPageDescriptions = {
       "Experience the thrill of high-stakes robberies. Plan, execute, and reap the rewards as you embark on daring heists in pursuit of wealth and notoriety. Test your skills, outsmart security systems, and leave your mark as a master thief. Are you ready to step into the world of crime and become a legend?",
     title: "Select a place for robbery",
   },
+  dealer: {
+    description:
+      "Explore the clandestine world of the Dealer, where forbidden substances hold the key to unlocking hidden powers. Enhance your energy levels and gain a competitive edge through the purchase of potent drugs. But beware, as these substances come with the risk of addiction, leading to unforeseen consequences. Exercise caution as you navigate this treacherous path, balancing the benefits of increased energy with the dangers of spiraling into dependency. Are you ready to tread the thin line between power and peril?",
+    title: " Elevate Your Performance, Accept the Risks",
+  },
 };
 export default pageDescriptions;
