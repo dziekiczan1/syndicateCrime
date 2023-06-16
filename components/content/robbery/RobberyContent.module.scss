@@ -1,18 +1,6 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  padding: $size-32 $size-16;
-  height: $full-size;
-  overflow: hidden;
-
-  .description {
-    margin-bottom: $size-32;
-  }
-
-  .title {
-    margin-bottom: $size-32;
-  }
-
   .loading {
     @include flexbox($justify-content: $center);
     width: $full-size;

@@ -1,18 +1,6 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  width: $full-size;
-  height: $full-size;
-  padding: $size-32 $size-16;
-
-  .description {
-    margin-bottom: $size-32;
-  }
-
-  .title {
-    margin-bottom: $size-32;
-  }
-
   .stats {
     @include flexbox($flex-wrap: wrap, $gap: $size-8);
     @include border($width: $size-2, $color: $color-base-orange, $side: left);

@@ -5,7 +5,7 @@ import pageDescriptions from "@/constants/pagedescriptions";
 import styles from "./HelpContent.module.scss";
 
 const HelpContent: React.FC = () => {
-  const { title, description } = pageDescriptions["help"];
+  const { title, description } = pageDescriptions.help;
 
   return (
     <div className={styles.container}>

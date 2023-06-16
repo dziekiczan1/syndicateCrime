@@ -1,10 +1,13 @@
 import Loading from "@/components/ui/loading/Loading";
+import PageHeader from "@/components/ui/pageheader/PageHeader";
+import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
 import { useSession } from "next-auth/react";
 import { useCallback, useContext, useEffect, useState } from "react";
 import styles from "./StatisticsContent.module.scss";
 
 const Statistics: React.FC = () => {
+  const { title, description } = pageDescriptions.statistics;
   const { data: session, status } = useSession();
   const { user } = useContext(UserContext);
   const [players, setPlayers] = useState<any[]>([]);
@@ -40,17 +43,7 @@ const Statistics: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.description}>
-        <p>
-          Unleash the power of statistics and dive into the world of competitive
-          gaming. Explore rankings, leaderboards, and player standings as you
-          witness the pursuit of excellence. Discover the secrets of success and
-          join the elite in their quest for glory. Are you ready to embrace the
-          challenge and make your mark among the top players? Step into the
-          realm of statistics and let the adventure unfold.
-        </p>
-      </div>
-      <h2 className={styles.title}>Player Rankings: Rise to the Top!</h2>
+      <PageHeader title={title} description={description} />
       {isLoading ? (
         <div className={styles.loading}>
           <Loading />

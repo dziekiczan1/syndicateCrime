@@ -1,6 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import Loading from "@/components/ui/loading/Loading";
+import PageHeader from "@/components/ui/pageheader/PageHeader";
+import pageDescriptions from "@/constants/pagedescriptions";
 import { Place } from "@/constants/places";
 import { calculatePlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
@@ -9,6 +11,7 @@ import styles from "./RobberyContent.module.scss";
 import RobberyResultInfo from "./RobberyResultInfo";
 
 const RobberyContent: React.FC = () => {
+  const { title, description } = pageDescriptions.robbery;
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [selectedPlaceInformation, setSelectedPlaceInformation] = useState<
     Place[]
@@ -73,16 +76,7 @@ const RobberyContent: React.FC = () => {
 
   return (
     <section className={styles.container}>
-      <div className={styles.description}>
-        <p>
-          Experience the thrill of high-stakes robberies. Plan, execute, and
-          reap the rewards as you embark on daring heists in pursuit of wealth
-          and notoriety. Test your skills, outsmart security systems, and leave
-          your mark as a master thief. Are you ready to step into the world of
-          crime and become a legend?
-        </p>
-      </div>
-      <h2 className={styles.title}>Select a place for robbery</h2>
+      <PageHeader title={title} description={description} />
       {isLoadingRobbery && (
         <div className={styles.loading}>
           <Loading />

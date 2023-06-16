@@ -2,14 +2,17 @@ import { useContext, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
+import PageHeader from "@/components/ui/pageheader/PageHeader";
 import Avatar from "@/components/user/avatar/Avatar";
 import StatsNode from "@/components/user/stats/StatsNode";
 import avatars from "@/constants/avatars";
+import pageDescriptions from "@/constants/pagedescriptions";
 import { getUserStatistics } from "@/constants/userstats";
 import UserContext from "@/store/user-context";
 import styles from "./ProfileContent.module.scss";
 
 const ProfileContent: React.FC = () => {
+  const { title, description } = pageDescriptions.profile;
   const { user, setUser } = useContext(UserContext);
   const [selectedAvatar, setSelectedAvatar] = useState(user!.avatar);
   const userStats = user?.defaultParams;
@@ -44,17 +47,7 @@ const ProfileContent: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.description}>
-        <p>
-          Explore the profile of an accomplished player and dive into their
-          gaming journey. Gain insights into their achievements, stats, and
-          progress as they conquer challenges and make their mark in the gaming
-          world. From epic victories to strategic triumphs, follow their path to
-          greatness. Are you ready to delve into the realm of gaming excellence
-          and discover what it takes to become a legend?
-        </p>
-      </div>
-      <h2 className={styles.title}>Player Profile: A Journey of Success</h2>
+      <PageHeader title={title} description={description} />
       {user && (
         <div className={styles.stats}>
           <div className={styles.params}>
