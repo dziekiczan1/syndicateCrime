@@ -29,46 +29,28 @@ export default async function handler(
 
     const updatedUser = { ...user };
     let totalCost = 0;
-    let totalEnergyPoints = 0;
-    let totalCharismaPoints = 0;
-    let totalStrengthPoints = 0;
-    let totalEndurancePoints = 0;
 
     for (const drug of drugs) {
-      const {
-        quantity,
-        cost,
-        energyPoints,
-        charismaPoints,
-        strengthPoints,
-        endurancePoints,
-      } = drug;
+      const { quantity, cost } = drug;
 
       const drugCost = calculateCost(cost, quantity);
       totalCost += drugCost;
 
-      if (energyPoints) {
-        const energyPointsToAdd = calculatePoints(energyPoints, quantity);
-        totalEnergyPoints += energyPointsToAdd;
-        updatedUser.defaultParams.energy += energyPointsToAdd;
-      }
+      type Stat = "energy" | "charisma" | "strength" | "endurance";
 
-      if (charismaPoints) {
-        const charismaPointsToAdd = calculatePoints(charismaPoints, quantity);
-        totalCharismaPoints += charismaPointsToAdd;
-        updatedUser.defaultParams.charisma += charismaPointsToAdd;
-      }
+      const statMappings: [Stat, keyof typeof drug][] = [
+        ["energy", "energyPoints"],
+        ["charisma", "charismaPoints"],
+        ["strength", "strengthPoints"],
+        ["endurance", "endurancePoints"],
+      ];
 
-      if (strengthPoints) {
-        const strengthPointsToAdd = calculatePoints(strengthPoints, quantity);
-        totalStrengthPoints += strengthPointsToAdd;
-        updatedUser.defaultParams.strength += strengthPointsToAdd;
-      }
-
-      if (endurancePoints) {
-        const endurancePointsToAdd = calculatePoints(endurancePoints, quantity);
-        totalEndurancePoints += endurancePointsToAdd;
-        updatedUser.defaultParams.endurance += endurancePointsToAdd;
+      for (const [stat, statProperty] of statMappings) {
+        const points = drug[statProperty];
+        if (points) {
+          const pointsToAdd = calculatePoints(points, quantity);
+          updatedUser.defaultParams[stat] += pointsToAdd;
+        }
       }
     }
 

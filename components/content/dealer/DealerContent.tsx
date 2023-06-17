@@ -1,37 +1,24 @@
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import { drugDetails, drugStatNames } from "@/constants/dealerdrugs";
 import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
 import { useContext, useState } from "react";
 import styles from "./DealerContent.module.scss";
 
-export interface DrugDetails {
-  cost: number;
-  energyPoints?: number;
-  charismaPoints?: number;
-  strengthPoints?: number;
-  endurancePoints?: number;
-}
-
 const DealerContent = () => {
   const { title, description } = pageDescriptions.dealer;
   const { setUser } = useContext(UserContext);
   const [quantities, setQuantities] = useState({
-    marijuana: 0,
-    cocaine: 0,
-    heroin: 0,
-    meth: 0,
-    lsd: 0,
+    Marijuana: 0,
+    Cocaine: 0,
+    Heroin: 0,
+    Meth: 0,
+    LSD: 0,
   });
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
   type Drug = keyof typeof quantities;
-
-  const drugDetails: { [key: string]: DrugDetails } = {
-    marijuana: { cost: 20, energyPoints: 10 },
-    cocaine: { cost: 50, charismaPoints: 20 },
-    heroin: { cost: 30, strengthPoints: 15, energyPoints: 10 },
-    meth: { cost: 100, energyPoints: 30 },
-    lsd: { cost: 940, energyPoints: 5, endurancePoints: 10 },
-  };
 
   const handleQuantityChange = (
     drug: Drug,
@@ -78,19 +65,26 @@ const DealerContent = () => {
         if (setUser) {
           setUser(updatedUser);
           setQuantities({
-            marijuana: 0,
-            cocaine: 0,
-            heroin: 0,
-            meth: 0,
-            lsd: 0,
+            Marijuana: 0,
+            Cocaine: 0,
+            Heroin: 0,
+            Meth: 0,
+            LSD: 0,
           });
         }
       } else {
         const errorData = await response.json();
-        console.error("Error updating stats:", errorData);
-        if (errorData && errorData.error) {
-          console.error("Error message:", errorData.error);
+        setErrorMessage(errorData.error);
+
+        if (timeoutId) {
+          clearTimeout(timeoutId);
         }
+
+        const newTimeoutId = window.setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+
+        setTimeoutId(newTimeoutId);
       }
     } catch (error: any) {
       console.error("Error updating stats:", error);
@@ -103,21 +97,37 @@ const DealerContent = () => {
   return (
     <div className={styles.container}>
       <PageHeader title={title} description={description} />
+      {errorMessage}
       <div>
         {Object.entries(quantities).map(([drug, quantity]) => (
           <div key={drug}>
             <span>{drug}</span>
-            <button
-              onClick={() => handleQuantityChange(drug as Drug, "decrease")}
-            >
-              -
-            </button>
-            <input type="number" value={quantity} readOnly />
-            <button
-              onClick={() => handleQuantityChange(drug as Drug, "increase")}
-            >
-              +
-            </button>
+            {Object.entries(drugDetails[drug]).map(([stat, value]) => (
+              <div key={stat}>
+                <span>{drugStatNames[stat]}</span>
+                <span>{value}</span>
+              </div>
+            ))}
+            <div className={styles.inputContainer}>
+              <button
+                onClick={() => handleQuantityChange(drug as Drug, "decrease")}
+                className={styles.minusBtn}
+              >
+                -
+              </button>
+              <input
+                type="text"
+                value={quantity}
+                readOnly
+                className={styles.input}
+              />
+              <button
+                onClick={() => handleQuantityChange(drug as Drug, "increase")}
+                className={styles.plusBtn}
+              >
+                +
+              </button>
+            </div>
           </div>
         ))}
         <button onClick={handleBuy}>Buy</button>

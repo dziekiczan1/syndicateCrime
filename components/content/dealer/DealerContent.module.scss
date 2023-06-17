@@ -1,5 +1,39 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  color: $color-base-light;
+  .inputContainer {
+    display: flex;
+    align-items: center;
+  }
+  .input {
+    @include border($color: $color-base-orange, $side: top);
+    @include border($color: $color-base-orange, $side: bottom);
+    background-color: $color-base-dark;
+    color: $color-base-light;
+    text-align: $center;
+    border-radius: $null;
+    margin: $null;
+    padding: $null;
+    height: $size-32;
+    width: $size-64;
+  }
+
+  .minusBtn,
+  .plusBtn {
+    @include border($color: $color-base-orange);
+    background-color: $color-base-dark;
+    height: $full-size;
+    padding: $size-8;
+    height: $size-32;
+  }
+
+  .minusBtn {
+    border-radius: $size-4 $null $null $size-4;
+    border-right: none;
+  }
+
+  .plusBtn {
+    border-radius: $null $size-4 $size-4 $null;
+    border-left: none;
+  }
 }
