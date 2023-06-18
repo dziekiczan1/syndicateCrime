@@ -1,0 +1,27 @@
+@import "../../../styles/_variables.scss";
+
+.drugImage {
+  @include flexbox($justify-content: $center, $align-items: $center);
+  @include border($color: $color-base-orange);
+  background-color: $color-base-dark-200;
+  border-radius: $size-8;
+  box-shadow: $shadow;
+  padding: $size-4;
+  width: 90px;
+  height: 90px;
+}
+
+.drugInformation {
+  flex: 1;
+  padding: $null $size-12;
+
+  .drugName {
+    font-weight: $font-weight-bold;
+    color: $color-base-orange;
+    margin-bottom: $size-8;
+  }
+
+  .drugStats {
+    @include font-size($size-12);
+  }
+}

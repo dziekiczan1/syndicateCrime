@@ -1,12 +1,14 @@
-import Image from "next/image";
 import { useContext, useState } from "react";
 
+import Button from "@/components/ui/button/Button";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import { drugDetails, drugStatNames } from "@/constants/dealerdrugs";
+import { drugDetails } from "@/constants/dealerdrugs";
 import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
 import styles from "./DealerContent.module.scss";
+import DrugInformation from "./DrugInformation";
+import QuantityInput from "./QuantityInput";
 
 const DealerContent = () => {
   const { title, description } = pageDescriptions.dealer;
@@ -115,49 +117,19 @@ const DealerContent = () => {
       <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (
           <div key={drug} className={styles.drugContent}>
-            <div className={styles.drugImage}>
-              <Image
-                src={`/assets/dealer/${drug}.webp`}
-                width={65}
-                height={65}
-                alt={drug}
-              />
-            </div>
-            <div className={styles.drugInformation}>
-              <p className={styles.drugName}>{drug}</p>
-              {Object.entries(drugDetails[drug]).map(([stat, value]) => (
-                <div key={stat}>
-                  <p className={styles.drugStats}>
-                    {drugStatNames[stat]}
-                    {stat === "cost" && <span>$</span>}
-                    <span>{value}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className={styles.inputContainer}>
-              <button
-                onClick={() => handleQuantityChange(drug as Drug, "decrease")}
-                className={styles.minusBtn}
-              >
-                -
-              </button>
-              <input
-                type="text"
-                value={quantity}
-                readOnly
-                className={styles.input}
-              />
-              <button
-                onClick={() => handleQuantityChange(drug as Drug, "increase")}
-                className={styles.plusBtn}
-              >
-                +
-              </button>
-            </div>
+            <DrugInformation drug={drug} />
+            <QuantityInput
+              drug={drug}
+              quantity={quantity}
+              handleQuantityChange={handleQuantityChange}
+            />
           </div>
         ))}
-        <button onClick={handleBuy}>Buy</button>
+        <div className={styles.action}>
+          <Button onClick={handleBuy} fullSize secondary>
+            Fuel your desires!
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,40 @@
+@import "../../../styles/_variables.scss";
+
+.inputContainer {
+  @include flexbox($align-items: $center);
+  margin-right: $size-32;
+
+  .input {
+    @include border($color: $color-base-orange, $side: top);
+    @include border($color: $color-base-orange, $side: bottom);
+    background-color: $color-base-dark;
+    color: $color-base-light;
+    text-align: $center;
+    border-radius: $null;
+    margin: $null;
+    padding: $null;
+    height: $size-48;
+    width: $size-32;
+  }
+
+  .minusBtn,
+  .plusBtn {
+    @include border($color: $color-base-orange);
+    background-color: $color-base-dark;
+    height: $size-48;
+    padding: $null $size-8;
+    svg {
+      fill: $color-base-orange;
+    }
+  }
+
+  .minusBtn {
+    border-radius: $size-4 $null $null $size-4;
+    border-right: none;
+  }
+
+  .plusBtn {
+    border-radius: $null $size-4 $size-4 $null;
+    border-left: none;
+  }
+}
