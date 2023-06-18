@@ -1,8 +1,11 @@
+import Image from "next/image";
+import { useContext, useState } from "react";
+
+import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { drugDetails, drugStatNames } from "@/constants/dealerdrugs";
 import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
-import { useContext, useState } from "react";
 import styles from "./DealerContent.module.scss";
 
 const DealerContent = () => {
@@ -17,6 +20,7 @@ const DealerContent = () => {
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [isLoadingRobbery, setIsLoadingRobbery] = useState(false);
 
   type Drug = keyof typeof quantities;
 
@@ -52,6 +56,7 @@ const DealerContent = () => {
     };
 
     try {
+      setIsLoadingRobbery(true);
       const response = await fetch("/api/user/buyDrugs", {
         method: "POST",
         body: JSON.stringify(requestData),
@@ -72,6 +77,7 @@ const DealerContent = () => {
             LSD: 0,
           });
         }
+        setIsLoadingRobbery(false);
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.error);
@@ -82,32 +88,53 @@ const DealerContent = () => {
 
         const newTimeoutId = window.setTimeout(() => {
           setErrorMessage(null);
-        }, 5000);
+        }, 3000);
 
         setTimeoutId(newTimeoutId);
+        setIsLoadingRobbery(false);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error updating stats:", error);
-      if (error && error.error) {
-        console.error("Error message:", error.error);
-      }
+      setIsLoadingRobbery(false);
     }
   };
 
   return (
     <div className={styles.container}>
       <PageHeader title={title} description={description} />
-      {errorMessage}
-      <div>
+      {isLoadingRobbery && (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
+      )}
+      {errorMessage && (
+        <div className={styles.error}>
+          <p>{errorMessage}</p>
+        </div>
+      )}
+      <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (
-          <div key={drug}>
-            <span>{drug}</span>
-            {Object.entries(drugDetails[drug]).map(([stat, value]) => (
-              <div key={stat}>
-                <span>{drugStatNames[stat]}</span>
-                <span>{value}</span>
-              </div>
-            ))}
+          <div key={drug} className={styles.drugContent}>
+            <div className={styles.drugImage}>
+              <Image
+                src={`/assets/dealer/${drug}.webp`}
+                width={65}
+                height={65}
+                alt={drug}
+              />
+            </div>
+            <div className={styles.drugInformation}>
+              <p className={styles.drugName}>{drug}</p>
+              {Object.entries(drugDetails[drug]).map(([stat, value]) => (
+                <div key={stat}>
+                  <p className={styles.drugStats}>
+                    {drugStatNames[stat]}
+                    {stat === "cost" && <span>$</span>}
+                    <span>{value}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
             <div className={styles.inputContainer}>
               <button
                 onClick={() => handleQuantityChange(drug as Drug, "decrease")}

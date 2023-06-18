@@ -3,6 +3,12 @@ import { StaticImageData } from "next/image";
 import loginBackground from "../public/assets/background/login.webp";
 import logoDesktop from "../public/assets/logo/desktop.webp";
 
+import cocaine from "../public/assets/dealer/Cocaine.png";
+import heroin from "../public/assets/dealer/Heroin.png";
+import lsd from "../public/assets/dealer/LSD.png";
+import marijuana from "../public/assets/dealer/Marijuana.png";
+import meth from "../public/assets/dealer/Meth.png";
+
 import avatar1 from "../public/assets/avatars/av1.webp";
 import avatar10 from "../public/assets/avatars/av10.webp";
 import avatar11 from "../public/assets/avatars/av11.webp";
@@ -31,6 +37,11 @@ export interface IImages {
 const images: IImages = {
   loginBackground,
   logoDesktop,
+  marijuana,
+  cocaine,
+  heroin,
+  meth,
+  lsd,
   avatar1,
   avatar2,
   avatar3,
