@@ -3,11 +3,11 @@ import { StaticImageData } from "next/image";
 import loginBackground from "../public/assets/background/login.webp";
 import logoDesktop from "../public/assets/logo/desktop.webp";
 
-import cocaine from "../public/assets/dealer/Cocaine.png";
-import heroin from "../public/assets/dealer/Heroin.png";
-import lsd from "../public/assets/dealer/LSD.png";
-import marijuana from "../public/assets/dealer/Marijuana.png";
-import meth from "../public/assets/dealer/Meth.png";
+import cocaine from "../public/assets/dealer/Cocaine.webp";
+import heroin from "../public/assets/dealer/Heroin.webp";
+import lsd from "../public/assets/dealer/LSD.webp";
+import marijuana from "../public/assets/dealer/Marijuana.webp";
+import meth from "../public/assets/dealer/Meth.webp";
 
 import avatar1 from "../public/assets/avatars/av1.webp";
 import avatar10 from "../public/assets/avatars/av10.webp";
