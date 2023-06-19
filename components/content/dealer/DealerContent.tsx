@@ -6,6 +6,7 @@ import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { drugDetails } from "@/constants/dealerdrugs";
 import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
+import { motion } from "framer-motion";
 import styles from "./DealerContent.module.scss";
 import DrugInformation from "./DrugInformation";
 import QuantityInput from "./QuantityInput";
@@ -110,9 +111,14 @@ const DealerContent = () => {
         </div>
       )}
       {errorMessage && (
-        <div className={styles.error}>
+        <motion.div
+          className={styles.error}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <p>{errorMessage}</p>
-        </div>
+        </motion.div>
       )}
       <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (

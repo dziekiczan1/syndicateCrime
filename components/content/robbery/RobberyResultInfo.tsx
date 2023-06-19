@@ -1,19 +1,19 @@
+import { motion } from "framer-motion";
 import styles from "./RobberyResultInfo.module.scss";
 
 interface IProps {
   userLastRobbery: any;
-  animateRobberyResult: boolean;
 }
 
-const RobberyResultInfo: React.FC<IProps> = ({
-  userLastRobbery,
-  animateRobberyResult,
-}) => {
+const RobberyResultInfo: React.FC<IProps> = ({ userLastRobbery }) => {
   return (
-    <div
+    <motion.div
       className={`${styles.robberyResultInfo} ${
         !userLastRobbery.robberySuccessfull && styles.robberryFailed
-      } ${animateRobberyResult && styles.robberyResultInfoShow}`}
+      }`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
     >
       {userLastRobbery.robberyMoney ? (
         <>
@@ -51,7 +51,7 @@ const RobberyResultInfo: React.FC<IProps> = ({
       ) : (
         <p className={styles.messageFailed}>{userLastRobbery.message}</p>
       )}
-    </div>
+    </motion.div>
   );
 };
 

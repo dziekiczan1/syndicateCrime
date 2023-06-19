@@ -16,7 +16,6 @@
     margin-bottom: $size-32;
     min-height: $size-32;
     background-color: $color-base-dark;
-    animation: slideIn 0.5s ease-in-out;
   }
 
   .drugsContainer {
@@ -32,16 +31,5 @@
 
   .action {
     margin-top: $size-16;
-  }
-}
-
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0%);
   }
 }

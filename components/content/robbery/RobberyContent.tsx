@@ -20,7 +20,6 @@ const RobberyContent: React.FC = () => {
     boolean | null
   >(null);
   const [userLastRobbery, setUserLastRobbery] = useState<any>(null);
-  const [animateRobberyResult, setAnimateRobberyResult] = useState(false);
   const [isLoadingRobbery, setIsLoadingRobbery] = useState(false);
 
   const timeoutRef = useRef<number | null>(null);
@@ -60,11 +59,9 @@ const RobberyContent: React.FC = () => {
           }
 
           setUserLastRobbery(updatedUser.lastRobbery);
-          setAnimateRobberyResult(true);
 
           timeoutRef.current = window.setTimeout(() => {
             setIsRobberySuccessfull(null);
-            setAnimateRobberyResult(false);
           }, 10000);
         }
       } catch (error) {
@@ -77,16 +74,14 @@ const RobberyContent: React.FC = () => {
   return (
     <section className={styles.container}>
       <PageHeader title={title} description={description} />
-      {isLoadingRobbery && (
+      {isLoadingRobbery ? (
         <div className={styles.loading}>
           <Loading />
         </div>
-      )}
-      {isRobberySuccessfull && (
-        <RobberyResultInfo
-          userLastRobbery={userLastRobbery}
-          animateRobberyResult={animateRobberyResult}
-        />
+      ) : (
+        isRobberySuccessfull && (
+          <RobberyResultInfo userLastRobbery={userLastRobbery} />
+        )
       )}
       <div className={styles.robberyContainer}>
         {selectedPlaceInformation.map((place, index) => (
