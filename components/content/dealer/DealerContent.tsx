@@ -16,8 +16,8 @@ const DealerContent = () => {
   const { setUser } = useContext(UserContext);
   const [quantities, setQuantities] = useState({
     Marijuana: 0,
-    Cocaine: 0,
     Heroin: 0,
+    Cocaine: 0,
     Meth: 0,
     LSD: 0,
   });
@@ -74,8 +74,8 @@ const DealerContent = () => {
           setUser(updatedUser);
           setQuantities({
             Marijuana: 0,
-            Cocaine: 0,
             Heroin: 0,
+            Cocaine: 0,
             Meth: 0,
             LSD: 0,
           });

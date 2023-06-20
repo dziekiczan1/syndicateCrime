@@ -26,6 +26,7 @@ const DrugInformation: React.FC<IDrugInformation> = ({ drug }) => {
               {drugStatNames[stat]}
               {stat === "cost" && <span>$</span>}
               <span>{value}</span>
+              {stat === "addictionPoints" && <span>%</span>}
             </p>
           </div>
         ))}

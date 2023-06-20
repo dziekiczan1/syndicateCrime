@@ -36,13 +36,23 @@ export default async function handler(
       const drugCost = calculateCost(cost, quantity);
       totalCost += drugCost;
 
-      type Stat = "energy" | "charisma" | "strength" | "endurance";
+      type Stat =
+        | "energy"
+        | "charisma"
+        | "strength"
+        | "endurance"
+        | "intelligence"
+        | "respect"
+        | "addiction";
 
       const statMappings: [Stat, keyof typeof drug][] = [
         ["energy", "energyPoints"],
         ["charisma", "charismaPoints"],
         ["strength", "strengthPoints"],
         ["endurance", "endurancePoints"],
+        ["intelligence", "intelligencePoints"],
+        ["respect", "respectPoints"],
+        ["addiction", "addictionPoints"],
       ];
 
       for (const [stat, statProperty] of statMappings) {
