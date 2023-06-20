@@ -49,7 +49,16 @@ export default async function handler(
         const points = drug[statProperty];
         if (points) {
           const pointsToAdd = calculatePoints(points, quantity);
-          updatedUser.defaultParams[stat] += pointsToAdd;
+
+          if (stat === "energy") {
+            const updatedPoints = Math.min(
+              updatedUser.defaultParams[stat] + pointsToAdd,
+              100
+            );
+            updatedUser.defaultParams[stat] = updatedPoints;
+          } else {
+            updatedUser.defaultParams[stat] += pointsToAdd;
+          }
         }
       }
     }
