@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 
 import Button from "@/components/ui/button/Button";
+import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { drugDetails } from "@/constants/dealerdrugs";
 import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
-import { motion } from "framer-motion";
 import styles from "./DealerContent.module.scss";
 import DrugInformation from "./DrugInformation";
 import QuantityInput from "./QuantityInput";
@@ -110,16 +110,7 @@ const DealerContent = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && (
-        <motion.div
-          className={styles.error}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p>{errorMessage}</p>
-        </motion.div>
-      )}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (
           <div key={drug} className={styles.drugContent}>

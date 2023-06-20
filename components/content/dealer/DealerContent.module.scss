@@ -8,16 +8,6 @@
     padding-right: $size-8;
   }
 
-  .error {
-    @include flexbox();
-    @include border($size-4, solid, $color-base-red, left);
-    color: $color-base-red-500;
-    padding: $size-4 $size-8;
-    margin-bottom: $size-32;
-    min-height: $size-32;
-    background-color: $color-base-dark;
-  }
-
   .drugsContainer {
     @include flexbox($flex-direction: column, $gap: $size-16);
   }
