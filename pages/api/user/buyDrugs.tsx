@@ -60,7 +60,7 @@ export default async function handler(
         if (points) {
           const pointsToAdd = calculatePoints(points, quantity);
 
-          if (stat === "energy") {
+          if (stat === "energy" || stat === "addiction") {
             const updatedPoints = Math.min(
               updatedUser.defaultParams[stat] + pointsToAdd,
               100
