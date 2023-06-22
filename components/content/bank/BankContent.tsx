@@ -3,7 +3,7 @@ import pageDescriptions from "@/constants/pagedescriptions";
 import styles from "./BankContent.module.scss";
 
 const BankContent: React.FC = () => {
-  const { title, description } = pageDescriptions.sabotage;
+  const { title, description } = pageDescriptions.bank;
 
   return (
     <div className={styles.container}>

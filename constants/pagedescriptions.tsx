@@ -51,5 +51,10 @@ const pageDescriptions: IPageDescriptions = {
       "Explore the clandestine world of the Dealer, where forbidden substances hold the key to unlocking hidden powers. Enhance your energy levels and gain a competitive edge through the purchase of potent drugs. But beware, as these substances come with the risk of addiction, leading to unforeseen consequences. Exercise caution as you navigate this treacherous path, balancing the benefits of increased energy with the dangers of spiraling into dependency. Are you ready to tread the thin line between power and peril?",
     title: " Elevate Your Performance, Accept the Risks",
   },
+  bank: {
+    description:
+      "Securely manage your hard-earned savings at the Bank. With state-of-the-art security measures and expert financial services, the Bank offers you a reliable and convenient way to stash or withdraw your funds. Whether you're looking to protect your wealth or make strategic investments, the Bank is your trusted partner. Take control of your financial future and let us help you make the most of your hard-earned savings. Discover the benefits of secure, reliable, and convenient banking at the Bank today. Join the millions of satisfied customers who have chosen the Bank as their trusted financial partner.",
+    title: "Manage Your Wealth with Confidence",
+  },
 };
 export default pageDescriptions;
