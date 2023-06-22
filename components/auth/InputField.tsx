@@ -1,5 +1,6 @@
 import { ChangeEvent, ReactNode } from "react";
 
+import { FieldError } from "react-hook-form";
 import styles from "./AuthForm.module.scss";
 
 export interface IInputProps {
@@ -12,7 +13,7 @@ export interface IInputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   register?: any;
   checked?: boolean;
-  error?: string | undefined;
+  error?: string | undefined | FieldError;
   children?: ReactNode;
   checkbox?: boolean;
 }
@@ -70,7 +71,11 @@ const InputField: React.FC<IInputProps> = ({
           </>
         )}
       </label>
-      {error && <p className={styles.message}>{error}</p>}
+      {error && (
+        <p className={styles.message}>
+          {typeof error === "object" ? error.message : error}
+        </p>
+      )}
     </>
   );
 };
