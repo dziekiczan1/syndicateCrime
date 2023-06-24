@@ -3,7 +3,7 @@ import pageDescriptions from "@/constants/pagedescriptions";
 import styles from "./PrisonContent.module.scss";
 
 const PrisonContent: React.FC = () => {
-  const { title, description } = pageDescriptions.sabotage;
+  const { title, description } = pageDescriptions.prison;
 
   return (
     <div className={styles.container}>
