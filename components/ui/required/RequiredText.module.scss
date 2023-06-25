@@ -1,0 +1,15 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  color: $color-base-light;
+
+  .text {
+    @include font-size($size-10);
+
+    &::before {
+      content: "*";
+      color: $color-base-orange;
+      margin-right: $size-2;
+    }
+  }
+}

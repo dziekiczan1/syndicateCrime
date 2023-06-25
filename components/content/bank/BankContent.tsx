@@ -3,6 +3,7 @@ import Button from "@/components/ui/button/Button";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import RequiredText from "@/components/ui/required/RequiredText";
 import pageDescriptions from "@/constants/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
@@ -114,6 +115,7 @@ const BankContent: React.FC = () => {
             register={register("bankmoney", validationRules.bankmoney)}
             required
           />
+          <RequiredText text="Keep in mind that each transactions costs you 2% of energy" />
           <div className={styles.actions}>
             <Button onClick={switchBankActionHandler}>
               {isStash ? "I want to withdraw" : "I want to stash"}
