@@ -31,10 +31,16 @@ export default async function handler(
 
     const { action, bankmoney } = req.body.requestData;
     const amount = Number(bankmoney);
+    const energyCost = 2;
+
+    if (user.defaultParams.energy < energyCost) {
+      return res.status(400).json({ error: "Not enough energy" });
+    }
 
     if (action === "stash") {
       if (user.defaultParams.money >= amount) {
         user.defaultParams.money -= amount;
+        user.defaultParams.energy -= energyCost;
         user.bank = user.bank || 0;
         user.bank += amount;
       } else {
@@ -43,6 +49,7 @@ export default async function handler(
     } else if (action === "withdraw") {
       if (user.bank && user.bank >= amount) {
         user.bank -= amount;
+        user.defaultParams.energy -= energyCost;
         user.defaultParams.money += amount;
       } else {
         return res.status(400).json({ error: "Invalid withdrawal amount" });

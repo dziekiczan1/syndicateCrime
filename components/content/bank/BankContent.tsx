@@ -115,7 +115,7 @@ const BankContent: React.FC = () => {
             register={register("bankmoney", validationRules.bankmoney)}
             required
           />
-          <RequiredText text="Keep in mind that each transactions costs you 2% of energy" />
+          <RequiredText text="Please note that each transaction incurs an energy cost of 2%" />
           <div className={styles.actions}>
             <Button onClick={switchBankActionHandler}>
               {isStash ? "I want to withdraw" : "I want to stash"}
