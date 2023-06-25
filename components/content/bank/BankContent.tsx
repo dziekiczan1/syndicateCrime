@@ -112,6 +112,7 @@ const BankContent: React.FC = () => {
               isStash ? "Stash Your Savings" : "Withdraw Your Savings"
             }
             register={register("bankmoney", validationRules.bankmoney)}
+            required
           />
           <div className={styles.actions}>
             <Button onClick={switchBankActionHandler}>

@@ -1,6 +1,13 @@
 @import "../../../styles/_variables.scss";
 
 .container {
+  label {
+    span {
+      color: $color-base-orange;
+      margin-left: $size-2;
+    }
+  }
+
   .loading {
     @include flexbox($justify-content: $center);
     width: $full-size;

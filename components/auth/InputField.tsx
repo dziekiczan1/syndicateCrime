@@ -16,6 +16,7 @@ export interface IInputProps {
   error?: string | undefined | FieldError;
   children?: ReactNode;
   checkbox?: boolean;
+  required?: boolean;
 }
 
 const InputField: React.FC<IInputProps> = ({
@@ -31,6 +32,7 @@ const InputField: React.FC<IInputProps> = ({
   error,
   children,
   checkbox,
+  required,
 }) => {
   const inputProps = {
     type,
@@ -63,6 +65,7 @@ const InputField: React.FC<IInputProps> = ({
         ) : (
           <>
             {label}
+            {required && <span>*</span>}
             <input
               {...inputProps}
               className={styles.input}
