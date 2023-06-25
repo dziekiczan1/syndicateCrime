@@ -19,6 +19,7 @@ export interface IUser {
     charisma: number;
     money: number;
   };
+  bank?: number;
 }
 
 export interface IUserContextType {

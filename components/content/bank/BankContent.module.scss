@@ -1,5 +1,16 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  color: $color-base-light;
+  .message {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    color: $color-base-red-500;
+    margin-bottom: $size-16;
+  }
+
+  .actions {
+    @include flexbox($justify-content: space-between, $gap: $size-32);
+    button {
+      flex-basis: $half-size;
+    }
+  }
 }
