@@ -7,6 +7,20 @@
     margin-bottom: $size-16;
   }
 
+  .savings {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    margin-bottom: $size-32;
+
+    h4 {
+      font-weight: $font-weight-normal;
+    }
+
+    span {
+      font-weight: $font-weight-bold;
+      color: $color-base-orange;
+    }
+  }
+
   .actions {
     @include flexbox($justify-content: space-between, $gap: $size-32);
     button {
