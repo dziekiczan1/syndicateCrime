@@ -4,6 +4,7 @@ import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/pagedescriptions";
+import { handleErrorResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import { useContext, useState } from "react";
 import { FieldError, useForm } from "react-hook-form";
@@ -67,19 +68,13 @@ const BankContent: React.FC = () => {
         setIsLoadingRobbery(false);
         reset();
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.error);
-
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
-
-        const newTimeoutId = window.setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-
-        setTimeoutId(newTimeoutId);
-        setIsLoadingRobbery(false);
+        await handleErrorResponse(
+          response,
+          setErrorMessage,
+          timeoutId,
+          setTimeoutId,
+          setIsLoadingRobbery
+        );
       }
     } catch (error) {
       console.error("Error processing bank action.", error);
