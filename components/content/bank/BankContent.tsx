@@ -1,5 +1,7 @@
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
+import ErrorMessage from "@/components/ui/error/ErrorMessage";
+import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/pagedescriptions";
 import UserContext from "@/store/user-context";
@@ -11,10 +13,14 @@ const BankContent: React.FC = () => {
   const { title, description } = pageDescriptions.bank;
   const { user, setUser } = useContext(UserContext);
   const [isStash, setIsStash] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [isLoadingRobbery, setIsLoadingRobbery] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const userSavings = user && user.bank;
 
@@ -44,6 +50,7 @@ const BankContent: React.FC = () => {
     };
 
     try {
+      setIsLoadingRobbery(true);
       const response = await fetch("/api/user/bankActions", {
         method: "POST",
         body: JSON.stringify({
@@ -57,16 +64,38 @@ const BankContent: React.FC = () => {
       if (setUser && response.ok) {
         const updatedUser = await response.json();
         setUser(updatedUser);
+        setIsLoadingRobbery(false);
+        reset();
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.error);
+
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+
+        const newTimeoutId = window.setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+
+        setTimeoutId(newTimeoutId);
+        setIsLoadingRobbery(false);
       }
     } catch (error) {
       console.error("Error processing bank action.", error);
+      setIsLoadingRobbery(false);
     }
-    return null;
   };
 
   return (
     <div className={styles.container}>
       <PageHeader title={title} description={description} />
+      {isLoadingRobbery && (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
+      )}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       <div className={styles.savings}>
         {userSavings ? (
           <h4>

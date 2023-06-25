@@ -91,7 +91,7 @@ const DealerContent = () => {
 
         const newTimeoutId = window.setTimeout(() => {
           setErrorMessage(null);
-        }, 3000);
+        }, 5000);
 
         setTimeoutId(newTimeoutId);
         setIsLoadingRobbery(false);
