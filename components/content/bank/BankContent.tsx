@@ -4,7 +4,7 @@ import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/pagedescriptions";
-import { handleErrorResponse } from "@/lib/responses";
+import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import { useContext, useState } from "react";
 import { FieldError, useForm } from "react-hook-form";
@@ -63,9 +63,7 @@ const BankContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        const updatedUser = await response.json();
-        setUser(updatedUser);
-        setIsLoadingRobbery(false);
+        await handlePositiveResponse(response, setUser, setIsLoadingRobbery);
         reset();
       } else {
         await handleErrorResponse(

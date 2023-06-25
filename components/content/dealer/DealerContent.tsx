@@ -6,7 +6,7 @@ import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { drugDetails } from "@/constants/dealerdrugs";
 import pageDescriptions from "@/constants/pagedescriptions";
-import { handleErrorResponse } from "@/lib/responses";
+import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import styles from "./DealerContent.module.scss";
 import DrugInformation from "./DrugInformation";
@@ -69,19 +69,15 @@ const DealerContent = () => {
         },
       });
 
-      if (response.ok) {
-        const updatedUser = await response.json();
-        if (setUser) {
-          setUser(updatedUser);
-          setQuantities({
-            Marijuana: 0,
-            Heroin: 0,
-            Cocaine: 0,
-            Meth: 0,
-            LSD: 0,
-          });
-        }
-        setIsLoadingRobbery(false);
+      if (setUser && response.ok) {
+        await handlePositiveResponse(response, setUser, setIsLoadingRobbery);
+        setQuantities({
+          Marijuana: 0,
+          Heroin: 0,
+          Cocaine: 0,
+          Meth: 0,
+          LSD: 0,
+        });
       } else {
         await handleErrorResponse(
           response,
