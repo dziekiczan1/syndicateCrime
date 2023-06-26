@@ -36,6 +36,12 @@ export default function UserContextProvider({
   useEffect(() => {
     const socket = new w3cwebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
 
+    socket.onopen = () => {
+      if (status === "authenticated" && session && user) {
+        socket.send(JSON.stringify({ type: "init", userId: user._id }));
+      }
+    };
+
     socket.onmessage = (event) => {
       const userData = JSON.parse(event.data.toString());
       setUser(userData.payload);
@@ -44,7 +50,7 @@ export default function UserContextProvider({
     return () => {
       socket.close();
     };
-  }, []);
+  }, [status, session, user]);
 
   useEffect(() => {
     if (status === "authenticated" && session && !user) {
