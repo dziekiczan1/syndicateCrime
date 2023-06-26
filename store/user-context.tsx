@@ -20,6 +20,7 @@ export interface IUser {
     money: number;
   };
   bank?: number;
+  prison?: object;
 }
 
 export interface IUserContextType {

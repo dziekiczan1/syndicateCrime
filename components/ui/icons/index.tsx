@@ -13,6 +13,7 @@ export { default as CreditIcon } from "./CreditIcon";
 export { default as DealerIcon } from "./DealerIcon";
 export { default as DistrictsIcon } from "./DistrictsIcon";
 export { default as EnduranceIcon } from "./EnduranceIcon";
+export { default as Freedom } from "./Freedom";
 export { default as GangIcon } from "./GangIcon";
 export { default as HelpIcon } from "./HelpIcon";
 export { default as HomeIcon } from "./HomeIcon";
