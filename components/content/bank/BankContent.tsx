@@ -17,7 +17,7 @@ const BankContent: React.FC = () => {
   const [isStash, setIsStash] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [isLoadingRobbery, setIsLoadingRobbery] = useState(false);
+  const [isLoadingBank, setIsLoadingBank] = useState(false);
   const {
     register,
     handleSubmit,
@@ -52,7 +52,7 @@ const BankContent: React.FC = () => {
     };
 
     try {
-      setIsLoadingRobbery(true);
+      setIsLoadingBank(true);
       const response = await fetch("/api/user/bankActions", {
         method: "POST",
         body: JSON.stringify({
@@ -64,7 +64,7 @@ const BankContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingRobbery);
+        await handlePositiveResponse(response, setUser, setIsLoadingBank);
         reset();
       } else {
         await handleErrorResponse(
@@ -72,19 +72,19 @@ const BankContent: React.FC = () => {
           setErrorMessage,
           timeoutId,
           setTimeoutId,
-          setIsLoadingRobbery
+          setIsLoadingBank
         );
       }
     } catch (error) {
       console.error("Error processing bank action.", error);
-      setIsLoadingRobbery(false);
+      setIsLoadingBank(false);
     }
   };
 
   return (
     <div className={styles.container}>
       <PageHeader title={title} description={description} />
-      {isLoadingRobbery && (
+      {isLoadingBank && (
         <div className={styles.loading}>
           <Loading />
         </div>

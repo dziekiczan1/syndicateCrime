@@ -3,6 +3,13 @@
 .container {
   color: $color-base-light;
 
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
+    padding-right: $size-8;
+  }
+
   .freedom {
     @include flexbox(
       $flex-direction: column,
@@ -13,6 +20,43 @@
     svg {
       fill: $color-base-green-500;
       margin-bottom: $size-32;
+    }
+  }
+
+  .methodContainer {
+    @include flexbox($flex-direction: column, $gap: $size-16);
+  }
+
+  .methodsContent {
+    @include flexbox($justify-content: space-between);
+    @include border($size-2, solid, $color-base-dark-200, bottom);
+    padding: $size-8;
+    background-color: $color-base-dark;
+  }
+
+  .methodImage {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    @include border($color: $color-base-orange);
+    background-color: $color-base-dark-200;
+    border-radius: $size-8;
+    box-shadow: $shadow;
+    padding: $size-4;
+    width: 90px;
+    height: 90px;
+  }
+
+  .methodInformation {
+    flex: 1;
+    padding: $null $size-12;
+
+    .methodName {
+      font-weight: $font-weight-bold;
+      color: $color-base-orange;
+      margin-bottom: $size-8;
+    }
+
+    .methodStats {
+      @include font-size($size-12);
     }
   }
 }

@@ -9,6 +9,9 @@ import lsd from "../public/assets/dealer/LSD.webp";
 import marijuana from "../public/assets/dealer/Marijuana.webp";
 import meth from "../public/assets/dealer/Meth.webp";
 
+import bailout from "../public/assets/prison/bailout.webp";
+import escape from "../public/assets/prison/escape.webp";
+
 import avatar1 from "../public/assets/avatars/av1.webp";
 import avatar10 from "../public/assets/avatars/av10.webp";
 import avatar11 from "../public/assets/avatars/av11.webp";
@@ -42,6 +45,8 @@ const images: IImages = {
   heroin,
   meth,
   lsd,
+  escape,
+  bailout,
   avatar1,
   avatar2,
   avatar3,
