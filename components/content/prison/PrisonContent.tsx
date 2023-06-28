@@ -1,14 +1,14 @@
-import Image from "next/image";
 import { useContext, useState } from "react";
 
-import Button from "@/components/ui/button/Button";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import { Freedom, Icon } from "@/components/ui/icons";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/pagedescriptions";
+import { prisonActions } from "@/constants/prisonactions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
+import PrisonAction from "./PrisonAction";
 import styles from "./PrisonContent.module.scss";
 
 const PrisonContent: React.FC = () => {
@@ -18,7 +18,7 @@ const PrisonContent: React.FC = () => {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingPrison, setIsLoadingPrison] = useState(false);
 
-  const handleAction = async (action: string) => {
+  const handleAction = async (action: (() => void) | string) => {
     try {
       setIsLoadingPrison(true);
       const response = await fetch("/api/user/prisonActions", {
@@ -66,33 +66,21 @@ const PrisonContent: React.FC = () => {
           <p>You are a free person...</p>
         </div>
       )}
-      {user && !user.prison && (
-        <div className={styles.actions}>
-          <Button onClick={() => handleAction("escape")}>Escape</Button>
-          <Button onClick={() => handleAction("bailout")}>Bail Out</Button>
-        </div>
-      )}
-      {user && !user.prison && (
-        <div className={styles.methodsContent}>
-          <div className={styles.methodImage}>
-            <Image
-              src="/assets/prison/escape.webp"
-              width={65}
-              height={65}
-              alt="escape"
+      <div className={styles.actionsContainer}>
+        {user &&
+          !user.prison &&
+          prisonActions.map((action, key) => (
+            <PrisonAction
+              key={key}
+              imageSrc={action.imageSrc}
+              name={action.name}
+              description={action.description}
+              cost={action.cost}
+              buttonText={action.buttonText}
+              onAction={() => handleAction(action.onAction)}
             />
-          </div>
-          <div className={styles.methodInformation}>
-            <p className={styles.methodName}>Name</p>
-            <div>
-              <p className={styles.methodStats}>Name</p>
-            </div>
-          </div>
-          <Button onClick={() => handleAction("escape")} secondary>
-            Escape
-          </Button>
-        </div>
-      )}
+          ))}
+      </div>
     </div>
   );
 };
