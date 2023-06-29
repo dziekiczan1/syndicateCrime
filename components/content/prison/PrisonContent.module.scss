@@ -23,6 +23,14 @@
     }
   }
 
+  .prisonStats {
+    margin-bottom: $size-32;
+    span {
+      color: $color-base-orange;
+      font-weight: $font-weight-bold;
+    }
+  }
+
   .actionsContainer {
     @include flexbox($flex-direction: column, $gap: $size-16);
   }

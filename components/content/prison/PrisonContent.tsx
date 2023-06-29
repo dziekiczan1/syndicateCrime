@@ -55,7 +55,7 @@ const PrisonContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {user && user.prison && (
+      {user && user.prison?.isPrisoner && (
         <div className={styles.freedom}>
           <Icon
             component={Freedom}
@@ -67,8 +67,20 @@ const PrisonContent: React.FC = () => {
         </div>
       )}
       <div className={styles.actionsContainer}>
+        {user && !user.prison?.isPrisoner && (
+          <div className={styles.prisonStats}>
+            <p>
+              You already escaped <span>{user.prison?.escapes}</span>{" "}
+              {user.prison?.escapes === 1 ? "time" : "times"}
+            </p>
+            <p>
+              You already bailed out <span>{user.prison?.bailouts}</span>{" "}
+              {user.prison?.bailouts === 1 ? "time" : "times"}
+            </p>
+          </div>
+        )}
         {user &&
-          !user.prison &&
+          !user.prison?.isPrisoner &&
           prisonActions.map((action, key) => (
             <PrisonAction
               key={key}
