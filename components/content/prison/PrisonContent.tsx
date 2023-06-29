@@ -23,7 +23,7 @@ const PrisonContent: React.FC = () => {
       setIsLoadingPrison(true);
       const response = await fetch("/api/user/prisonActions", {
         method: "POST",
-        body: JSON.stringify(action),
+        body: JSON.stringify({ action }),
         headers: {
           "Content-Type": "application/json",
         },

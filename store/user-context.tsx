@@ -20,7 +20,11 @@ export interface IUser {
     money: number;
   };
   bank?: number;
-  prison?: object;
+  prison?: {
+    isPrisoner: boolean;
+    escapes: number;
+    bailouts: number;
+  };
 }
 
 export interface IUserContextType {
