@@ -6,12 +6,12 @@ interface IPageDescriptions {
 }
 
 const pageDescriptions: IPageDescriptions = {
-  profile: {
+  statistics: {
     description:
       "Unleash the power of statistics and dive into the world of competitive gaming. Explore rankings, leaderboards, and player standings as you witness the pursuit of excellence. Discover the secrets of success and join the elite in their quest for glory. Are you ready to embrace the challenge and make your mark among the top players? Step into the realm of statistics and let the adventure unfold.",
     title: "Player Rankings: Rise to the Top!",
   },
-  statistics: {
+  profile: {
     description:
       "Explore the profile of an accomplished player and dive into their gaming journey. Gain insights into their achievements, stats, and progress as they conquer challenges and make their mark in the gaming world. From epic victories to strategic triumphs, follow their path to greatness. Are you ready to delve into the realm of gaming excellence and discover what it takes to become a legend?",
     title: "Player Profile: A Journey of Success",

@@ -33,6 +33,26 @@ import avatar7 from "../public/assets/avatars/av7.webp";
 import avatar8 from "../public/assets/avatars/av8.webp";
 import avatar9 from "../public/assets/avatars/av9.webp";
 
+import alley from "../public/assets/sections/alley.webp";
+import bank from "../public/assets/sections/bank.webp";
+import buildings from "../public/assets/sections/buildings.webp";
+import casino from "../public/assets/sections/casino.webp";
+import credit from "../public/assets/sections/credit.webp";
+import dealer from "../public/assets/sections/dealer.webp";
+import district from "../public/assets/sections/district.webp";
+import gang from "../public/assets/sections/gang.webp";
+import help from "../public/assets/sections/help.webp";
+import home from "../public/assets/sections/home.webp";
+import hospital from "../public/assets/sections/hospital.webp";
+import market from "../public/assets/sections/market.webp";
+import prison from "../public/assets/sections/prison.webp";
+import profile from "../public/assets/sections/profile.webp";
+import robbery from "../public/assets/sections/robbery.webp";
+import sabotage from "../public/assets/sections/sabotage.webp";
+import stockmarket from "../public/assets/sections/stockmarket.webp";
+import university from "../public/assets/sections/university.webp";
+import whores from "../public/assets/sections/whores.webp";
+
 export interface IImages {
   [key: string]: StaticImageData;
 }
@@ -67,6 +87,25 @@ const images: IImages = {
   avatar18,
   avatar19,
   avatar20,
+  alley,
+  bank,
+  buildings,
+  casino,
+  credit,
+  dealer,
+  district,
+  gang,
+  help,
+  home,
+  hospital,
+  market,
+  prison,
+  profile,
+  robbery,
+  sabotage,
+  stockmarket,
+  university,
+  whores,
 };
 
 export default images;
