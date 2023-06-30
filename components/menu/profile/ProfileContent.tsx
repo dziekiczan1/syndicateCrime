@@ -12,7 +12,7 @@ import UserContext from "@/store/user-context";
 import styles from "./ProfileContent.module.scss";
 
 const ProfileContent: React.FC = () => {
-  const { title, description } = pageDescriptions.profile;
+  const pageData = pageDescriptions.profile;
   const { user, setUser } = useContext(UserContext);
   const [selectedAvatar, setSelectedAvatar] = useState(user!.avatar);
   const userStats = user?.defaultParams;
@@ -47,7 +47,7 @@ const ProfileContent: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       {user && (
         <div className={styles.stats}>
           <div className={styles.params}>

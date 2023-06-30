@@ -5,11 +5,11 @@ import pageDescriptions from "@/constants/pagedescriptions";
 import styles from "./HelpContent.module.scss";
 
 const HelpContent: React.FC = () => {
-  const { title, description } = pageDescriptions.help;
+  const pageData = pageDescriptions.help;
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       <div className={styles.faq}>
         {faqData.map((faq, idx) => (
           <Collapsible title={faq.question} key={idx}>

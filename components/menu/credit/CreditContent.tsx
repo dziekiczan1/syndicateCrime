@@ -3,11 +3,11 @@ import pageDescriptions from "@/constants/pagedescriptions";
 import styles from "./CreditContent.module.scss";
 
 const CreditContent: React.FC = () => {
-  const { title, description } = pageDescriptions.credit;
+  const pageData = pageDescriptions.credit;
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
     </div>
   );
 };

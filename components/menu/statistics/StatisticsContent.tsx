@@ -7,7 +7,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import styles from "./StatisticsContent.module.scss";
 
 const Statistics: React.FC = () => {
-  const { title, description } = pageDescriptions.statistics;
+  const pageData = pageDescriptions.statistics;
   const { data: session, status } = useSession();
   const { user } = useContext(UserContext);
   const [players, setPlayers] = useState<any[]>([]);
@@ -43,7 +43,7 @@ const Statistics: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       {isLoading ? (
         <div className={styles.loading}>
           <Loading />
