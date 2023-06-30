@@ -12,7 +12,7 @@ import PrisonAction from "./PrisonAction";
 import styles from "./PrisonContent.module.scss";
 
 const PrisonContent: React.FC = () => {
-  const { title, description } = pageDescriptions.prison;
+  const pageData = pageDescriptions.prison;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
@@ -48,7 +48,7 @@ const PrisonContent: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       {isLoadingPrison && (
         <div className={styles.loading}>
           <Loading />

@@ -12,7 +12,7 @@ import { FieldError, useForm } from "react-hook-form";
 import styles from "./BankContent.module.scss";
 
 const BankContent: React.FC = () => {
-  const { title, description } = pageDescriptions.bank;
+  const pageData = pageDescriptions.bank;
   const { user, setUser } = useContext(UserContext);
   const [isStash, setIsStash] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -83,7 +83,7 @@ const BankContent: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       {isLoadingBank && (
         <div className={styles.loading}>
           <Loading />

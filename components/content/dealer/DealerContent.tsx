@@ -13,7 +13,7 @@ import DrugInformation from "./DrugInformation";
 import QuantityInput from "./QuantityInput";
 
 const DealerContent = () => {
-  const { title, description } = pageDescriptions.dealer;
+  const pageData = pageDescriptions.dealer;
   const { setUser } = useContext(UserContext);
   const [quantities, setQuantities] = useState({
     Marijuana: 0,
@@ -95,7 +95,7 @@ const DealerContent = () => {
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       {isLoadingRobbery && (
         <div className={styles.loading}>
           <Loading />

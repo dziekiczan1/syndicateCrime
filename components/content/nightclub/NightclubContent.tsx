@@ -3,11 +3,11 @@ import pageDescriptions from "@/constants/pagedescriptions";
 import styles from "./NightclubContent.module.scss";
 
 const NightclubContent: React.FC = () => {
-  const { title, description } = pageDescriptions.nightclub;
+  const pageData = pageDescriptions.nightclub;
 
   return (
     <div className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
     </div>
   );
 };

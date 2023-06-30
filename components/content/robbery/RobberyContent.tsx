@@ -11,7 +11,7 @@ import styles from "./RobberyContent.module.scss";
 import RobberyResultInfo from "./RobberyResultInfo";
 
 const RobberyContent: React.FC = () => {
-  const { title, description } = pageDescriptions.robbery;
+  const pageData = pageDescriptions.robbery;
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [selectedPlaceInformation, setSelectedPlaceInformation] = useState<
     Place[]
@@ -74,7 +74,7 @@ const RobberyContent: React.FC = () => {
 
   return (
     <section className={styles.container}>
-      <PageHeader title={title} description={description} />
+      <PageHeader pageData={pageData} />
       {isLoadingRobbery ? (
         <div className={styles.loading}>
           <Loading />

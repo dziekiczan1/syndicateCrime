@@ -45,6 +45,7 @@ import help from "../public/assets/sections/help.webp";
 import home from "../public/assets/sections/home.webp";
 import hospital from "../public/assets/sections/hospital.webp";
 import market from "../public/assets/sections/market.webp";
+import nightclub from "../public/assets/sections/nightclub.webp";
 import prison from "../public/assets/sections/prison.webp";
 import profile from "../public/assets/sections/profile.webp";
 import robbery from "../public/assets/sections/robbery.webp";
@@ -99,6 +100,7 @@ const images: IImages = {
   home,
   hospital,
   market,
+  nightclub,
   prison,
   profile,
   robbery,
