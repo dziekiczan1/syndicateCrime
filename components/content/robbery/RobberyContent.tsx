@@ -27,9 +27,10 @@ const RobberyContent: React.FC = () => {
 
   useEffect(() => {
     const respect = user?.defaultParams.respect ?? 1;
-    const placeInformationData = calculatePlaceInformation(respect);
+    const addiction = user?.defaultParams.addiction ?? 1;
+    const placeInformationData = calculatePlaceInformation(respect, addiction);
     setSelectedPlaceInformation(placeInformationData);
-  }, [user?.defaultParams.respect]);
+  }, [user?.defaultParams.respect, user?.defaultParams.addiction]);
 
   const handlePlaceSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

@@ -178,7 +178,10 @@ async function getRobberyPlaceInfo(
   selectedPlace: string
 ): Promise<any> {
   try {
-    const placeInformationData = calculatePlaceInformation(stats.respect);
+    const placeInformationData = calculatePlaceInformation(
+      stats.respect,
+      stats.addiction
+    );
 
     const selectedPlaceObject = placeInformationData.find(
       (place: { name: string }) => place.name === selectedPlace

@@ -1,11 +1,20 @@
 import { placeInformation } from "@/constants/places";
 
-export function calculatePlaceInformation(userRespect: number) {
+export function calculatePlaceInformation(
+  userRespect: number,
+  userAddiction: number
+) {
   const placeInformationData = placeInformation.map((place) => {
     let successProbability = (userRespect / place.minimumRespect) * 100;
+
     successProbability =
       successProbability < 1 ? 0 : Math.floor(successProbability);
     successProbability = successProbability > 100 ? 100 : successProbability;
+
+    successProbability -= userAddiction;
+
+    successProbability = successProbability < 0 ? 0 : successProbability;
+
     return {
       ...place,
       successProbability,
