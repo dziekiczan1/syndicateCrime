@@ -50,6 +50,7 @@ import prison from "../public/assets/sections/prison.webp";
 import profile from "../public/assets/sections/profile.webp";
 import robbery from "../public/assets/sections/robbery.webp";
 import sabotage from "../public/assets/sections/sabotage.webp";
+import statistics from "../public/assets/sections/statistics.webp";
 import stockmarket from "../public/assets/sections/stockmarket.webp";
 import university from "../public/assets/sections/university.webp";
 import whores from "../public/assets/sections/whores.webp";
@@ -105,6 +106,7 @@ const images: IImages = {
   profile,
   robbery,
   sabotage,
+  statistics,
   stockmarket,
   university,
   whores,
