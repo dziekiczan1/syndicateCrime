@@ -1,0 +1,47 @@
+@import "../../../styles/_variables.scss";
+
+.actionsContent {
+  @include flexbox($justify-content: space-between);
+  @include border($size-2, solid, $color-base-dark-200, bottom);
+  padding: $size-8;
+  background-color: $color-base-dark;
+}
+
+.actionImage {
+  @include flexbox($justify-content: $center, $align-items: $center);
+  @include border($color: $color-base-orange);
+  background-color: $color-base-dark-200;
+  border-radius: $size-8;
+  box-shadow: $shadow;
+  padding: $size-4;
+  width: 90px;
+  height: 90px;
+}
+
+.actionInformation {
+  flex: 1;
+  padding: $null $size-12;
+
+  .actionName {
+    font-weight: $font-weight-bold;
+    color: $color-base-orange;
+    margin-bottom: $size-8;
+  }
+
+  .actionDetails {
+    @include flexbox(
+      $flex-direction: column,
+      $align-items: $center,
+      $gap: $size-16
+    );
+  }
+
+  .actionDescription {
+    @include font-size($size-12);
+  }
+
+  .actionCost {
+    @include font-size($size-12);
+    font-weight: $font-weight-bold;
+  }
+}

@@ -2,4 +2,15 @@
 
 .container {
   color: $color-base-light;
+
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
+    padding-right: $size-8;
+  }
+
+  .actionsContainer {
+    @include flexbox($flex-direction: column, $gap: $size-16);
+  }
 }
