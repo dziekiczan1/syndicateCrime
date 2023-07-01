@@ -1,5 +1,8 @@
+import images from "./images";
+
 const mainNews = [
   {
+    title: "The Crime News",
     date: "Published on May 24, 2023",
     subtitle: "Introducing Syndicate Crime: Dive into the Dark World of Mafia",
     paragraphs: [
@@ -12,6 +15,7 @@ const mainNews = [
     ],
     button: "Enter the Syndicate!",
     link: "/robbery",
+    image: images.home,
   },
 ];
 export default mainNews;

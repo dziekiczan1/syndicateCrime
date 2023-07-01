@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button/Button";
 import mainNews from "@/constants/game";
+import Image from "next/image";
 import styles from "./GameContent.module.scss";
 
 const GameContent: React.FC = () => {
@@ -7,8 +8,15 @@ const GameContent: React.FC = () => {
     <section className={styles.container}>
       {mainNews.map((newsItem, index) => (
         <div key={index}>
+          <Image
+            src={newsItem.image}
+            alt={newsItem.title}
+            width={640}
+            height={360}
+            className={styles.image}
+          />
           <div className={styles.header}>
-            <h2>The Crime News</h2>
+            <h2>{newsItem.title}</h2>
             <p>{newsItem.date}</p>
           </div>
           <div className={styles.content}>
