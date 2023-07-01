@@ -4,20 +4,24 @@ export function calculatePlaceInformation(
   userRespect: number,
   userAddiction: number
 ) {
+  const respectWeight = 0.5;
+  const addictionWeight = 0.5;
+
   const placeInformationData = placeInformation.map((place) => {
-    let successProbability = (userRespect / place.minimumRespect) * 100;
+    let successProbability =
+      ((userRespect * respectWeight) / place.minimumRespect) * 100;
 
     successProbability =
       successProbability < 1 ? 0 : Math.floor(successProbability);
     successProbability = successProbability > 100 ? 100 : successProbability;
 
-    successProbability -= userAddiction;
+    successProbability -= userAddiction * addictionWeight;
 
     successProbability = successProbability < 0 ? 0 : successProbability;
 
     return {
       ...place,
-      successProbability,
+      successProbability: Math.round(successProbability),
     };
   });
 
