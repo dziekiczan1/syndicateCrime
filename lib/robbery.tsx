@@ -1,4 +1,4 @@
-import { placeInformation } from "@/constants/places";
+import { placeInformation } from "@/constants/sections/places";
 
 export function calculatePlaceInformation(
   userRespect: number,

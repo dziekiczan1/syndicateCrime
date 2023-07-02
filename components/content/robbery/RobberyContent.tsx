@@ -2,8 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import pageDescriptions from "@/constants/pagedescriptions";
-import { Place } from "@/constants/places";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
+import { Place } from "@/constants/sections/places";
 import { calculatePlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
 import PlaceItem from "./PlaceItem";

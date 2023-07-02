@@ -4,7 +4,7 @@ import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import RequiredText from "@/components/ui/required/RequiredText";
-import pageDescriptions from "@/constants/pagedescriptions";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import { useContext, useState } from "react";

@@ -1,6 +1,6 @@
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import pageDescriptions from "@/constants/pagedescriptions";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import UserContext from "@/store/user-context";
 import { useSession } from "next-auth/react";
 import { useCallback, useContext, useEffect, useState } from "react";

@@ -1,5 +1,5 @@
 import Button from "@/components/ui/button/Button";
-import mainNews from "@/constants/game";
+import mainNews from "@/constants/descriptions/game";
 import Image from "next/image";
 import styles from "./GameContent.module.scss";
 

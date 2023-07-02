@@ -5,9 +5,9 @@ import Button from "@/components/ui/button/Button";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import Avatar from "@/components/user/avatar/Avatar";
 import StatsNode from "@/components/user/stats/StatsNode";
-import avatars from "@/constants/avatars";
-import pageDescriptions from "@/constants/pagedescriptions";
-import { getUserStatistics } from "@/constants/userstats";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
+import avatars from "@/constants/sections/avatars";
+import { getUserStatistics } from "@/constants/sections/userstats";
 import UserContext from "@/store/user-context";
 import styles from "./ProfileContent.module.scss";
 

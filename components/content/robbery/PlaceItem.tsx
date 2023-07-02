@@ -1,6 +1,6 @@
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
-import { Place } from "@/constants/places";
+import { Place } from "@/constants/sections/places";
 import styles from "./PlaceItem.module.scss";
 
 interface IPlaceItemProps {

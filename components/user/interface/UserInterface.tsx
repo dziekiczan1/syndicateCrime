@@ -4,7 +4,7 @@ import { useContext } from "react";
 import Button from "@/components/ui/button/Button";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import Tooltip from "@/components/ui/tooltip/Tooltip";
-import { getUserStatistics } from "@/constants/userstats";
+import { getUserStatistics } from "@/constants/sections/userstats";
 import UserContext, { IUser } from "@/store/user-context";
 import Avatar from "../avatar/Avatar";
 import StatsNode from "../stats/StatsNode";

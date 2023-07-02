@@ -2,7 +2,7 @@ import styles from "./QuantityInput.module.scss";
 
 import { ArrowDownIcon, ArrowUpIcon } from "@/components/ui/icons";
 import Icon from "@/components/ui/icons/Icon";
-import { drugDetails } from "@/constants/dealerdrugs";
+import { drugDetails } from "@/constants/sections/dealerdrugs";
 
 export interface IQuantityInput {
   drug: keyof typeof drugDetails;

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { drugDetails, drugStatNames } from "@/constants/dealerdrugs";
+import { drugDetails, drugStatNames } from "@/constants/sections/dealerdrugs";
 import styles from "./DrugInformation.module.scss";
 
 export interface IDrugInformation {

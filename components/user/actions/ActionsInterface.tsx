@@ -1,5 +1,5 @@
 import ActionNode from "@/components/ui/action/ActionNode";
-import userActions from "@/constants/actions";
+import userActions from "@/constants/actions/mainactions";
 
 import styles from "./ActionsInterface.module.scss";
 

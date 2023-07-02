@@ -1,5 +1,5 @@
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import pageDescriptions from "@/constants/pagedescriptions";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import styles from "./GangContent.module.scss";
 
 const GangContent: React.FC = () => {

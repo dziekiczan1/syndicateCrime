@@ -1,7 +1,7 @@
 import Collapsible from "@/components/ui/collapsible/Collapsible";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import faqData from "@/constants/faq";
-import pageDescriptions from "@/constants/pagedescriptions";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
+import faqData from "@/constants/sections/faq";
 import styles from "./HelpContent.module.scss";
 
 const HelpContent: React.FC = () => {

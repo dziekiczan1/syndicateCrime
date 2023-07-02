@@ -1,4 +1,4 @@
-import images from "./images";
+import sectionsImages from "../images/sections";
 
 const mainNews = [
   {
@@ -15,7 +15,7 @@ const mainNews = [
     ],
     button: "Enter the Syndicate!",
     link: "/robbery",
-    image: images.home,
+    image: sectionsImages.home,
   },
 ];
 export default mainNews;

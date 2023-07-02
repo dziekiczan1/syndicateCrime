@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/ui/icons";
 import Icon from "@/components/ui/icons/Icon";
-import menuItems from "@/constants/menu";
+import menuItems from "@/constants/sections/menu";
 import styles from "./MainMenu.module.scss";
 import NavItem from "./navitem/NavItem";
 

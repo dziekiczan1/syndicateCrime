@@ -1,5 +1,5 @@
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import pageDescriptions from "@/constants/pagedescriptions";
+import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import styles from "./NightclubContent.module.scss";
 
 const NightclubContent: React.FC = () => {
