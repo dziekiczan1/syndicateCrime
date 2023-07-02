@@ -3,8 +3,8 @@ import { useContext, useState } from "react";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import { hospitalActions } from "@/constants/hospitalactions";
 import pageDescriptions from "@/constants/pagedescriptions";
-import { prisonActions } from "@/constants/prisonactions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import HospitalAction from "./HospitalAction";
@@ -56,7 +56,7 @@ const HospitalContent: React.FC = () => {
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       <div className={styles.actionsContainer}>
         {user &&
-          prisonActions.map((action, key) => (
+          hospitalActions.map((action, key) => (
             <HospitalAction
               key={key}
               imageSrc={action.imageSrc}

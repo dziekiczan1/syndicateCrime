@@ -9,6 +9,10 @@ import lsd from "../public/assets/dealer/LSD.webp";
 import marijuana from "../public/assets/dealer/Marijuana.webp";
 import meth from "../public/assets/dealer/Meth.webp";
 
+import pills from "../public/assets/hospital/pills.webp";
+import potion from "../public/assets/hospital/potion.webp";
+import vaccine from "../public/assets/hospital/vaccine.webp";
+
 import bailout from "../public/assets/prison/bailout.webp";
 import escape from "../public/assets/prison/escape.webp";
 
@@ -110,6 +114,9 @@ const images: IImages = {
   stockmarket,
   university,
   whores,
+  pills,
+  potion,
+  vaccine,
 };
 
 export default images;

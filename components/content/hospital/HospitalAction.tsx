@@ -1,5 +1,5 @@
 import Button from "@/components/ui/button/Button";
-import { IPrisonActions } from "@/constants/prisonactions";
+import { IHospitalActions } from "@/constants/hospitalactions";
 import Image from "next/image";
 import styles from "./HospitalAction.module.scss";
 
@@ -10,7 +10,7 @@ const HospitalAction = ({
   cost,
   buttonText,
   onAction,
-}: IPrisonActions) => {
+}: IHospitalActions) => {
   return (
     <div className={styles.actionsContent}>
       <div className={styles.actionImage}>
