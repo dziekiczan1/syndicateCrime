@@ -1,6 +1,9 @@
+import { images } from "@/constants";
+import { StaticImageData } from "next/image";
+
 export interface IHospitalActions {
   name: string;
-  imageSrc: string;
+  imageSrc: StaticImageData;
   description: string;
   cost: string;
   buttonText: string;
@@ -9,21 +12,30 @@ export interface IHospitalActions {
 
 export const hospitalActions: IHospitalActions[] = [
   {
-    name: "Escape",
-    imageSrc: "/assets/prison/escape.webp",
+    name: "Methadone solution",
+    imageSrc: images.potion,
     description:
-      "Use all of your energy to break free from prison. This daring action requires an immense physical and mental effort as you navigate through obstacles and elude capture. Exhausting every ounce of your energy, you take a calculated risk to regain your freedom, leaving no room for hesitation or second thoughts.",
-    cost: "Energy: 100%",
-    buttonText: "Escape",
-    onAction: "escape",
+      "The Methadone solution is a specialized formulation designed to aid in the treatment of opioid addiction. This potent elixir acts as a beacon of hope, providing relief from withdrawal symptoms and reducing addiction by 20%. As you take each measured dose, it gently guides you towards a healthier and more fulfilling future, empowering you to break free from the chains of addiction.",
+    cost: "Energy: 20% / Money: $10,000",
+    buttonText: "Use Methadone",
+    onAction: "solution",
   },
   {
-    name: "Bail Out",
-    imageSrc: "/assets/prison/bailout.webp",
+    name: "Suboxone pills",
+    imageSrc: images.pills,
     description:
-      "This option allows you to avoid the risks and challenges of an escape, offering a more straightforward path to freedom. By providing the required financial resources, you can regain your liberty and leave behind the confines of prison, resuming your life outside its walls.",
-    cost: "Money: $100,000.00",
-    buttonText: "Bail Out",
-    onAction: "bailout",
+      "The Suboxone pills offer a discreet and convenient solution for individuals seeking to break free from the chains of opioid addiction. These small, round pills provide a pathway to liberation without the need for a daring escape. By investing your full energy into this option, you can secure your release from the prison of addiction, enabling you to embark on a journey of recovery and renewal.",
+    cost: "Energy: 100%",
+    buttonText: "Take Suboxone",
+    onAction: "pills",
+  },
+  {
+    name: "Naltrexone injection",
+    imageSrc: images.vaccine,
+    description:
+      "The Naltrexone injection is a powerful tool in the battle against addiction, offering a direct and effective approach to breaking free. Administered by a medical professional, this injection delivers a potent dose of Naltrexone, a medication known for its ability to block the effects of opioids and reduce cravings. By investing a significant financial sum, you provide yourself with the opportunity to leave the confines of addiction behind and step into a future filled with hope and renewed possibilities.",
+    cost: "Money: $50,000.00",
+    buttonText: "Receive Naltrexone",
+    onAction: "injection",
   },
 ];

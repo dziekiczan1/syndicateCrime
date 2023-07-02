@@ -20,7 +20,7 @@ const HospitalContent: React.FC = () => {
   const handleAction = async (action: (() => void) | string) => {
     try {
       setIsLoadingHospital(true);
-      const response = await fetch("/api/user/prisonActions", {
+      const response = await fetch("/api/user/hospitalActions", {
         method: "POST",
         body: JSON.stringify({ action }),
         headers: {
@@ -40,7 +40,7 @@ const HospitalContent: React.FC = () => {
         );
       }
     } catch (error) {
-      console.error("Error processing bank action.", error);
+      console.error("Error processing hospital action.", error);
       setIsLoadingHospital(false);
     }
   };
