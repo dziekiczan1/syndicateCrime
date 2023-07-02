@@ -61,6 +61,7 @@ export default async function handler(
       _id: user._id.toString(),
     } as IUser;
 
+    client.close();
     return res.status(200).json(serializedUser);
   } catch (error) {
     console.error("Error updating user stats:", error);

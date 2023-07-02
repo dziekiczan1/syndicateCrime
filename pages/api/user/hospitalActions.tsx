@@ -5,13 +5,9 @@ import { IUser } from "@/store/user-context";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
-export interface IUserWithBank extends IUser {
-  bank?: number | undefined;
-}
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IUserWithBank | { error: string }>
+  res: NextApiResponse<IUser | { error: string }>
 ) {
   try {
     const session = await getServerSession(req, res, authOptions);
@@ -22,37 +18,46 @@ export default async function handler(
 
     const { email } = session.user!;
     const client = await connectToDatabase();
-    const usersCollection = client.db().collection<IUserWithBank>("users");
+    const usersCollection = client.db().collection<IUser>("users");
     const user = await usersCollection.findOne({ email: email as string });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const { action, bankmoney } = req.body.requestData;
-    const amount = Number(bankmoney);
-    const energyCost = 2;
+    const { action } = req.body;
+    const solutionCost = 10000;
+    const injectionCost = 50000;
 
-    if (user.defaultParams.energy < energyCost) {
-      return res.status(400).json({ error: "Not enough energy" });
-    }
+    if (action === "solution") {
+      if (
+        user.defaultParams.money >= solutionCost &&
+        user.defaultParams.energy >= 20
+      ) {
+        user.defaultParams.money -= solutionCost;
+        user.defaultParams.energy -= 20;
+        user.defaultParams.addiction -= 10;
 
-    if (action === "stash") {
-      if (user.defaultParams.money >= amount) {
-        user.defaultParams.money -= amount;
-        user.defaultParams.energy -= energyCost;
-        user.bank = user.bank || 0;
-        user.bank += amount;
+        user.defaultParams.addiction = Math.max(
+          user.defaultParams.addiction,
+          0
+        );
       } else {
         return res.status(400).json({ error: "Insufficient funds" });
       }
-    } else if (action === "withdraw") {
-      if (user.bank && user.bank >= amount) {
-        user.bank -= amount;
-        user.defaultParams.energy -= energyCost;
-        user.defaultParams.money += amount;
+    } else if (action === "injection") {
+      if (user.defaultParams.money >= injectionCost) {
+        user.defaultParams.money -= injectionCost;
+        user.defaultParams.addiction = 0;
       } else {
-        return res.status(400).json({ error: "Invalid withdrawal amount" });
+        return res.status(400).json({ error: "Insufficient funds" });
+      }
+    } else if (action === "pills") {
+      if (user.defaultParams.energy >= 100) {
+        user.defaultParams.energy -= 100;
+        user.defaultParams.addiction = 0;
+      } else {
+        return res.status(400).json({ error: "Not enough energy!" });
       }
     } else {
       return res.status(400).json({ error: "Invalid action" });
@@ -70,7 +75,7 @@ export default async function handler(
     client.close();
     return res.status(200).json(serializedUser);
   } catch (error) {
-    console.error("Error processing bank action:", error);
+    console.error("Error processing hospital action:", error);
     return res.status(500).json({ error: "Server error" });
   }
 }

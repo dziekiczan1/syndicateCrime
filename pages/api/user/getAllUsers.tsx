@@ -30,6 +30,7 @@ export default async function handler(
       };
     });
 
+    client.close();
     return res.status(200).json(serializedUsers);
   } catch (error) {
     console.error("Error fetching user data:", error);

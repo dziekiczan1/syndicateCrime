@@ -103,6 +103,7 @@ export default async function handler(
       }
     );
 
+    client.close();
     return res.status(200).json(serializedUser);
   } catch (error) {
     console.error("Error updating user stats:", error);

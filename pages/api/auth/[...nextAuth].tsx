@@ -51,10 +51,8 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
   },
   callbacks: {
-    // Using the `...rest` parameter to be able to narrow down the type based on `trigger`
     jwt({ token, trigger, session }) {
       if (trigger === "update" && session?.name) {
-        // Note, that `session` can be any arbitrary object, remember to validate it!
         token.name = session;
       }
       return token;
