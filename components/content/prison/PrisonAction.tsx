@@ -1,5 +1,5 @@
 import Button from "@/components/ui/button/Button";
-import { IPrisonActions } from "@/constants/prisonactions";
+import { IPrisonActions } from "@/constants/actions/prisonactions";
 import Image from "next/image";
 import styles from "./PrisonAction.module.scss";
 

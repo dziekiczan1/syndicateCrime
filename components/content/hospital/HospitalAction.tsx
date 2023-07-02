@@ -1,5 +1,5 @@
 import Button from "@/components/ui/button/Button";
-import { IHospitalActions } from "@/constants/hospitalactions";
+import { IHospitalActions } from "@/constants/actions/hospitalactions";
 import Image from "next/image";
 import styles from "./HospitalAction.module.scss";
 
