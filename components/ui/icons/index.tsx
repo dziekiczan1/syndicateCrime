@@ -29,6 +29,8 @@ export { default as ProfileIcon } from "./ProfileIcon";
 export { default as RespectIcon } from "./RespectIcon";
 export { default as RobberyIcon } from "./RobberyIcon";
 export { default as SabotageIcon } from "./SabotageIcon";
+export { default as SliderNextIcon } from "./SliderNextIcon";
+export { default as SliderPrevIcon } from "./SliderPrevIcon";
 export { default as StatsIcon } from "./StatsIcon";
 export { default as StrengthIcon } from "./StrengthIcon";
 export { default as UniversityIcon } from "./UniversityIcon";
