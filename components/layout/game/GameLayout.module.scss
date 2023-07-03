@@ -14,6 +14,12 @@
     @include flexbox($flex-direction: column, $gap: $size-16);
   }
 
+  .logoWrapper {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin-bottom: $size-16;
+  }
+
   .userWrapper {
     @include flexbox();
   }
