@@ -4,6 +4,8 @@ import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
 import UserInterface from "@/components/user/interface/UserInterface";
 
+import Slider from "@/components/ui/slider/Slider";
+import { sliderData } from "@/constants/descriptions/sliderdata";
 import Logo from "../logo/Logo";
 import styles from "./GameLayout.module.scss";
 
@@ -36,6 +38,9 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             </div>
           </div>
           <ActionsInterface />
+          <div className={styles.sliderWrapper}>
+            <Slider slides={sliderData} />
+          </div>
         </div>
       </div>
       <div className={styles.content}>

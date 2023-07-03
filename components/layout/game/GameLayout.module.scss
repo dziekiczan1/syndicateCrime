@@ -29,6 +29,10 @@
     z-index: 1;
   }
 
+  .sliderWrapper {
+    width: calc($full-size - $size-16);
+  }
+
   .navigation {
     @include transition(all, $duration: 0.5s, $timing-function: ease-in-out);
     width: $quarter-size;
