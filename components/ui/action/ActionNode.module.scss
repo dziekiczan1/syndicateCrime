@@ -15,10 +15,10 @@
       $align-items: $center,
       $gap: $size-4
     );
-    @include border($color: $color-base-dark-100);
+    @include border($color: $color-base-dark-200);
     width: $full-size;
     padding: $size-16;
-    background-color: transparentize($color-base-dark-100, 0.4);
+    background-color: darken($color-base-dark, 10%);
     border-radius: $size-8;
     box-shadow: $shadow;
   }
