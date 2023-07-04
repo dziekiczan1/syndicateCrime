@@ -2,16 +2,18 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { ISlideProps } from "@/constants/descriptions/sliderdata";
 import { Icon, SliderNextIcon, SliderPrevIcon } from "../icons";
 import styles from "./Slider.module.scss";
 
 export interface ISliderProps {
-  slides: any;
+  slides: ISlideProps[];
 }
 
 const Slider: React.FC<ISliderProps> = ({ slides }) => {
+  console.log(slides);
   const [current, setCurrent] = useState(0);
-  const length = slides.length;
+  const length = slides?.length;
 
   const delay = 7000;
   const timeOutRef = useRef<any>();
@@ -59,11 +61,11 @@ const Slider: React.FC<ISliderProps> = ({ slides }) => {
                 animate={{ opacity: [0, 1] }}
                 transition={{ duration: 0.85, ease: "easeOut" }}
               >
-                {/* <div className="flex justify-center">
-                  <div className="z-10 absolute h-[400px] md:h-[500px] md:justify-start md:top-1/5 flex flex-col justify-center items-center gap-y-4 md:gap-y-8 w-[265px] md:w-[490px] text-center">
-                    <h1 className="heading-white">{slide.title}</h1>
+                <div className={styles.overlay}>
+                  <div className={styles.titleWrapper}>
+                    <h3 className="heading-white">{slide.title}</h3>
                   </div>
-                </div> */}
+                </div>
                 <Image
                   src={slide.image}
                   alt={slide.title}
@@ -82,7 +84,7 @@ const Slider: React.FC<ISliderProps> = ({ slides }) => {
           width={16}
           height={26}
           viewBox="8 13"
-        />{" "}
+        />
       </div>
       <div className={styles.nextSlide} onClick={nextSlide}>
         <Icon

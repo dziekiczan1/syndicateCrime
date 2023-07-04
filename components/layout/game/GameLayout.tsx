@@ -5,7 +5,7 @@ import ActionsInterface from "@/components/user/actions/ActionsInterface";
 import UserInterface from "@/components/user/interface/UserInterface";
 
 import Slider from "@/components/ui/slider/Slider";
-import { sliderData } from "@/constants/descriptions/sliderdata";
+import sliderData from "@/constants/descriptions/sliderdata";
 import Logo from "../logo/Logo";
 import styles from "./GameLayout.module.scss";
 

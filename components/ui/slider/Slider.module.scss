@@ -17,6 +17,23 @@
     object-fit: cover;
   }
 
+  .overlay {
+    position: absolute;
+    top: $null;
+    left: $null;
+    width: $full-size;
+    height: $full-size;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .titleWrapper {
+    position: absolute;
+    width: $full-size;
+    padding: $size-8;
+    bottom: $size-8;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
   .prevSlide,
   .nextSlide {
     position: absolute;
