@@ -13,19 +13,19 @@ const sliderData: ISlideProps[] = [
     id: 0,
     image: sectionsImages.robbery,
     title: "Robbery: Experience the Thrill!",
-    link: "robbery",
+    link: "/actions/robbery",
   },
   {
     id: 1,
     image: sectionsImages.casino,
     title: "Casino: Hit the Jackpot!",
-    link: "casino",
+    link: "/actions/casino",
   },
   {
     id: 2,
     image: sectionsImages.dealer,
     title: "Dealer: Boost Your Energy!",
-    link: "dealer",
+    link: "/actions/dealer",
   },
 ];
 

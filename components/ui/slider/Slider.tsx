@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { ISlideProps } from "@/constants/descriptions/sliderdata";
+import Button from "../button/Button";
 import { Icon, SliderNextIcon, SliderPrevIcon } from "../icons";
 import styles from "./Slider.module.scss";
 
@@ -11,7 +12,6 @@ export interface ISliderProps {
 }
 
 const Slider: React.FC<ISliderProps> = ({ slides }) => {
-  console.log(slides);
   const [current, setCurrent] = useState(0);
   const length = slides?.length;
 
@@ -43,10 +43,6 @@ const Slider: React.FC<ISliderProps> = ({ slides }) => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  const goToSlide = (id: any) => {
-    setCurrent(id);
-  };
-
   if (!Array.isArray(slides) || slides.length <= 0) {
     return <div>No slides</div>;
   }
@@ -63,7 +59,10 @@ const Slider: React.FC<ISliderProps> = ({ slides }) => {
               >
                 <div className={styles.overlay}>
                   <div className={styles.titleWrapper}>
-                    <h3 className="heading-white">{slide.title}</h3>
+                    <h3>{slide.title}</h3>
+                    <Button link={slide.link} secondary>
+                      Explore Now!
+                    </Button>
                   </div>
                 </div>
                 <Image

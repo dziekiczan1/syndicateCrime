@@ -27,11 +27,16 @@
   }
 
   .titleWrapper {
+    @include flexbox($justify-content: space-between);
     position: absolute;
     width: $full-size;
-    padding: $size-8;
+    padding: $size-8 $size-16;
     bottom: $size-8;
     background-color: rgba(0, 0, 0, 0.6);
+
+    a {
+      padding: $size-8 $size-32;
+    }
   }
 
   .prevSlide,
