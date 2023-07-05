@@ -8,6 +8,7 @@ import { prisonActions } from "@/constants/actions/prisonactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
+import { useRouter } from "next/router";
 import PrisonAction from "./PrisonAction";
 import styles from "./PrisonContent.module.scss";
 
@@ -17,6 +18,7 @@ const PrisonContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingPrison, setIsLoadingPrison] = useState(false);
+  const router = useRouter();
 
   const handleAction = async (action: (() => void) | string) => {
     try {
@@ -55,7 +57,7 @@ const PrisonContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {user && user.prison?.isPrisoner && (
+      {user && !user.prison?.isPrisoner && (
         <div className={styles.freedom}>
           <Icon
             component={Freedom}
@@ -67,8 +69,9 @@ const PrisonContent: React.FC = () => {
         </div>
       )}
       <div className={styles.actionsContainer}>
-        {user && !user.prison?.isPrisoner && (
+        {user && user.prison?.isPrisoner && (
           <div className={styles.prisonStats}>
+            <h4>You end up behind bars. Freedom will have to wait.</h4>
             <p>
               You already escaped <span>{user.prison?.escapes}</span>{" "}
               {user.prison?.escapes === 1 ? "time" : "times"}
@@ -80,7 +83,7 @@ const PrisonContent: React.FC = () => {
           </div>
         )}
         {user &&
-          !user.prison?.isPrisoner &&
+          user.prison?.isPrisoner &&
           prisonActions.map((action, key) => (
             <PrisonAction
               key={key}

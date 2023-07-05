@@ -25,6 +25,12 @@
 
   .prisonStats {
     margin-bottom: $size-32;
+    h4 {
+      color: $color-base-red-500;
+      text-align: $center;
+      margin-bottom: $size-32;
+    }
+
     span {
       color: $color-base-orange;
       font-weight: $font-weight-bold;

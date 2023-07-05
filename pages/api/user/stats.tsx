@@ -22,10 +22,16 @@ export interface IUserWithRobbery extends IUser {
     charismaValue?: number;
     respectValue?: number;
   };
+  prison?: {
+    isPrisoner: boolean;
+    escapes: number;
+    bailouts: number;
+  };
 }
 
 type UpdatedStats = IUserWithRobbery["lastRobbery"] &
-  IUserWithRobbery["defaultParams"];
+  IUserWithRobbery["defaultParams"] &
+  IUserWithRobbery["prison"];
 
 export default async function handler(
   req: NextApiRequest,
@@ -50,7 +56,8 @@ export default async function handler(
     const selectedPlace = req.body.selectedPlace;
     const updatedStats = await calculateUpdatedStats(
       user.defaultParams,
-      selectedPlace
+      selectedPlace,
+      user.prison
     );
 
     const { password, ...userWithoutPassword } = user;
@@ -63,6 +70,9 @@ export default async function handler(
       enduranceValue,
       charismaValue,
       respectValue,
+      isPrisoner,
+      escapes,
+      bailouts,
       ...defautlParams
     } = updatedStats;
 
@@ -82,6 +92,11 @@ export default async function handler(
         charismaValue: charismaValue,
         respectValue: respectValue,
       },
+      prison: {
+        isPrisoner: isPrisoner,
+        escapes: escapes || 0,
+        bailouts: bailouts || 0,
+      },
     };
 
     await usersCollection.updateOne(
@@ -99,6 +114,11 @@ export default async function handler(
             charismaValue,
             respectValue,
           },
+          prison: {
+            isPrisoner: isPrisoner,
+            escapes: escapes,
+            bailouts: bailouts,
+          },
         },
       }
     );
@@ -113,7 +133,8 @@ export default async function handler(
 
 async function calculateUpdatedStats(
   stats: IUser["defaultParams"],
-  selectedPlace: string
+  selectedPlace: string,
+  prison?: IUserWithRobbery["prison"]
 ): Promise<UpdatedStats> {
   const energyPointsCost = await getRobberyPlaceInfo(stats, selectedPlace);
   const energyResCost = energyPointsCost.energyCost;
@@ -160,6 +181,16 @@ async function calculateUpdatedStats(
     updatedStats.money = Math.max(updatedStats.money, 0);
     updatedStats.respect = Math.max(stats.respect - respectValue, 1);
     message = getRobberyResultMessage(false);
+
+    if (updatedStats.addiction > 80) {
+      const isPrisoner = Math.random() < 0.5;
+      prison = {
+        isPrisoner: isPrisoner,
+        escapes: prison?.escapes || 0,
+        bailouts: prison?.bailouts || 0,
+      };
+      message = getRobberyResultMessage(false, true);
+    }
   }
   return {
     ...updatedStats,
@@ -171,6 +202,7 @@ async function calculateUpdatedStats(
     enduranceValue,
     charismaValue,
     respectValue,
+    ...prison,
   } as UpdatedStats;
 }
 

@@ -6,6 +6,7 @@ import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { Place } from "@/constants/sections/places";
 import { calculatePlaceInformation, fetchUpdatedStats } from "@/lib/robbery";
 import UserContext from "@/store/user-context";
+import { useRouter } from "next/router";
 import PlaceItem from "./PlaceItem";
 import styles from "./RobberyContent.module.scss";
 import RobberyResultInfo from "./RobberyResultInfo";
@@ -24,6 +25,7 @@ const RobberyContent: React.FC = () => {
 
   const timeoutRef = useRef<number | null>(null);
   const { user, setUser } = useContext(UserContext);
+  const router = useRouter();
 
   useEffect(() => {
     const respect = user?.defaultParams.respect ?? 1;
@@ -57,6 +59,10 @@ const RobberyContent: React.FC = () => {
 
           if (setUser) {
             setUser(updatedUser);
+          }
+
+          if (updatedUser.prison?.isPrisoner) {
+            router.push("/actions/prison");
           }
 
           setUserLastRobbery(updatedUser.lastRobbery);

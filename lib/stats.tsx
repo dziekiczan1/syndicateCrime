@@ -1,4 +1,7 @@
-export function getRobberyResultMessage(isSuccess: boolean): string {
+export function getRobberyResultMessage(
+  isSuccess: boolean,
+  prison?: boolean
+): string {
   const successMessages = [
     "You hit the jackpot! Time to buy that private island.",
     "You're on a roll! The money keeps flowing.",
@@ -15,7 +18,19 @@ export function getRobberyResultMessage(isSuccess: boolean): string {
     "Learn from your mistakes and try again.",
   ];
 
-  const messages = isSuccess ? successMessages : failureMessages;
+  const prisonMessages = [
+    "You end up behind bars. Freedom will have to wait.",
+    "Locked up and out of luck. Time to face the consequences.",
+    "The long arm of the law catches up with you. Welcome to prison.",
+    "Your criminal activities have landed you in a cell. It's time to reflect.",
+    "Incarceration becomes your reality. The world outside fades away.",
+  ];
+
+  const messages = isSuccess
+    ? successMessages
+    : prison
+    ? prisonMessages
+    : failureMessages;
   const randomIndex = Math.floor(Math.random() * messages.length);
   return messages[randomIndex];
 }
