@@ -1,7 +1,7 @@
 import HospitalContent from "@/components/content/hospital/HospitalContent";
 import GameLayout from "@/components/layout/game/GameLayout";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
+import { withPrisonCheck } from "@/lib/withPrisonCheck";
+import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function HospitalScreen() {
   return (
@@ -13,19 +13,10 @@ export default function HospitalScreen() {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
-
-  if (!session) {
+export const getServerSideProps = withPrisonCheck(
+  withSessionCheck(async () => {
     return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
+      props: {},
     };
-  }
-
-  return {
-    props: {},
-  };
-}
+  })
+);
