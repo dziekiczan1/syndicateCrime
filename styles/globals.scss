@@ -101,3 +101,11 @@ label,
     display: none;
   }
 }
+
+.sectionImage {
+  width: $full-size;
+  aspect-ratio: 16/9;
+  border-radius: $size-8;
+  box-shadow: $shadow;
+  object-fit: cover;
+}

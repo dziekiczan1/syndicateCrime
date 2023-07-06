@@ -19,7 +19,7 @@ const PageHeader: React.FC<IPageHeader> = ({ pageData }) => {
         alt={title}
         width={680}
         height={360}
-        className={styles.image}
+        className="sectionImage"
       />
       <p className={styles.description}>{description}</p>
       <h2 className={styles.title}>{title}</h2>

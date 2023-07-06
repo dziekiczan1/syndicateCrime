@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import { Freedom, Icon } from "@/components/ui/icons";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { prisonActions } from "@/constants/actions/prisonactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
+import prisonImages from "@/constants/images/prison";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import PrisonAction from "./PrisonAction";
 import styles from "./PrisonContent.module.scss";
@@ -59,13 +60,20 @@ const PrisonContent: React.FC = () => {
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       {user && !user.prison?.isPrisoner && (
         <div className={styles.freedom}>
-          <Icon
+          {/* <Icon
             component={Freedom}
             width={200}
             height={200}
             viewBox="494 494"
+          /> */}
+          <Image
+            src={prisonImages.freedom}
+            alt="Freedom"
+            width={680}
+            height={360}
+            className="sectionImage"
           />
-          <p>You are a free person...</p>
+          <p className={styles.freedomText}>You are a free person...</p>
         </div>
       )}
       <div className={styles.actionsContainer}>

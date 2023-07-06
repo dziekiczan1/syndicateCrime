@@ -3,16 +3,7 @@
 .container {
   margin-bottom: $size-32;
 
-  .image {
-    width: $full-size;
-    aspect-ratio: 16/9;
-    margin-bottom: $size-32;
-    border-radius: $size-8;
-    box-shadow: $shadow;
-    object-fit: cover;
-  }
-
   .description {
-    margin-bottom: $size-32;
+    margin: $size-32 0;
   }
 }
