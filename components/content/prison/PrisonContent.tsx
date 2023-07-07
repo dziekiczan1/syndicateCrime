@@ -9,7 +9,6 @@ import prisonImages from "@/constants/images/prison";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import PrisonAction from "./PrisonAction";
 import styles from "./PrisonContent.module.scss";
 
@@ -19,7 +18,6 @@ const PrisonContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingPrison, setIsLoadingPrison] = useState(false);
-  const router = useRouter();
 
   const handleAction = async (action: (() => void) | string) => {
     try {
@@ -60,12 +58,6 @@ const PrisonContent: React.FC = () => {
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       {user && !user.prison?.isPrisoner && (
         <div className={styles.freedom}>
-          {/* <Icon
-            component={Freedom}
-            width={200}
-            height={200}
-            viewBox="494 494"
-          /> */}
           <Image
             src={prisonImages.freedom}
             alt="Freedom"
