@@ -25,7 +25,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
       <div className={styles.actions}>
         <div className={styles.sidebar}>
           <div className={styles.logoWrapper}>
-            <Logo width={400} height={200} />
+            <Logo width={674} height={301} />
           </div>
           <div className={styles.userWrapper}>
             <div className={styles.userInterface}>

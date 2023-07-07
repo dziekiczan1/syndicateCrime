@@ -15,9 +15,11 @@
   }
 
   .logoWrapper {
-    @include flexbox($justify-content: $center);
-    width: $full-size;
     margin-bottom: $size-16;
+
+    img {
+      width: calc($three-quarters-size - $size-16);
+    }
   }
 
   .userWrapper {

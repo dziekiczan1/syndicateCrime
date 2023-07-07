@@ -4,6 +4,7 @@
   @include flexbox($align-items: $center);
   img {
     max-width: $full-size;
+    width: $auto;
     height: $auto;
   }
 }

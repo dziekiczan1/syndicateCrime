@@ -4,7 +4,7 @@ export function calculatePlaceInformation(
   userRespect: number,
   userAddiction: number
 ) {
-  const respectWeight = 0.5;
+  const respectWeight = userAddiction >= 50 ? 0.5 : 1;
   const addictionWeight = 0.5;
 
   const placeInformationData = placeInformation.map((place) => {
