@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 
-import Button from "@/components/ui/button/Button";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
@@ -9,9 +8,9 @@ import {
   whoresActions,
 } from "@/constants/actions/whoresactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { formatNumber } from "@/lib/money";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
+import WhoreDetails from "./WhoreDetails";
 import styles from "./WhoresContent.module.scss";
 
 const WhoresContent: React.FC = () => {
@@ -24,6 +23,7 @@ const WhoresContent: React.FC = () => {
   const handleBuy = async (whore: IWhoresActions) => {
     try {
       setIsLoadingWhores(true);
+
       const response = await fetch("/api/user/whoresActions", {
         method: "POST",
         body: JSON.stringify({ whore }),
@@ -77,22 +77,7 @@ const WhoresContent: React.FC = () => {
         </thead>
         <tbody>
           {whoresActions.map((whore, index) => (
-            <tr key={index}>
-              <td>
-                <p>{whore.name}</p>
-              </td>
-              <td>
-                <p>{formatNumber(whore.cost)}</p>
-              </td>
-              <td>
-                <p>{formatNumber(whore.earnings)}</p>
-              </td>
-              <td>
-                <Button onClick={() => handleBuy(whore)} secondary fullSize>
-                  Buy
-                </Button>
-              </td>
-            </tr>
+            <WhoreDetails key={index} whore={whore} handleBuy={handleBuy} />
           ))}
         </tbody>
       </table>

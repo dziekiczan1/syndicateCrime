@@ -6,6 +6,9 @@ export const handlePositiveResponse = async (
   setIsLoadingRobbery: Dispatch<SetStateAction<boolean>>
 ) => {
   const updatedUser = await response.json();
+
+  console.log(updatedUser);
+
   setUser(updatedUser);
   setIsLoadingRobbery(false);
 };
