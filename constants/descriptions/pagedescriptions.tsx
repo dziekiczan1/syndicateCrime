@@ -58,10 +58,16 @@ const pageDescriptions: IPageDescriptions = {
     title: "Sabotage: Unleash Chaos and Disrupt the Order",
     image: sectionsImages.sabotage,
   },
+  whores: {
+    description:
+      "Step into the lucrative world of the sex industry and establish your empire of seductive power. As a shrewd entrepreneur, you'll recruit a team of enticing ladies to work for you, generating steady income day after day. Navigate the complexities of this provocative business, from managing your workforce to satisfying the desires of your clients. With charm, strategy, and a keen eye for opportunity, you can rise to the top of the adult entertainment industry. Embrace the allure and luxury that come with this realm of pleasure, and watch your wealth and influence grow. Are you ready to dominate the world of lust and temptation?",
+    title: "Whores: Building Your Empire with Seductive Power",
+    image: sectionsImages.whores,
+  },
   dealer: {
     description:
       "Explore the clandestine world of the Dealer, where forbidden substances hold the key to unlocking hidden powers. Enhance your energy levels and gain a competitive edge through the purchase of potent drugs. But beware, as these substances come with the risk of addiction, leading to unforeseen consequences. Exercise caution as you navigate this treacherous path, balancing the benefits of increased energy with the dangers of spiraling into dependency. Are you ready to tread the thin line between power and peril?",
-    title: " Elevate Your Performance, Accept the Risks",
+    title: "Elevate Your Performance, Accept the Risks",
     image: sectionsImages.dealer,
   },
   hospital: {
