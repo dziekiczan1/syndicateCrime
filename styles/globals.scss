@@ -109,3 +109,23 @@ label,
   box-shadow: $shadow;
   object-fit: cover;
 }
+
+.table {
+  width: $full-size;
+  border-collapse: collapse;
+
+  th,
+  td {
+    @include border($color: $color-base-orange, $side: bottom);
+    padding: $size-10;
+    text-align: $center;
+
+    p {
+      @include font-size($size-12);
+    }
+  }
+
+  th {
+    background-color: $color-base-dark-200;
+  }
+}

@@ -49,7 +49,7 @@ const Statistics: React.FC = () => {
           <Loading />
         </div>
       ) : (
-        <table className={styles.table}>
+        <table className="table">
           <thead>
             <tr>
               <th>
