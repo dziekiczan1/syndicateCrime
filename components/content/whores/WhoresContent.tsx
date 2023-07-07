@@ -9,6 +9,7 @@ import {
   whoresActions,
 } from "@/constants/actions/whoresactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
+import { formatNumber } from "@/lib/money";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
 import styles from "./WhoresContent.module.scss";
@@ -81,10 +82,10 @@ const WhoresContent: React.FC = () => {
                 <p>{whore.name}</p>
               </td>
               <td>
-                <p>${whore.cost.toLocaleString()}</p>
+                <p>{formatNumber(whore.cost)}</p>
               </td>
               <td>
-                <p>${whore.earnings.toLocaleString()}</p>
+                <p>{formatNumber(whore.earnings)}</p>
               </td>
               <td>
                 <Button onClick={() => handleBuy(whore)} secondary fullSize>
