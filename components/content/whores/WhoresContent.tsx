@@ -64,19 +64,25 @@ const WhoresContent: React.FC = () => {
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       {user && !user.whores ? (
-        <p>You don&apos;t currently have any whores working for you.</p>
+        <p className={styles.tableHeading}>
+          You don&apos;t currently have any whores working for you.
+        </p>
       ) : (
-        <table className="table">
-          <TableThead columns={activeWhoreTheads} />
-          <tbody>
-            {user &&
-              user.whores?.map((active, index) => (
-                <ActiveWhores key={index} active={active} />
-              ))}
-          </tbody>
-        </table>
+        <>
+          <p className={styles.tableHeading}>Your active whores:</p>
+          <table className={`table ${styles.activeTable}`}>
+            <TableThead columns={activeWhoreTheads} />
+            <tbody>
+              {user &&
+                user.whores?.map((active, index) => (
+                  <ActiveWhores key={index} active={active} />
+                ))}
+            </tbody>
+          </table>
+        </>
       )}
-      <table className="table">
+      <p className={styles.tableHeading}>All whores:</p>
+      <table className={`table ${styles.activeTable}`}>
         <TableThead columns={allWhoresTheads} />
         <tbody>
           {whoresActions.map((whore, index) => (

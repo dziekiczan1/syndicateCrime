@@ -9,4 +9,15 @@
     margin: $size-32 $null;
     padding-right: $size-8;
   }
+
+  .activeTable {
+    margin-bottom: $size-32;
+  }
+
+  .tableHeading {
+    @include flexbox($justify-content: $center);
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+    margin-bottom: $size-16;
+  }
 }
