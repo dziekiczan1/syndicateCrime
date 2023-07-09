@@ -37,47 +37,72 @@ export default async function handler(
     }
 
     const { whore } = req.body;
+    const { action } = req.body;
 
     const updatedUser: IUserWithWhores = { ...user };
 
-    const existingWhore = updatedUser.whores?.find(
-      (w) => w.name === whore.name
-    );
-    if (existingWhore) {
-      existingWhore.count = (existingWhore.count || 0) + 1;
-    } else {
-      if (!updatedUser.whores) {
-        updatedUser.whores = [];
+    if (action === "buy") {
+      const existingWhore = updatedUser.whores?.find(
+        (w) => w.name === whore.name
+      );
+      if (existingWhore) {
+        existingWhore.count = (existingWhore.count || 0) + 1;
+      } else {
+        if (!updatedUser.whores) {
+          updatedUser.whores = [];
+        }
+        updatedUser.whores.push({ ...whore, count: 1 });
       }
-      updatedUser.whores.push({ ...whore, count: 1 });
-    }
 
-    const totalWhoreCount = updatedUser.whores?.reduce(
-      (total, w) => total + (w.count || 0),
-      0
-    );
-    if (totalWhoreCount && totalWhoreCount > 5) {
-      return res
-        .status(400)
-        .json({ error: "Maximum number of whores reached" });
-    }
+      const totalWhoreCount = updatedUser.whores?.reduce(
+        (total, w) => total + (w.count || 0),
+        0
+      );
+      if (totalWhoreCount && totalWhoreCount > 5) {
+        return res
+          .status(400)
+          .json({ error: "Maximum number of whores reached" });
+      }
 
-    if (updatedUser.defaultParams.money < whore.cost) {
-      return res
-        .status(400)
-        .json({ error: "Insufficient funds to buy the whore" });
-    }
+      if (updatedUser.defaultParams.money < whore.cost) {
+        return res
+          .status(400)
+          .json({ error: "Insufficient funds to buy the whore" });
+      }
 
-    updatedUser.defaultParams.money -= whore.cost;
+      updatedUser.defaultParams.money -= whore.cost;
+    } else if (action === "fire") {
+      const existingWhore = updatedUser.whores?.find(
+        (w) => w.name === whore.name
+      );
+
+      if (!existingWhore) {
+        return res.status(400).json({ error: "Whore not found" });
+      }
+
+      existingWhore.count = (existingWhore.count || 0) - 1;
+      if (existingWhore.count <= 0) {
+        updatedUser.whores = updatedUser.whores?.filter(
+          (w) => w.name !== whore.name
+        );
+      }
+    }
 
     await usersCollection.updateOne(
       { email: email as string },
       { $set: updatedUser }
     );
 
+    const { password, ...userWithoutPassword } = updatedUser;
+
+    const serializedUser = {
+      ...userWithoutPassword,
+      _id: user._id.toString(),
+    } as IUser;
+
     client.close();
 
-    return res.status(200).json(updatedUser);
+    return res.status(200).json(serializedUser);
   } catch (error) {
     console.error("Error processing bank action:", error);
     return res.status(500).json({ error: "Server error" });

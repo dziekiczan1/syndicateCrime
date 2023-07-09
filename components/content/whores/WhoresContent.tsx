@@ -4,12 +4,10 @@ import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import TableThead from "@/components/ui/table/TableThead";
-import {
-  IWhoresActions,
-  whoresActions,
-} from "@/constants/actions/whoresactions";
+import { whoresActions } from "@/constants/actions/whoresactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import { Whore } from "@/pages/api/user/whoresActions";
 import UserContext from "@/store/user-context";
 import ActiveWhores from "./ActiveWhores";
 import WhoreDetails from "./WhoreDetails";
@@ -22,16 +20,16 @@ const WhoresContent: React.FC = () => {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingWhores, setIsLoadingWhores] = useState(false);
 
-  const activeWhoreTheads = ["Name", "Count", "Earnings per day"];
+  const activeWhoreTheads = ["Name", "Count", "Earnings per day", "Manage"];
   const allWhoresTheads = ["Name", "Cost", "Earnings per day", "Buy"];
 
-  const handleBuy = async (whore: IWhoresActions) => {
+  const handleWhoreAction = async (whore: Whore, action: string) => {
     try {
       setIsLoadingWhores(true);
 
       const response = await fetch("/api/user/whoresActions", {
         method: "POST",
-        body: JSON.stringify({ whore }),
+        body: JSON.stringify({ whore, action }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -63,9 +61,9 @@ const WhoresContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {user && !user.whores ? (
+      {user && !user.whores?.length ? (
         <p className={styles.tableHeading}>
-          You don&apos;t currently have any whores working for you.
+          You don&apos;t have any active whores at the moment.
         </p>
       ) : (
         <>
@@ -75,18 +73,31 @@ const WhoresContent: React.FC = () => {
             <tbody>
               {user &&
                 user.whores?.map((active, index) => (
-                  <ActiveWhores key={index} active={active} />
+                  <ActiveWhores
+                    key={index}
+                    active={active}
+                    handleWhoreAction={handleWhoreAction}
+                  />
                 ))}
             </tbody>
           </table>
         </>
       )}
+      {
+        <p className={styles.maxLimit}>
+          Your current maximum limit for whores is: <span>5</span>
+        </p>
+      }
       <p className={styles.tableHeading}>All whores:</p>
       <table className={`table ${styles.activeTable}`}>
         <TableThead columns={allWhoresTheads} />
         <tbody>
           {whoresActions.map((whore, index) => (
-            <WhoreDetails key={index} whore={whore} handleBuy={handleBuy} />
+            <WhoreDetails
+              key={index}
+              whore={whore}
+              handleWhoreAction={handleWhoreAction}
+            />
           ))}
         </tbody>
       </table>

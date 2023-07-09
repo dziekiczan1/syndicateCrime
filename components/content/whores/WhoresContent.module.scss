@@ -11,13 +11,24 @@
   }
 
   .activeTable {
-    margin-bottom: $size-32;
+    margin-bottom: $size-16;
   }
 
+  .maxLimit,
   .tableHeading {
     @include flexbox($justify-content: $center);
     color: $color-base-orange;
     font-weight: $font-weight-bold;
     margin-bottom: $size-16;
+  }
+
+  .maxLimit {
+    color: $color-base-light;
+    margin-bottom: $size-32;
+
+    span {
+      color: $color-base-orange;
+      margin-left: $size-4;
+    }
   }
 }

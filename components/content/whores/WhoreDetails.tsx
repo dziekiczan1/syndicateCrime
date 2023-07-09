@@ -1,14 +1,18 @@
 import Button from "@/components/ui/button/Button";
 import { IWhoresActions } from "@/constants/actions/whoresactions";
 import { formatNumber } from "@/lib/money";
+import { Whore } from "@/pages/api/user/whoresActions";
 import { useEffect, useState } from "react";
 
 interface IWhoreDetails {
   whore: IWhoresActions;
-  handleBuy: (whore: IWhoresActions) => void;
+  handleWhoreAction: (whore: Whore, action: string) => void;
 }
 
-const WhoreDetails: React.FC<IWhoreDetails> = ({ whore, handleBuy }) => {
+const WhoreDetails: React.FC<IWhoreDetails> = ({
+  whore,
+  handleWhoreAction,
+}) => {
   const [formattedCost, setFormattedCost] = useState("");
   const [formattedEarnings, setFormattedEarnings] = useState("");
 
@@ -31,7 +35,11 @@ const WhoreDetails: React.FC<IWhoreDetails> = ({ whore, handleBuy }) => {
         <p>{formattedEarnings}</p>
       </td>
       <td>
-        <Button onClick={() => handleBuy(whore)} secondary fullSize>
+        <Button
+          onClick={() => handleWhoreAction(whore, "buy")}
+          secondary
+          fullSize
+        >
           Buy
         </Button>
       </td>

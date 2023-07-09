@@ -7,8 +7,6 @@ export const handlePositiveResponse = async (
 ) => {
   const updatedUser = await response.json();
 
-  console.log(updatedUser);
-
   setUser(updatedUser);
   setIsLoadingRobbery(false);
 };
