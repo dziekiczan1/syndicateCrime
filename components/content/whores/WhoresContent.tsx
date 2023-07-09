@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import TableThead from "@/components/ui/table/TableThead";
 import {
   IWhoresActions,
   whoresActions,
@@ -10,6 +11,7 @@ import {
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
+import ActiveWhores from "./ActiveWhores";
 import WhoreDetails from "./WhoreDetails";
 import styles from "./WhoresContent.module.scss";
 
@@ -19,6 +21,9 @@ const WhoresContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingWhores, setIsLoadingWhores] = useState(false);
+
+  const activeWhoreTheads = ["Name", "Count", "Earnings per day"];
+  const allWhoresTheads = ["Name", "Cost", "Earnings per day", "Buy"];
 
   const handleBuy = async (whore: IWhoresActions) => {
     try {
@@ -58,23 +63,21 @@ const WhoresContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {user && !user.whores ? (
+        <p>You don&apos;t currently have any whores working for you.</p>
+      ) : (
+        <table className="table">
+          <TableThead columns={activeWhoreTheads} />
+          <tbody>
+            {user &&
+              user.whores?.map((active, index) => (
+                <ActiveWhores key={index} active={active} />
+              ))}
+          </tbody>
+        </table>
+      )}
       <table className="table">
-        <thead>
-          <tr>
-            <th>
-              <p>Name</p>
-            </th>
-            <th>
-              <p>Cost</p>
-            </th>
-            <th>
-              <p>Earnings per day</p>
-            </th>
-            <th>
-              <p>Buy</p>
-            </th>
-          </tr>
-        </thead>
+        <TableThead columns={allWhoresTheads} />
         <tbody>
           {whoresActions.map((whore, index) => (
             <WhoreDetails key={index} whore={whore} handleBuy={handleBuy} />

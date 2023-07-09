@@ -1,3 +1,4 @@
+import { Whore } from "@/pages/api/user/whoresActions";
 import { createContext } from "react";
 
 export interface IUser {
@@ -25,6 +26,7 @@ export interface IUser {
     escapes: number;
     bailouts: number;
   };
+  whores?: Whore[];
 }
 
 export interface IUserContextType {
