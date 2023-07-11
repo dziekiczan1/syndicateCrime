@@ -27,7 +27,8 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "256 256",
       statsValue: userStats?.endurance,
       statsName: "Endurance",
-      tooltipText: "lorem ipsum",
+      tooltipText:
+        "Endurance represents your stamina and resilience to endure physical exertion and withstand fatigue. It enhances your ability to engage in prolonged activities and recover quickly from injuries or strain.",
     },
     {
       ...userStatsStyles,
@@ -35,7 +36,8 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "48 48",
       statsValue: userStats?.money.toLocaleString(),
       statsName: "Money",
-      tooltipText: "lorem ipsum",
+      tooltipText:
+        "Money represents your financial wealth and resources in the game. It determines your purchasing power, enabling you to buy items, equipment, and properties. Accumulating more money allows you to unlock new opportunities, invest in profitable ventures, and establish a prosperous empire.",
     },
     {
       ...userStatsStyles,
