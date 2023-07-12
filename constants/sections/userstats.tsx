@@ -45,7 +45,8 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "32 32",
       statsValue: userStats?.intelligence,
       statsName: "Intelligence",
-      tooltipText: "lorem ipsum",
+      tooltipText:
+        "Intelligence represents your mental acuity, problem-solving skills, and ability to process information. A higher intelligence level enhances your critical thinking, strategic planning, and decision-making capabilities.",
     },
     {
       ...userStatsStyles,
@@ -53,7 +54,8 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.charisma,
       statsName: "Charisma",
-      tooltipText: "lorem ipsum",
+      tooltipText:
+        "Charisma represents your ability to charm, persuade, and influence others. A higher charisma level enhances your social skills, charisma, and likability. It allows you to negotiate better deals, win people's trust, and build strong relationships.",
     },
     {
       ...userStatsStyles,
@@ -61,7 +63,8 @@ export const getUserStatistics = (userStats: any) => {
       viewBox: "512 512",
       statsValue: userStats?.respect,
       statsName: "Respect",
-      tooltipText: "lorem ipsum",
+      tooltipText:
+        "Respect represents your reputation and influence within the game world. A higher respect level increases your success probability for robberies, as it commands fear and respect from others. It determines how easily you can recruit accomplices, gain access to restricted areas, and intimidate opponents.",
     },
   ];
 };
