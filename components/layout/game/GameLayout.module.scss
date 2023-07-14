@@ -1,8 +1,10 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  @include flexbox();
+  @include flexbox($gap: $size-16);
   position: relative;
+  margin: $null auto;
+  max-width: $layout-max-width;
   z-index: 1;
 
   .actions {

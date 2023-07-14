@@ -52,6 +52,8 @@ $size-40: $base-size * 10; // 32px
 $size-48: $size-16 * 3; // 48px
 $size-64: $size-16 * 4; // 64px
 
+$layout-max-width: 1440px;
+
 // Box Shadow
 
 $shadow: 0 $size-2 $size-4 rgba(0, 0, 0, 0.2);
