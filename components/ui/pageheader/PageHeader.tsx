@@ -14,16 +14,24 @@ const PageHeader: React.FC<IPageHeader> = ({ pageData }) => {
 
   return (
     <div className={styles.container}>
-      <Image
-        src={image}
-        alt={title}
-        width={680}
-        height={360}
-        className="sectionImage"
-        priority={true}
-      />
+      <div className={styles.imageWrapper}>
+        <div>
+          <div className={styles.overlay}>
+            <div className={styles.titleWrapper}>
+              <h2 className={styles.title}>{title}</h2>
+            </div>
+          </div>
+          <Image
+            src={image}
+            alt={title}
+            width={680}
+            height={360}
+            className="sectionImage"
+            priority={true}
+          />
+        </div>
+      </div>
       <p className={styles.description}>{description}</p>
-      <h2 className={styles.title}>{title}</h2>
     </div>
   );
 };
