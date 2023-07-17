@@ -6,6 +6,7 @@ import UserInterface from "@/components/user/interface/UserInterface";
 
 import Slider from "@/components/ui/slider/Slider";
 import sliderData from "@/constants/descriptions/sliderdata";
+import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
 import styles from "./GameLayout.module.scss";
 
@@ -21,32 +22,35 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.actions}>
-        <div className={styles.sidebar}>
-          <div className={styles.logoWrapper}>
-            <Logo width={674} height={301} />
-          </div>
-          <div className={styles.userWrapper}>
-            <div className={styles.userInterface}>
-              <UserInterface />
+    <>
+      <div className={styles.container}>
+        <div className={styles.actions}>
+          <div className={styles.sidebar}>
+            <div className={styles.logoWrapper}>
+              <Logo width={674} height={301} />
             </div>
-            <div
-              className={`${styles.navigation} ${isMenuOpen && styles.open}`}
-            >
-              <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            <div className={styles.userWrapper}>
+              <div className={styles.userInterface}>
+                <UserInterface />
+              </div>
+              <div
+                className={`${styles.navigation} ${isMenuOpen && styles.open}`}
+              >
+                <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+              </div>
             </div>
-          </div>
-          <ActionsInterface />
-          <div className={styles.sliderWrapper}>
-            <Slider slides={sliderData} />
+            <ActionsInterface />
+            <div className={styles.sliderWrapper}>
+              <Slider slides={sliderData} />
+            </div>
           </div>
         </div>
+        <div className={styles.content}>
+          <div className={styles.contentContainer}>{children}</div>
+        </div>
       </div>
-      <div className={styles.content}>
-        <div className={styles.contentContainer}>{children}</div>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
