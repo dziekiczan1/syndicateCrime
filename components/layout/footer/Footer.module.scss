@@ -5,4 +5,11 @@
   background-color: darken($color-base-dark, 10%);
   width: $full-size;
   padding: $size-32;
+
+  .sections {
+    @include flexbox($gap: $size-64);
+    max-width: $layout-max-width;
+    padding: $null $size-16;
+    margin: 0 auto;
+  }
 }
