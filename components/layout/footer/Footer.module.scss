@@ -2,4 +2,7 @@
 
 .container {
   color: $color-base-light;
+  background-color: darken($color-base-dark, 10%);
+  width: $full-size;
+  padding: $size-32;
 }
