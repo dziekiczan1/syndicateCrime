@@ -6,10 +6,19 @@
   width: $full-size;
   padding: $size-32;
 
-  .sections {
-    @include flexbox($gap: $size-64);
+  .sectionsWrapper {
     max-width: $layout-max-width;
-    padding: $null $size-16;
     margin: 0 auto;
+  }
+
+  .menuSections {
+    @include flexbox($justify-content: space-between);
+    width: $two-thirds;
+    padding: $null $size-16;
+  }
+
+  .imageSection {
+    width: $third-size;
+    padding: $null $size-16;
   }
 }
