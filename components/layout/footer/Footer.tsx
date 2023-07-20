@@ -1,4 +1,6 @@
+import footerImages from "@/constants/images/footer";
 import menuItems from "@/constants/sections/menu";
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./Footer.module.scss";
 
@@ -30,7 +32,14 @@ const Footer: React.FC = () => {
             </li>
           </ul>
         </div>
-        <div className={styles.imageSection}></div>
+        <div className={styles.imageSection}>
+          <Image
+            src={footerImages.grave}
+            width={300}
+            height={300}
+            alt="Syndicate Crime"
+          />
+        </div>
       </div>
     </div>
   );
