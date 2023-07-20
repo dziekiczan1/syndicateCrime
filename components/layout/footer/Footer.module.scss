@@ -21,4 +21,11 @@
     width: $third-size;
     padding: $null $size-16;
   }
+
+  .sectionItem {
+    &:hover {
+      @include transition(color);
+      color: $color-base-orange;
+    }
+  }
 }

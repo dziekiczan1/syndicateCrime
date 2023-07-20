@@ -1,3 +1,4 @@
+import menuItems from "@/constants/sections/menu";
 import Link from "next/link";
 import styles from "./Footer.module.scss";
 
@@ -8,36 +9,13 @@ const Footer: React.FC = () => {
         <div className={styles.menuSections}>
           <ul className={styles.section}>
             <h3 className={styles.sectionTitle}>Menu</h3>
-            <li>
-              <Link href="/">
-                <p>Home Page</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>Profile</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>Statistics</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>Credit</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>Help</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>Logout</p>
-              </Link>
-            </li>
+            {menuItems.map((item) => (
+              <li key={item.actionName}>
+                <Link href={item.href}>
+                  <p className={styles.sectionItem}>{item.actionName}</p>
+                </Link>
+              </li>
+            ))}
           </ul>
           <ul className={styles.section}>
             <h3 className={styles.sectionTitle}>Contact us!</h3>
