@@ -13,14 +13,67 @@
   }
 
   .menuSections {
-    @include flexbox($justify-content: space-between);
+    @include flexbox($justify-content: space-between, $flex-wrap: wrap);
     width: $two-thirds;
     padding: $null $size-16;
+
+    .section {
+      .sectionTitle {
+        position: relative;
+        margin-bottom: $size-12;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: $null;
+          bottom: $null;
+          width: $full-size;
+          height: $size-2;
+          background-image: linear-gradient(
+            to right,
+            darken($color-base-orange, 10%),
+            darken($color-base-dark, 10%)
+          );
+        }
+      }
+
+      li {
+        margin-bottom: $size-4;
+      }
+    }
+
+    .copyrightsSection {
+      @include flexbox($flex-direction: column);
+      align-self: flex-end;
+      width: $full-size;
+
+      .seperateLine {
+        height: $size-2;
+        background-image: linear-gradient(
+          to right,
+          darken($color-base-dark, 10%),
+          darken($color-base-orange, 10%),
+          darken($color-base-dark, 10%)
+        );
+      }
+
+      p {
+        font-size: $size-10;
+        margin: $null $auto;
+        padding: $size-16 $null;
+      }
+    }
   }
 
   .imageSection {
+    @include flexbox($justify-content: $center);
     width: $third-size;
     padding: $null $size-16;
+    img {
+      @include border($width: $size-2, $color: darken($color-base-orange, 10%));
+      border-radius: $size-8;
+      box-shadow: $shadow;
+    }
   }
 
   .sectionItem {

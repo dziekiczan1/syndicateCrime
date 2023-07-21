@@ -5,6 +5,8 @@ import Link from "next/link";
 import styles from "./Footer.module.scss";
 
 const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className={styles.container}>
       <div className={styles.sectionsWrapper}>
@@ -31,6 +33,10 @@ const Footer: React.FC = () => {
               <p>Some Link</p>
             </li>
           </ul>
+          <div className={styles.copyrightsSection}>
+            <div className={styles.seperateLine}></div>
+            <p>© {currentYear} Syndicate Crime. All rights reserved.</p>
+          </div>
         </div>
         <div className={styles.imageSection}>
           <Image
