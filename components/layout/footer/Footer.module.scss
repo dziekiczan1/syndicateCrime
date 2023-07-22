@@ -29,11 +29,7 @@
           bottom: $null;
           width: $full-size;
           height: $size-2;
-          background-image: linear-gradient(
-            to right,
-            darken($color-base-orange, 10%),
-            darken($color-base-dark, 10%)
-          );
+          background-color: darken($color-base-orange, 10%);
         }
       }
 
@@ -55,12 +51,6 @@
           darken($color-base-orange, 10%),
           darken($color-base-dark, 10%)
         );
-      }
-
-      p {
-        font-size: $size-10;
-        margin: $null $auto;
-        padding: $size-16 $null;
       }
     }
   }

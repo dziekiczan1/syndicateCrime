@@ -2,11 +2,10 @@ import footerImages from "@/constants/images/footer";
 import menuItems from "@/constants/sections/menu";
 import Image from "next/image";
 import Link from "next/link";
+import Copyrights from "../copyrights/Copyrights";
 import styles from "./Footer.module.scss";
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <div className={styles.container}>
       <div className={styles.sectionsWrapper}>
@@ -35,7 +34,7 @@ const Footer: React.FC = () => {
           </ul>
           <div className={styles.copyrightsSection}>
             <div className={styles.seperateLine}></div>
-            <p>© {currentYear} Syndicate Crime. All rights reserved.</p>
+            <Copyrights />
           </div>
         </div>
         <div className={styles.imageSection}>
