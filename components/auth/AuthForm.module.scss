@@ -7,6 +7,10 @@
   border-radius: $size-8;
   box-shadow: $shadow;
 
+  @include screen($size: mobile) {
+    padding: $size-16;
+  }
+
   .loader {
     @include flexbox($justify-content: $center, $align-items: $center);
     margin-bottom: $size-16;
@@ -31,6 +35,7 @@
 
 .control {
   position: relative;
+
   .message {
     @include font-size($size-8);
     font-weight: $font-weight-bold;
@@ -38,6 +43,7 @@
     text-align: left;
     margin: $null;
     bottom: $null;
+
     & + .avatars {
       margin-bottom: $size-8;
     }
@@ -46,6 +52,7 @@
 
 .label {
   width: $full-size;
+
   &:has(.checkbox) {
     width: auto;
   }
@@ -74,6 +81,7 @@
         cursor: pointer;
       }
     }
+
     &:checked {
       + img {
         outline: $size-1 solid $color-base-gold;
@@ -84,9 +92,19 @@
 
 .actions {
   @include flexbox($justify-content: space-between, $gap: $size-32);
+
+  @include screen($size: mobile) {
+    flex-direction: column;
+    gap: $null;
+  }
+
   button {
     flex-basis: $half-size;
     margin-top: $size-16;
+
+    @include screen($size: mobile) {
+      margin-top: $size-8;
+    }
   }
 }
 

@@ -13,7 +13,7 @@ export default function Home() {
         <meta name="description" content="Syndicate Crime" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main>
+      <div>
         <div className="absolute -z-10 h-screen w-screen">
           <Image
             src={images.loginBackground}
@@ -24,15 +24,15 @@ export default function Home() {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="no-scrollbar relative flex flex-col items-center justify-center h-screen gap-32 z-1 overflow-y-scroll py-8">
-          <div className="w-1/2 flex justify-center">
+        <div className="no-scrollbar relative flex flex-col items-center h-screen gap-16 lg:gap-32 z-1 overflow-y-scroll px-4 py-8 lg:px-0">
+          <div className="w-full lg:w-1/2 lg:flex lg:justify-center">
             <Logo width={674} height={301} />
           </div>
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <AuthForm />
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
