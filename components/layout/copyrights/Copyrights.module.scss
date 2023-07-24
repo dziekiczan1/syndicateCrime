@@ -4,4 +4,9 @@
   font-size: $size-10;
   margin: $null $auto;
   padding: $size-16 $null;
+
+  @include screen($size: mobile) {
+    padding-top: $size-16;
+    padding-bottom: $null;
+  }
 }

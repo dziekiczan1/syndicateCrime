@@ -16,7 +16,7 @@
     width: $half-size;
 
     @include screen($size: mobile) {
-      padding: $size-16;
+      padding: $null;
       width: $full-size;
     }
   }
@@ -63,6 +63,11 @@
     width: $half-size;
     background-color: $color-base-dark-50;
     margin-right: $size-16;
+
+    @include screen($size: mobile) {
+      padding: $null;
+      width: $full-size;
+    }
   }
 
   .contentContainer {
