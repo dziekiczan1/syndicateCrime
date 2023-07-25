@@ -2,9 +2,10 @@ import { ReactNode, useState } from "react";
 
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
-import UserInterface from "@/components/user/interface/UserInterface";
 
+import { Icon, ProfileIcon } from "@/components/ui/icons";
 import Slider from "@/components/ui/slider/Slider";
+import UserInterface from "@/components/user/interface/UserInterface";
 import sliderData from "@/constants/descriptions/sliderdata";
 import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
@@ -16,6 +17,11 @@ export interface IGameLayout {
 
 const GameLayout: React.FC<IGameLayout> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isUserInterfaceVisible, setUserInterfaceVisible] = useState(false);
+
+  const handleProfileClick = () => {
+    setUserInterfaceVisible((prevState) => !prevState);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
@@ -30,7 +36,37 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <Logo width={674} height={301} />
             </div>
             <div className={styles.userWrapper}>
-              <div className={styles.userInterface}>
+              <div className={styles.mobileIcons}>
+                <div onClick={handleProfileClick} className={styles.mobileIcon}>
+                  <Icon
+                    component={ProfileIcon}
+                    width={24}
+                    height={24}
+                    viewBox="52 52"
+                  />
+                </div>
+                <div onClick={handleProfileClick} className={styles.mobileIcon}>
+                  <Icon
+                    component={ProfileIcon}
+                    width={24}
+                    height={24}
+                    viewBox="52 52"
+                  />
+                </div>
+                <div onClick={handleProfileClick} className={styles.mobileIcon}>
+                  <Icon
+                    component={ProfileIcon}
+                    width={24}
+                    height={24}
+                    viewBox="52 52"
+                  />
+                </div>
+              </div>
+              <div
+                className={`${styles.userInterface} ${
+                  isUserInterfaceVisible && styles.mobileOpen
+                }`}
+              >
                 <UserInterface />
               </div>
               <div
