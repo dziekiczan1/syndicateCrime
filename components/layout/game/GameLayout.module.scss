@@ -37,23 +37,35 @@
     }
   }
 
-  .userWrapper {
-    @include flexbox($flex-wrap: wrap);
+  .mobileIcons {
+    display: none;
 
-    .mobileIcons {
+    @include screen($size: mobile) {
       width: $full-size;
-      display: none;
-
-      @include screen($size: mobile) {
-        display: block;
-      }
+      @include flexbox();
     }
+  }
+
+  .userWrapper {
+    @include flexbox();
   }
 
   .userInterface {
     display: block;
     width: calc($three-quarters-size - $size-16);
     z-index: 1;
+
+    @include screen($size: mobile) {
+      display: none;
+    }
+
+    &.mobileOpen {
+      display: block;
+    }
+  }
+
+  .actionInterface {
+    display: block;
 
     @include screen($size: mobile) {
       display: none;
