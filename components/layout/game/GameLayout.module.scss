@@ -85,6 +85,15 @@
     width: $quarter-size;
     margin: $size-16 $null;
     transform: translateX(-$three-quarters-size);
+    display: block;
+
+    @include screen($size: mobile) {
+      display: none;
+    }
+
+    &.mobileOpen {
+      display: block;
+    }
   }
 
   .open {

@@ -16,6 +16,7 @@ export { default as EnduranceIcon } from "./EnduranceIcon";
 export { default as FooterTopIcon } from "./FooterTopIcon";
 export { default as Freedom } from "./Freedom";
 export { default as GangIcon } from "./GangIcon";
+export { default as HamburgerMenuIcon } from "./HamburgerMenuIcon";
 export { default as HelpIcon } from "./HelpIcon";
 export { default as HomeIcon } from "./HomeIcon";
 export { default as HospitalIcon } from "./HospitalIcon";

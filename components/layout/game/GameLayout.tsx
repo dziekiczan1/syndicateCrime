@@ -3,7 +3,12 @@ import { ReactNode, useState } from "react";
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
 
-import { Icon, ProfileIcon, RobberyIcon } from "@/components/ui/icons";
+import {
+  HamburgerMenuIcon,
+  Icon,
+  ProfileIcon,
+  RobberyIcon,
+} from "@/components/ui/icons";
 import Slider from "@/components/ui/slider/Slider";
 import UserInterface from "@/components/user/interface/UserInterface";
 import sliderData from "@/constants/descriptions/sliderdata";
@@ -20,6 +25,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
   const [isUserInterfaceVisible, setUserInterfaceVisible] = useState(false);
   const [isActionsInterfaceVisible, setActionsInterfaceVisible] =
     useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleProfileClick = () => {
     setUserInterfaceVisible((prevState) => !prevState);
@@ -27,6 +33,10 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
 
   const handleActionsClick = () => {
     setActionsInterfaceVisible((prevState) => !prevState);
+  };
+
+  const handleMobileMenuClick = () => {
+    setIsMobileMenuOpen((prevState) => !prevState);
   };
 
   const toggleMenu = () => {
@@ -58,12 +68,15 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                   viewBox="512 512"
                 />
               </div>
-              <div onClick={handleProfileClick} className={styles.mobileIcon}>
+              <div
+                onClick={handleMobileMenuClick}
+                className={styles.mobileIcon}
+              >
                 <Icon
-                  component={ProfileIcon}
+                  component={HamburgerMenuIcon}
                   width={48}
                   height={48}
-                  viewBox="52 52"
+                  viewBox="24 24"
                 />
               </div>
             </div>
@@ -76,7 +89,9 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                 <UserInterface />
               </div>
               <div
-                className={`${styles.navigation} ${isMenuOpen && styles.open}`}
+                className={`${styles.navigation} ${isMenuOpen && styles.open} ${
+                  isMobileMenuOpen && styles.mobileOpen
+                }`}
               >
                 <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
               </div>
