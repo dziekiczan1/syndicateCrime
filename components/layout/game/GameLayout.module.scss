@@ -57,10 +57,14 @@
 
     @include screen($size: mobile) {
       display: none;
-    }
 
-    &.mobileOpen {
-      display: block;
+      &.mobileOpen {
+        display: block;
+        z-index: 9;
+        position: absolute;
+        top: 0;
+        width: $full-size;
+      }
     }
   }
 

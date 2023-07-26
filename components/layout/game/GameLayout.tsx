@@ -86,7 +86,10 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                   isUserInterfaceVisible && styles.mobileOpen
                 }`}
               >
-                <UserInterface />
+                <UserInterface
+                  isUserInterfaceVisible={isUserInterfaceVisible}
+                  handleProfileClick={handleProfileClick}
+                />
               </div>
               <div
                 className={`${styles.navigation} ${isMenuOpen && styles.open} ${

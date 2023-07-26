@@ -7,6 +7,20 @@
   background-color: $color-base-dark-50;
   border-radius: $size-8;
   box-shadow: $shadow;
+
+  &.mobileOpen {
+    @include screen($size: mobile) {
+      height: 100vh;
+    }
+  }
+}
+
+.mobileClose {
+  @include screen($size: mobile) {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+  }
 }
 
 .userContainer {

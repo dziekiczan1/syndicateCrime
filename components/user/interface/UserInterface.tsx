@@ -12,21 +12,35 @@ import styles from "./UserInterface.module.scss";
 
 export interface IUserInterface {
   user?: IUser | null;
+  isUserInterfaceVisible?: boolean;
+  handleProfileClick: () => void;
 }
 
-const UserInterface: React.FC<IUserInterface> = () => {
+const UserInterface: React.FC<IUserInterface> = ({
+  isUserInterfaceVisible,
+  handleProfileClick,
+}) => {
   const { data: session, status } = useSession();
   const { user } = useContext(UserContext);
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
 
+  console.log(isUserInterfaceVisible);
+
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        isUserInterfaceVisible && styles.mobileOpen
+      }`}
+    >
       {!session && status !== "loading" && (
         <div>
           <h1>Zaloguj się</h1>
           <Button link="/">Login</Button>
         </div>
+      )}
+      {isUserInterfaceVisible && (
+        <div onClick={handleProfileClick} className={styles.mobileClose}></div>
       )}
       {session && user && userStats && (
         <div className={styles.userContainer}>
