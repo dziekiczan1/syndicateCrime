@@ -8,6 +8,7 @@ export { default as BlackmarketIcon } from "./BlackmarketIcon";
 export { default as BuildingsIcon } from "./BuildingsIcon";
 export { default as CasinoIcon } from "./CasinoIcon";
 export { default as CharismaIcon } from "./CharismaIcon";
+export { default as CloseMobileIcon } from "./CloseMobileIcon";
 export { default as ClubIcon } from "./ClubIcon";
 export { default as CreditIcon } from "./CreditIcon";
 export { default as DealerIcon } from "./DealerIcon";

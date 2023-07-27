@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useContext } from "react";
 
 import Button from "@/components/ui/button/Button";
+import { CloseMobileIcon, Icon } from "@/components/ui/icons";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import Tooltip from "@/components/ui/tooltip/Tooltip";
 import { getUserStatistics } from "@/constants/sections/userstats";
@@ -40,7 +41,14 @@ const UserInterface: React.FC<IUserInterface> = ({
         </div>
       )}
       {isUserInterfaceVisible && (
-        <div onClick={handleProfileClick} className={styles.mobileClose}></div>
+        <div onClick={handleProfileClick} className={styles.mobileClose}>
+          <Icon
+            component={CloseMobileIcon}
+            width={48}
+            height={48}
+            viewBox="24 24"
+          />
+        </div>
       )}
       {session && user && userStats && (
         <div className={styles.userContainer}>

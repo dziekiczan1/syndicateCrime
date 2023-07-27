@@ -13,13 +13,11 @@
       height: 100vh;
     }
   }
-}
 
-.mobileClose {
-  @include screen($size: mobile) {
-    width: 40px;
-    height: 40px;
-    background-color: red;
+  .mobileClose {
+    svg {
+      fill: $color-base-orange;
+    }
   }
 }
 
