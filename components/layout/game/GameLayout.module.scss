@@ -31,6 +31,10 @@
   .logoWrapper {
     margin-bottom: $size-16;
 
+    @include screen($size: mobile) {
+      margin-bottom: $null;
+    }
+
     img {
       width: calc($three-quarters-size - $size-16);
       margin: $null $auto;
@@ -41,8 +45,58 @@
     display: none;
 
     @include screen($size: mobile) {
+      @include flexbox(
+        $align-items: $center,
+        $justify-content: space-between,
+        $gap: $size-32
+      );
+      padding: $null $size-16;
+      margin: $size-16 $null;
       width: $full-size;
-      @include flexbox();
+    }
+
+    .mobileIcon {
+      @include flexbox(
+        $flex-direction: column,
+        $align-items: $center,
+        $justify-content: $center,
+        $gap: $size-8
+      );
+      @include border($color: $color-base-dark-200);
+      width: $full-size;
+      padding: $size-16;
+      background-color: darken($color-base-dark, 10%);
+      border-radius: $size-8;
+      box-shadow: $shadow;
+
+      svg {
+        fill: $color-base-dark-500;
+      }
+
+      p {
+        padding-bottom: $null;
+        margin-right: $null;
+      }
+
+      &:hover {
+        @include border($color: $color-base-orange);
+        @include transition(
+          all,
+          $duration: 0.3s,
+          $timing-function: ease-in-out
+        );
+
+        svg,
+        p {
+          @include transition(all, $duration: 0.3s, $timing-function: ease);
+          fill: $color-base-orange;
+          color: $color-base-orange;
+        }
+
+        svg {
+          transform: scale(1.1);
+        }
+      }
     }
   }
 
@@ -61,8 +115,8 @@
       &.mobileOpen {
         display: block;
         z-index: 9;
-        position: absolute;
-        top: 0;
+        position: fixed;
+        top: $null;
         width: $full-size;
       }
     }
@@ -82,6 +136,10 @@
 
   .sliderWrapper {
     width: calc($full-size - $size-16);
+
+    @include screen($size: mobile) {
+      display: none;
+    }
   }
 
   .navigation {

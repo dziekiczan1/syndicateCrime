@@ -59,6 +59,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                   height={48}
                   viewBox="52 52"
                 />
+                <p className="custom-label">User</p>
               </div>
               <div onClick={handleActionsClick} className={styles.mobileIcon}>
                 <Icon
@@ -67,6 +68,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                   height={48}
                   viewBox="512 512"
                 />
+                <p className="custom-label">Actions</p>
               </div>
               <div
                 onClick={handleMobileMenuClick}
@@ -78,6 +80,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                   height={48}
                   viewBox="24 24"
                 />
+                <p className="custom-label">Menu</p>
               </div>
             </div>
             <div className={styles.userWrapper}>
