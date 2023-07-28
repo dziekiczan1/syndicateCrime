@@ -11,12 +11,19 @@
   &.mobileOpen {
     @include screen($size: mobile) {
       height: 100vh;
+      overflow-y: scroll;
     }
   }
 
   .mobileClose {
+    @include flexbox($justify-content: flex-end);
+
     svg {
-      fill: $color-base-orange;
+      fill: $color-base-dark-500;
+
+      &:hover {
+        fill: $color-base-orange;
+      }
     }
   }
 }
@@ -28,15 +35,28 @@
 .panelContainer {
   @include flexbox($gap: $size-8);
 
+  @include screen($size: mobile) {
+    flex-direction: column;
+  }
+
   .avatar {
     border-radius: $size-8;
     overflow: hidden;
     width: $half-size;
+
+    @include screen($size: mobile) {
+      border-radius: $half-size;
+      margin: $null $auto;
+    }
   }
 
   .user {
     @include flexbox($flex-direction: column, $gap: $size-4);
     width: $half-size;
+
+    @include screen($size: mobile) {
+      width: $full-size;
+    }
   }
 
   .class {
@@ -50,7 +70,17 @@
   @include flexbox($flex-wrap: wrap, $gap: $size-8);
   width: $full-size;
   margin: $size-16 $null;
+
+  @include screen($size: mobile) {
+    flex-direction: column;
+    gap: $size-16;
+  }
+
   & > div {
     width: calc($third-size - $size-8);
+
+    @include screen($size: mobile) {
+      width: $full-size;
+    }
   }
 }
