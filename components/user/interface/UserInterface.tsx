@@ -26,8 +26,6 @@ const UserInterface: React.FC<IUserInterface> = ({
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
 
-  console.log(isUserInterfaceVisible);
-
   return (
     <div
       className={`${styles.container} ${
