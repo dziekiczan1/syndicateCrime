@@ -155,10 +155,15 @@
 
     @include screen($size: mobile) {
       display: none;
-    }
 
-    &.mobileOpen {
-      display: block;
+      &.mobileOpen {
+        display: block;
+        position: fixed;
+        z-index: 9;
+        top: $null;
+        width: $full-size;
+        margin: $null;
+      }
     }
   }
 

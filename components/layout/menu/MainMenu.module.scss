@@ -40,15 +40,43 @@
   width: $full-size;
   height: $full-size;
 
+  @include screen($size: mobile) {
+    height: 100vh;
+    padding: $size-16;
+    overflow-y: scroll;
+  }
+
   .content {
     @include flexbox($flex-direction: column, $gap: $size-16);
     width: $full-size;
     padding: $size-16;
     opacity: 1;
+
+    @include screen($size: mobile) {
+      gap: $size-32;
+      padding: $null;
+    }
   }
 
   .sidebar {
     display: none;
+  }
+}
+
+.mobileClose {
+  display: none;
+
+  @include screen($size: mobile) {
+    @include flexbox($justify-content: flex-end);
+    width: $full-size;
+
+    svg {
+      fill: $color-base-dark-500;
+
+      &:hover {
+        fill: $color-base-orange;
+      }
+    }
   }
 }
 
@@ -58,6 +86,11 @@
   bottom: $null;
   right: $null;
   padding: $size-4;
+
+  @include screen($size: mobile) {
+    display: none;
+  }
+
   svg {
     fill: $color-base-orange;
     path {

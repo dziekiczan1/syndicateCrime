@@ -99,7 +99,11 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                   isMobileMenuOpen && styles.mobileOpen
                 }`}
               >
-                <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+                <MainMenu
+                  isMenuOpen={isMenuOpen}
+                  handleMobileMenuClick={handleMobileMenuClick}
+                  toggleMenu={toggleMenu}
+                />
               </div>
             </div>
             <div
