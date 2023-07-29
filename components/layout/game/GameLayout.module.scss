@@ -114,8 +114,8 @@
 
       &.mobileOpen {
         display: block;
-        z-index: 9;
         position: fixed;
+        z-index: 9;
         top: $null;
         width: $full-size;
       }
@@ -127,10 +127,14 @@
 
     @include screen($size: mobile) {
       display: none;
-    }
 
-    &.mobileOpen {
-      display: block;
+      &.mobileOpen {
+        display: block;
+        position: fixed;
+        z-index: 9;
+        top: $null;
+        width: $full-size;
+      }
     }
   }
 

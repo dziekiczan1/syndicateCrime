@@ -1,11 +1,34 @@
 import ActionNode from "@/components/ui/action/ActionNode";
+import { CloseMobileIcon, Icon } from "@/components/ui/icons";
 import userActions from "@/constants/actions/mainactions";
 
 import styles from "./ActionsInterface.module.scss";
 
-const ActionsInterface: React.FC = () => {
+export interface IActionsInterface {
+  isActionsInterfaceVisible?: boolean;
+  handleActionsClick: () => void;
+}
+
+const ActionsInterface: React.FC<IActionsInterface> = ({
+  isActionsInterfaceVisible,
+  handleActionsClick,
+}) => {
   return (
-    <ul className={styles.container}>
+    <ul
+      className={`${styles.container} ${
+        isActionsInterfaceVisible && styles.mobileOpen
+      }`}
+    >
+      {isActionsInterfaceVisible && (
+        <div onClick={handleActionsClick} className={styles.mobileClose}>
+          <Icon
+            component={CloseMobileIcon}
+            width={48}
+            height={48}
+            viewBox="24 24"
+          />
+        </div>
+      )}
       {userActions.map((action) => (
         <ActionNode
           key={action.actionName}

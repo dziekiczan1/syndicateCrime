@@ -107,7 +107,10 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
                 isActionsInterfaceVisible && styles.mobileOpen
               }`}
             >
-              <ActionsInterface />
+              <ActionsInterface
+                isActionsInterfaceVisible={isActionsInterfaceVisible}
+                handleActionsClick={handleActionsClick}
+              />
             </div>
             <div className={styles.sliderWrapper}>
               <Slider slides={sliderData} />

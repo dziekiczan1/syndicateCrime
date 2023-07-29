@@ -4,6 +4,10 @@
   @include flexbox();
   width: calc($quarter-size - $size-16);
 
+  @include screen($size: mobile) {
+    width: calc($third-size - $size-8);
+  }
+
   a {
     width: $full-size;
   }
@@ -21,6 +25,10 @@
     background-color: darken($color-base-dark, 10%);
     border-radius: $size-8;
     box-shadow: $shadow;
+
+    @include screen($size: mobile) {
+      padding: $size-8;
+    }
   }
 
   .icon {
@@ -31,6 +39,7 @@
 
   .name {
     text-align: $center;
+    white-space: nowrap;
   }
 
   &:hover {

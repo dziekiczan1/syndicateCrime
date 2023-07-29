@@ -16,13 +16,17 @@
   }
 
   .mobileClose {
-    @include flexbox($justify-content: flex-end);
+    display: none;
 
-    svg {
-      fill: $color-base-dark-500;
+    @include screen($size: mobile) {
+      @include flexbox($justify-content: flex-end);
 
-      &:hover {
-        fill: $color-base-orange;
+      svg {
+        fill: $color-base-dark-500;
+
+        &:hover {
+          fill: $color-base-orange;
+        }
       }
     }
   }
