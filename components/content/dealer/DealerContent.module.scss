@@ -17,6 +17,11 @@
     @include border($size-2, solid, $color-base-dark-200, bottom);
     padding: $size-8;
     background-color: $color-base-dark;
+
+    @include screen($size: mobile) {
+      flex-wrap: wrap;
+      row-gap: $size-8;
+    }
   }
 
   .action {

@@ -24,7 +24,7 @@ export default function Home() {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="no-scrollbar relative flex flex-col items-center h-screen gap-16 lg:gap-32 z-1 overflow-y-scroll px-4 py-8 lg:px-0">
+        <div className="no-scrollbar relative flex flex-col items-center h-screen gap-16 lg:gap-32 z-1 overflow-y-scroll overflow-x-hidden px-4 py-8 lg:px-0">
           <div className="w-full lg:w-1/2 lg:flex lg:justify-center">
             <Logo width={674} height={301} />
           </div>

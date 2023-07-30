@@ -4,6 +4,11 @@
   @include flexbox($align-items: $center);
   margin-right: $size-32;
 
+  @include screen($size: mobile) {
+    width: $full-size;
+    margin-right: $null;
+  }
+
   .input {
     @include border($color: $color-base-orange, $side: top);
     @include border($color: $color-base-orange, $side: bottom);
@@ -15,6 +20,10 @@
     padding: $null;
     height: $size-48;
     width: $size-32;
+
+    @include screen($size: mobile) {
+      width: $full-size;
+    }
   }
 
   .minusBtn,
