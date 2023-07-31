@@ -11,6 +11,12 @@
     overflow: hidden;
   }
 
+  .slideWrapper {
+    display: flex;
+    width: $full-size;
+    height: 500px;
+  }
+
   .image {
     width: $full-size;
     aspect-ratio: 16/9;

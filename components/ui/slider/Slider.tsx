@@ -56,6 +56,7 @@ const Slider: React.FC<ISliderProps> = ({ slides }) => {
               <motion.div
                 animate={{ opacity: [0, 1] }}
                 transition={{ duration: 0.85, ease: "easeOut" }}
+                className={styles.slideWrapper}
               >
                 <div className={styles.overlay}>
                   <div className={styles.titleWrapper}>
