@@ -14,7 +14,7 @@ import styles from "./ProfileContent.module.scss";
 const ProfileContent: React.FC = () => {
   const pageData = pageDescriptions.profile;
   const { user, setUser } = useContext(UserContext);
-  const [selectedAvatar, setSelectedAvatar] = useState(user!.avatar);
+  const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar);
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
 
@@ -63,7 +63,7 @@ const ProfileContent: React.FC = () => {
             <Avatar
               width={200}
               height={200}
-              src={selectedAvatar}
+              src={selectedAvatar ? selectedAvatar : user.avatar}
               alt={user.username}
             />
           </div>

@@ -64,6 +64,12 @@ const pageDescriptions: IPageDescriptions = {
     title: "Whores: Building Your Empire with Seductive Power",
     image: sectionsImages.whores,
   },
+  blackmarket: {
+    description:
+      "Explore the enigmatic Black Market, a hidden sanctuary where you can acquire an array of illegal goods without questions asked. As an intrepid individual seeking unique and forbidden items, you'll gain access to a realm of concealed transactions and rare contraband. From powerful weapons to illicit substances, this dark marketplace is your gateway to obtaining the forbidden and the extraordinary. Exercise caution, for the identities of buyers and sellers are shielded behind layers of secrecy. Navigate through this shadowy landscape and indulge your desires for the clandestine and the exclusive. Will you embrace the allure of the Black Market, venturing into its depths to claim the forbidden treasures it holds?",
+    title: "BlackMarket: Unleashing the Underworld's Forbidden Trade",
+    image: sectionsImages.market,
+  },
   dealer: {
     description:
       "Explore the clandestine world of the Dealer, where forbidden substances hold the key to unlocking hidden powers. Enhance your energy levels and gain a competitive edge through the purchase of potent drugs. But beware, as these substances come with the risk of addiction, leading to unforeseen consequences. Exercise caution as you navigate this treacherous path, balancing the benefits of increased energy with the dangers of spiraling into dependency. Are you ready to tread the thin line between power and peril?",
