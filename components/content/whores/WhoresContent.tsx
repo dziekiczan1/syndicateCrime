@@ -47,7 +47,7 @@ const WhoresContent: React.FC = () => {
         );
       }
     } catch (error) {
-      console.error("Error processing bank action.", error);
+      console.error("Error processing whore action.", error);
       setIsLoadingWhores(false);
     }
   };
