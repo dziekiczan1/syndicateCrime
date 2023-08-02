@@ -8,7 +8,7 @@ import WeaponDetails from "./WeaponDetails";
 const BlackmarketContent: React.FC = () => {
   const pageData = pageDescriptions.blackmarket;
 
-  const allWhoresTheads = ["Weapon", "Cost", "Respect", "Buy"];
+  const allWeaponsTheads = ["Weapon", "Cost", "Respect", "Buy"];
 
   const handleWeaponAction = async (weapon: any, action: string) => {};
 
@@ -16,9 +16,9 @@ const BlackmarketContent: React.FC = () => {
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
 
-      <p className={styles.tableHeading}>All whores:</p>
+      <p className={styles.tableHeading}>All weapons:</p>
       <table className={`table ${styles.activeTable}`}>
-        <TableThead columns={allWhoresTheads} />
+        <TableThead columns={allWeaponsTheads} />
         <tbody>
           {blackMarketActions.map((weapon, index) => (
             <WeaponDetails
