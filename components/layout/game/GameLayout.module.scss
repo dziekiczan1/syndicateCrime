@@ -29,10 +29,14 @@
   }
 
   .logoWrapper {
-    margin-bottom: $size-16;
-
+    padding: $size-8;
+    margin: $null $size-16 $size-16 $null;
+    background-color: darken($color-base-dark, 10%);
+    border-radius: $size-8;
     @include screen($size: mobile) {
-      margin-bottom: $null;
+      margin: $null;
+      padding: $null;
+      background-color: unset;
     }
 
     img {
