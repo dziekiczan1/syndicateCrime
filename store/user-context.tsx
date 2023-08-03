@@ -1,3 +1,4 @@
+import { Weapon } from "@/pages/api/user/blackmarketActions";
 import { Whore } from "@/pages/api/user/whoresActions";
 import { createContext } from "react";
 
@@ -27,6 +28,7 @@ export interface IUser {
     bailouts: number;
   };
   whores?: Whore[];
+  weapons?: Weapon[];
 }
 
 export interface IUserContextType {

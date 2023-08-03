@@ -7,52 +7,42 @@ export interface IBlackMarketActions {
 export const blackMarketActions: IBlackMarketActions[] = [
   {
     name: "Switchblade",
-    cost: 100,
-    respect: 15,
+    cost: 500,
+    respect: 20,
   },
   {
     name: "Silenced Pistol",
-    cost: 250,
-    respect: 28,
-  },
-  {
-    name: "Sawed-Off Shotgun",
-    cost: 500,
-    respect: 52,
-  },
-  {
-    name: "Assault Rifle",
-    cost: 1000,
-    respect: 127,
+    cost: 1750,
+    respect: 51,
   },
   {
     name: "Sniper Rifle",
-    cost: 2500,
-    respect: 345,
+    cost: 5000,
+    respect: 287,
   },
   {
     name: "Grenade Launcher",
-    cost: 5000,
-    respect: 718,
+    cost: 9400,
+    respect: 613,
   },
   {
     name: "C4 Explosives",
-    cost: 10000,
-    respect: 1439,
+    cost: 17800,
+    respect: 1354,
   },
   {
     name: "RPG Launcher",
-    cost: 50000,
-    respect: 7812,
+    cost: 35000,
+    respect: 3471,
   },
   {
     name: "Heavy Machine Gun",
-    cost: 125000,
-    respect: 16414,
+    cost: 50000,
+    respect: 7410,
   },
   {
     name: "Rocket Propelled Minigun",
-    cost: 500000,
-    respect: 54691,
+    cost: 100000,
+    respect: 15099,
   },
 ];
