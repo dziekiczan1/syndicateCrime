@@ -45,6 +45,7 @@ export default async function handler(
       const existingWeapon = updatedUser.weapons?.find(
         (w) => w.name === weapon.name
       );
+
       if (existingWeapon) {
         existingWeapon.count = (existingWeapon.count || 0) + 1;
       } else {
