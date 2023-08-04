@@ -76,6 +76,12 @@ const pageDescriptions: IPageDescriptions = {
     title: "Elevate Your Performance, Accept the Risks",
     image: sectionsImages.dealer,
   },
+  buildings: {
+    description:
+      "Embark on a journey of urban development and financial prowess in the Buildings market. Acquire various properties, from towering skyscrapers to charming residential complexes, as you aim to grow your empire. Make strategic decisions to maximize profits and capitalize on real estate opportunities. But remember, success comes with risks, and market fluctuations can turn fortunes. Take calculated risks, manage your portfolio wisely, and prove yourself as a master of the real estate market. Are you prepared to build a cityscape that stands the test of time?",
+    title: "Expand Your Empire, Master the Market of Buildings",
+    image: sectionsImages.buildings,
+  },
   hospital: {
     description:
       "At our hospital, we specialize in addiction recovery and helping individuals reclaim their lives. With a team of experienced professionals and evidence-based treatment approaches, we provide comprehensive support and care for individuals struggling with addiction. Whether you or a loved one is facing addiction, we are here to help you on the path to recovery. Our personalized treatment plans, compassionate staff, and supportive environment create an ideal setting for your healing journey. Take the first step towards a brighter future and regain control of your life at our trusted hospital.",
