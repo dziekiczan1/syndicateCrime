@@ -1,4 +1,5 @@
 import { Weapon } from "@/pages/api/user/blackmarketActions";
+import { Buildings } from "@/pages/api/user/buildingsActions";
 import { Whore } from "@/pages/api/user/whoresActions";
 import { createContext } from "react";
 
@@ -29,7 +30,7 @@ export interface IUser {
   };
   whores?: Whore[];
   weapons?: Weapon[];
-  buildings?: any[];
+  buildings?: Buildings[];
 }
 
 export interface IUserContextType {

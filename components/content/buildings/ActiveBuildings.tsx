@@ -1,9 +1,10 @@
 import Button from "@/components/ui/button/Button";
 import { formatNumber } from "@/lib/money";
+import { Buildings } from "@/pages/api/user/buildingsActions";
 
 interface IActiveBuildings {
-  active: any;
-  handleBuildingsAction: (building: any, action: string) => void;
+  active: Buildings;
+  handleBuildingsAction: (building: Buildings, action: string) => void;
 }
 
 const ActiveBuildings: React.FC<IActiveBuildings> = ({

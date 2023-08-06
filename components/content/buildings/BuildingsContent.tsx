@@ -5,6 +5,7 @@ import TableThead from "@/components/ui/table/TableThead";
 import { buildingsActions } from "@/constants/actions/buildingsactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import { Buildings } from "@/pages/api/user/buildingsActions";
 import UserContext from "@/store/user-context";
 import { useContext, useState } from "react";
 import ActiveBuildings from "./ActiveBuildings";
@@ -20,7 +21,7 @@ const BuildingsContent: React.FC = () => {
 
   const activeBuildingsTheads = ["Name", "Count", "Earnings per day", "Sell"];
 
-  const handleBuildingsAction = async (building: any, action: string) => {
+  const handleBuildingsAction = async (building: Buildings, action: string) => {
     try {
       setIsLoadingBuildings(true);
 
@@ -69,7 +70,7 @@ const BuildingsContent: React.FC = () => {
             <TableThead columns={activeBuildingsTheads} />
             <tbody>
               {user &&
-                user.whores?.map((active, index) => (
+                user.buildings?.map((active, index) => (
                   <ActiveBuildings
                     key={index}
                     active={active}
