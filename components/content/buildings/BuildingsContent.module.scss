@@ -34,5 +34,10 @@
 
   .actionsContainer {
     @include flexbox($flex-direction: row, $flex-wrap: wrap, $gap: $size-8);
+
+    @include screen($size: mobile) {
+      flex-direction: column;
+      gap: $size-16;
+    }
   }
 }

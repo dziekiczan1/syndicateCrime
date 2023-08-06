@@ -7,6 +7,10 @@
   overflow: hidden;
   width: calc($half-size - $size-8);
   background-color: $color-base-dark;
+
+  @include screen($size: mobile) {
+    width: $full-size;
+  }
 }
 
 .actionImage {
