@@ -2,4 +2,8 @@
 
 .container {
   color: $color-base-light;
+
+  .actionsContainer {
+    @include flexbox($flex-direction: row, $flex-wrap: wrap, $gap: $size-8);
+  }
 }

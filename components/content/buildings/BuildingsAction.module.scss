@@ -1,0 +1,43 @@
+@import "../../../styles/_variables.scss";
+
+.actionsContent {
+  @include flexbox($flex-direction: column, $justify-content: space-between);
+  @include border($color: $color-base-orange);
+  border-radius: $size-8;
+  overflow: hidden;
+  width: calc($half-size - $size-8);
+  background-color: $color-base-dark;
+}
+
+.actionImage {
+  @include flexbox($justify-content: $center, $align-items: $center);
+  width: $full-size;
+
+  img {
+    width: $full-size;
+  }
+}
+
+.actionInformation {
+  flex: 1;
+  padding: $size-12;
+
+  .actionName {
+    font-weight: $font-weight-bold;
+    color: $color-base-orange;
+    margin-bottom: $size-8;
+  }
+
+  .actionDetails {
+    @include flexbox($flex-direction: column, $gap: $size-16);
+  }
+
+  .actionDescription {
+    @include font-size($size-12);
+  }
+
+  .actionCost {
+    @include font-size($size-12);
+    font-weight: $font-weight-bold;
+  }
+}
