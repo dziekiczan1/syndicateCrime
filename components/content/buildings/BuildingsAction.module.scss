@@ -30,6 +30,10 @@
 
   .actionDetails {
     @include flexbox($flex-direction: column, $gap: $size-16);
+
+    .costName {
+      color: $color-base-orange;
+    }
   }
 
   .actionDescription {

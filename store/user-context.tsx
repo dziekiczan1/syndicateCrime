@@ -29,6 +29,7 @@ export interface IUser {
   };
   whores?: Whore[];
   weapons?: Weapon[];
+  buildings?: any[];
 }
 
 export interface IUserContextType {
