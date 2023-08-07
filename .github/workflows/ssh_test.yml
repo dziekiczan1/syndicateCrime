@@ -1,0 +1,31 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: [workflow_dispatch]
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/srv.key
+          chmod 600 ~/.ssh/srv.key
+          cat >>~/.ssh/config <<END
+          Host srv
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/srv.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ubuntu
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: 152.70.166.180
+
+      - name: Stop the server
+        run: ssh srv 'pwd'
