@@ -23,5 +23,5 @@ jobs:
       - run: echo "$SSH_KEY" >> ~/.ssh/github-action
       - run: chmod 400 ~/.ssh/github-action
       - run: echo -e "Host vps\n\tUser root\n\tHostname 11.000.000.111\n\tIdentityFile ~/.ssh/github-action\n\tStrictHostKeyChecking No" >> ~/.ssh/config
-      - run: rsync -re ssh ./.next/ vps:/home/root/app-name/.next
+      - run: rsync -re ssh ./.next/ vps:/home/root/syndicateCrime/.next
       - run: ssh vps "pm2 restart syndicateClient"
