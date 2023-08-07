@@ -20,8 +20,8 @@ jobs:
       - run: npm i
       - run: npm run build
       - run: mkdir ~/.ssh
-      - run: echo "$SSH_KEY" >> ~/.ssh/github-action
-      - run: chmod 400 ~/.ssh/github-action
-      - run: echo -e "Host vps\n\tUser ubuntu\n\tHostname 152.70.166.180\n\tIdentityFile ~/.ssh/github-action\n\tStrictHostKeyChecking No" >> ~/.ssh/config
+      - run: echo "$SSH_KEY" >> ~/.ssh/github-actions
+      - run: chmod 400 ~/.ssh/github-actions
+      - run: echo -e "Host vps\n\tUser ubuntu\n\tHostname 152.70.166.180\n\tIdentityFile ~/.ssh/github-actions\n\tStrictHostKeyChecking No" >> ~/.ssh/config
       - run: rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrime/.next
       - run: ssh vps "pm2 restart syndicateClient"
