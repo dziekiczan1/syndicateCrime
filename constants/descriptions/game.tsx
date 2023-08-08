@@ -2,7 +2,7 @@ import sectionsImages from "../images/sections";
 
 const mainNews = [
   {
-    title: "The Crime News Test",
+    title: "The Crime News Test2",
     date: "Published on May 24, 2023",
     subtitle: "Introducing Syndicate Crime: Dive into the Dark World of Mafia",
     paragraphs: [
