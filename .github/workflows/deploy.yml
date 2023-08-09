@@ -1,7 +1,7 @@
 name: syndicatecrimeClient
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,5 +27,18 @@ jobs:
       - run: echo "$SSH_KEY" >> ~/.ssh/github-action
       - run: chmod 400 ~/.ssh/github-action
       - run: echo -e "Host vps\n\tUser ubuntu\n\tHostname 152.70.166.180\n\tIdentityFile ~/.ssh/github-action\n\tStrictHostKeyChecking No" >> ~/.ssh/config
-      - run: rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrime/.next
-      - run: ssh vps "pm2 restart syndicateClient"
+      - name: Rsync to develop or main folder
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrime/.next
+          elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
+            rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrimeDevelop/.next
+          fi
+
+      - name: Restart App
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            ssh vps "pm2 restart syndicateClient"
+          elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
+            ssh vps "pm2 restart syndicateClientDevelop"
+          fi
