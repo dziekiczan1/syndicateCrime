@@ -82,6 +82,12 @@ const pageDescriptions: IPageDescriptions = {
     title: "Expand Your Empire, Master the Market of Buildings",
     image: sectionsImages.buildings,
   },
+  university: {
+    description:
+      "Welcome to our esteemed University, where knowledge knows no bounds and opportunities are endless. Dive into our Course Emporium, a realm of transformative learning experiences that empower you to master new skills and explore diverse horizons. Discover an array of courses tailored to your ambitions, from business acumen to social dynamics. Forge your path with confidence as you seize the chance to enhance your expertise, unlock your potential, and embrace the journey of continuous growth. Are you ready to embark on a pursuit of knowledge that shapes a future of possibilities?",
+    title: "Elevate Your Expertise and Unleash Potential",
+    image: sectionsImages.university,
+  },
   hospital: {
     description:
       "At our hospital, we specialize in addiction recovery and helping individuals reclaim their lives. With a team of experienced professionals and evidence-based treatment approaches, we provide comprehensive support and care for individuals struggling with addiction. Whether you or a loved one is facing addiction, we are here to help you on the path to recovery. Our personalized treatment plans, compassionate staff, and supportive environment create an ideal setting for your healing journey. Take the first step towards a brighter future and regain control of your life at our trusted hospital.",
