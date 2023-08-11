@@ -41,7 +41,7 @@ const UniversityAction = ({
             </p>
           </div>
           <Button onClick={() => handleUniversityAction()} secondary fullSize>
-            Buy
+            Start Your Path to Mastery!
           </Button>
         </div>
       </div>
