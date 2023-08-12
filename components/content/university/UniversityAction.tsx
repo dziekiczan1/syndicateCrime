@@ -35,13 +35,28 @@ const UniversityAction = ({
         <div className={styles.actionDetails}>
           <p className={styles.actionDescription}>{course.description}</p>
           <div className={styles.actionCosts}>
-            <p className={styles.actionCost}>
-              <span className={styles.costName}>Cost: </span>
-              {formattedCost}
-            </p>
+            <div className={styles.requirements}>
+              <p className="custom-label">Requirements:</p>
+              <p className={styles.actionCost}>
+                <span className={styles.costName}>Cost: </span>
+                {formattedCost}
+              </p>
+              <p className={styles.actionCost}>
+                <span className={styles.costName}>Respect: </span>
+                {course.reqRespect}
+              </p>
+              <p className={styles.actionCost}>
+                <span className={styles.costName}>{course.reqName}: </span>
+                {course.reqValue}
+              </p>
+            </div>
+            <div className={styles.bonus}>
+              <p className="custom-label">Bonus:</p>
+              <p className={styles.costName}>{course.bonus}</p>
+            </div>
           </div>
           <Button onClick={() => handleUniversityAction()} secondary fullSize>
-            Buy
+            Start Your Path to Mastery!
           </Button>
         </div>
       </div>

@@ -39,4 +39,13 @@
   .actionDescription {
     @include font-size($size-12);
   }
+
+  .actionCosts {
+    @include flexbox;
+    width: $full-size;
+
+    .requirements {
+      width: $half-size;
+    }
+  }
 }
