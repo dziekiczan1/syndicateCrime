@@ -6,7 +6,7 @@ import styles from "./UniversityAction.module.scss";
 
 interface IUniversityDetails {
   course: any;
-  handleUniversityAction: () => void;
+  handleUniversityAction: (course: any) => void;
 }
 
 const UniversityAction = ({
@@ -55,7 +55,11 @@ const UniversityAction = ({
               <p className={styles.costName}>{course.bonus}</p>
             </div>
           </div>
-          <Button onClick={() => handleUniversityAction()} secondary fullSize>
+          <Button
+            onClick={() => handleUniversityAction(course)}
+            secondary
+            fullSize
+          >
             Start Your Path to Mastery!
           </Button>
         </div>
