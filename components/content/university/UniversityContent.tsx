@@ -30,6 +30,7 @@ const UniversityContent: React.FC = () => {
 
       if (setUser && response.ok) {
         await handlePositiveResponse(response, setUser, setIsLoadingCourse);
+        console.log(response);
       } else {
         await handleErrorResponse(
           response,
@@ -48,7 +49,6 @@ const UniversityContent: React.FC = () => {
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      <PageHeader pageData={pageData} />
       {isLoadingCourse && (
         <div className={styles.loading}>
           <Loading />
@@ -58,10 +58,10 @@ const UniversityContent: React.FC = () => {
       <p className={styles.tableHeading}>Available courses:</p>
       <div className={styles.actionsContainer}>
         {user &&
-          universityActions.map((action, key) => (
+          universityActions.map((course, key) => (
             <UniversityAction
               key={key}
-              course={action}
+              course={course}
               handleUniversityAction={handleUniversityAction}
             />
           ))}

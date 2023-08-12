@@ -3,10 +3,29 @@
 .actionsContent {
   @include flexbox($flex-direction: column);
   @include border($color: $color-base-orange);
+  position: relative;
   border-radius: $size-8;
   overflow: hidden;
   width: $full-size;
   background-color: $color-base-dark;
+
+  .courseCompleted {
+    position: absolute;
+    top: $null;
+    left: $null;
+    width: $full-size;
+    height: $full-size;
+    background-color: rgba($color-base-dark, 0.9);
+    z-index: 3;
+
+    h2 {
+      position: absolute;
+      width: $full-size;
+      top: $quarter-size;
+      color: $color-base-orange;
+      text-align: $center;
+    }
+  }
 }
 
 .actionImage {
@@ -47,5 +66,10 @@
     .requirements {
       width: $half-size;
     }
+  }
+
+  .completedButton {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    color: $color-base-orange;
   }
 }
