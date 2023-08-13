@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function SabotageScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <SabotageContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <SabotageContent />
+    </GameLayout>
   );
 }
 

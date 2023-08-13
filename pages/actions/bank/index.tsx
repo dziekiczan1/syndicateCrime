@@ -5,11 +5,9 @@ import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function BankScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <BankContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <BankContent />
+    </GameLayout>
   );
 }
 

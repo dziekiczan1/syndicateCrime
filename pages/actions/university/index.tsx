@@ -5,11 +5,9 @@ import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function UniversityScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <UniversityContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <UniversityContent />
+    </GameLayout>
   );
 }
 

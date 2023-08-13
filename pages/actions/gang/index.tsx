@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function GangScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <GangContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <GangContent />
+    </GameLayout>
   );
 }
 

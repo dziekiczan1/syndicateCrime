@@ -2,6 +2,7 @@ import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import RequiredText from "@/components/ui/required/RequiredText";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
@@ -16,6 +17,7 @@ const BankContent: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
   const [isStash, setIsStash] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingBank, setIsLoadingBank] = useState(false);
   const {
@@ -64,7 +66,14 @@ const BankContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingBank);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingBank,
+          setActionMessage,
+          timeoutId,
+          setTimeoutId
+        );
         reset();
       } else {
         await handleErrorResponse(
@@ -90,6 +99,7 @@ const BankContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {actionMessage && <Message message={actionMessage} />}
       <div className={styles.savings}>
         {userSavings ? (
           <h4>

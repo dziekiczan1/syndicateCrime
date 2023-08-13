@@ -9,6 +9,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -37,6 +39,7 @@ export default async function handler(
         user.defaultParams.money -= bailOutCost;
         user.prison.isPrisoner = false;
         user.prison.bailouts++;
+        successMessage = "You have successfully bailed out of prison!";
       } else {
         return res.status(400).json({ error: "Insufficient funds" });
       }
@@ -45,6 +48,7 @@ export default async function handler(
         user.defaultParams.energy -= 100;
         user.prison.isPrisoner = false;
         user.prison.escapes++;
+        successMessage = "You have successfully escaped from prison!";
       } else {
         return res.status(400).json({ error: "Not enough energy!" });
       }
@@ -59,6 +63,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

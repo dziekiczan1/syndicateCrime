@@ -5,11 +5,9 @@ import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function GameMainScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <RobberyContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <RobberyContent />
+    </GameLayout>
   );
 }
 

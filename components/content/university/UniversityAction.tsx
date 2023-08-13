@@ -1,18 +1,20 @@
 import Button from "@/components/ui/button/Button";
 import { formatNumber } from "@/lib/money";
+import UserContext from "@/store/user-context";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./UniversityAction.module.scss";
 
 interface IUniversityDetails {
   course: any;
-  handleUniversityAction: () => void;
+  handleUniversityAction: (course: any) => void;
 }
 
 const UniversityAction = ({
   course,
   handleUniversityAction,
 }: IUniversityDetails) => {
+  const { user } = useContext(UserContext);
   const [formattedCost, setFormattedCost] = useState("");
 
   useEffect(() => {
@@ -22,6 +24,11 @@ const UniversityAction = ({
 
   return (
     <div className={styles.actionsContent}>
+      {user && user.university?.[course.name] && (
+        <div className={styles.courseCompleted}>
+          <h2>Course completed!</h2>
+        </div>
+      )}
       <div className={styles.actionImage}>
         <Image
           src={course.imageSrc}
@@ -55,9 +62,19 @@ const UniversityAction = ({
               <p className={styles.costName}>{course.bonus}</p>
             </div>
           </div>
-          <Button onClick={() => handleUniversityAction()} secondary fullSize>
-            Start Your Path to Mastery!
-          </Button>
+          {user && user.university?.[course.name] ? (
+            <p className={styles.completedButton}>
+              You have already completed the course!
+            </p>
+          ) : (
+            <Button
+              onClick={() => handleUniversityAction(course)}
+              secondary
+              fullSize
+            >
+              Start Your Path to Mastery!
+            </Button>
+          )}
         </div>
       </div>
     </div>

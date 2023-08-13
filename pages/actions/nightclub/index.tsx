@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function NightclubScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <NightclubContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <NightclubContent />
+    </GameLayout>
   );
 }
 
