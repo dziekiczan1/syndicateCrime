@@ -14,7 +14,7 @@ const mainNews = [
       "Are you ready to leave your mark on the Syndicate Crime world? Prepare to make tough choices, forge alliances, and unleash your inner mobster. The city is yours for the taking. Play now and become the ultimate crime lord!",
     ],
     button: "Enter the Syndicate!",
-    link: "/robbery",
+    link: "/actions/robbery",
     image: sectionsImages.home,
   },
 ];

@@ -5,8 +5,8 @@ export const handlePositiveResponse = async (
   setUser: Dispatch<SetStateAction<any>>,
   setIsLoadingAction: Dispatch<SetStateAction<boolean>>,
   setActionMessage?: Dispatch<SetStateAction<any>>,
-  timeoutId?: number | null,
-  setTimeoutId?: Dispatch<SetStateAction<number | null>>
+  positiveTimeoutId?: number | null,
+  setPositiveTimeoutId?: Dispatch<SetStateAction<number | null>>
 ) => {
   const updatedUser = await response.json();
 
@@ -15,16 +15,16 @@ export const handlePositiveResponse = async (
   if (setActionMessage) {
     setActionMessage(updatedUser.message);
 
-    if (timeoutId) {
-      clearTimeout(timeoutId);
+    if (positiveTimeoutId) {
+      clearTimeout(positiveTimeoutId);
     }
 
     const newTimeoutId = window.setTimeout(() => {
       setActionMessage(null);
     }, 5000);
 
-    if (setTimeoutId) {
-      setTimeoutId(newTimeoutId);
+    if (setPositiveTimeoutId) {
+      setPositiveTimeoutId(newTimeoutId);
     }
   }
 

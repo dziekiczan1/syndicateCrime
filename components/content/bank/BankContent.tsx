@@ -19,6 +19,9 @@ const BankContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingBank, setIsLoadingBank] = useState(false);
   const {
     register,
@@ -71,8 +74,8 @@ const BankContent: React.FC = () => {
           setUser,
           setIsLoadingBank,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
         reset();
       } else {
@@ -98,8 +101,11 @@ const BankContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       <div className={styles.savings}>
         {userSavings ? (
           <h4>
@@ -108,6 +114,14 @@ const BankContent: React.FC = () => {
         ) : (
           <h4>You don&apos;t have any funds in your bank account</h4>
         )}
+        <p className={styles.maxLimit}>
+          Your current maximum limit for stashed money is:{" "}
+          <span>
+            {user?.university && user.university.bank
+              ? "Unlimited"
+              : "$100,000"}
+          </span>
+        </p>
       </div>
       <div className={styles.control}>
         <form onSubmit={handleSubmit(onSubmit)}>

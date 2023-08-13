@@ -58,11 +58,13 @@ export default async function handler(
         successMessage = `You have successfully bought ${building.name}!`;
       }
 
+      const buildingsMaxLimit = user.university?.architecture ? 8 : 3;
+
       const totalBuildingsCount = updatedUser.buildings?.reduce(
         (total, b) => total + (b.count || 0),
         0
       );
-      if (totalBuildingsCount && totalBuildingsCount > 5) {
+      if (totalBuildingsCount && totalBuildingsCount > buildingsMaxLimit) {
         return res
           .status(400)
           .json({ error: "Maximum number of whores reached" });

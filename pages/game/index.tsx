@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function GameMainScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <GameContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <GameContent />
+    </GameLayout>
   );
 }
 

@@ -25,7 +25,7 @@ export const universityActions: IUniversityActions[] = [
     reqName: "Intelligence",
 
     reqValue: 1500,
-    bonus: "Increases your maximum limit for buildings up to 5.",
+    bonus: "Increases your maximum limit for buildings up to 8.",
   },
   {
     name: "blackmarket",
@@ -37,7 +37,7 @@ export const universityActions: IUniversityActions[] = [
     reqRespect: 1000,
     reqName: "Strength",
     reqValue: 1500,
-    bonus: "Increases your maximum limit for weapons up to 5.",
+    bonus: "Increases your maximum limit for weapons up to 10.",
   },
   {
     name: "pimp",
@@ -49,7 +49,7 @@ export const universityActions: IUniversityActions[] = [
     reqRespect: 1000,
     reqName: "Charisma",
     reqValue: 1500,
-    bonus: "Increases your maximum limit for whores up to 5.",
+    bonus: "Increases your maximum limit for whores up to 10.",
   },
   {
     name: "bank",

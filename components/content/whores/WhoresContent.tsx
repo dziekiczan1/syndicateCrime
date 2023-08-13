@@ -20,6 +20,9 @@ const WhoresContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingWhores, setIsLoadingWhores] = useState(false);
 
   const activeWhoreTheads = ["Name", "Count", "Earnings per day", "Manage"];
@@ -43,8 +46,8 @@ const WhoresContent: React.FC = () => {
           setUser,
           setIsLoadingWhores,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -69,8 +72,11 @@ const WhoresContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.whores?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t have any active whores at the moment.
@@ -95,7 +101,8 @@ const WhoresContent: React.FC = () => {
       )}
       {
         <p className={styles.maxLimit}>
-          Your current maximum limit for whores is: <span>5</span>
+          Your current maximum limit for whores is:{" "}
+          <span>{user?.university && user.university.pimp ? 10 : 5}</span>
         </p>
       }
       <p className={styles.tableHeading}>All whores:</p>

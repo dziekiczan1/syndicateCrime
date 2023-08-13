@@ -58,11 +58,13 @@ export default async function handler(
         successMessage = `You have successfully bought the whore named ${whore.name}!`;
       }
 
+      const whoresMaxLimit = user.university?.pimp ? 10 : 5;
+
       const totalWhoreCount = updatedUser.whores?.reduce(
         (total, w) => total + (w.count || 0),
         0
       );
-      if (totalWhoreCount && totalWhoreCount > 5) {
+      if (totalWhoreCount && totalWhoreCount > whoresMaxLimit) {
         return res
           .status(400)
           .json({ error: "Maximum number of whores reached" });

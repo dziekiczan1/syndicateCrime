@@ -17,6 +17,9 @@ const UniversityContent: React.FC = () => {
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingCourse, setIsLoadingCourse] = useState(false);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const containerRef = useRef(null);
 
   const handleUniversityAction = async (course: any) => {
@@ -37,8 +40,8 @@ const UniversityContent: React.FC = () => {
           setUser,
           setIsLoadingCourse,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -63,8 +66,11 @@ const UniversityContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       <p className={styles.tableHeading}>Available courses:</p>
       <div className={styles.actionsContainer}>
         {user &&

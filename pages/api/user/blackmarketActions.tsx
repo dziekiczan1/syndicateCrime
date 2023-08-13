@@ -59,11 +59,13 @@ export default async function handler(
         successMessage = `You have successfully bought ${weapon.name}!`;
       }
 
+      const weaponMaxLimit = user.university?.blackmarket ? 10 : 5;
+
       const totalWeaponsCount = updatedUser.weapons?.reduce(
         (total, w) => total + (w.count || 0),
         0
       );
-      if (totalWeaponsCount && totalWeaponsCount > 5) {
+      if (totalWeaponsCount && totalWeaponsCount > weaponMaxLimit) {
         return res
           .status(400)
           .json({ error: "Maximum number of weapons reached" });

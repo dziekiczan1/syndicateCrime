@@ -22,7 +22,11 @@
   }
 
   .savings {
-    @include flexbox($justify-content: $center, $align-items: $center);
+    @include flexbox(
+      $flex-direction: column,
+      $justify-content: $center,
+      $align-items: $center
+    );
     margin-bottom: $size-32;
 
     h4 {

@@ -19,6 +19,9 @@ const PrisonContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingPrison, setIsLoadingPrison] = useState(false);
 
   const handleAction = async (action: (() => void) | string) => {
@@ -38,8 +41,8 @@ const PrisonContent: React.FC = () => {
           setUser,
           setIsLoadingPrison,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -64,8 +67,11 @@ const PrisonContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.prison?.isPrisoner && (
         <div className={styles.freedom}>
           <Image
