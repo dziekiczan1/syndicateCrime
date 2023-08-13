@@ -2,6 +2,7 @@ import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import RequiredText from "@/components/ui/required/RequiredText";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
@@ -16,7 +17,11 @@ const BankContent: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
   const [isStash, setIsStash] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingBank, setIsLoadingBank] = useState(false);
   const {
     register,
@@ -64,7 +69,14 @@ const BankContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingBank);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingBank,
+          setActionMessage,
+          positiveTimeoutId,
+          setPositiveTimeoutId
+        );
         reset();
       } else {
         await handleErrorResponse(
@@ -89,7 +101,11 @@ const BankContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       <div className={styles.savings}>
         {userSavings ? (
           <h4>
@@ -98,6 +114,14 @@ const BankContent: React.FC = () => {
         ) : (
           <h4>You don&apos;t have any funds in your bank account</h4>
         )}
+        <p className={styles.maxLimit}>
+          Your current maximum limit for stashed money is:{" "}
+          <span>
+            {user?.university && user.university.bank
+              ? "Unlimited"
+              : "$100,000"}
+          </span>
+        </p>
       </div>
       <div className={styles.control}>
         <form onSubmit={handleSubmit(onSubmit)}>

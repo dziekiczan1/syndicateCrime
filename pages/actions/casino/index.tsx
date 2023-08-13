@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function CasinoScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <CasinoContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <CasinoContent />
+    </GameLayout>
   );
 }
 

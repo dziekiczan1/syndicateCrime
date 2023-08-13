@@ -13,6 +13,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUserWithBank | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -32,6 +34,7 @@ export default async function handler(
     const { action, bankmoney } = req.body.requestData;
     const amount = Number(bankmoney);
     const energyCost = 2;
+    const bankMaxLimit = user.university?.bank ? Infinity : 100000;
 
     if (user.defaultParams.energy < energyCost) {
       return res.status(400).json({ error: "Not enough energy" });
@@ -39,10 +42,15 @@ export default async function handler(
 
     if (action === "stash") {
       if (user.defaultParams.money >= amount) {
+        if (user.bank && user.bank + amount > bankMaxLimit) {
+          return res.status(400).json({ error: "Stash limit exceeded" });
+        }
+
         user.defaultParams.money -= amount;
         user.defaultParams.energy -= energyCost;
         user.bank = user.bank || 0;
         user.bank += amount;
+        successMessage = "You have successfully stored money!";
       } else {
         return res.status(400).json({ error: "Insufficient funds" });
       }
@@ -51,6 +59,7 @@ export default async function handler(
         user.bank -= amount;
         user.defaultParams.energy -= energyCost;
         user.defaultParams.money += amount;
+        successMessage = "You have successfully withdrawn money!";
       } else {
         return res.status(400).json({ error: "Invalid withdrawal amount" });
       }
@@ -65,6 +74,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

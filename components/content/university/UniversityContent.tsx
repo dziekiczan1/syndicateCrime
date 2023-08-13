@@ -1,33 +1,34 @@
-import { useContext, useState } from "react";
-
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import { hospitalActions } from "@/constants/actions/hospitalactions";
+import { universityActions } from "@/constants/actions/universityactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
-import HospitalAction from "./HospitalAction";
-import styles from "./HospitalContent.module.scss";
+import { useContext, useRef, useState } from "react";
+import UniversityAction from "./UniversityAction";
+import styles from "./UniversityContent.module.scss";
 
-const HospitalContent: React.FC = () => {
-  const pageData = pageDescriptions.hospital;
+const UniversityContent: React.FC = () => {
+  const pageData = pageDescriptions.university;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [isLoadingCourse, setIsLoadingCourse] = useState(false);
   const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
     null
   );
-  const [isLoadingHospital, setIsLoadingHospital] = useState(false);
+  const containerRef = useRef(null);
 
-  const handleAction = async (action: (() => void) | string) => {
+  const handleUniversityAction = async (course: any) => {
     try {
-      setIsLoadingHospital(true);
-      const response = await fetch("/api/user/hospitalActions", {
+      setIsLoadingCourse(true);
+
+      const response = await fetch("/api/user/universityActions", {
         method: "POST",
-        body: JSON.stringify({ action }),
+        body: JSON.stringify({ course }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -37,7 +38,7 @@ const HospitalContent: React.FC = () => {
         await handlePositiveResponse(
           response,
           setUser,
-          setIsLoadingHospital,
+          setIsLoadingCourse,
           setActionMessage,
           positiveTimeoutId,
           setPositiveTimeoutId
@@ -48,19 +49,19 @@ const HospitalContent: React.FC = () => {
           setErrorMessage,
           timeoutId,
           setTimeoutId,
-          setIsLoadingHospital
+          setIsLoadingCourse
         );
       }
     } catch (error) {
-      console.error("Error processing hospital action.", error);
-      setIsLoadingHospital(false);
+      console.error("Error processing buildings action.", error);
+      setIsLoadingCourse(false);
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
       <PageHeader pageData={pageData} />
-      {isLoadingHospital && (
+      {isLoadingCourse && (
         <div className={styles.loading}>
           <Loading />
         </div>
@@ -70,17 +71,14 @@ const HospitalContent: React.FC = () => {
       ) : (
         actionMessage && <Message message={actionMessage} />
       )}
+      <p className={styles.tableHeading}>Available courses:</p>
       <div className={styles.actionsContainer}>
         {user &&
-          hospitalActions.map((action, key) => (
-            <HospitalAction
+          universityActions.map((course, key) => (
+            <UniversityAction
               key={key}
-              imageSrc={action.imageSrc}
-              name={action.name}
-              description={action.description}
-              cost={action.cost}
-              buttonText={action.buttonText}
-              onAction={() => handleAction(action.onAction)}
+              course={course}
+              handleUniversityAction={handleUniversityAction}
             />
           ))}
       </div>
@@ -88,4 +86,4 @@ const HospitalContent: React.FC = () => {
   );
 };
 
-export default HospitalContent;
+export default UniversityContent;

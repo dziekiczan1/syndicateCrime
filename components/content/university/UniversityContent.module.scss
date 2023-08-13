@@ -1,0 +1,29 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  color: $color-base-light;
+
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
+    padding-right: $size-8;
+  }
+
+  .tableHeading {
+    @include flexbox($justify-content: $center);
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+    margin-bottom: $size-16;
+  }
+
+  .actionsContainer {
+    @include flexbox(
+      $flex-direction: column,
+      $align-items: $center,
+      $flex-wrap: wrap,
+      $gap: $size-16
+    );
+    width: $full-size;
+  }
+}

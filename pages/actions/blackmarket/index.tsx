@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function BlackmarketScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <BlackmarketContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <BlackmarketContent />
+    </GameLayout>
   );
 }
 

@@ -5,11 +5,9 @@ import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function HospitalScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <HospitalContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <HospitalContent />
+    </GameLayout>
   );
 }
 

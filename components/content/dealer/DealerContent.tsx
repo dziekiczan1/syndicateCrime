@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import Button from "@/components/ui/button/Button";
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { drugDetails } from "@/constants/sections/dealerdrugs";
@@ -23,8 +24,12 @@ const DealerContent = () => {
     LSD: 0,
   });
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [isLoadingRobbery, setIsLoadingRobbery] = useState(false);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
+  const [isLoadingDealer, setIsLoadingDealer] = useState(false);
 
   type Drug = keyof typeof quantities;
 
@@ -60,7 +65,7 @@ const DealerContent = () => {
     };
 
     try {
-      setIsLoadingRobbery(true);
+      setIsLoadingDealer(true);
       const response = await fetch("/api/user/buyDrugs", {
         method: "POST",
         body: JSON.stringify(requestData),
@@ -70,7 +75,14 @@ const DealerContent = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingRobbery);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingDealer,
+          setActionMessage,
+          positiveTimeoutId,
+          setPositiveTimeoutId
+        );
         setQuantities({
           Marijuana: 0,
           Heroin: 0,
@@ -84,24 +96,28 @@ const DealerContent = () => {
           setErrorMessage,
           timeoutId,
           setTimeoutId,
-          setIsLoadingRobbery
+          setIsLoadingDealer
         );
       }
     } catch (error) {
       console.error("Error updating stats:", error);
-      setIsLoadingRobbery(false);
+      setIsLoadingDealer(false);
     }
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingRobbery && (
+      {isLoadingDealer && (
         <div className={styles.loading}>
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (
           <div key={drug} className={styles.drugContent}>

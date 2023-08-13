@@ -1,5 +1,6 @@
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import TableThead from "@/components/ui/table/TableThead";
 import { blackMarketActions } from "@/constants/actions/blackmarketactions";
@@ -16,7 +17,11 @@ const BlackmarketContent: React.FC = () => {
   const pageData = pageDescriptions.blackmarket;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingBlackMarket, setIsLoadingBlackMarket] = useState(false);
 
   const activeWeaponsTheads = [
@@ -43,7 +48,10 @@ const BlackmarketContent: React.FC = () => {
         await handlePositiveResponse(
           response,
           setUser,
-          setIsLoadingBlackMarket
+          setIsLoadingBlackMarket,
+          setActionMessage,
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -68,7 +76,12 @@ const BlackmarketContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.weapons?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t have any active weapons at the moment.
@@ -93,7 +106,10 @@ const BlackmarketContent: React.FC = () => {
       )}
       {
         <p className={styles.maxLimit}>
-          Your current maximum limit for weapons is: <span>5</span>
+          Your current maximum limit for weapons is:{" "}
+          <span>
+            {user?.university && user.university.blackmarket ? 10 : 5}
+          </span>
         </p>
       }
       <p className={styles.tableHeading}>All weapons:</p>

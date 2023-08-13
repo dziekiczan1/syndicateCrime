@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import TableThead from "@/components/ui/table/TableThead";
 import { whoresActions } from "@/constants/actions/whoresactions";
@@ -17,7 +18,11 @@ const WhoresContent: React.FC = () => {
   const pageData = pageDescriptions.whores;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingWhores, setIsLoadingWhores] = useState(false);
 
   const activeWhoreTheads = ["Name", "Count", "Earnings per day", "Manage"];
@@ -36,7 +41,14 @@ const WhoresContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingWhores);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingWhores,
+          setActionMessage,
+          positiveTimeoutId,
+          setPositiveTimeoutId
+        );
       } else {
         await handleErrorResponse(
           response,
@@ -60,7 +72,11 @@ const WhoresContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.whores?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t have any active whores at the moment.
@@ -85,7 +101,8 @@ const WhoresContent: React.FC = () => {
       )}
       {
         <p className={styles.maxLimit}>
-          Your current maximum limit for whores is: <span>5</span>
+          Your current maximum limit for whores is:{" "}
+          <span>{user?.university && user.university.pimp ? 10 : 5}</span>
         </p>
       }
       <p className={styles.tableHeading}>All whores:</p>

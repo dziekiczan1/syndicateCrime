@@ -1,5 +1,6 @@
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import TableThead from "@/components/ui/table/TableThead";
 import { buildingsActions } from "@/constants/actions/buildingsactions";
@@ -16,7 +17,11 @@ const BuildingsContent: React.FC = () => {
   const pageData = pageDescriptions.buildings;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingBuildings, setIsLoadingBuildings] = useState(false);
 
   const activeBuildingsTheads = ["Name", "Count", "Earnings per day", "Sell"];
@@ -34,7 +39,14 @@ const BuildingsContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingBuildings);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingBuildings,
+          setActionMessage,
+          positiveTimeoutId,
+          setPositiveTimeoutId
+        );
       } else {
         await handleErrorResponse(
           response,
@@ -58,7 +70,11 @@ const BuildingsContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.buildings?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t owe any buildings at the moment.
@@ -83,7 +99,10 @@ const BuildingsContent: React.FC = () => {
       )}
       {
         <p className={styles.maxLimit}>
-          Your current maximum limit for buildings is: <span>3</span>
+          Your current maximum limit for buildings is:{" "}
+          <span>
+            {user?.university && user.university.architecture ? 8 : 3}
+          </span>
         </p>
       }
       <p className={styles.tableHeading}>All buildings:</p>

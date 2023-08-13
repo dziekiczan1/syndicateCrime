@@ -9,6 +9,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -81,6 +83,8 @@ export default async function handler(
 
     updatedUser.defaultParams.money -= totalCost;
 
+    successMessage = "You have successfully bought drugs!";
+
     await usersCollection.updateOne(
       { email: email as string },
       { $set: updatedUser }
@@ -91,6 +95,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

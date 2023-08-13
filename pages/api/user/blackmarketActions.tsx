@@ -20,6 +20,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -48,18 +50,22 @@ export default async function handler(
 
       if (existingWeapon) {
         existingWeapon.count = (existingWeapon.count || 0) + 1;
+        successMessage = `You have successfully bought ${weapon.name}!`;
       } else {
         if (!updatedUser.weapons) {
           updatedUser.weapons = [];
         }
         updatedUser.weapons.push({ ...weapon, count: 1 });
+        successMessage = `You have successfully bought ${weapon.name}!`;
       }
+
+      const weaponMaxLimit = user.university?.blackmarket ? 10 : 5;
 
       const totalWeaponsCount = updatedUser.weapons?.reduce(
         (total, w) => total + (w.count || 0),
         0
       );
-      if (totalWeaponsCount && totalWeaponsCount > 5) {
+      if (totalWeaponsCount && totalWeaponsCount > weaponMaxLimit) {
         return res
           .status(400)
           .json({ error: "Maximum number of weapons reached" });
@@ -90,6 +96,7 @@ export default async function handler(
       }
 
       updatedUser.defaultParams.respect -= weapon.respect;
+      successMessage = `You have successfully sold ${weapon.name}!`;
     }
 
     await usersCollection.updateOne(
@@ -102,6 +109,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

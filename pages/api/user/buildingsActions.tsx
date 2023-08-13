@@ -20,6 +20,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -47,18 +49,22 @@ export default async function handler(
       );
       if (existingBuilding) {
         existingBuilding.count = (existingBuilding.count || 0) + 1;
+        successMessage = `You have successfully bought ${building.name}!`;
       } else {
         if (!updatedUser.buildings) {
           updatedUser.buildings = [];
         }
         updatedUser.buildings.push({ ...building, count: 1 });
+        successMessage = `You have successfully bought ${building.name}!`;
       }
+
+      const buildingsMaxLimit = user.university?.architecture ? 8 : 3;
 
       const totalBuildingsCount = updatedUser.buildings?.reduce(
         (total, b) => total + (b.count || 0),
         0
       );
-      if (totalBuildingsCount && totalBuildingsCount > 5) {
+      if (totalBuildingsCount && totalBuildingsCount > buildingsMaxLimit) {
         return res
           .status(400)
           .json({ error: "Maximum number of whores reached" });
@@ -87,6 +93,7 @@ export default async function handler(
         );
       }
       updatedUser.defaultParams.money += building.cost * 0.5;
+      successMessage = `You have successfully sold ${building.name}!`;
     }
 
     await usersCollection.updateOne(
@@ -99,6 +106,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

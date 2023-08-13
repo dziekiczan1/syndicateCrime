@@ -3,12 +3,33 @@ import { Dispatch, SetStateAction } from "react";
 export const handlePositiveResponse = async (
   response: Response,
   setUser: Dispatch<SetStateAction<any>>,
-  setIsLoadingRobbery: Dispatch<SetStateAction<boolean>>
+  setIsLoadingAction: Dispatch<SetStateAction<boolean>>,
+  setActionMessage?: Dispatch<SetStateAction<any>>,
+  positiveTimeoutId?: number | null,
+  setPositiveTimeoutId?: Dispatch<SetStateAction<number | null>>
 ) => {
   const updatedUser = await response.json();
 
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (setActionMessage) {
+    setActionMessage(updatedUser.message);
+
+    if (positiveTimeoutId) {
+      clearTimeout(positiveTimeoutId);
+    }
+
+    const newTimeoutId = window.setTimeout(() => {
+      setActionMessage(null);
+    }, 5000);
+
+    if (setPositiveTimeoutId) {
+      setPositiveTimeoutId(newTimeoutId);
+    }
+  }
+
   setUser(updatedUser);
-  setIsLoadingRobbery(false);
+  setIsLoadingAction(false);
 };
 
 export const handleErrorResponse = async (
@@ -16,9 +37,12 @@ export const handleErrorResponse = async (
   setErrorMessage: Dispatch<SetStateAction<any>>,
   timeoutId: number | null,
   setTimeoutId: Dispatch<SetStateAction<number | null>>,
-  setIsLoadingRobbery: Dispatch<SetStateAction<boolean>>
+  setIsLoadingAction: Dispatch<SetStateAction<boolean>>
 ) => {
   const errorData = await response.json();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   setErrorMessage(errorData.error);
 
   if (timeoutId) {
@@ -30,5 +54,5 @@ export const handleErrorResponse = async (
   }, 5000);
 
   setTimeoutId(newTimeoutId);
-  setIsLoadingRobbery(false);
+  setIsLoadingAction(false);
 };

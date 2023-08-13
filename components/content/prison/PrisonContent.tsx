@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { prisonActions } from "@/constants/actions/prisonactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
@@ -16,7 +17,11 @@ const PrisonContent: React.FC = () => {
   const pageData = pageDescriptions.prison;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingPrison, setIsLoadingPrison] = useState(false);
 
   const handleAction = async (action: (() => void) | string) => {
@@ -31,7 +36,14 @@ const PrisonContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingPrison);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingPrison,
+          setActionMessage,
+          positiveTimeoutId,
+          setPositiveTimeoutId
+        );
       } else {
         await handleErrorResponse(
           response,
@@ -55,7 +67,11 @@ const PrisonContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.prison?.isPrisoner && (
         <div className={styles.freedom}>
           <Image
