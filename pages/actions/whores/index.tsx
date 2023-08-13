@@ -5,11 +5,9 @@ import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function WhoresScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <WhoresContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <WhoresContent />
+    </GameLayout>
   );
 }
 

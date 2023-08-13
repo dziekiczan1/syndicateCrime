@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function DealerScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <DealerContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <DealerContent />
+    </GameLayout>
   );
 }
 

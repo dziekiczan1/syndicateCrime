@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function PrisonScreen() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <PrisonContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <PrisonContent />
+    </GameLayout>
   );
 }
 

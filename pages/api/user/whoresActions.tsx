@@ -20,6 +20,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -47,11 +49,13 @@ export default async function handler(
       );
       if (existingWhore) {
         existingWhore.count = (existingWhore.count || 0) + 1;
+        successMessage = `You have successfully bought the whore named ${whore.name}!`;
       } else {
         if (!updatedUser.whores) {
           updatedUser.whores = [];
         }
         updatedUser.whores.push({ ...whore, count: 1 });
+        successMessage = `You have successfully bought the whore named ${whore.name}!`;
       }
 
       const totalWhoreCount = updatedUser.whores?.reduce(
@@ -86,6 +90,7 @@ export default async function handler(
           (w) => w.name !== whore.name
         );
       }
+      successMessage = "You have successfully sold the whore!";
     }
 
     await usersCollection.updateOne(
@@ -98,6 +103,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

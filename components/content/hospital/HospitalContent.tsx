@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { hospitalActions } from "@/constants/actions/hospitalactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
@@ -14,6 +15,7 @@ const HospitalContent: React.FC = () => {
   const pageData = pageDescriptions.hospital;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingHospital, setIsLoadingHospital] = useState(false);
 
@@ -29,7 +31,14 @@ const HospitalContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingHospital);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingHospital,
+          setActionMessage,
+          timeoutId,
+          setTimeoutId
+        );
       } else {
         await handleErrorResponse(
           response,
@@ -54,6 +63,7 @@ const HospitalContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {actionMessage && <Message message={actionMessage} />}
       <div className={styles.actionsContainer}>
         {user &&
           hospitalActions.map((action, key) => (

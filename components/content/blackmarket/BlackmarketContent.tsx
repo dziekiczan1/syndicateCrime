@@ -1,5 +1,6 @@
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import TableThead from "@/components/ui/table/TableThead";
 import { blackMarketActions } from "@/constants/actions/blackmarketactions";
@@ -16,6 +17,7 @@ const BlackmarketContent: React.FC = () => {
   const pageData = pageDescriptions.blackmarket;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingBlackMarket, setIsLoadingBlackMarket] = useState(false);
 
@@ -43,7 +45,10 @@ const BlackmarketContent: React.FC = () => {
         await handlePositiveResponse(
           response,
           setUser,
-          setIsLoadingBlackMarket
+          setIsLoadingBlackMarket,
+          setActionMessage,
+          timeoutId,
+          setTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -69,6 +74,7 @@ const BlackmarketContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {actionMessage && <Message message={actionMessage} />}
       {user && !user.weapons?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t have any active weapons at the moment.

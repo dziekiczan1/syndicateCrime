@@ -22,6 +22,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -67,6 +69,7 @@ export default async function handler(
               .json({ error: "Not enough intelligence to take the course" });
           }
           updatedUser.university.architecture = true;
+          successMessage = "Successfully completed architecture course";
           break;
 
         case "pimp":
@@ -76,6 +79,7 @@ export default async function handler(
               .json({ error: "Not enough charisma to take the course" });
           }
           updatedUser.university.pimp = true;
+          successMessage = "Successfully completed pimp course";
           break;
 
         case "blackmarket":
@@ -85,6 +89,7 @@ export default async function handler(
               .json({ error: "Not enough strength to take the course" });
           }
           updatedUser.university.blackmarket = true;
+          successMessage = "Successfully completed blackmarket course";
           break;
 
         case "bank":
@@ -94,6 +99,7 @@ export default async function handler(
               .json({ error: "Not enough endurance to take the course" });
           }
           updatedUser.university.bank = true;
+          successMessage = "Successfully completed bank course";
           break;
 
         default:
@@ -113,6 +119,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();

@@ -1,11 +1,12 @@
 import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
+import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import { universityActions } from "@/constants/actions/universityactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
 import UserContext from "@/store/user-context";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import UniversityAction from "./UniversityAction";
 import styles from "./UniversityContent.module.scss";
 
@@ -13,8 +14,10 @@ const UniversityContent: React.FC = () => {
   const pageData = pageDescriptions.university;
   const { user, setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [isLoadingCourse, setIsLoadingCourse] = useState(false);
+  const containerRef = useRef(null);
 
   const handleUniversityAction = async (course: any) => {
     try {
@@ -29,8 +32,14 @@ const UniversityContent: React.FC = () => {
       });
 
       if (setUser && response.ok) {
-        await handlePositiveResponse(response, setUser, setIsLoadingCourse);
-        console.log(response);
+        await handlePositiveResponse(
+          response,
+          setUser,
+          setIsLoadingCourse,
+          setActionMessage,
+          timeoutId,
+          setTimeoutId
+        );
       } else {
         await handleErrorResponse(
           response,
@@ -47,7 +56,7 @@ const UniversityContent: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
       <PageHeader pageData={pageData} />
       {isLoadingCourse && (
         <div className={styles.loading}>
@@ -55,6 +64,7 @@ const UniversityContent: React.FC = () => {
         </div>
       )}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {actionMessage && <Message message={actionMessage} />}
       <p className={styles.tableHeading}>Available courses:</p>
       <div className={styles.actionsContainer}>
         {user &&
