@@ -19,6 +19,9 @@ const BuildingsContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingBuildings, setIsLoadingBuildings] = useState(false);
 
   const activeBuildingsTheads = ["Name", "Count", "Earnings per day", "Sell"];
@@ -41,8 +44,8 @@ const BuildingsContent: React.FC = () => {
           setUser,
           setIsLoadingBuildings,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -67,8 +70,11 @@ const BuildingsContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       {user && !user.buildings?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t owe any buildings at the moment.
@@ -93,7 +99,10 @@ const BuildingsContent: React.FC = () => {
       )}
       {
         <p className={styles.maxLimit}>
-          Your current maximum limit for buildings is: <span>3</span>
+          Your current maximum limit for buildings is:{" "}
+          <span>
+            {user?.university && user.university.architecture ? 8 : 3}
+          </span>
         </p>
       }
       <p className={styles.tableHeading}>All buildings:</p>

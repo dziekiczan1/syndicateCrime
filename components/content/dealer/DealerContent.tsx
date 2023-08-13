@@ -26,6 +26,9 @@ const DealerContent = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingDealer, setIsLoadingDealer] = useState(false);
 
   type Drug = keyof typeof quantities;
@@ -77,8 +80,8 @@ const DealerContent = () => {
           setUser,
           setIsLoadingDealer,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
         setQuantities({
           Marijuana: 0,
@@ -110,8 +113,11 @@ const DealerContent = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (
           <div key={drug} className={styles.drugContent}>

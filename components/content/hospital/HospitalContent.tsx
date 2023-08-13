@@ -17,6 +17,9 @@ const HospitalContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
+    null
+  );
   const [isLoadingHospital, setIsLoadingHospital] = useState(false);
 
   const handleAction = async (action: (() => void) | string) => {
@@ -36,8 +39,8 @@ const HospitalContent: React.FC = () => {
           setUser,
           setIsLoadingHospital,
           setActionMessage,
-          timeoutId,
-          setTimeoutId
+          positiveTimeoutId,
+          setPositiveTimeoutId
         );
       } else {
         await handleErrorResponse(
@@ -62,8 +65,11 @@ const HospitalContent: React.FC = () => {
           <Loading />
         </div>
       )}
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-      {actionMessage && <Message message={actionMessage} />}
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : (
+        actionMessage && <Message message={actionMessage} />
+      )}
       <div className={styles.actionsContainer}>
         {user &&
           hospitalActions.map((action, key) => (
