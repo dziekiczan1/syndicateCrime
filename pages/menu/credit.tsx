@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function Credit() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <CreditContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <CreditContent />
+    </GameLayout>
   );
 }
 

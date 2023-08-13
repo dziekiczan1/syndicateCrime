@@ -5,6 +5,33 @@
 @tailwind components;
 @tailwind utilities;
 
+// SCROLLBAR
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-base-dark-500 darken($color-base-dark, 10%);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: $size-12;
+}
+
+*::-webkit-scrollbar-track {
+  background: darken($color-base-dark, 10%);
+}
+
+*::-webkit-scrollbar-thumb {
+  @include border($size-2, solid, $color-base-orange);
+  background-color: $color-base-dark-100;
+  border-radius: $size-8;
+
+  &:hover {
+    background-color: $color-base-dark;
+  }
+}
+
 // HTML and BODY
 
 html {
