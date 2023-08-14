@@ -1,76 +1,34 @@
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import { universityActions } from "@/constants/actions/universityactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import UniversityAction from "./UniversityAction";
 import styles from "./UniversityContent.module.scss";
 
 const UniversityContent: React.FC = () => {
   const pageData = pageDescriptions.university;
-  const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [isLoadingCourse, setIsLoadingCourse] = useState(false);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const containerRef = useRef(null);
+  const { user } = useContext(UserContext);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
 
   const handleUniversityAction = async (course: any) => {
-    try {
-      setIsLoadingCourse(true);
-
-      const response = await fetch("/api/user/universityActions", {
-        method: "POST",
-        body: JSON.stringify({ course }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingCourse,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingCourse
-        );
-      }
-    } catch (error) {
-      console.error("Error processing buildings action.", error);
-      setIsLoadingCourse(false);
-    }
+    await handleAction("/api/user/universityActions", { course });
   };
 
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingCourse && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       <p className={styles.tableHeading}>Available courses:</p>
       <div className={styles.actionsContainer}>
         {user &&

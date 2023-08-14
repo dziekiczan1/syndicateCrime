@@ -6,11 +6,14 @@ export const handlePositiveResponse = async (
   setIsLoadingAction: Dispatch<SetStateAction<boolean>>,
   setActionMessage?: Dispatch<SetStateAction<any>>,
   positiveTimeoutId?: number | null,
-  setPositiveTimeoutId?: Dispatch<SetStateAction<number | null>>
+  setPositiveTimeoutId?: Dispatch<SetStateAction<number | null>>,
+  messageRef?: React.RefObject<HTMLDivElement>
 ) => {
   const updatedUser = await response.json();
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (messageRef && messageRef.current) {
+    messageRef.current.scrollIntoView({ behavior: "smooth" });
+  }
 
   if (setActionMessage) {
     setActionMessage(updatedUser.message);
@@ -37,11 +40,14 @@ export const handleErrorResponse = async (
   setErrorMessage: Dispatch<SetStateAction<any>>,
   timeoutId: number | null,
   setTimeoutId: Dispatch<SetStateAction<number | null>>,
-  setIsLoadingAction: Dispatch<SetStateAction<boolean>>
+  setIsLoadingAction: Dispatch<SetStateAction<boolean>>,
+  messageRef?: React.RefObject<HTMLDivElement>
 ) => {
   const errorData = await response.json();
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (messageRef && messageRef.current) {
+    messageRef.current.scrollIntoView({ behavior: "smooth" });
+  }
 
   setErrorMessage(errorData.error);
 
