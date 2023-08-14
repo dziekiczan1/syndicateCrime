@@ -10,7 +10,7 @@ export const handlePositiveResponse = async (
 ) => {
   const updatedUser = await response.json();
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 500, behavior: "smooth" });
 
   if (setActionMessage) {
     setActionMessage(updatedUser.message);
