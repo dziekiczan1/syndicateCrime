@@ -3,6 +3,7 @@ import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import { universityActions } from "@/constants/actions/universityactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import useResponseHandler from "@/lib/useResponseHandler";
+import { University } from "@/pages/api/user/universityActions";
 import UserContext from "@/store/user-context";
 import { useContext, useRef } from "react";
 import UniversityAction from "./UniversityAction";
@@ -16,7 +17,7 @@ const UniversityContent: React.FC = () => {
   const { errorMessage, actionMessage, isLoading, handleAction } =
     useResponseHandler(messageRef);
 
-  const handleUniversityAction = async (course: any) => {
+  const handleUniversityAction = async (course: University) => {
     await handleAction("/api/user/universityActions", { course });
   };
 

@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button/Button";
 import { formatNumber } from "@/lib/money";
+import { University } from "@/pages/api/user/universityActions";
 import UserContext from "@/store/user-context";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
@@ -7,7 +8,7 @@ import styles from "./UniversityAction.module.scss";
 
 interface IUniversityDetails {
   course: any;
-  handleUniversityAction: (course: any) => void;
+  handleUniversityAction: (course: University) => void;
 }
 
 const UniversityAction = ({
