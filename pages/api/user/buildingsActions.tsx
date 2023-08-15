@@ -67,7 +67,7 @@ export default async function handler(
       if (totalBuildingsCount && totalBuildingsCount > buildingsMaxLimit) {
         return res
           .status(400)
-          .json({ error: "Maximum number of whores reached" });
+          .json({ error: "Maximum number of buildings reached" });
       }
 
       if (updatedUser.defaultParams.money < building.cost) {

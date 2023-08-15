@@ -34,6 +34,8 @@ const useResponseHandler = (messageRef: React.RefObject<HTMLDivElement>) => {
           setPositiveTimeoutId,
           messageRef
         );
+
+        return response;
       } else {
         await handleErrorResponse(
           response,
