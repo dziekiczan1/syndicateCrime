@@ -2,7 +2,7 @@
 
 .inputContainer {
   @include flexbox($align-items: $center);
-  margin-right: $size-32;
+  margin-right: $size-8;
 
   @include screen($size: mobile) {
     width: $full-size;

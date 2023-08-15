@@ -65,7 +65,7 @@ const ProfileContent: React.FC = () => {
             <h3>{user.username}</h3>
             <p>{user.email}</p>
             <p>Class: {user.defaultParams.class}</p>
-            <p>Morale: {user.defaultParams.morale}</p>
+            <p>Gang: {user.defaultParams.gang}</p>
             <p>Energy: {user.defaultParams.energy}%</p>
             <p>Life: {user.defaultParams.life}%</p>
             <p>Addiction: {user.defaultParams.addiction}%</p>

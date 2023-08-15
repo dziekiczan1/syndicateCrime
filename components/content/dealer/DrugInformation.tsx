@@ -18,18 +18,41 @@ const DrugInformation: React.FC<IDrugInformation> = ({ drug }) => {
           alt={drug as string}
         />
       </div>
-      <div className={styles.drugInformation}>
+      <div className={styles.drugInformationWrapper}>
         <p className={styles.drugName}>{drug}</p>
-        {Object.entries(drugDetails[drug]).map(([stat, value]) => (
-          <div key={stat}>
-            <p className={styles.drugStats}>
-              {drugStatNames[stat]}
-              {stat === "cost" && <span>$</span>}
-              <span>{value}</span>
-              {stat === "addictionPoints" && <span>%</span>}
-            </p>
+        <div className={styles.drugsInformation}>
+          <div className={styles.drugsCost}>
+            <p className="custom-label">Cost:</p>
+            {Object.entries(drugDetails[drug]).map(
+              ([stat, value]) =>
+                (stat === "cost" || stat === "addictionPoints") && (
+                  <div key={stat}>
+                    <p className={styles.drugStats}>
+                      {drugStatNames[stat]}
+                      {stat === "cost" && <span>$</span>}
+                      <span>{value}</span>
+                      {stat === "addictionPoints" && <span>%</span>}
+                    </p>
+                  </div>
+                )
+            )}
           </div>
-        ))}
+          <div className={styles.drugsBonus}>
+            <p className="custom-label">Bonus:</p>
+            {Object.entries(drugDetails[drug]).map(
+              ([stat, value]) =>
+                stat !== "cost" &&
+                stat !== "addictionPoints" && (
+                  <div key={stat}>
+                    <p className={styles.drugStats}>
+                      {drugStatNames[stat]}
+                      <span>{value}</span>
+                    </p>
+                  </div>
+                )
+            )}
+          </div>
+        </div>
       </div>
     </>
   );
