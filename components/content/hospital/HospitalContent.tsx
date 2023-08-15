@@ -38,7 +38,9 @@ const HospitalContent: React.FC = () => {
               imageSrc={action.imageSrc}
               name={action.name}
               description={action.description}
-              cost={action.cost}
+              costEnergy={action.costEnergy}
+              costMoney={action.costMoney}
+              bonus={action.bonus}
               buttonText={action.buttonText}
               onAction={() => handleHospitalAction(action.onAction)}
             />

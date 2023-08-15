@@ -7,7 +7,9 @@ const HospitalAction = ({
   imageSrc,
   name,
   description,
-  cost,
+  costEnergy,
+  costMoney,
+  bonus,
   buttonText,
   onAction,
 }: IHospitalActions) => {
@@ -20,7 +22,25 @@ const HospitalAction = ({
         <p className={styles.actionName}>{name}</p>
         <div className={styles.actionDetails}>
           <p className={styles.actionDescription}>{description}</p>
-          <p className={styles.actionCost}>{cost}</p>
+          <div className={styles.medicinesInformation}>
+            <div className={styles.medicinesCost}>
+              <p className="custom-label">Cost:</p>
+              {costEnergy && (
+                <p className={styles.medicinesStats}>
+                  Energy: <span>{costEnergy}</span>
+                </p>
+              )}
+              {costMoney && (
+                <p className={styles.medicinesStats}>
+                  Money: <span>{costMoney}</span>
+                </p>
+              )}
+            </div>
+            <div className={styles.medicinesBonus}>
+              <p className="custom-label">Bonus:</p>
+              <p className={styles.medicinesStats}>{bonus}</p>
+            </div>
+          </div>
           <Button onClick={onAction as () => void} secondary fullSize>
             {buttonText}
           </Button>

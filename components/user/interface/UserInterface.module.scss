@@ -3,7 +3,7 @@
 .container {
   @include border($color: $color-base-dark-100);
   width: $full-size;
-  padding: $size-16;
+  padding: $size-8;
   background-color: $color-base-dark-50;
   border-radius: $size-8;
   box-shadow: $shadow;
@@ -71,7 +71,11 @@
 }
 
 .userStats {
-  @include flexbox($flex-wrap: wrap, $gap: $size-8);
+  @include flexbox(
+    $flex-wrap: wrap,
+    $justify-content: space-between,
+    $gap: $size-8
+  );
   width: $full-size;
   margin: $size-16 $null;
 

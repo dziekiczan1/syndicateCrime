@@ -11,7 +11,7 @@
   height: 90px;
 }
 
-.drugInformation {
+.drugInformationWrapper {
   flex: 1;
   padding: $null $size-12;
 
@@ -21,7 +21,29 @@
     margin-bottom: $size-8;
   }
 
+  .drugsInformation {
+    @include flexbox($flex-wrap: wrap, $justify-content: space-between);
+
+    @include screen($size: mobile) {
+      flex-direction: column;
+      gap: $size-8;
+    }
+
+    .drugsCost,
+    .drugsBonus {
+      width: $half-size;
+
+      @include screen($size: mobile) {
+        width: $full-size;
+      }
+    }
+  }
+
   .drugStats {
-    @include font-size($size-12);
+    color: $color-base-orange;
+
+    span {
+      color: $color-base-light;
+    }
   }
 }

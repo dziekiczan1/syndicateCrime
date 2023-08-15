@@ -12,33 +12,33 @@ export interface DrugDetails {
 export const drugDetails: { [key: string]: DrugDetails } = {
   Marijuana: {
     cost: 1000,
+    addictionPoints: 5,
     intelligencePoints: 5,
     energyPoints: 10,
-    addictionPoints: 5,
   },
   Heroin: {
     cost: 3000,
+    addictionPoints: 10,
     strengthPoints: 10,
     energyPoints: 10,
-    addictionPoints: 10,
   },
   Cocaine: {
     cost: 5000,
+    addictionPoints: 15,
     charismaPoints: 20,
     energyPoints: 20,
-    addictionPoints: 15,
   },
   Meth: {
     cost: 8000,
+    addictionPoints: 20,
     endurancePoints: 25,
     energyPoints: 25,
-    addictionPoints: 20,
   },
   LSD: {
     cost: 25000,
+    addictionPoints: 30,
     respectPoints: 30,
     energyPoints: 50,
-    addictionPoints: 30,
   },
 };
 
