@@ -1,13 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import Avatar from "@/components/user/avatar/Avatar";
 import StatsNode from "@/components/user/stats/StatsNode";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import avatars from "@/constants/sections/avatars";
 import { getUserStatistics } from "@/constants/sections/userstats";
+import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
 import styles from "./ProfileContent.module.scss";
 
@@ -17,24 +19,27 @@ const ProfileContent: React.FC = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar);
   const userStats = user?.defaultParams;
   const userStatistics = getUserStatistics(userStats);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  const {
+    errorMessage,
+    actionMessage,
+    isLoading,
+    handleAction: handleAvatarSubmit,
+  } = useResponseHandler(messageRef);
 
   const handleAvatarChange = (selectedAvatar: string) => {
     setSelectedAvatar(selectedAvatar);
   };
 
-  const handleAvatarSubmit = async () => {
+  const updateAvatar = async () => {
     try {
-      const response = await fetch("/api/user/updateStat", {
-        method: "POST",
-        body: JSON.stringify({
-          statToUpdate: "avatar",
-          valueToUpdate: selectedAvatar,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await handleAvatarSubmit("/api/user/updateStat", {
+        statToUpdate: "avatar",
+        valueToUpdate: selectedAvatar,
       });
-      const data = await response.json();
+
+      const data = await response?.json();
 
       const updatedUser = { ...data, avatar: data.avatar as string };
       if (setUser) {
@@ -48,6 +53,12 @@ const ProfileContent: React.FC = () => {
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       {user && (
         <div className={styles.stats}>
           <div className={styles.params}>
@@ -106,7 +117,7 @@ const ProfileContent: React.FC = () => {
             </div>
           ))}
         </div>
-        <Button onClick={handleAvatarSubmit} fullSize secondary>
+        <Button onClick={updateAvatar} fullSize secondary>
           Change Your Avatar
         </Button>
       </div>

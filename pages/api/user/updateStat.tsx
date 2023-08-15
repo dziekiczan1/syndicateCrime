@@ -9,6 +9,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IUser | { error: string }>
 ) {
+  let successMessage;
+
   try {
     const session = await getServerSession(req, res, authOptions);
 
@@ -26,30 +28,44 @@ export default async function handler(
     }
 
     const { statToUpdate, valueToUpdate } = req.body;
+
+    if (!valueToUpdate) {
+      return res.status(404).json({ error: `Choose your ${statToUpdate}!` });
+    }
+
     switch (statToUpdate) {
       case "avatar":
         user.avatar = valueToUpdate;
+        successMessage = "Your avatar has been changed.";
         break;
       case "respect":
         user.defaultParams.respect = valueToUpdate;
+        successMessage = "Your respect stats has been updated.";
         break;
       case "money":
         user.defaultParams.money = valueToUpdate;
+        successMessage = "Your money stats has been updated.";
         break;
       case "strength":
         user.defaultParams.strength = valueToUpdate;
+        successMessage = "Your strength stats has been updated.";
         break;
       case "intelligence":
         user.defaultParams.intelligence = valueToUpdate;
+        successMessage = "Your intelligence stats has been updated.";
         break;
       case "endurance":
         user.defaultParams.endurance = valueToUpdate;
+        successMessage = "Your endurance stats has been updated.";
         break;
       case "charisma":
         user.defaultParams.charisma = valueToUpdate;
+        successMessage = "Your charisma stats has been updated.";
         break;
       default:
-        return res.status(400).json({ error: "Invalid statToUpdate value" });
+        return res
+          .status(400)
+          .json({ error: "There was problem with updating your stats." });
     }
 
     await usersCollection.updateOne({ email: email as string }, { $set: user });
@@ -59,6 +75,7 @@ export default async function handler(
     const serializedUser = {
       ...userWithoutPassword,
       _id: user._id.toString(),
+      message: successMessage,
     } as IUser;
 
     client.close();
