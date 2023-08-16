@@ -1,7 +1,5 @@
 import Button from "@/components/ui/button/Button";
-import UserContext from "@/store/user-context";
 import Image from "next/image";
-import { useContext } from "react";
 import styles from "./GangAction.module.scss";
 
 interface IGangDetails {
@@ -10,8 +8,6 @@ interface IGangDetails {
 }
 
 const GangAction = ({ gang, handleGangAction }: IGangDetails) => {
-  const { user } = useContext(UserContext);
-
   return (
     <div className={styles.actionsContent}>
       <div className={styles.actionImage}>

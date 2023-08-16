@@ -13,7 +13,7 @@ export interface IUserSignupData {
 export interface IUser extends IUserSignupData {
   defaultParams: {
     class: string;
-    gang: string;
+    gang?: string;
     respect: number;
     energy: number;
     life: number;
@@ -69,7 +69,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const defaultParams = {
     class: "Begginer",
-    gang: "No gang affiliation",
     respect: 1,
     energy: 100,
     life: 100,

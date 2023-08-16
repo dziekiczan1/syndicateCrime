@@ -62,7 +62,9 @@ const UserInterface: React.FC<IUserInterface> = ({
             <div className={styles.user}>
               <h3>{user.username}</h3>
               <p className={styles.class}>{userStats.class}</p>
-              <p className={styles.class}>{userStats.gang}</p>
+              <p className={styles.class}>
+                {userStats.gang ? userStats.gang : "No gang affiliation"}
+              </p>
               <div className={styles.stats}>
                 <ProgressBar name="Energy" completed={userStats.energy} />
                 <ProgressBar name="Life" completed={userStats.life} />
