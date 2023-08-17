@@ -21,7 +21,7 @@ const GangContent: React.FC = () => {
   const { errorMessage, actionMessage, isLoading, handleAction } =
     useResponseHandler(messageRef);
 
-  const handleGangAction = async (gang: any) => {
+  const handleGangAction = async (gang: string) => {
     await handleAction("/api/user/gangActions", { gang });
   };
 
