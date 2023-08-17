@@ -2,4 +2,38 @@
 
 .container {
   color: $color-base-light;
+
+  .tableHeading {
+    @include flexbox($justify-content: $center);
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+    margin-bottom: $size-16;
+  }
+
+  .searchInput {
+    margin-top: $size-32;
+  }
+
+  .noResultText {
+    @include flexbox($justify-content: $center);
+    margin-top: $size-32;
+  }
+
+  .totalNumbers {
+    @include flexbox($flex-direction: column);
+    @include border($size-2, solid, $color-base-orange, top);
+    padding-top: $size-16;
+  }
+
+  .statName {
+    color: $color-base-orange;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+
+    span {
+      color: $color-base-light;
+    }
+  }
 }
