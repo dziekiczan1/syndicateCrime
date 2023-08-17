@@ -6,6 +6,7 @@ import { IUser } from "@/store/user-context";
 import { useState } from "react";
 import styles from "./GangDetails.module.scss";
 import GangMembers from "./GangMembers";
+import GangTotalNumbers from "./GangTotalNumbers";
 
 interface IGangDetails {
   gangDetails: GangDetailsResponse;
@@ -62,18 +63,10 @@ const GangDetails = ({ gangDetails }: IGangDetails) => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      <div className={styles.totalNumbers}>
-        <p className="custom-label">Total numbers:</p>
-        <p className={styles.statName}>
-          members: <span>{gangDetails?.totalMembers}</span>
-        </p>
-        {Object.entries(parameterTotals).map(([parameter, total]) => (
-          <p key={parameter} className={styles.statName}>
-            {parameter}: {parameter === "money" && <span>$</span>}
-            <span>{total?.toLocaleString()}</span>
-          </p>
-        ))}
-      </div>
+      <GangTotalNumbers
+        totalMembers={gangDetails?.totalMembers || 0}
+        parameterTotals={parameterTotals}
+      />
     </div>
   );
 };
