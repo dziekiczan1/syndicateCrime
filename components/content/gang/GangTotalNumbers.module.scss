@@ -1,0 +1,19 @@
+@import "../../../styles/_variables.scss";
+
+.totalNumbers {
+  @include flexbox($flex-direction: column);
+  @include border($size-2, solid, $color-base-orange, top);
+  padding-top: $size-16;
+}
+
+.statName {
+  color: $color-base-orange;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+
+  span {
+    color: $color-base-light;
+  }
+}
