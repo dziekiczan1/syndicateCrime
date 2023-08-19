@@ -15,7 +15,6 @@ const useResponseHandler = (messageRef: React.RefObject<HTMLDivElement>) => {
   const handleAction = async (apiEndpoint: string, requestBody: any) => {
     try {
       setIsLoading(true);
-
       const response = await fetch(apiEndpoint, {
         method: "POST",
         body: JSON.stringify(requestBody),

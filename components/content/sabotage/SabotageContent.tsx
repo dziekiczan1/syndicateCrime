@@ -6,6 +6,7 @@ import gangImages from "@/constants/images/gang";
 import useGangDetailsFetch from "@/lib/useGangDetailsFetch";
 import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
+import { ObjectId } from "mongodb";
 import Image from "next/image";
 import { useContext, useRef } from "react";
 import styles from "./SabotageContent.module.scss";
@@ -23,7 +24,7 @@ const SabotageContent: React.FC = () => {
   const { errorMessage, actionMessage, isLoading, handleAction } =
     useResponseHandler(messageRef);
 
-  const handleSabotageAction = async (playerId: string) => {
+  const handleSabotageAction = async (playerId: string | ObjectId) => {
     await handleAction("/api/user/sabotageActions", { playerId });
   };
 

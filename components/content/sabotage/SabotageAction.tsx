@@ -1,9 +1,10 @@
 import Button from "@/components/ui/button/Button";
 import { IUser } from "@/store/user-context";
+import { ObjectId } from "mongodb";
 
 interface ISabotagePlayers {
   player: IUser;
-  handleSabotageAction: (playerId: string) => void;
+  handleSabotageAction: (playerId: string | ObjectId) => void;
 }
 
 const SabotageAction: React.FC<ISabotagePlayers> = ({
@@ -26,7 +27,7 @@ const SabotageAction: React.FC<ISabotagePlayers> = ({
         <p>{player.defaultParams.strength}</p>
       </td>
       <td>
-        <Button onClick={() => handleSabotageAction(player._id)} fullSize>
+        <Button onClick={() => handleSabotageAction(player._id)} secondary>
           Sabotage!
         </Button>
       </td>

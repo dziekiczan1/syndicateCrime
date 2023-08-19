@@ -1,11 +1,13 @@
 import { Weapon } from "@/pages/api/user/blackmarketActions";
 import { Buildings } from "@/pages/api/user/buildingsActions";
+import { Sabotage } from "@/pages/api/user/sabotageActions";
 import { University } from "@/pages/api/user/universityActions";
 import { Whore } from "@/pages/api/user/whoresActions";
+import { ObjectId } from "mongodb";
 import { createContext } from "react";
 
 export interface IUser {
-  _id: string;
+  _id: string | ObjectId;
   email: string;
   password?: string;
   username: string;
@@ -33,6 +35,7 @@ export interface IUser {
   weapons?: Weapon[];
   buildings?: Buildings[];
   university?: University;
+  sabotage?: Sabotage;
 }
 
 export interface IUserContextType {

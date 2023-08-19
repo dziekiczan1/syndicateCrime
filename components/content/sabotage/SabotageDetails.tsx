@@ -1,12 +1,13 @@
 import TableThead from "@/components/ui/table/TableThead";
 import { GangDetailsResponse } from "@/pages/api/user/gangDetails";
 import { IUser } from "@/store/user-context";
+import { ObjectId } from "mongodb";
 import SabotageAction from "./SabotageAction";
 import styles from "./SabotageDetails.module.scss";
 
 interface ISabotageDetails {
   gangDetails: GangDetailsResponse;
-  handleSabotageAction: (playerId: string) => void;
+  handleSabotageAction: (playerId: string | ObjectId) => void;
 }
 
 const SabotageDetails = ({
@@ -17,7 +18,7 @@ const SabotageDetails = ({
 
   return (
     <div className={styles.container}>
-      <p className={styles.tableHeading}>Top 10 Players:</p>
+      <p className={styles.tableHeading}>Pick your sabotage victim:</p>
       <table className={`table ${styles.activeTable}`}>
         <TableThead columns={gangMembersTheads} />
         <tbody>
