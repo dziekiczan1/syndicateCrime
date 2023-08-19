@@ -2,4 +2,19 @@
 
 .container {
   color: $color-base-light;
+
+  .choosegang {
+    @include flexbox(
+      $flex-direction: column,
+      $justify-content: $center,
+      $align-items: $center
+    );
+
+    .choosegangText {
+      @include font-size($size-16);
+      color: $color-base-orange;
+      font-weight: $font-weight-bold;
+      margin: $size-16 0;
+    }
+  }
 }
