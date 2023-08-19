@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function Help() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <HelpContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <HelpContent />
+    </GameLayout>
   );
 }
 

@@ -12,7 +12,7 @@
   }
 
   .actions {
-    padding: $size-16 $null $size-16 $size-16;
+    padding: $size-16 $null $size-16 $size-8;
     width: $half-size;
 
     @include screen($size: mobile) {
@@ -30,7 +30,7 @@
 
   .logoWrapper {
     padding: $size-8;
-    margin: $null $size-16 $size-16 $null;
+    margin-bottom: $size-16;
     background-color: darken($color-base-dark, 10%);
     border-radius: $size-8;
     @include screen($size: mobile) {
@@ -106,11 +106,12 @@
 
   .userWrapper {
     @include flexbox();
+    width: $full-size;
   }
 
   .userInterface {
     display: block;
-    width: calc($three-quarters-size - $size-16);
+    width: $three-quarters-size;
     z-index: 1;
 
     @include screen($size: mobile) {
@@ -143,7 +144,7 @@
   }
 
   .sliderWrapper {
-    width: calc($full-size - $size-16);
+    width: $full-size;
 
     @include screen($size: mobile) {
       display: none;
@@ -179,7 +180,7 @@
     @include flexbox($flex-direction: column, $justify-content: flex-start);
     width: $half-size;
     background-color: $color-base-dark-50;
-    margin-right: $size-16;
+    margin-right: $size-8;
 
     @include screen($size: mobile) {
       padding: $null;

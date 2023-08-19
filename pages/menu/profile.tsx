@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function Profile() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <ProfileContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <ProfileContent />
+    </GameLayout>
   );
 }
 

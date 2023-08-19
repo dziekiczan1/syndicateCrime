@@ -1,80 +1,38 @@
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import TableThead from "@/components/ui/table/TableThead";
 import { buildingsActions } from "@/constants/actions/buildingsactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useResponseHandler from "@/lib/useResponseHandler";
 import { Buildings } from "@/pages/api/user/buildingsActions";
 import UserContext from "@/store/user-context";
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 import ActiveBuildings from "./ActiveBuildings";
 import BuildingsAction from "./BuildingsAction";
 import styles from "./BuildingsContent.module.scss";
 
 const BuildingsContent: React.FC = () => {
   const pageData = pageDescriptions.buildings;
-  const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const [isLoadingBuildings, setIsLoadingBuildings] = useState(false);
+  const { user } = useContext(UserContext);
+  const messageRef = useRef<HTMLDivElement>(null);
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
 
   const activeBuildingsTheads = ["Name", "Count", "Earnings per day", "Sell"];
 
   const handleBuildingsAction = async (building: Buildings, action: string) => {
-    try {
-      setIsLoadingBuildings(true);
-
-      const response = await fetch("/api/user/buildingsActions", {
-        method: "POST",
-        body: JSON.stringify({ building, action }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingBuildings,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingBuildings
-        );
-      }
-    } catch (error) {
-      console.error("Error processing buildings action.", error);
-      setIsLoadingBuildings(false);
-    }
+    await handleAction("/api/user/buildingsActions", { building, action });
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingBuildings && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       {user && !user.buildings?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t owe any buildings at the moment.

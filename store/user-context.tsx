@@ -12,7 +12,7 @@ export interface IUser {
   avatar: string;
   defaultParams: {
     class: string;
-    morale: string;
+    gang?: string;
     respect: number;
     energy: number;
     life: number;

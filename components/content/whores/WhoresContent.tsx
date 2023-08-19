@@ -1,13 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import TableThead from "@/components/ui/table/TableThead";
 import { whoresActions } from "@/constants/actions/whoresactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useResponseHandler from "@/lib/useResponseHandler";
 import { Whore } from "@/pages/api/user/whoresActions";
 import UserContext from "@/store/user-context";
 import ActiveWhores from "./ActiveWhores";
@@ -16,67 +14,28 @@ import styles from "./WhoresContent.module.scss";
 
 const WhoresContent: React.FC = () => {
   const pageData = pageDescriptions.whores;
-  const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const [isLoadingWhores, setIsLoadingWhores] = useState(false);
+  const { user } = useContext(UserContext);
+  const messageRef = useRef<HTMLDivElement>(null);
 
   const activeWhoreTheads = ["Name", "Count", "Earnings per day", "Manage"];
   const allWhoresTheads = ["Name", "Cost", "Earnings per day", "Buy"];
 
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
+
   const handleWhoreAction = async (whore: Whore, action: string) => {
-    try {
-      setIsLoadingWhores(true);
-
-      const response = await fetch("/api/user/whoresActions", {
-        method: "POST",
-        body: JSON.stringify({ whore, action }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingWhores,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingWhores
-        );
-      }
-    } catch (error) {
-      console.error("Error processing whore action.", error);
-      setIsLoadingWhores(false);
-    }
+    await handleAction("/api/user/whoresActions", { whore, action });
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingWhores && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       {user && !user.whores?.length ? (
         <p className={styles.tableHeading}>
           You don&apos;t have any active whores at the moment.

@@ -1,13 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import { prisonActions } from "@/constants/actions/prisonactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import prisonImages from "@/constants/images/prison";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
 import Image from "next/image";
 import PrisonAction from "./PrisonAction";
@@ -15,63 +13,25 @@ import styles from "./PrisonContent.module.scss";
 
 const PrisonContent: React.FC = () => {
   const pageData = pageDescriptions.prison;
-  const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const [isLoadingPrison, setIsLoadingPrison] = useState(false);
+  const { user } = useContext(UserContext);
+  const messageRef = useRef<HTMLDivElement>(null);
 
-  const handleAction = async (action: (() => void) | string) => {
-    try {
-      setIsLoadingPrison(true);
-      const response = await fetch("/api/user/prisonActions", {
-        method: "POST",
-        body: JSON.stringify({ action }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
 
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingPrison,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingPrison
-        );
-      }
-    } catch (error) {
-      console.error("Error processing bank action.", error);
-      setIsLoadingPrison(false);
-    }
+  const handlePrisonAction = async (action: (() => void) | string) => {
+    await handleAction("/api/user/prisonActions", { action });
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingPrison && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       {user && !user.prison?.isPrisoner && (
         <div className={styles.freedom}>
           <Image
@@ -108,7 +68,7 @@ const PrisonContent: React.FC = () => {
               description={action.description}
               cost={action.cost}
               buttonText={action.buttonText}
-              onAction={() => handleAction(action.onAction)}
+              onAction={() => handlePrisonAction(action.onAction)}
             />
           ))}
       </div>

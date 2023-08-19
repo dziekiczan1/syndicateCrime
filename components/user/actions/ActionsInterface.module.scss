@@ -1,7 +1,13 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-  @include flexbox($flex-wrap: wrap, $gap: $size-16);
+  @include flexbox(
+    $flex-wrap: wrap,
+    $justify-content: space-between,
+    $align-items: $center,
+    $gap: $size-16
+  );
+  width: $full-size;
 
   &.mobileOpen {
     @include screen($size: mobile) {

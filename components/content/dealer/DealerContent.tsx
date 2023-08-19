@@ -1,13 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 import Button from "@/components/ui/button/Button";
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import { drugDetails } from "@/constants/sections/dealerdrugs";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
 import styles from "./DealerContent.module.scss";
 import DrugInformation from "./DrugInformation";
@@ -15,6 +13,7 @@ import QuantityInput from "./QuantityInput";
 
 const DealerContent = () => {
   const pageData = pageDescriptions.dealer;
+  const messageRef = useRef<HTMLDivElement>(null);
   const { setUser } = useContext(UserContext);
   const [quantities, setQuantities] = useState({
     Marijuana: 0,
@@ -23,13 +22,9 @@ const DealerContent = () => {
     Meth: 0,
     LSD: 0,
   });
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const [isLoadingDealer, setIsLoadingDealer] = useState(false);
+
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
 
   type Drug = keyof typeof quantities;
 
@@ -64,60 +59,28 @@ const DealerContent = () => {
       }),
     };
 
-    try {
-      setIsLoadingDealer(true);
-      const response = await fetch("/api/user/buyDrugs", {
-        method: "POST",
-        body: JSON.stringify(requestData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    const response = await handleAction("/api/user/buyDrugs", requestData);
 
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingDealer,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-        setQuantities({
-          Marijuana: 0,
-          Heroin: 0,
-          Cocaine: 0,
-          Meth: 0,
-          LSD: 0,
-        });
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingDealer
-        );
-      }
-    } catch (error) {
-      console.error("Error updating stats:", error);
-      setIsLoadingDealer(false);
+    if (setUser && response?.ok) {
+      setQuantities({
+        Marijuana: 0,
+        Heroin: 0,
+        Cocaine: 0,
+        Meth: 0,
+        LSD: 0,
+      });
     }
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingDealer && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       <div className={styles.drugsContainer}>
         {Object.entries(quantities).map(([drug, quantity]) => (
           <div key={drug} className={styles.drugContent}>

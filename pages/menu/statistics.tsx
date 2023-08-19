@@ -5,11 +5,9 @@ import { getSession } from "next-auth/react";
 
 export default function Statistics() {
   return (
-    <div className="h-screen no-scrollbar overflow-y-scroll">
-      <GameLayout>
-        <StatisticsContent />
-      </GameLayout>
-    </div>
+    <GameLayout>
+      <StatisticsContent />
+    </GameLayout>
   );
 }
 

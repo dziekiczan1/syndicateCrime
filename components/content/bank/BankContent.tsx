@@ -1,115 +1,49 @@
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import RequiredText from "@/components/ui/required/RequiredText";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useBankActions from "@/lib/useBankActions";
 import UserContext from "@/store/user-context";
-import { useContext, useState } from "react";
-import { FieldError, useForm } from "react-hook-form";
+import { useContext, useRef, useState } from "react";
+import { FieldError } from "react-hook-form";
 import styles from "./BankContent.module.scss";
 
 const BankContent: React.FC = () => {
   const pageData = pageDescriptions.bank;
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [isStash, setIsStash] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const [isLoadingBank, setIsLoadingBank] = useState(false);
+  const messageRef = useRef<HTMLDivElement>(null);
+
   const {
+    errorMessage,
+    actionMessage,
+    isLoading,
+    handleAction,
     register,
     handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-  const userSavings = user && user.bank;
+    errors,
+    validationRules,
+  } = useBankActions(messageRef);
 
-  const validationRules = {
-    bankmoney: {
-      required: "Please enter correct amount.",
-      pattern: {
-        value: /^[0-9]*$/,
-        message: "Please enter a valid number.",
-      },
-      min: {
-        value: 0,
-        message: "Please enter a positive number.",
-      },
-    },
-  };
-
-  function switchBankActionHandler() {
+  const switchBankActionHandler = () => {
     setIsStash((prevState) => !prevState);
-  }
-
-  const onSubmit = async (data: any) => {
-    const action = isStash ? "stash" : "withdraw";
-    const requestData = {
-      ...data,
-      action: action,
-    };
-
-    try {
-      setIsLoadingBank(true);
-      const response = await fetch("/api/user/bankActions", {
-        method: "POST",
-        body: JSON.stringify({
-          requestData,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingBank,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-        reset();
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingBank
-        );
-      }
-    } catch (error) {
-      console.error("Error processing bank action.", error);
-      setIsLoadingBank(false);
-    }
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingBank && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       <div className={styles.savings}>
-        {userSavings ? (
+        {user?.bank ? (
           <h4>
-            Your Current Savings: <span>${userSavings.toLocaleString()}</span>
+            Your Current Savings: <span>${user.bank.toLocaleString()}</span>
           </h4>
         ) : (
           <h4>You don&apos;t have any funds in your bank account</h4>
@@ -124,7 +58,7 @@ const BankContent: React.FC = () => {
         </p>
       </div>
       <div className={styles.control}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit((data) => handleAction(data, isStash))}>
           <p className={errors.bankmoney && styles.message}>
             {errors.bankmoney && (errors.bankmoney as FieldError).message}
           </p>

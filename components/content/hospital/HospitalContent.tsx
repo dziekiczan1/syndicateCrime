@@ -1,75 +1,35 @@
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 
-import ErrorMessage from "@/components/ui/error/ErrorMessage";
-import Loading from "@/components/ui/loading/Loading";
-import Message from "@/components/ui/message/Message";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import { hospitalActions } from "@/constants/actions/hospitalactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { handleErrorResponse, handlePositiveResponse } from "@/lib/responses";
+import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
 import HospitalAction from "./HospitalAction";
 import styles from "./HospitalContent.module.scss";
 
 const HospitalContent: React.FC = () => {
   const pageData = pageDescriptions.hospital;
-  const { user, setUser } = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [actionMessage, setActionMessage] = useState(null);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
-    null
-  );
-  const [isLoadingHospital, setIsLoadingHospital] = useState(false);
+  const { user } = useContext(UserContext);
+  const messageRef = useRef<HTMLDivElement>(null);
 
-  const handleAction = async (action: (() => void) | string) => {
-    try {
-      setIsLoadingHospital(true);
-      const response = await fetch("/api/user/hospitalActions", {
-        method: "POST",
-        body: JSON.stringify({ action }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
 
-      if (setUser && response.ok) {
-        await handlePositiveResponse(
-          response,
-          setUser,
-          setIsLoadingHospital,
-          setActionMessage,
-          positiveTimeoutId,
-          setPositiveTimeoutId
-        );
-      } else {
-        await handleErrorResponse(
-          response,
-          setErrorMessage,
-          timeoutId,
-          setTimeoutId,
-          setIsLoadingHospital
-        );
-      }
-    } catch (error) {
-      console.error("Error processing hospital action.", error);
-      setIsLoadingHospital(false);
-    }
+  const handleHospitalAction = async (action: (() => void) | string) => {
+    await handleAction("/api/user/hospitalActions", { action });
   };
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {isLoadingHospital && (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
-      ) : (
-        actionMessage && <Message message={actionMessage} />
-      )}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
       <div className={styles.actionsContainer}>
         {user &&
           hospitalActions.map((action, key) => (
@@ -78,9 +38,11 @@ const HospitalContent: React.FC = () => {
               imageSrc={action.imageSrc}
               name={action.name}
               description={action.description}
-              cost={action.cost}
+              costEnergy={action.costEnergy}
+              costMoney={action.costMoney}
+              bonus={action.bonus}
               buttonText={action.buttonText}
-              onAction={() => handleAction(action.onAction)}
+              onAction={() => handleHospitalAction(action.onAction)}
             />
           ))}
       </div>

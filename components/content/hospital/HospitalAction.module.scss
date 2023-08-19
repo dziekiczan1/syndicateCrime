@@ -40,8 +40,30 @@
     @include font-size($size-12);
   }
 
-  .actionCost {
-    @include font-size($size-12);
-    font-weight: $font-weight-bold;
+  .medicinesInformation {
+    @include flexbox($flex-wrap: wrap, $justify-content: space-between);
+    width: $full-size;
+
+    @include screen($size: mobile) {
+      flex-direction: column;
+      gap: $size-8;
+    }
+
+    .medicinesCost,
+    .medicinesBonus {
+      width: $half-size;
+
+      @include screen($size: mobile) {
+        width: $full-size;
+      }
+    }
+  }
+
+  .medicinesStats {
+    color: $color-base-orange;
+
+    span {
+      color: $color-base-light;
+    }
   }
 }
