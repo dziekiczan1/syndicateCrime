@@ -8,7 +8,6 @@ const SabotageContent: React.FC = () => {
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      <p>test</p>
     </div>
   );
 };
