@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useGangDetailsFetch = (
   gangName: string | undefined,
   sabotage?: boolean,
-  respect?: boolean
+  respect?: number
 ) => {
   const [isLoadingGangDetails, setIsLoadingGangDetails] = useState(false);
   const [gangDetails, setGangDetails] = useState<any | null>(null);

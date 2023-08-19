@@ -1,0 +1,17 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  color: $color-base-light;
+
+  .tableHeading {
+    @include flexbox($justify-content: $center);
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+    margin-bottom: $size-16;
+  }
+
+  .noResultText {
+    @include flexbox($justify-content: $center);
+    margin-top: $size-32;
+  }
+}
