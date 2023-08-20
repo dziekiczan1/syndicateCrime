@@ -11,12 +11,25 @@ export interface IUserWithSabotage extends IUser {
 
 export interface Sabotage {
   sabotageHistory: SabotageEntry[];
+  lastLostSabotageDetails: LastSabotageDetails | null;
   totalSabotages: number;
 }
 
 export interface SabotageEntry {
   playerId: string;
   date: string;
+}
+
+export interface LastSabotageDetails {
+  attackedBy: string;
+  date: string;
+  lostMoney: number;
+  lostResources: LostResource[];
+}
+
+export interface LostResource {
+  resourceType: string;
+  count: number;
 }
 
 export default async function handler(
@@ -53,12 +66,9 @@ export default async function handler(
     if (!user.sabotage) {
       user.sabotage = {
         sabotageHistory: [],
+        lastLostSabotageDetails: null,
         totalSabotages: 0,
       };
-    }
-
-    if (!user.sabotage.sabotageHistory) {
-      user.sabotage.sabotageHistory = [];
     }
 
     if (user.sabotage.sabotageHistory) {
@@ -97,6 +107,14 @@ export default async function handler(
 
     if (!sabotagedPlayer) {
       return res.status(404).json({ error: "Sabotaged player not found" });
+    }
+
+    if (!sabotagedPlayer.sabotage) {
+      sabotagedPlayer.sabotage = {
+        sabotageHistory: [],
+        lastLostSabotageDetails: null,
+        totalSabotages: 0,
+      };
     }
 
     const userCompositeScore =
@@ -146,6 +164,13 @@ export default async function handler(
               sabotagedPlayer.username
             }! You won $${lostMoney.toLocaleString()}.`
           : `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no money.`;
+
+        sabotagedPlayer.sabotage.lastLostSabotageDetails = {
+          attackedBy: user.username,
+          date: new Date().toISOString().split("T")[0],
+          lostMoney,
+          lostResources: [],
+        };
       } else {
         const randomResourceType =
           validResourceTypes[
@@ -187,21 +212,34 @@ export default async function handler(
           } else {
             successMessage += ` Unfortunately, he had no money.`;
           }
+
+          sabotagedPlayer.sabotage.lastLostSabotageDetails = {
+            attackedBy: user.username,
+            date: new Date().toISOString().split("T")[0],
+            lostMoney,
+            lostResources: [{ resourceType: lostResourceType, count: 1 }],
+          };
         } else {
           successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no ${lostResourceType}s.`;
           if (lostMoney > 0) {
             successMessage += ` You won $${lostMoney.toLocaleString()}.`;
           }
+          sabotagedPlayer.sabotage.lastLostSabotageDetails = {
+            attackedBy: user.username,
+            date: new Date().toISOString().split("T")[0],
+            lostMoney,
+            lostResources: [],
+          };
         }
       }
+
+      sabotagedPlayer.defaultParams.life = Math.max(
+        sabotagedPlayer.defaultParams.life - 20,
+        0
+      );
     }
 
     user.defaultParams.energy -= requiredEnergyPoints;
-
-    sabotagedPlayer.defaultParams.life = Math.max(
-      sabotagedPlayer.defaultParams.life - 20,
-      0
-    );
 
     await usersCollection.updateOne(
       { _id: sabotagedPlayerObjectId },
