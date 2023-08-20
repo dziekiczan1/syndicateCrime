@@ -5,6 +5,7 @@ export const handlePositiveResponse = async (
   setUser: Dispatch<SetStateAction<any>>,
   setIsLoadingAction: Dispatch<SetStateAction<boolean>>,
   setActionMessage?: Dispatch<SetStateAction<any>>,
+  setActionMessageFailure?: Dispatch<SetStateAction<any>>,
   positiveTimeoutId?: number | null,
   setPositiveTimeoutId?: Dispatch<SetStateAction<number | null>>,
   messageRef?: React.RefObject<HTMLDivElement>
@@ -15,15 +16,17 @@ export const handlePositiveResponse = async (
     messageRef.current.scrollIntoView({ behavior: "smooth" });
   }
 
-  if (setActionMessage) {
-    setActionMessage(updatedUser.message);
+  if (setActionMessage || setActionMessageFailure) {
+    setActionMessage?.(updatedUser.message);
+    setActionMessageFailure?.(updatedUser.messageFail);
 
     if (positiveTimeoutId) {
       clearTimeout(positiveTimeoutId);
     }
 
     const newTimeoutId = window.setTimeout(() => {
-      setActionMessage(null);
+      setActionMessage?.(null);
+      setActionMessageFailure?.(null);
     }, 5000);
 
     if (setPositiveTimeoutId) {

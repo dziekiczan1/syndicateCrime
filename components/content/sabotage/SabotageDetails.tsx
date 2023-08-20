@@ -18,7 +18,7 @@ const SabotageDetails = ({
 
   return (
     <div className={styles.container}>
-      <p className={styles.tableHeading}>Pick your sabotage victim:</p>
+      <p className={styles.tableHeading}>Pick your sabotage victim*:</p>
       <table className={`table ${styles.activeTable}`}>
         <TableThead columns={gangMembersTheads} />
         <tbody>
