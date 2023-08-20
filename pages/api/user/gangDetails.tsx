@@ -68,8 +68,6 @@ export default async function handler(
 
       const users = await usersCollection.find(query).toArray();
 
-      console.log(users);
-
       if (!users || users.length === 0) {
         return res.status(404).json({ error: "No users found" });
       }

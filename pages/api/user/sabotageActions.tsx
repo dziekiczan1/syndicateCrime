@@ -58,6 +58,8 @@ export default async function handler(
         (entry: SabotageEntry) => entry.date === today
       );
 
+      const historyToKeep = sabotagesToday.slice(-5);
+
       if (sabotagesToday.length >= 5) {
         return res
           .status(400)
@@ -73,6 +75,8 @@ export default async function handler(
           .status(400)
           .json({ error: "You have already sabotaged this player today" });
       }
+
+      user.sabotage.sabotageHistory = historyToKeep;
     }
 
     const sabotagedPlayerId = playerId;
@@ -101,19 +105,32 @@ export default async function handler(
       const sabotagedPlayerWeapons = sabotagedPlayer.weapons || [];
       const sabotagedPlayerBuildings = sabotagedPlayer.buildings || [];
 
-      // TODO: IMPROVE LOGIC WHEN USER HAS ONLY ONE OF THESE:
+      const hasWhores = sabotagedPlayerWhores.length > 0;
+      const hasWeapons = sabotagedPlayerWeapons.length > 0;
+      const hasBuildings = sabotagedPlayerBuildings.length > 0;
 
-      if (
-        sabotagedPlayerWhores ||
-        sabotagedPlayerWeapons ||
-        sabotagedPlayerBuildings
-      ) {
-        const randomNumber = Math.floor(Math.random() * 3) + 1;
+      if (hasWhores || hasWeapons || hasBuildings) {
+        let validResourceTypes = [];
+
+        if (hasWhores) {
+          validResourceTypes.push("whore");
+        }
+        if (hasWeapons) {
+          validResourceTypes.push("weapon");
+        }
+        if (hasBuildings) {
+          validResourceTypes.push("building");
+        }
+
+        const randomResourceType =
+          validResourceTypes[
+            Math.floor(Math.random() * validResourceTypes.length)
+          ];
 
         let lostResourceType = "";
         let lostResource = null;
 
-        if (randomNumber === 1 && sabotagedPlayerWhores.length > 0) {
+        if (randomResourceType === "whore") {
           const randomIndex = Math.floor(
             Math.random() * sabotagedPlayerWhores.length
           );
@@ -131,7 +148,7 @@ export default async function handler(
           }
 
           lostResourceType = "whore";
-        } else if (randomNumber === 2 && sabotagedPlayerWeapons.length > 0) {
+        } else if (randomResourceType === "weapon") {
           const randomIndex = Math.floor(
             Math.random() * sabotagedPlayerWeapons.length
           );
@@ -148,7 +165,7 @@ export default async function handler(
             lostResource = sabotagedPlayerWeapons.splice(randomIndex, 1)[0];
           }
           lostResourceType = "weapon";
-        } else if (randomNumber === 3 && sabotagedPlayerBuildings.length > 0) {
+        } else if (randomResourceType === "building") {
           const randomIndex = Math.floor(
             Math.random() * sabotagedPlayerBuildings.length
           );
@@ -178,7 +195,9 @@ export default async function handler(
           );
           sabotagedPlayer.defaultParams.money -= lostMoney;
           user.defaultParams.money += lostMoney;
-          successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! You won $${lostMoney}.`;
+          successMessage = `You have successfully sabotaged ${
+            sabotagedPlayer.username
+          }! You won $${lostMoney.toLocaleString()}.`;
         } else {
           successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately he had no money.`;
         }
@@ -204,7 +223,9 @@ export default async function handler(
       date: new Date().toISOString().split("T")[0],
     });
 
-    successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}!`;
+    if (!successMessage) {
+      successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}!`;
+    }
 
     const updatedUser: IUserWithSabotage = { ...user };
 
