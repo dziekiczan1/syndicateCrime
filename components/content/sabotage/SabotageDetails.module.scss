@@ -10,6 +10,10 @@
     margin-bottom: $size-16;
   }
 
+  .activeTable {
+    margin-bottom: $size-16;
+  }
+
   .noResultText {
     @include flexbox($justify-content: $center);
     margin-top: $size-32;

@@ -1,5 +1,6 @@
 import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
+import RequiredText from "@/components/ui/required/RequiredText";
 import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import gangImages from "@/constants/images/gang";
@@ -43,10 +44,15 @@ const SabotageContent: React.FC = () => {
         </div>
       )}
       {user?.defaultParams.gang && !isLoadingGangDetails && (
-        <SabotageDetails
-          gangDetails={gangDetails}
-          handleSabotageAction={handleSabotageAction}
-        />
+        <>
+          <SabotageDetails
+            gangDetails={gangDetails}
+            handleSabotageAction={handleSabotageAction}
+          />
+          <RequiredText text="Please note that each sabotage incurs an energy cost of 20%" />
+          <RequiredText text="Remember that you can sabotage another user only once per day." />
+          <RequiredText text="You can only perform up to 5 sabotages per day." />
+        </>
       )}
       {user && !user.defaultParams.gang && (
         <div className={styles.choosegang}>

@@ -106,134 +106,92 @@ export default async function handler(
       sabotagedPlayer.defaultParams.strength +
       sabotagedPlayer.defaultParams.endurance;
 
-    if (userCompositeScore > sabotagedPlayerCompositeScore) {
-      const sabotagedPlayerWhores = sabotagedPlayer.whores || [];
-      const sabotagedPlayerWeapons = sabotagedPlayer.weapons || [];
-      const sabotagedPlayerBuildings = sabotagedPlayer.buildings || [];
-
-      const hasWhores = sabotagedPlayerWhores.length > 0;
-      const hasWeapons = sabotagedPlayerWeapons.length > 0;
-      const hasBuildings = sabotagedPlayerBuildings.length > 0;
-
-      if (hasWhores || hasWeapons || hasBuildings) {
-        let validResourceTypes = [];
-
-        if (hasWhores) {
-          validResourceTypes.push("whore");
-        }
-        if (hasWeapons) {
-          validResourceTypes.push("weapon");
-        }
-        if (hasBuildings) {
-          validResourceTypes.push("building");
-        }
-
-        const randomResourceType =
-          validResourceTypes[
-            Math.floor(Math.random() * validResourceTypes.length)
-          ];
-
-        let lostResourceType = "";
-        let lostResource = null;
-
-        if (randomResourceType === "whore") {
-          const randomIndex = Math.floor(
-            Math.random() * sabotagedPlayerWhores.length
-          );
-          const selectedResource = sabotagedPlayerWhores[randomIndex];
-
-          if (
-            selectedResource &&
-            selectedResource.count &&
-            selectedResource.count > 1
-          ) {
-            selectedResource.count -= 1;
-            lostResource = { ...selectedResource };
-          } else if (selectedResource) {
-            lostResource = sabotagedPlayerWhores.splice(randomIndex, 1)[0];
-          }
-
-          lostResourceType = "whore";
-        } else if (randomResourceType === "weapon") {
-          const randomIndex = Math.floor(
-            Math.random() * sabotagedPlayerWeapons.length
-          );
-          const selectedResource = sabotagedPlayerWeapons[randomIndex];
-
-          if (
-            selectedResource &&
-            selectedResource.count &&
-            selectedResource.count > 1
-          ) {
-            selectedResource.count -= 1;
-            lostResource = { ...selectedResource };
-          } else if (selectedResource) {
-            lostResource = sabotagedPlayerWeapons.splice(randomIndex, 1)[0];
-          }
-          lostResourceType = "weapon";
-        } else if (randomResourceType === "building") {
-          const randomIndex = Math.floor(
-            Math.random() * sabotagedPlayerBuildings.length
-          );
-          const selectedResource = sabotagedPlayerBuildings[randomIndex];
-
-          if (
-            selectedResource &&
-            selectedResource.count &&
-            selectedResource.count > 1
-          ) {
-            selectedResource.count -= 1;
-            lostResource = { ...selectedResource };
-          } else if (selectedResource) {
-            lostResource = sabotagedPlayerBuildings.splice(randomIndex, 1)[0];
-          }
-
-          lostResourceType = "building";
-        }
-
-        if (lostResource) {
-          successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! He lost 1 ${lostResourceType}.`;
-        }
-      } else {
-        if (sabotagedPlayer.defaultParams.money > 0) {
-          const lostMoney = Math.floor(
-            sabotagedPlayer.defaultParams.money * 0.1
-          );
-          sabotagedPlayer.defaultParams.money -= lostMoney;
-          user.defaultParams.money += lostMoney;
-          successMessage = `You have successfully sabotaged ${
-            sabotagedPlayer.username
-          }! You won $${lostMoney.toLocaleString()}.`;
-        } else {
-          successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately he had no money.`;
-        }
-      }
-
-      user.defaultParams.energy -= requiredEnergyPoints;
-
-      sabotagedPlayer.defaultParams.life = Math.max(
-        sabotagedPlayer.defaultParams.life - 20,
-        0
-      );
-
-      await usersCollection.updateOne(
-        { _id: sabotagedPlayerObjectId },
-        { $set: sabotagedPlayer }
-      );
-    } else {
+    if (userCompositeScore <= sabotagedPlayerCompositeScore) {
       return res.status(400).json({
         error: `You were not able to sabotage ${sabotagedPlayer.username}`,
       });
     }
 
+    const resourceTypes = ["whore", "weapon", "building"];
+
+    const validResourceTypes = resourceTypes.filter((resourceType) => {
+      const resourceArray = (sabotagedPlayer as any)[`${resourceType}s`] || [];
+      return resourceArray.length > 0;
+    });
+
+    if (validResourceTypes.length === 0) {
+      let lostMoney = 0;
+      if (sabotagedPlayer.defaultParams.money > 0) {
+        lostMoney = Math.floor(sabotagedPlayer.defaultParams.money * 0.1);
+        sabotagedPlayer.defaultParams.money -= lostMoney;
+        user.defaultParams.money += lostMoney;
+      }
+
+      successMessage = lostMoney
+        ? `You have successfully sabotaged ${
+            sabotagedPlayer.username
+          }! You won $${lostMoney.toLocaleString()}.`
+        : `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no money.`;
+    } else {
+      const randomResourceType =
+        validResourceTypes[
+          Math.floor(Math.random() * validResourceTypes.length)
+        ];
+
+      const resourceArray = (sabotagedPlayer as any)[`${randomResourceType}s`];
+      const randomIndex = Math.floor(Math.random() * resourceArray.length);
+      const selectedResource = resourceArray[randomIndex];
+
+      let lostResourceType = randomResourceType;
+      let lostResource = null;
+
+      if (selectedResource) {
+        if (selectedResource.count && selectedResource.count > 1) {
+          selectedResource.count -= 1;
+          lostResource = { ...selectedResource };
+        } else {
+          lostResource = resourceArray.splice(randomIndex, 1)[0];
+        }
+      }
+
+      let lostMoney = 0;
+      if (sabotagedPlayer.defaultParams.money > 0) {
+        lostMoney = Math.floor(sabotagedPlayer.defaultParams.money * 0.1);
+        sabotagedPlayer.defaultParams.money -= lostMoney;
+        user.defaultParams.money += lostMoney;
+      }
+
+      if (lostResource) {
+        successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! He lost 1 ${lostResourceType}.`;
+        if (lostMoney > 0) {
+          successMessage += ` You won $${lostMoney.toLocaleString()}.`;
+        } else {
+          successMessage += ` Unfortunately, he had no money.`;
+        }
+      } else {
+        successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no ${lostResourceType}s.`;
+        if (lostMoney > 0) {
+          successMessage += ` You won $${lostMoney.toLocaleString()}.`;
+        }
+      }
+    }
+
+    user.defaultParams.energy -= requiredEnergyPoints;
+
+    sabotagedPlayer.defaultParams.life = Math.max(
+      sabotagedPlayer.defaultParams.life - 20,
+      0
+    );
+
+    await usersCollection.updateOne(
+      { _id: sabotagedPlayerObjectId },
+      { $set: sabotagedPlayer }
+    );
+
     user.sabotage.sabotageHistory.push({
       playerId,
       date: new Date().toISOString().split("T")[0],
     });
-
-    if (!successMessage) {
-      successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}!`;
-    }
 
     const updatedUser: IUserWithSabotage = { ...user };
 
