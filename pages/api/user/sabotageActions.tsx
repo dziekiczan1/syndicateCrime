@@ -11,6 +11,7 @@ export interface IUserWithSabotage extends IUser {
 
 export interface Sabotage {
   sabotageHistory: SabotageEntry[];
+  totalSabotages: number;
 }
 
 export interface SabotageEntry {
@@ -23,6 +24,7 @@ export default async function handler(
   res: NextApiResponse<IUser | { error: string }>
 ) {
   let successMessage;
+  let failMessage;
 
   try {
     const session = await getServerSession(req, res, authOptions);
@@ -51,6 +53,7 @@ export default async function handler(
     if (!user.sabotage) {
       user.sabotage = {
         sabotageHistory: [],
+        totalSabotages: 0,
       };
     }
 
@@ -107,71 +110,88 @@ export default async function handler(
       sabotagedPlayer.defaultParams.endurance;
 
     if (userCompositeScore <= sabotagedPlayerCompositeScore) {
-      return res.status(400).json({
-        error: `You were not able to sabotage ${sabotagedPlayer.username}`,
-      });
-    }
-
-    const resourceTypes = ["whore", "weapon", "building"];
-
-    const validResourceTypes = resourceTypes.filter((resourceType) => {
-      const resourceArray = (sabotagedPlayer as any)[`${resourceType}s`] || [];
-      return resourceArray.length > 0;
-    });
-
-    if (validResourceTypes.length === 0) {
       let lostMoney = 0;
-      if (sabotagedPlayer.defaultParams.money > 0) {
-        lostMoney = Math.floor(sabotagedPlayer.defaultParams.money * 0.1);
-        sabotagedPlayer.defaultParams.money -= lostMoney;
-        user.defaultParams.money += lostMoney;
+
+      if (user.defaultParams.money > 0) {
+        lostMoney = Math.min(
+          Math.floor(user.defaultParams.money * 0.1),
+          user.defaultParams.money
+        );
+        user.defaultParams.money -= lostMoney;
       }
 
-      successMessage = lostMoney
-        ? `You have successfully sabotaged ${
-            sabotagedPlayer.username
-          }! You won $${lostMoney.toLocaleString()}.`
-        : `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no money.`;
+      failMessage = `You were not able to sabotage ${sabotagedPlayer.username}. You lost $${lostMoney}.`;
     } else {
-      const randomResourceType =
-        validResourceTypes[
-          Math.floor(Math.random() * validResourceTypes.length)
-        ];
+      const resourceTypes = ["whore", "weapon", "building"];
 
-      const resourceArray = (sabotagedPlayer as any)[`${randomResourceType}s`];
-      const randomIndex = Math.floor(Math.random() * resourceArray.length);
-      const selectedResource = resourceArray[randomIndex];
+      const validResourceTypes = resourceTypes.filter((resourceType) => {
+        const resourceArray =
+          (sabotagedPlayer as any)[`${resourceType}s`] || [];
+        return resourceArray.length > 0;
+      });
 
-      let lostResourceType = randomResourceType;
-      let lostResource = null;
-
-      if (selectedResource) {
-        if (selectedResource.count && selectedResource.count > 1) {
-          selectedResource.count -= 1;
-          lostResource = { ...selectedResource };
-        } else {
-          lostResource = resourceArray.splice(randomIndex, 1)[0];
+      if (validResourceTypes.length === 0) {
+        let lostMoney = 0;
+        if (sabotagedPlayer.defaultParams.money > 0) {
+          lostMoney = Math.min(
+            Math.floor(sabotagedPlayer.defaultParams.money * 0.1),
+            sabotagedPlayer.defaultParams.money
+          );
+          sabotagedPlayer.defaultParams.money -= lostMoney;
+          user.defaultParams.money += lostMoney;
         }
-      }
 
-      let lostMoney = 0;
-      if (sabotagedPlayer.defaultParams.money > 0) {
-        lostMoney = Math.floor(sabotagedPlayer.defaultParams.money * 0.1);
-        sabotagedPlayer.defaultParams.money -= lostMoney;
-        user.defaultParams.money += lostMoney;
-      }
-
-      if (lostResource) {
-        successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! He lost 1 ${lostResourceType}.`;
-        if (lostMoney > 0) {
-          successMessage += ` You won $${lostMoney.toLocaleString()}.`;
-        } else {
-          successMessage += ` Unfortunately, he had no money.`;
-        }
+        successMessage = lostMoney
+          ? `You have successfully sabotaged ${
+              sabotagedPlayer.username
+            }! You won $${lostMoney.toLocaleString()}.`
+          : `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no money.`;
       } else {
-        successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no ${lostResourceType}s.`;
-        if (lostMoney > 0) {
-          successMessage += ` You won $${lostMoney.toLocaleString()}.`;
+        const randomResourceType =
+          validResourceTypes[
+            Math.floor(Math.random() * validResourceTypes.length)
+          ];
+
+        const resourceArray = (sabotagedPlayer as any)[
+          `${randomResourceType}s`
+        ];
+        const randomIndex = Math.floor(Math.random() * resourceArray.length);
+        const selectedResource = resourceArray[randomIndex];
+
+        let lostResourceType = randomResourceType;
+        let lostResource = null;
+
+        if (selectedResource) {
+          if (selectedResource.count && selectedResource.count > 1) {
+            selectedResource.count -= 1;
+            lostResource = { ...selectedResource };
+          } else {
+            lostResource = resourceArray.splice(randomIndex, 1)[0];
+          }
+        }
+
+        let lostMoney = 0;
+        if (sabotagedPlayer.defaultParams.money > 0) {
+          lostMoney = Math.min(
+            Math.floor(sabotagedPlayer.defaultParams.money * 0.1),
+            sabotagedPlayer.defaultParams.money
+          );
+          sabotagedPlayer.defaultParams.money -= lostMoney;
+          user.defaultParams.money += lostMoney;
+        }
+
+        if (lostResource) {
+          successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! He lost 1 ${lostResourceType}.`;
+          if (lostMoney > 0) {
+            successMessage += ` You won $${lostMoney.toLocaleString()}.`;
+          } else {
+            successMessage += ` Unfortunately, he had no money.`;
+          }
+        } else {
+          successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately, he had no ${lostResourceType}s.`;
+          if (lostMoney > 0) {
+            successMessage += ` You won $${lostMoney.toLocaleString()}.`;
+          }
         }
       }
     }
@@ -193,6 +213,8 @@ export default async function handler(
       date: new Date().toISOString().split("T")[0],
     });
 
+    user.sabotage.totalSabotages += 1;
+
     const updatedUser: IUserWithSabotage = { ...user };
 
     await usersCollection.updateOne(
@@ -206,6 +228,7 @@ export default async function handler(
       ...userWithoutPassword,
       _id: user._id.toString(),
       message: successMessage,
+      messageFail: failMessage,
     } as IUser;
 
     client.close();

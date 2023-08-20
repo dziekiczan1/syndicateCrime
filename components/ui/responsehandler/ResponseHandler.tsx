@@ -7,6 +7,7 @@ import styles from "./ResponseHandler.module.scss";
 interface ResponseHandlerProps {
   errorMessage: string | null;
   actionMessage: string | null;
+  actionMessageFailure?: string | null;
   isLoading: boolean;
   messageRef: React.RefObject<HTMLDivElement>;
 }
@@ -14,9 +15,12 @@ interface ResponseHandlerProps {
 const ResponseHandler: React.FC<ResponseHandlerProps> = ({
   errorMessage,
   actionMessage,
+  actionMessageFailure,
   isLoading,
   messageRef,
 }) => {
+  const displayMessage = errorMessage || actionMessageFailure;
+
   return (
     <div ref={messageRef}>
       {isLoading && (
@@ -24,8 +28,8 @@ const ResponseHandler: React.FC<ResponseHandlerProps> = ({
           <Loading />
         </div>
       )}
-      {errorMessage ? (
-        <ErrorMessage errorMessage={errorMessage} />
+      {displayMessage ? (
+        <ErrorMessage errorMessage={displayMessage} />
       ) : (
         actionMessage && <Message message={actionMessage} />
       )}

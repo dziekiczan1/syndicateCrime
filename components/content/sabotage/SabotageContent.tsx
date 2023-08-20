@@ -22,8 +22,13 @@ const SabotageContent: React.FC = () => {
     user?.defaultParams.respect
   );
   const messageRef = useRef<HTMLDivElement>(null);
-  const { errorMessage, actionMessage, isLoading, handleAction } =
-    useResponseHandler(messageRef);
+  const {
+    errorMessage,
+    actionMessage,
+    actionMessageFailure,
+    isLoading,
+    handleAction,
+  } = useResponseHandler(messageRef);
 
   const handleSabotageAction = async (playerId: string | ObjectId) => {
     await handleAction("/api/user/sabotageActions", { playerId });
@@ -36,6 +41,7 @@ const SabotageContent: React.FC = () => {
         isLoading={isLoading}
         errorMessage={errorMessage}
         actionMessage={actionMessage}
+        actionMessageFailure={actionMessageFailure}
         messageRef={messageRef}
       />
       {isLoadingGangDetails && (
