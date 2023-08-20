@@ -42,6 +42,12 @@ export default async function handler(
 
     const { playerId } = req.body;
 
+    const requiredEnergyPoints = 20;
+
+    if (user.defaultParams.energy < requiredEnergyPoints) {
+      return res.status(404).json({ error: "You don't have enough energy." });
+    }
+
     if (!user.sabotage) {
       user.sabotage = {
         sabotageHistory: [],
@@ -202,6 +208,8 @@ export default async function handler(
           successMessage = `You have successfully sabotaged ${sabotagedPlayer.username}! Unfortunately he had no money.`;
         }
       }
+
+      user.defaultParams.energy -= requiredEnergyPoints;
 
       sabotagedPlayer.defaultParams.life = Math.max(
         sabotagedPlayer.defaultParams.life - 20,

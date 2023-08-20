@@ -50,6 +50,7 @@ export default async function handler(
       return res.status(200).json({ members: serializedUsers, totalMembers });
     } else if (gangName && sabotage && respect) {
       let query: any = { "defaultParams.gang": gangName };
+      const minLife = 20;
       const minRespect = respect - 200;
       const maxRespect = respect + 200;
 
@@ -57,10 +58,12 @@ export default async function handler(
         $or: [
           {
             "defaultParams.gang": { $ne: gangName },
+            "defaultParams.life": { $gte: minLife },
             "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
           },
           {
             "defaultParams.gang": { $exists: false },
+            "defaultParams.life": { $gte: minLife },
             "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
           },
         ],
