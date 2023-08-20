@@ -53,6 +53,7 @@ export default async function handler(
       const minLife = 20;
       const minRespect = respect - 200;
       const maxRespect = respect + 200;
+      const today = new Date().toISOString().split("T")[0];
 
       query = {
         $or: [
@@ -60,11 +61,13 @@ export default async function handler(
             "defaultParams.gang": { $ne: gangName },
             "defaultParams.life": { $gte: minLife },
             "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
+            "sabotage.lastLostSabotageDetails.date": { $ne: today },
           },
           {
             "defaultParams.gang": { $exists: false },
             "defaultParams.life": { $gte: minLife },
             "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
+            "sabotage.lastLostSabotageDetails.date": { $ne: today },
           },
         ],
       };

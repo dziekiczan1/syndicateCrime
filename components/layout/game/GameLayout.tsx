@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
@@ -12,6 +12,7 @@ import {
 import Slider from "@/components/ui/slider/Slider";
 import UserInterface from "@/components/user/interface/UserInterface";
 import sliderData from "@/constants/descriptions/sliderdata";
+import UserContext from "@/store/user-context";
 import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
 import styles from "./GameLayout.module.scss";
@@ -21,6 +22,8 @@ export interface IGameLayout {
 }
 
 const GameLayout: React.FC<IGameLayout> = ({ children }) => {
+  const { user } = useContext(UserContext);
+  const [showSabotageMessage, setShowSabotageMessage] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isUserInterfaceVisible, setUserInterfaceVisible] = useState(false);
   const [isActionsInterfaceVisible, setActionsInterfaceVisible] =
@@ -43,9 +46,35 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    const hasSeenSabotageMessage = localStorage.getItem(
+      "hasSeenSabotageMessage"
+    );
+
+    if (!hasSeenSabotageMessage || hasSeenSabotageMessage === "false") {
+      setShowSabotageMessage(true);
+    }
+  }, []);
+
+  const handleCloseSabotageMessage = () => {
+    localStorage.setItem("hasSeenSabotageMessage", "true");
+    setShowSabotageMessage(false);
+  };
+
   return (
     <>
       <div className={styles.container}>
+        {showSabotageMessage &&
+          user &&
+          user.sabotage?.lastLostSabotageDetails && (
+            <div className={styles.sabotageMessage}>
+              <h1>
+                You have been attacked by
+                {user.sabotage.lastLostSabotageDetails.attackedBy}
+              </h1>
+              <button onClick={handleCloseSabotageMessage}>Close</button>
+            </div>
+          )}
         <div className={styles.actions}>
           <div className={styles.sidebar}>
             <div className={styles.logoWrapper}>
