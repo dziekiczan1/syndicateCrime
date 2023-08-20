@@ -1,0 +1,62 @@
+@import "../../../styles/_variables.scss";
+
+.modalOverlay {
+  @include flexbox($justify-content: $center, $align-items: $center);
+  position: fixed;
+  width: $full-size;
+  height: 100vh;
+  background-color: rgba(darken($color-base-dark, 10%), 0.9);
+  z-index: 99;
+
+  .modal {
+    @include border($color: $color-base-orange);
+    position: relative;
+    width: calc($half-size - $size-12);
+    max-height: 90vh;
+    padding: $size-16;
+    border-radius: $size-8;
+    background-color: darken($color-base-dark, 10%);
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: $null;
+    }
+
+    .mobileClose {
+      @include flexbox($justify-content: flex-end);
+      position: absolute;
+      top: $size-32;
+      right: $size-32;
+
+      svg {
+        fill: $color-base-orange;
+
+        &:hover {
+          @include transition(all);
+          fill: darken($color-base-orange, 10%);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .image {
+      width: $full-size;
+      aspect-ratio: 16/9;
+      margin-bottom: $size-16;
+      border-radius: $size-8;
+      box-shadow: $shadow;
+      object-fit: cover;
+    }
+
+    .content {
+      h2,
+      h3 {
+        text-align: $center;
+
+        span {
+          color: $color-base-orange;
+        }
+      }
+    }
+  }
+}

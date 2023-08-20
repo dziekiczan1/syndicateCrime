@@ -41,6 +41,10 @@ html {
 body {
   font-family: $font-family-base;
   background-color: $color-base-dark;
+
+  &:has(.modal-content) {
+    overflow: hidden;
+  }
 }
 
 // TYPOGRAPHY
