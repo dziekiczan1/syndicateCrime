@@ -9,9 +9,11 @@ import {
   ProfileIcon,
   RobberyIcon,
 } from "@/components/ui/icons";
+import Modal from "@/components/ui/modal/Modal";
 import Slider from "@/components/ui/slider/Slider";
 import UserInterface from "@/components/user/interface/UserInterface";
 import sliderData from "@/constants/descriptions/sliderdata";
+import gangImages from "@/constants/images/gang";
 import UserContext from "@/store/user-context";
 import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
@@ -50,11 +52,20 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
     const hasSeenSabotageMessage = localStorage.getItem(
       "hasSeenSabotageMessage"
     );
+    const today = new Date().toISOString().split("T")[0];
+    const lastSeenDate = localStorage.getItem("lastSeenDate");
 
-    if (!hasSeenSabotageMessage || hasSeenSabotageMessage === "false") {
+    if (
+      !hasSeenSabotageMessage ||
+      hasSeenSabotageMessage === "false" ||
+      (lastSeenDate !== today &&
+        user &&
+        user.sabotage?.lastLostSabotageDetails?.date === today)
+    ) {
       setShowSabotageMessage(true);
+      localStorage.setItem("lastSeenDate", today);
     }
-  }, []);
+  }, [user]);
 
   const handleCloseSabotageMessage = () => {
     localStorage.setItem("hasSeenSabotageMessage", "true");
@@ -67,13 +78,13 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
         {showSabotageMessage &&
           user &&
           user.sabotage?.lastLostSabotageDetails && (
-            <div className={styles.sabotageMessage}>
-              <h1>
-                You have been attacked by
-                {user.sabotage.lastLostSabotageDetails.attackedBy}
-              </h1>
-              <button onClick={handleCloseSabotageMessage}>Close</button>
-            </div>
+            <Modal
+              isOpen={showSabotageMessage}
+              onClose={handleCloseSabotageMessage}
+              image={gangImages.sabotage}
+              title={"You have been sabotaged..."}
+              details={user.sabotage.lastLostSabotageDetails}
+            />
           )}
         <div className={styles.actions}>
           <div className={styles.sidebar}>
