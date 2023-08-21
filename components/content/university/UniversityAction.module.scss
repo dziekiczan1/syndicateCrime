@@ -63,7 +63,8 @@
     @include flexbox;
     width: $full-size;
 
-    .requirements {
+    .requirements,
+    .bonus {
       width: $half-size;
     }
   }
