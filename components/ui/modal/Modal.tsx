@@ -1,22 +1,14 @@
-import Image from "next/image";
+import { ReactNode } from "react";
 import { CloseMobileIcon, Icon } from "../icons";
 import styles from "./Modal.module.scss";
 
 export interface IModal {
-  isOpen: any;
-  onClose: any;
-  image?: any;
-  title?: any;
-  details?: any;
+  isOpen: boolean;
+  onClose: () => void;
+  children?: ReactNode;
 }
 
-const Modal: React.FC<IModal> = ({
-  isOpen,
-  onClose,
-  image,
-  title,
-  details,
-}) => {
+const Modal: React.FC<IModal> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
@@ -30,21 +22,7 @@ const Modal: React.FC<IModal> = ({
             viewBox="24 24"
           />
         </div>
-        <Image
-          src={image}
-          alt={title}
-          width={640}
-          height={360}
-          className={styles.image}
-        />
-        <div className={`modal-content ${styles.content}`}>
-          <h2>{title}</h2>
-          {details.attackedBy && (
-            <h3>
-              by user <span>{details.attackedBy}</span>
-            </h3>
-          )}
-        </div>
+        <div className={`modal-content ${styles.content}`}>{children}</div>
       </div>
     </div>
   );

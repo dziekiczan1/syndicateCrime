@@ -3,6 +3,7 @@ import { ReactNode, useContext, useEffect, useState } from "react";
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
 
+import SabotageModal from "@/components/content/sabotage/SabotageModal";
 import {
   HamburgerMenuIcon,
   Icon,
@@ -13,7 +14,6 @@ import Modal from "@/components/ui/modal/Modal";
 import Slider from "@/components/ui/slider/Slider";
 import UserInterface from "@/components/user/interface/UserInterface";
 import sliderData from "@/constants/descriptions/sliderdata";
-import gangImages from "@/constants/images/gang";
 import UserContext from "@/store/user-context";
 import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
@@ -81,10 +81,9 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             <Modal
               isOpen={showSabotageMessage}
               onClose={handleCloseSabotageMessage}
-              image={gangImages.sabotage}
-              title={"You have been sabotaged..."}
-              details={user.sabotage.lastLostSabotageDetails}
-            />
+            >
+              <SabotageModal />
+            </Modal>
           )}
         <div className={styles.actions}>
           <div className={styles.sidebar}>
