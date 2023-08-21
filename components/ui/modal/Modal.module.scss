@@ -39,16 +39,16 @@
       }
     }
 
-    .image {
-      width: $full-size;
-      aspect-ratio: 16/9;
-      margin-bottom: $size-16;
-      border-radius: $size-8;
-      box-shadow: $shadow;
-      object-fit: cover;
-    }
-
     .content {
+      img {
+        width: $full-size;
+        aspect-ratio: 16/9;
+        margin-bottom: $size-16;
+        border-radius: $size-8;
+        box-shadow: $shadow;
+        object-fit: cover;
+      }
+
       h2,
       h3 {
         text-align: $center;
