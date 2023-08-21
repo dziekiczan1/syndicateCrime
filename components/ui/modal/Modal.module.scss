@@ -7,16 +7,22 @@
   height: 100vh;
   background-color: rgba(darken($color-base-dark, 10%), 0.9);
   z-index: 99;
+  inset: $null;
 
   .modal {
     @include border($color: $color-base-orange);
     position: relative;
-    width: calc($half-size - $size-12);
+    width: $half-size;
     max-height: 90vh;
     padding: $size-16;
     border-radius: $size-8;
     background-color: darken($color-base-dark, 10%);
     overflow-y: scroll;
+
+    @include screen($size: mobile) {
+      width: $full-size;
+      margin: $null $size-16;
+    }
 
     &::-webkit-scrollbar {
       width: $null;
@@ -28,8 +34,15 @@
       top: $size-32;
       right: $size-32;
 
+      @include screen($size: mobile) {
+        top: $size-16;
+        right: $size-16;
+      }
+
       svg {
         fill: $color-base-orange;
+        stroke: $color-base-dark;
+        stroke-width: $size-2;
 
         &:hover {
           @include transition(all);
