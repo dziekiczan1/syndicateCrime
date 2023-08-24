@@ -12,15 +12,13 @@
 
   .tableWrapper {
     overflow-x: scroll;
-    margin-bottom: $size-16;
+    @include screen($size: mobile) {
+      margin-bottom: $size-16;
+    }
   }
 
   .activeTable {
     margin-bottom: $size-16;
-  }
-
-  .searchInput {
-    margin-top: $size-32;
   }
 
   .noResultText {

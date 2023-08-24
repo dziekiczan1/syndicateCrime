@@ -56,7 +56,7 @@ const GangDetails = ({ gangDetails }: IGangDetails) => {
       {sortedPlayers && !sortedPlayers.length && (
         <p className={styles.noResultText}>No players found</p>
       )}
-      <div className={styles.searchInput}>
+      <div>
         <InputField
           type="text"
           id="gang-members"

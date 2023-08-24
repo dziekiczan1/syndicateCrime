@@ -12,7 +12,9 @@
 
   .tableWrapper {
     overflow-x: scroll;
-    margin-bottom: $size-16;
+    @include screen($size: mobile) {
+      margin-bottom: $size-16;
+    }
   }
 
   .activeTable {
