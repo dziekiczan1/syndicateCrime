@@ -10,8 +10,15 @@
     margin-bottom: $size-16;
   }
 
-  .searchInput {
-    margin-top: $size-32;
+  .tableWrapper {
+    overflow-x: scroll;
+    @include screen($size: mobile) {
+      margin-bottom: $size-16;
+    }
+  }
+
+  .activeTable {
+    margin-bottom: $size-16;
   }
 
   .noResultText {
