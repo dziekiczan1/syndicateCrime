@@ -19,18 +19,20 @@ const SabotageDetails = ({
   return (
     <div className={styles.container}>
       <p className={styles.tableHeading}>Pick your sabotage victim*:</p>
-      <table className={`table ${styles.activeTable}`}>
-        <TableThead columns={gangMembersTheads} />
-        <tbody>
-          {gangDetails?.members.map((player: IUser, index: number) => (
-            <SabotageAction
-              key={index}
-              player={player}
-              handleSabotageAction={handleSabotageAction}
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className={styles.tableWrapper}>
+        <table className={`table ${styles.activeTable}`}>
+          <TableThead columns={gangMembersTheads} />
+          <tbody>
+            {gangDetails?.members.map((player: IUser, index: number) => (
+              <SabotageAction
+                key={index}
+                player={player}
+                handleSabotageAction={handleSabotageAction}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
       {(!gangDetails || !gangDetails.members.length) && (
         <p className={styles.noResultText}>No players found</p>
       )}

@@ -43,14 +43,16 @@ const GangDetails = ({ gangDetails }: IGangDetails) => {
       <p className={styles.tableHeading}>
         {searchQuery ? `Results for: "${searchQuery}"` : "Top 10 Players:"}
       </p>
-      <table className={`table ${styles.activeTable}`}>
-        <TableThead columns={gangMembersTheads} />
-        <tbody>
-          {sortedPlayers?.slice(0, 10).map((player: IUser, index: number) => (
-            <GangMembers key={index} player={player} />
-          ))}
-        </tbody>
-      </table>
+      <div className={styles.tableWrapper}>
+        <table className={`table ${styles.activeTable}`}>
+          <TableThead columns={gangMembersTheads} />
+          <tbody>
+            {sortedPlayers?.slice(0, 10).map((player: IUser, index: number) => (
+              <GangMembers key={index} player={player} />
+            ))}
+          </tbody>
+        </table>
+      </div>
       {sortedPlayers && !sortedPlayers.length && (
         <p className={styles.noResultText}>No players found</p>
       )}

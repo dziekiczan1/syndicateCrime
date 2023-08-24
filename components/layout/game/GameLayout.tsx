@@ -126,7 +126,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <div
                 className={`${styles.userInterface} ${
                   isUserInterfaceVisible && styles.mobileOpen
-                }`}
+                } ${isUserInterfaceVisible && "body-noscroll"}`}
               >
                 <UserInterface
                   isUserInterfaceVisible={isUserInterfaceVisible}
@@ -136,7 +136,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <div
                 className={`${styles.navigation} ${isMenuOpen && styles.open} ${
                   isMobileMenuOpen && styles.mobileOpen
-                }`}
+                } ${isMobileMenuOpen && "body-noscroll"}`}
               >
                 <MainMenu
                   isMenuOpen={isMenuOpen}
@@ -148,7 +148,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             <div
               className={`${styles.actionInterface} ${
                 isActionsInterfaceVisible && styles.mobileOpen
-              }`}
+              } ${isActionsInterfaceVisible && "body-noscroll"}`}
             >
               <ActionsInterface
                 isActionsInterfaceVisible={isActionsInterfaceVisible}
