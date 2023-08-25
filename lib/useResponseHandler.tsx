@@ -6,6 +6,7 @@ const useResponseHandler = (messageRef: React.RefObject<HTMLDivElement>) => {
   const { setUser } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
+  const [actionMessageFailure, setActionMessageFailure] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [positiveTimeoutId, setPositiveTimeoutId] = useState<number | null>(
@@ -15,7 +16,6 @@ const useResponseHandler = (messageRef: React.RefObject<HTMLDivElement>) => {
   const handleAction = async (apiEndpoint: string, requestBody: any) => {
     try {
       setIsLoading(true);
-
       const response = await fetch(apiEndpoint, {
         method: "POST",
         body: JSON.stringify(requestBody),
@@ -30,6 +30,7 @@ const useResponseHandler = (messageRef: React.RefObject<HTMLDivElement>) => {
           setUser,
           setIsLoading,
           setActionMessage,
+          setActionMessageFailure,
           positiveTimeoutId,
           setPositiveTimeoutId,
           messageRef
@@ -55,6 +56,7 @@ const useResponseHandler = (messageRef: React.RefObject<HTMLDivElement>) => {
   return {
     errorMessage,
     actionMessage,
+    actionMessageFailure,
     isLoading,
     handleAction,
   };

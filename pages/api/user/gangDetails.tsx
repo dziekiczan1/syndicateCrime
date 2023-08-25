@@ -3,9 +3,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export interface GangDetailsResponse {
   members: IUser[];
-  totalMembers: number;
+  totalMembers?: number;
 }
 
+import { shuffleArray } from "@/lib/shuffleArray";
 import { IUser } from "@/store/user-context";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
@@ -24,28 +25,73 @@ export default async function handler(
     const client = await connectToDatabase();
     const usersCollection = client.db().collection<IUser>("users");
 
-    const gangName = req.body;
+    const { gangName, sabotage, respect } = req.body;
 
-    const users = await usersCollection
-      .find({ "defaultParams.gang": gangName })
-      .toArray();
+    if (gangName && !sabotage) {
+      const users = await usersCollection
+        .find({ "defaultParams.gang": gangName })
+        .toArray();
 
-    if (!users || users.length === 0) {
-      return res.status(404).json({ error: "No users found" });
-    }
+      if (!users || users.length === 0) {
+        return res.status(404).json({ error: "No users found" });
+      }
 
-    const serializedUsers = users.map((user) => {
-      const { password, ...userWithoutPassword } = user;
-      return {
-        ...userWithoutPassword,
-        _id: user._id.toString(),
+      const serializedUsers = users.map((user) => {
+        const { password, ...userWithoutPassword } = user;
+        return {
+          ...userWithoutPassword,
+          _id: user._id.toString(),
+        };
+      });
+
+      const totalMembers = serializedUsers.length;
+
+      client.close();
+      return res.status(200).json({ members: serializedUsers, totalMembers });
+    } else if (gangName && sabotage && respect) {
+      let query: any = { "defaultParams.gang": gangName };
+      const minLife = 20;
+      const minRespect = respect - 200;
+      const maxRespect = respect + 200;
+      const today = new Date().toISOString().split("T")[0];
+
+      query = {
+        $or: [
+          {
+            "defaultParams.gang": { $ne: gangName },
+            "defaultParams.life": { $gte: minLife },
+            "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
+            "sabotage.lastLostSabotageDetails.date": { $ne: today },
+          },
+          {
+            "defaultParams.gang": { $exists: false },
+            "defaultParams.life": { $gte: minLife },
+            "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
+            "sabotage.lastLostSabotageDetails.date": { $ne: today },
+          },
+        ],
       };
-    });
 
-    const totalMembers = serializedUsers.length;
+      const users = await usersCollection.find(query).toArray();
 
-    client.close();
-    return res.status(200).json({ members: serializedUsers, totalMembers });
+      if (!users || users.length === 0) {
+        return res.status(404).json({ error: "No users found" });
+      }
+
+      const shuffledUsers = shuffleArray(users);
+      const selectedUsers = shuffledUsers.slice(0, 5);
+
+      const serializedUsers = selectedUsers.map((user) => {
+        const { password, ...userWithoutPassword } = user;
+        return {
+          ...userWithoutPassword,
+          _id: user._id.toString(),
+        };
+      });
+
+      client.close();
+      return res.status(200).json({ members: serializedUsers });
+    }
   } catch (error) {
     console.error("Error fetching user data:", error);
     return res.status(500).json({ error: "Server error" });

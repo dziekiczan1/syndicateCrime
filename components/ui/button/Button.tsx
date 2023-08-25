@@ -10,6 +10,7 @@ export interface IButtonProps {
   secondary?: boolean;
   form?: boolean;
   fullSize?: boolean;
+  disabled?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -18,11 +19,12 @@ const Button: React.FC<IButtonProps> = ({
   link,
   form,
   fullSize,
+  disabled,
   ...props
 }) => {
   const className = `${styles.btn} ${secondary && styles.secondary} ${
     fullSize && styles.fullSize
-  }`;
+  } ${disabled && styles.disabled}`;
 
   if (link) {
     return (
@@ -33,7 +35,12 @@ const Button: React.FC<IButtonProps> = ({
   }
 
   return (
-    <button type={form ? "submit" : "button"} className={className} {...props}>
+    <button
+      type={form ? "submit" : "button"}
+      className={className}
+      {...props}
+      disabled={disabled}
+    >
       <span>{children}</span>
     </button>
   );

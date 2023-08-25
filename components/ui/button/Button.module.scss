@@ -67,3 +67,25 @@
     @include border($color: rgba($color-base-orange, 0.9));
   }
 }
+
+.disabled {
+  &::before {
+    background-color: transparent;
+  }
+
+  &::after {
+    border: none;
+  }
+
+  &:hover {
+    cursor: default;
+  }
+
+  span {
+    text-decoration: line-through;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+}

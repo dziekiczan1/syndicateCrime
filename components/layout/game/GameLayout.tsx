@@ -1,17 +1,20 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
 
+import SabotageModal from "@/components/content/sabotage/SabotageModal";
 import {
   HamburgerMenuIcon,
   Icon,
   ProfileIcon,
   RobberyIcon,
 } from "@/components/ui/icons";
+import Modal from "@/components/ui/modal/Modal";
 import Slider from "@/components/ui/slider/Slider";
 import UserInterface from "@/components/user/interface/UserInterface";
 import sliderData from "@/constants/descriptions/sliderdata";
+import UserContext from "@/store/user-context";
 import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
 import styles from "./GameLayout.module.scss";
@@ -21,6 +24,8 @@ export interface IGameLayout {
 }
 
 const GameLayout: React.FC<IGameLayout> = ({ children }) => {
+  const { user } = useContext(UserContext);
+  const [showSabotageMessage, setShowSabotageMessage] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isUserInterfaceVisible, setUserInterfaceVisible] = useState(false);
   const [isActionsInterfaceVisible, setActionsInterfaceVisible] =
@@ -43,9 +48,43 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    const hasSeenSabotageMessage = localStorage.getItem(
+      "hasSeenSabotageMessage"
+    );
+    const today = new Date().toISOString().split("T")[0];
+    const lastSeenDate = localStorage.getItem("lastSeenDate");
+
+    if (
+      !hasSeenSabotageMessage ||
+      hasSeenSabotageMessage === "false" ||
+      (lastSeenDate !== today &&
+        user &&
+        user.sabotage?.lastLostSabotageDetails?.date === today)
+    ) {
+      setShowSabotageMessage(true);
+      localStorage.setItem("lastSeenDate", today);
+    }
+  }, [user]);
+
+  const handleCloseSabotageMessage = () => {
+    localStorage.setItem("hasSeenSabotageMessage", "true");
+    setShowSabotageMessage(false);
+  };
+
   return (
     <>
       <div className={styles.container}>
+        {showSabotageMessage &&
+          user &&
+          user.sabotage?.lastLostSabotageDetails && (
+            <Modal
+              isOpen={showSabotageMessage}
+              onClose={handleCloseSabotageMessage}
+            >
+              <SabotageModal />
+            </Modal>
+          )}
         <div className={styles.actions}>
           <div className={styles.sidebar}>
             <div className={styles.logoWrapper}>
@@ -87,7 +126,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <div
                 className={`${styles.userInterface} ${
                   isUserInterfaceVisible && styles.mobileOpen
-                }`}
+                } ${isUserInterfaceVisible && "body-noscroll"}`}
               >
                 <UserInterface
                   isUserInterfaceVisible={isUserInterfaceVisible}
@@ -97,7 +136,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <div
                 className={`${styles.navigation} ${isMenuOpen && styles.open} ${
                   isMobileMenuOpen && styles.mobileOpen
-                }`}
+                } ${isMobileMenuOpen && "body-noscroll"}`}
               >
                 <MainMenu
                   isMenuOpen={isMenuOpen}
@@ -109,7 +148,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             <div
               className={`${styles.actionInterface} ${
                 isActionsInterfaceVisible && styles.mobileOpen
-              }`}
+              } ${isActionsInterfaceVisible && "body-noscroll"}`}
             >
               <ActionsInterface
                 isActionsInterfaceVisible={isActionsInterfaceVisible}
