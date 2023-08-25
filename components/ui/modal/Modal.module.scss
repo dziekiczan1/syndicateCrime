@@ -12,12 +12,13 @@
   .modal {
     @include border($color: $color-base-orange);
     position: relative;
-    width: $half-size;
+    width: calc($third-size + $size-48);
     max-height: 90vh;
     padding: $size-16;
     border-radius: $size-8;
     background-color: darken($color-base-dark, 10%);
     overflow-y: scroll;
+    overflow-x: hidden;
 
     @include screen($size: mobile) {
       width: $full-size;
@@ -53,22 +54,14 @@
     }
 
     .content {
+      margin-bottom: $size-16;
+
       img {
         width: $full-size;
         aspect-ratio: 16/9;
-        margin-bottom: $size-16;
         border-radius: $size-8;
         box-shadow: $shadow;
         object-fit: cover;
-      }
-
-      h2,
-      h3 {
-        text-align: $center;
-
-        span {
-          color: $color-base-orange;
-        }
       }
     }
   }
