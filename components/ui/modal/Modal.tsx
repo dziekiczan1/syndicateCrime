@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Button from "../button/Button";
 import { CloseMobileIcon, Icon } from "../icons";
 import styles from "./Modal.module.scss";
 
@@ -23,6 +24,9 @@ const Modal: React.FC<IModal> = ({ isOpen, onClose, children }) => {
           />
         </div>
         <div className={`modal-content ${styles.content}`}>{children}</div>
+        <Button onClick={onClose} fullSize secondary>
+          Got it!
+        </Button>
       </div>
     </div>
   );
