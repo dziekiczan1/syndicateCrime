@@ -3,28 +3,6 @@
 .container {
   color: $color-base-light;
 
-  .activeTable {
-    margin-bottom: $size-16;
-  }
-
-  .maxLimit,
-  .tableHeading {
-    @include flexbox($justify-content: $center);
-    color: $color-base-orange;
-    font-weight: $font-weight-bold;
-    margin-bottom: $size-16;
-  }
-
-  .maxLimit {
-    color: $color-base-light;
-    margin-bottom: $size-32;
-
-    span {
-      color: $color-base-orange;
-      margin-left: $size-4;
-    }
-  }
-
   .actionsContainer {
     @include flexbox($flex-direction: row, $flex-wrap: wrap, $gap: $size-8);
 

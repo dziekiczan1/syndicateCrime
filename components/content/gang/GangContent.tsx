@@ -44,7 +44,7 @@ const GangContent: React.FC = () => {
       )}
       {user && !user?.defaultParams.gang && (
         <>
-          <p className={styles.tableHeading}>Select a gang to stand with:</p>
+          <p className="tableHeading">Select a gang to stand with:</p>
           <div className={styles.actionsContainer}>
             {!user?.defaultParams.gang &&
               gangActions.map((gang, key) => (

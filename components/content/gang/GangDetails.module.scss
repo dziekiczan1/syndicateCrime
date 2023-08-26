@@ -3,22 +3,11 @@
 .container {
   color: $color-base-light;
 
-  .tableHeading {
-    @include flexbox($justify-content: $center);
-    color: $color-base-orange;
-    font-weight: $font-weight-bold;
-    margin-bottom: $size-16;
-  }
-
   .tableWrapper {
     overflow-x: scroll;
     @include screen($size: mobile) {
       margin-bottom: $size-16;
     }
-  }
-
-  .activeTable {
-    margin-bottom: $size-16;
   }
 
   .noResultText {

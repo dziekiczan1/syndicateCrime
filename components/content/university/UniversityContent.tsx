@@ -30,7 +30,7 @@ const UniversityContent: React.FC = () => {
         actionMessage={actionMessage}
         messageRef={messageRef}
       />
-      <p className={styles.tableHeading}>Available courses:</p>
+      <p className="tableHeading">Available courses:</p>
       <div className={styles.actionsContainer}>
         {user &&
           universityActions.map((course, key) => (

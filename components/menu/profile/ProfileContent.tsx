@@ -63,17 +63,27 @@ const ProfileContent: React.FC = () => {
         <div className={styles.stats}>
           <div className={styles.params}>
             <h3>{user.username}</h3>
-            <p>{user.email}</p>
-            <p>Class: {user.defaultParams.class}</p>
+            <p className={styles.paramsEmail}>{user.email}</p>
+            <p>
+              Class: <span>{user.defaultParams.class}</span>
+            </p>
             <p>
               Gang:{" "}
-              {user.defaultParams.gang
-                ? user.defaultParams.gang
-                : "No gang affiliation"}
+              <span>
+                {user.defaultParams.gang
+                  ? user.defaultParams.gang
+                  : "No gang affiliation"}
+              </span>
             </p>
-            <p>Energy: {user.defaultParams.energy}%</p>
-            <p>Life: {user.defaultParams.life}%</p>
-            <p>Addiction: {user.defaultParams.addiction}%</p>
+            <p>
+              Energy: <span>{user.defaultParams.energy}%</span>
+            </p>
+            <p>
+              Life: <span>{user.defaultParams.life}%</span>
+            </p>
+            <p>
+              Addiction: <span>{user.defaultParams.addiction}%</span>
+            </p>
           </div>
           <div className={styles.photo}>
             <Avatar

@@ -6,6 +6,10 @@
   padding: $size-8;
   width: calc($half-size - $size-8);
   margin-bottom: $size-16;
+
+  @include screen($size: mobile) {
+    width: $full-size;
+  }
 }
 
 .detailsContainer {

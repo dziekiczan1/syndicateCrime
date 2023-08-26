@@ -39,7 +39,7 @@ const UserInterface: React.FC<IUserInterface> = ({
         </div>
       )}
       {isUserInterfaceVisible && (
-        <div onClick={handleProfileClick} className={styles.mobileClose}>
+        <div onClick={handleProfileClick} className="mobileClose">
           <Icon
             component={CloseMobileIcon}
             width={48}

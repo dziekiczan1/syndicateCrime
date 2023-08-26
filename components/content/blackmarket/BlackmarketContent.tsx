@@ -40,13 +40,13 @@ const BlackmarketContent: React.FC = () => {
         messageRef={messageRef}
       />
       {user && !user.weapons?.length ? (
-        <p className={styles.tableHeading}>
+        <p className="tableHeading">
           You don&apos;t have any active weapons at the moment.
         </p>
       ) : (
         <>
-          <p className={styles.tableHeading}>Your active weapons:</p>
-          <table className={`table ${styles.activeTable}`}>
+          <p className="tableHeading">Your active weapons:</p>
+          <table className="table activeTable">
             <TableThead columns={activeWeaponsTheads} />
             <tbody>
               {user &&
@@ -62,15 +62,15 @@ const BlackmarketContent: React.FC = () => {
         </>
       )}
       {
-        <p className={styles.maxLimit}>
+        <p className="maxLimit">
           Your current maximum limit for weapons is:{" "}
           <span>
             {user?.university && user.university.blackmarket ? 10 : 5}
           </span>
         </p>
       }
-      <p className={styles.tableHeading}>All weapons:</p>
-      <table className={`table ${styles.activeTable}`}>
+      <p className="tableHeading">All weapons:</p>
+      <table className="table activeTable">
         <TableThead columns={allWeaponsTheads} />
         <tbody>
           {blackMarketActions.map((weapon, index) => (

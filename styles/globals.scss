@@ -64,36 +64,57 @@ body {
 h1 {
   @extend %heading;
   @include font-size($size-32);
+  @include screen($size: mobile) {
+    @include font-size($size-24);
+  }
 }
 
 h2 {
   @extend %heading;
   @include font-size($size-24);
+  @include screen($size: mobile) {
+    @include font-size($size-20);
+  }
 }
 
 h3 {
   @extend %heading;
   @include font-size($size-20);
+  @include screen($size: mobile) {
+    @include font-size($size-16);
+  }
 }
 
 h4 {
   @extend %heading;
   @include font-size($size-16);
+  @include screen($size: mobile) {
+    @include font-size($size-14);
+  }
 }
 
 h5 {
   @extend %heading;
   @include font-size($size-12);
+  @include screen($size: mobile) {
+    @include font-size($size-10);
+  }
 }
 
 h6 {
   @extend %heading;
   @include font-size($size-8);
+  @include screen($size: mobile) {
+    @include font-size($size-6);
+  }
 }
 
 p {
   @include font-size($size-14);
   @include letter-spacing;
+  @include screen($size: mobile) {
+    @include font-size($size-12);
+  }
 }
 
 // FORMS
@@ -128,6 +149,8 @@ label,
   padding-bottom: $size-4;
 }
 
+// NO SCROLLBAR
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -137,6 +160,8 @@ label,
   }
 }
 
+// SECTION IMAGE
+
 .sectionImage {
   width: $full-size;
   aspect-ratio: 16/9;
@@ -144,6 +169,8 @@ label,
   box-shadow: $shadow;
   object-fit: cover;
 }
+
+// TABLE
 
 .table {
   width: $full-size;
@@ -162,5 +189,51 @@ label,
 
   th {
     background-color: $color-base-dark-200;
+  }
+}
+
+.activeTable {
+  margin-bottom: $size-16;
+}
+
+.maxLimit,
+.tableHeading {
+  @include flexbox($justify-content: $center);
+  color: $color-base-orange;
+  font-weight: $font-weight-bold;
+  text-align: $center;
+  margin-bottom: $size-16;
+}
+
+.maxLimit {
+  color: $color-base-light;
+  margin-bottom: $size-32;
+
+  span {
+    color: $color-base-orange;
+    margin-left: $size-4;
+  }
+}
+
+// MOBILE CLOSE BUTTON
+
+.mobileClose {
+  display: none;
+
+  @include screen($size: mobile) {
+    @include flexbox($justify-content: flex-end);
+    width: $full-size;
+
+    svg {
+      fill: $color-base-orange;
+      stroke: $color-base-dark;
+      stroke-width: $size-2;
+
+      &:hover {
+        @include transition(all);
+        fill: darken($color-base-orange, 10%);
+        cursor: pointer;
+      }
+    }
   }
 }
