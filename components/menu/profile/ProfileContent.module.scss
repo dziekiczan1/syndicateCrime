@@ -11,16 +11,40 @@
     .params {
       width: $half-size;
 
-      p:first-of-type {
+      @include screen($size: mobile) {
+        width: $two-thirds;
+      }
+
+      p {
+        color: $color-base-orange;
+      }
+
+      span {
+        color: $color-base-light;
+        font-weight: $font-weight-bold;
+      }
+
+      .paramsEmail {
+        color: $color-base-light;
         margin-bottom: $size-32;
       }
     }
 
     .photo {
-      @include flexbox($justify-content: $center);
+      @include flexbox($justify-content: flex-end);
       width: calc($half-size - $size-8);
+
+      @include screen($size: mobile) {
+        @include flexbox($align-items: $center);
+        width: calc($third-size - $size-8);
+      }
+
       img {
         border-radius: $size-8;
+        @include screen($size: mobile) {
+          @include border($width: $size-2, $color: $color-base-orange);
+          border-radius: $half-size;
+        }
       }
     }
 
@@ -36,6 +60,13 @@
 
       & > div {
         width: calc($third-size - $size-8);
+      }
+
+      @include screen($size: mobile) {
+        @include flexbox($flex-direction: column, $gap: $size-8);
+        & > div {
+          width: $full-size;
+        }
       }
     }
   }

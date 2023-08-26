@@ -34,13 +34,13 @@ const BuildingsContent: React.FC = () => {
         messageRef={messageRef}
       />
       {user && !user.buildings?.length ? (
-        <p className={styles.tableHeading}>
+        <p className="tableHeading">
           You don&apos;t owe any buildings at the moment.
         </p>
       ) : (
         <>
-          <p className={styles.tableHeading}>Your current buildings:</p>
-          <table className={`table ${styles.activeTable}`}>
+          <p className="tableHeading">Your current buildings:</p>
+          <table className="table activeTable">
             <TableThead columns={activeBuildingsTheads} />
             <tbody>
               {user &&
@@ -56,14 +56,14 @@ const BuildingsContent: React.FC = () => {
         </>
       )}
       {
-        <p className={styles.maxLimit}>
+        <p className="maxLimit">
           Your current maximum limit for buildings is:{" "}
           <span>
             {user?.university && user.university.architecture ? 8 : 3}
           </span>
         </p>
       }
-      <p className={styles.tableHeading}>All buildings:</p>
+      <p className="tableHeading">All buildings:</p>
       <div className={styles.actionsContainer}>
         {user &&
           buildingsActions.map((action, key) => (

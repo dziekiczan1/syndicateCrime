@@ -14,22 +14,6 @@
       overflow-y: scroll;
     }
   }
-
-  .mobileClose {
-    display: none;
-
-    @include screen($size: mobile) {
-      @include flexbox($justify-content: flex-end);
-
-      svg {
-        fill: $color-base-dark-500;
-
-        &:hover {
-          fill: $color-base-orange;
-        }
-      }
-    }
-  }
 }
 
 .userContainer {

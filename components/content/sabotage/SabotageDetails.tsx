@@ -18,9 +18,9 @@ const SabotageDetails = ({
 
   return (
     <div className={styles.container}>
-      <p className={styles.tableHeading}>Pick your sabotage victim*:</p>
+      <p className="tableHeading">Pick your sabotage victim*:</p>
       <div className={styles.tableWrapper}>
-        <table className={`table ${styles.activeTable}`}>
+        <table className="table activeTable">
           <TableThead columns={gangMembersTheads} />
           <tbody>
             {gangDetails?.members.map((player: IUser, index: number) => (
