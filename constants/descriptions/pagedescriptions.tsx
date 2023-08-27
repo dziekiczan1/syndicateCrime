@@ -76,6 +76,12 @@ const pageDescriptions: IPageDescriptions = {
     title: "Elevate Your Performance, Accept the Risks",
     image: sectionsImages.dealer,
   },
+  market: {
+    description:
+      "Embark on a journey into the cutthroat world of corporate rivalry. Here, you have the opportunity to invest in the stock of various companies, each with its own unique prospects and risks. Buy low, sell high, and watch your wealth grow as you navigate the unpredictable fluctuations of the stock market. But remember, with great profit potential comes great volatility. Make shrewd decisions, monitor market trends, and master the art of the deal to emerge as a financial tycoon in this thrilling, high-stakes game of stocks and shares.",
+    title: "Dive into the Corporate World, Shape Your Fortune",
+    image: sectionsImages.market,
+  },
   buildings: {
     description:
       "Embark on a journey of urban development and financial prowess in the Buildings market. Acquire various properties, from towering skyscrapers to charming residential complexes, as you aim to grow your empire. Make strategic decisions to maximize profits and capitalize on real estate opportunities. But remember, success comes with risks, and market fluctuations can turn fortunes. Take calculated risks, manage your portfolio wisely, and prove yourself as a master of the real estate market. Are you prepared to build a cityscape that stands the test of time?",
