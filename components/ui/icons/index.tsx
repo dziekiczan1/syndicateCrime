@@ -1,8 +1,10 @@
 export { default as AlleyIcon } from "./AlleyIcon";
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
+export { default as ArrowDownMarketIcon } from "./ArrowDownMarketIcon";
 export { default as ArrowLeftIcon } from "./ArrowLeftIcon";
 export { default as ArrowRightIcon } from "./ArrowRightIcon";
 export { default as ArrowUpIcon } from "./ArrowUpIcon";
+export { default as ArrowUpMarketIcon } from "./ArrowUpMarketIcon";
 export { default as BankIcon } from "./BankIcon";
 export { default as BlackmarketIcon } from "./BlackmarketIcon";
 export { default as BuildingsIcon } from "./BuildingsIcon";

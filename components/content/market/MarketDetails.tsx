@@ -1,5 +1,9 @@
 import Button from "@/components/ui/button/Button";
-import { ArrowDownIcon, ArrowUpIcon, Icon } from "@/components/ui/icons";
+import {
+  ArrowDownMarketIcon,
+  ArrowUpMarketIcon,
+  Icon,
+} from "@/components/ui/icons";
 import { calculatePercentageChange } from "@/lib/marketactions";
 import { formatNumber } from "@/lib/money";
 import { useEffect, useState } from "react";
@@ -41,10 +45,10 @@ const MarketDetails: React.FC<IWhoreDetails> = ({
           <p className={styles.changeName}>
             {" "}
             <Icon
-              component={ArrowUpIcon}
+              component={ArrowUpMarketIcon}
               width={20}
               height={20}
-              viewBox="24 24"
+              viewBox="52 52"
             />
             {formattedPercentageChange.toFixed(2)}%
           </p>
@@ -53,10 +57,10 @@ const MarketDetails: React.FC<IWhoreDetails> = ({
         <td className={styles.changeDown}>
           <p className={styles.changeName}>
             <Icon
-              component={ArrowDownIcon}
+              component={ArrowDownMarketIcon}
               width={20}
               height={20}
-              viewBox="24 24"
+              viewBox="52 52"
             />
             {formattedPercentageChange.toFixed(2)}%
           </p>
