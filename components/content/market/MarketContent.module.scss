@@ -2,4 +2,11 @@
 
 .container {
   color: $color-base-light;
+
+  .tableWrapper {
+    overflow-x: scroll;
+    @include screen($size: mobile) {
+      margin-bottom: $size-16;
+    }
+  }
 }

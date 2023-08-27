@@ -44,7 +44,9 @@ export default function UserContextProvider({
 
     socket.onmessage = (event) => {
       const userData = JSON.parse(event.data.toString());
-      setUser(userData.payload);
+      if (userData.type === "userUpdate") {
+        setUser(userData.payload);
+      }
     };
 
     return () => {
