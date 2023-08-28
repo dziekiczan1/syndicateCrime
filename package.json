@@ -26,6 +26,8 @@
     "react-hook-form": "^7.43.9",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
     "typescript": "5.0.4",
     "websocket": "^1.0.34"
   },
