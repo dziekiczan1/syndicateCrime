@@ -9,8 +9,6 @@ const SabotageModal = () => {
   const modalTitle = "You have been sabotaged!";
   const lastSabotage = user && user.sabotage?.lastLostSabotageDetails;
 
-  console.log(lastSabotage);
-
   return (
     <div className={styles.container}>
       <Image
