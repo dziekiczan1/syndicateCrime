@@ -1,22 +1,25 @@
+import InputField from "@/components/auth/InputField";
+import Button from "@/components/ui/button/Button";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
-import { useEffect, useState } from "react";
+import UserContext from "@/store/user-context";
+import { useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import styles from "./NightclubContent.module.scss";
 
 let socket: any;
 
-type Message = {
+export interface IMessage {
   author: string;
   message: string;
-};
+}
 
 const NightclubContent: React.FC = () => {
   const pageData = pageDescriptions.nightclub;
-  const [username, setUsername] = useState("");
-  const [chosenUsername, setChosenUsername] = useState("");
+  const { user } = useContext(UserContext);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [messages, setMessages] = useState<Array<IMessage>>([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const socketInitializer = async () => {
     await fetch("/api/user/nightclub");
@@ -25,7 +28,7 @@ const NightclubContent: React.FC = () => {
       path: "/api/socket_io",
     });
 
-    socket.on("newIncomingMessage", (msg: any) => {
+    socket.on("newIncomingMessage", (msg: IMessage) => {
       setMessages((currentMsg) => {
         const updatedMessages = [
           ...currentMsg,
@@ -50,11 +53,17 @@ const NightclubContent: React.FC = () => {
   }, []);
 
   const sendMessage = async () => {
-    socket.emit("createdMessage", { author: chosenUsername, message });
+    if (message.length > 100) {
+      setErrorMessage("Message is too long. Maximum length is 100 characters.");
+      return;
+    }
+
+    socket.emit("createdMessage", { author: user?.username, message });
     setMessage("");
+    setErrorMessage("");
   };
 
-  const handleKeypress = (e: any) => {
+  const handleKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
       if (message) {
         sendMessage();
@@ -65,72 +74,42 @@ const NightclubContent: React.FC = () => {
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      <div className="flex items-center p-4 mx-auto min-h-screen justify-center bg-purple-500">
-        <main className="gap-4 flex flex-col items-center justify-center w-full h-full">
-          {!chosenUsername ? (
-            <>
-              <h3 className="font-bold text-white text-xl">
-                How people should call you?
-              </h3>
-              <input
-                type="text"
-                placeholder="Identity..."
-                value={username}
-                className="p-3 rounded-md outline-none"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <button
-                onClick={() => {
-                  setChosenUsername(username);
-                }}
-                className="bg-white rounded-md px-4 py-2 text-xl"
-              >
-                Go!
-              </button>
-            </>
-          ) : (
-            <>
-              <p className="font-bold text-white text-xl">
-                Your username: {username}
-              </p>
-              <div className="flex flex-col justify-end bg-white h-[20rem] min-w-[33%] rounded-md shadow-md ">
-                <div className="h-full last:border-b-0 overflow-y-scroll">
-                  {messages.map((msg, i) => {
-                    return (
-                      <div
-                        className="w-full py-1 px-2 border-b border-gray-200 text-black"
-                        key={i}
-                      >
-                        {msg.author} : {msg.message}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="border-t border-gray-300 w-full flex rounded-bl-md">
-                  <input
-                    type="text"
-                    placeholder="New message..."
-                    value={message}
-                    className="outline-none py-2 px-2 rounded-bl-md flex-1"
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyUp={handleKeypress}
-                  />
-                  <div className="border-l border-gray-300 flex justify-center items-center  rounded-br-md group hover:bg-purple-500 transition-all">
-                    <button
-                      className="group-hover:text-white px-3 h-full"
-                      onClick={() => {
-                        sendMessage();
-                      }}
-                    >
-                      Send
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </>
+      <div className={styles.chatWrapper}>
+        <div className={styles.messagesWrapper}>
+          {!messages.length && (
+            <div className={styles.noMessages}>
+              <p className={styles.message}>Start conversation...</p>
+            </div>
           )}
-        </main>
+          {messages.map((msg, i) => {
+            return (
+              <p className={styles.message} key={i}>
+                <span>{msg.author}</span> : {msg.message}
+              </p>
+            );
+          })}
+        </div>
+        <div className={styles.inputContainer}>
+          <InputField
+            id="message"
+            type="text"
+            name="message"
+            placeholder={"New message..."}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyUp={handleKeypress}
+          />
+          <Button
+            onClick={() => {
+              sendMessage();
+            }}
+            secondary
+          >
+            Send
+          </Button>
+        </div>
       </div>
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 };
