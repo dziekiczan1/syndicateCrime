@@ -2,4 +2,75 @@
 
 .container {
   color: $color-base-light;
+
+  .chatWrapper {
+    @include flexbox($flex-direction: column, $justify-content: flex-end);
+    background-color: darken($color-base-dark, 10%);
+    border-radius: $size-8;
+    height: 400px;
+
+    .messagesWrapper {
+      height: $full-size;
+      overflow-y: scroll;
+    }
+
+    .noMessages {
+      @include flexbox($justify-content: $center, $align-items: $center);
+      text-align: $center;
+      width: $full-size;
+      height: $full-size;
+      overflow: hidden;
+    }
+
+    .message {
+      @include border($size-1, solid, $color-base-dark, bottom);
+      color: $color-base-light;
+      width: $full-size;
+      padding: $size-4;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      span {
+        color: $color-base-orange;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .inputContainer {
+      @include flexbox(
+        $justify-content: $center,
+        $align-items: $center,
+        $gap: $size-4
+      );
+      padding: $size-4;
+
+      label {
+        padding-bottom: $null;
+      }
+
+      input {
+        margin-top: $null;
+        margin-bottom: $null;
+      }
+
+      button {
+        height: $full-size;
+        border-radius: $size-4;
+
+        &::before,
+        &::after {
+          border-radius: $size-4;
+        }
+      }
+    }
+  }
+
+  .errorMessage {
+    color: $color-base-red-500;
+    font-weight: $font-weight-normal;
+    text-align: $center;
+    margin-top: $size-8;
+  }
 }

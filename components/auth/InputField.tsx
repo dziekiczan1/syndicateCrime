@@ -17,6 +17,7 @@ export interface IInputProps {
   children?: ReactNode;
   checkbox?: boolean;
   required?: boolean;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<IInputProps> = ({
