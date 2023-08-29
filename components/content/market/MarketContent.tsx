@@ -56,12 +56,12 @@ const MarketContent: React.FC = () => {
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
       <p className="tableHeading">All companies:</p>
-      <div className={styles.tableWrapper}>
-        {isLoading ? (
-          <div className={styles.loading}>
-            <Loading />
-          </div>
-        ) : (
+      {isLoading ? (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
+      ) : (
+        <div className={styles.tableWrapper}>
           <table className="table activeTable">
             <TableThead columns={allMarketTheads} />
             <tbody>
@@ -74,8 +74,8 @@ const MarketContent: React.FC = () => {
               ))}
             </tbody>
           </table>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
