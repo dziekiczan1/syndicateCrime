@@ -3,7 +3,7 @@ import Button from "@/components/ui/button/Button";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import UserContext from "@/store/user-context";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import styles from "./NightclubContent.module.scss";
 
@@ -20,6 +20,7 @@ const NightclubContent: React.FC = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Array<IMessage>>([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
   const socketInitializer = async () => {
     await fetch("/api/user/nightclub");
@@ -71,11 +72,22 @@ const NightclubContent: React.FC = () => {
     }
   };
 
+  const scrollToLatestMessage = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToLatestMessage();
+  }, [messages]);
+
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
       <div className={styles.chatWrapper}>
-        <div className={styles.messagesWrapper}>
+        <div className={styles.messagesWrapper} ref={messagesContainerRef}>
           {!messages.length && (
             <div className={styles.noMessages}>
               <p className={styles.message}>Start conversation...</p>
