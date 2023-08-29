@@ -1,7 +1,11 @@
+import InputField from "@/components/auth/InputField";
+import Button from "@/components/ui/button/Button";
+import Loading from "@/components/ui/loading/Loading";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import UserContext from "@/store/user-context";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
 import styles from "./NightclubContent.module.scss";
 
 let socket: any;
@@ -18,107 +22,117 @@ const NightclubContent: React.FC = () => {
   const [messages, setMessages] = useState<Array<IMessage>>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // const socketInitializer = async () => {
-  //   await fetch("/api/user/nightclub");
+  const socketInitializer = async () => {
+    await fetch("/api/user/nightclub");
 
-  //   socket = io({
-  //     path: "/api/socket_io",
-  //   });
+    socket = io({
+      path: "/api/socket_io",
+    });
 
-  //   socket.on("newIncomingMessage", (msg: IMessage) => {
-  //     setMessages((currentMsg) => {
-  //       const updatedMessages = [
-  //         ...currentMsg,
-  //         { author: msg.author, message: msg.message },
-  //       ];
+    setIsLoading(false);
 
-  //       const uniqueMessages = updatedMessages.filter(
-  //         (message, index, self) =>
-  //           self.findIndex(
-  //             (m) =>
-  //               m.author === message.author && m.message === message.message
-  //           ) === index
-  //       );
+    socket.on("newIncomingMessage", (msg: IMessage) => {
+      setMessages((currentMsg) => {
+        const updatedMessages = [
+          ...currentMsg,
+          { author: msg.author, message: msg.message },
+        ];
 
-  //       return uniqueMessages;
-  //     });
-  //   });
-  // };
+        const uniqueMessages = updatedMessages.filter(
+          (message, index, self) =>
+            self.findIndex(
+              (m) =>
+                m.author === message.author && m.message === message.message
+            ) === index
+        );
 
-  // useEffect(() => {
-  //   socketInitializer();
-  // }, []);
+        return uniqueMessages;
+      });
+    });
+    setIsLoading(false);
+  };
 
-  // const sendMessage = async () => {
-  //   if (message.length > 100) {
-  //     setErrorMessage("Message is too long. Maximum length is 100 characters.");
-  //     return;
-  //   }
+  useEffect(() => {
+    socketInitializer();
+  }, []);
 
-  //   socket.emit("createdMessage", { author: user?.username, message });
-  //   setMessage("");
-  //   setErrorMessage("");
-  // };
+  const sendMessage = async () => {
+    if (message.length > 100) {
+      setErrorMessage("Message is too long. Maximum length is 100 characters.");
+      return;
+    }
 
-  // const handleKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.keyCode === 13) {
-  //     if (message) {
-  //       sendMessage();
-  //     }
-  //   }
-  // };
+    socket.emit("createdMessage", { author: user?.username, message });
+    setMessage("");
+    setErrorMessage("");
+  };
 
-  // const scrollToLatestMessage = () => {
-  //   if (messagesContainerRef.current) {
-  //     messagesContainerRef.current.scrollTop =
-  //       messagesContainerRef.current.scrollHeight;
-  //   }
-  // };
+  const handleKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) {
+      if (message) {
+        sendMessage();
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   scrollToLatestMessage();
-  // }, [messages]);
+  const scrollToLatestMessage = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToLatestMessage();
+  }, [messages]);
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      {/* <div className={styles.chatWrapper}>
-        <div className={styles.messagesWrapper} ref={messagesContainerRef}>
-          {!messages.length && (
-            <div className={styles.noMessages}>
-              <p className={styles.message}>Start conversation...</p>
-            </div>
-          )}
-          {messages.map((msg, i) => {
-            return (
-              <p className={styles.message} key={i}>
-                <span>{msg.author}</span> : {msg.message}
-              </p>
-            );
-          })}
+      {isLoading ? (
+        <div className={styles.loading}>
+          <Loading />
         </div>
-        <div className={styles.inputContainer}>
-          <InputField
-            id="message"
-            type="text"
-            name="message"
-            placeholder={"New message..."}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyUp={handleKeypress}
-          />
-          <Button
-            onClick={() => {
-              sendMessage();
-            }}
-            secondary
-          >
-            Send
-          </Button>
+      ) : (
+        <div className={styles.chatWrapper}>
+          <div className={styles.messagesWrapper} ref={messagesContainerRef}>
+            {!messages.length && (
+              <div className={styles.noMessages}>
+                <p className={styles.message}>Start conversation...</p>
+              </div>
+            )}
+            {messages.map((msg, i) => {
+              return (
+                <p className={styles.message} key={i}>
+                  <span>{msg.author}</span> : {msg.message}
+                </p>
+              );
+            })}
+          </div>
+          <div className={styles.inputContainer}>
+            <InputField
+              id="message"
+              type="text"
+              name="message"
+              placeholder={"New message..."}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyUp={handleKeypress}
+            />
+            <Button
+              onClick={() => {
+                sendMessage();
+              }}
+              secondary
+            >
+              Send
+            </Button>
+          </div>
         </div>
-      </div>
-      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>} */}
+      )}
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 };
