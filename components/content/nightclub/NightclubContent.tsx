@@ -1,10 +1,7 @@
-import InputField from "@/components/auth/InputField";
-import Button from "@/components/ui/button/Button";
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import UserContext from "@/store/user-context";
-import { useContext, useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
+import { useContext, useRef, useState } from "react";
 import styles from "./NightclubContent.module.scss";
 
 let socket: any;
@@ -22,71 +19,71 @@ const NightclubContent: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const socketInitializer = async () => {
-    await fetch("/api/user/nightclub");
+  // const socketInitializer = async () => {
+  //   await fetch("/api/user/nightclub");
 
-    socket = io({
-      path: "/api/socket_io",
-    });
+  //   socket = io({
+  //     path: "/api/socket_io",
+  //   });
 
-    socket.on("newIncomingMessage", (msg: IMessage) => {
-      setMessages((currentMsg) => {
-        const updatedMessages = [
-          ...currentMsg,
-          { author: msg.author, message: msg.message },
-        ];
+  //   socket.on("newIncomingMessage", (msg: IMessage) => {
+  //     setMessages((currentMsg) => {
+  //       const updatedMessages = [
+  //         ...currentMsg,
+  //         { author: msg.author, message: msg.message },
+  //       ];
 
-        const uniqueMessages = updatedMessages.filter(
-          (message, index, self) =>
-            self.findIndex(
-              (m) =>
-                m.author === message.author && m.message === message.message
-            ) === index
-        );
+  //       const uniqueMessages = updatedMessages.filter(
+  //         (message, index, self) =>
+  //           self.findIndex(
+  //             (m) =>
+  //               m.author === message.author && m.message === message.message
+  //           ) === index
+  //       );
 
-        return uniqueMessages;
-      });
-    });
-  };
+  //       return uniqueMessages;
+  //     });
+  //   });
+  // };
 
-  useEffect(() => {
-    socketInitializer();
-  }, []);
+  // useEffect(() => {
+  //   socketInitializer();
+  // }, []);
 
-  const sendMessage = async () => {
-    if (message.length > 100) {
-      setErrorMessage("Message is too long. Maximum length is 100 characters.");
-      return;
-    }
+  // const sendMessage = async () => {
+  //   if (message.length > 100) {
+  //     setErrorMessage("Message is too long. Maximum length is 100 characters.");
+  //     return;
+  //   }
 
-    socket.emit("createdMessage", { author: user?.username, message });
-    setMessage("");
-    setErrorMessage("");
-  };
+  //   socket.emit("createdMessage", { author: user?.username, message });
+  //   setMessage("");
+  //   setErrorMessage("");
+  // };
 
-  const handleKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
-      if (message) {
-        sendMessage();
-      }
-    }
-  };
+  // const handleKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.keyCode === 13) {
+  //     if (message) {
+  //       sendMessage();
+  //     }
+  //   }
+  // };
 
-  const scrollToLatestMessage = () => {
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight;
-    }
-  };
+  // const scrollToLatestMessage = () => {
+  //   if (messagesContainerRef.current) {
+  //     messagesContainerRef.current.scrollTop =
+  //       messagesContainerRef.current.scrollHeight;
+  //   }
+  // };
 
-  useEffect(() => {
-    scrollToLatestMessage();
-  }, [messages]);
+  // useEffect(() => {
+  //   scrollToLatestMessage();
+  // }, [messages]);
 
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
-      <div className={styles.chatWrapper}>
+      {/* <div className={styles.chatWrapper}>
         <div className={styles.messagesWrapper} ref={messagesContainerRef}>
           {!messages.length && (
             <div className={styles.noMessages}>
@@ -121,7 +118,7 @@ const NightclubContent: React.FC = () => {
           </Button>
         </div>
       </div>
-      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>} */}
     </div>
   );
 };
