@@ -32,7 +32,7 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrime/.next
           elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
-            rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrimeDevelop/.nexttest
+            rsync -re ssh ./.next/ vps:/home/ubuntu/syndicateCrimeDevelop/.next
           fi
 
       - name: Restart App
