@@ -13,7 +13,7 @@ export default function handler(req: any, res: any) {
     res.send("Hello, world!");
 
     const io = new Server(res.socket.server, {
-      path: "/api/socket_io",
+      path: "/api/user/nightclub",
       addTrailingSlash: false,
     });
 
