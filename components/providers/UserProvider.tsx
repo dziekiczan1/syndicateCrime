@@ -38,13 +38,17 @@ export default function UserContextProvider({
 
     socket.onopen = () => {
       if (status === "authenticated" && session && user) {
-        socket.send(JSON.stringify({ type: "init", userId: user._id }));
+        const messageObject = { type: "init", userId: user._id };
+        const messageString = JSON.stringify(messageObject);
+        socket.send(JSON.stringify(messageString));
       }
     };
 
     socket.onmessage = (event) => {
       const userData = JSON.parse(event.data.toString());
-      setUser(userData.payload);
+      if (userData.type === "userUpdate") {
+        setUser(userData.payload);
+      }
     };
 
     return () => {
