@@ -40,7 +40,7 @@ const NightclubContent: React.FC = () => {
 
   const handleMessageSubmit = () => {
     if (message && socket) {
-      console.log(message);
+      socket.emit("message", { author: user?.username, message });
       setMessage("");
     }
   };
