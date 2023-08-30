@@ -25,10 +25,10 @@ const NightclubContent: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const socketInitializer = async () => {
-    await fetch("/api/user/nightclub");
+    // await fetch("/api/user/nightclub");
 
     socket = io({
-      path: "/api/socket_io",
+      path: "/api/user/nightclub",
     });
 
     setIsLoading(false);
