@@ -21,13 +21,17 @@ const NightclubContent: React.FC = () => {
   const [socket, setSocket] = useState<any>(null);
 
   useEffect(() => {
+    console.log("Connecting to WebSocket server...");
     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_SERVER_URL!, {
       transports: ["websocket"],
     });
 
-    newSocket.on("connect", () => {});
+    newSocket.on("connect", () => {
+      console.log("Connected to WebSocket server");
+    });
 
     newSocket.on("message", (newMessage) => {
+      console.log("Received message:", newMessage);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
 
