@@ -37,10 +37,10 @@ export default async function handler(
       return res.status(404).json({ error: "User not found" });
     }
 
-    const { company } = req.body;
-    const { action } = req.body;
+    const { company, action } = req.body;
 
     const updatedUser: IUserWithMarket = { ...user };
+    const fixedCurrentCost = company.currentCost.toFixed(2);
 
     if (action === "buy") {
       const existingCompany = updatedUser.market?.find(
@@ -69,13 +69,13 @@ export default async function handler(
           .json({ error: "Maximum number of shares reached" });
       }
 
-      if (updatedUser.defaultParams.money < company.cost) {
+      if (updatedUser.defaultParams.money < fixedCurrentCost) {
         return res
           .status(400)
           .json({ error: "Insufficient funds to buy the shares" });
       }
 
-      updatedUser.defaultParams.money -= company.cost;
+      updatedUser.defaultParams.money -= fixedCurrentCost;
     } else if (action === "sell") {
       const existingCompany = updatedUser.market?.find(
         (c) => c.name === company.name
@@ -92,7 +92,7 @@ export default async function handler(
         );
       }
 
-      updatedUser.defaultParams.money += company.cost;
+      updatedUser.defaultParams.money += fixedCurrentCost;
       successMessage = `You have successfully sold shares of ${company.name}!`;
     }
 
