@@ -118,11 +118,13 @@
       display: none;
 
       &.mobileOpen {
-        display: block;
+        display: flex;
         position: fixed;
         z-index: 9;
         top: $null;
         width: $full-size;
+        height: $full-size;
+        overflow-y: visible;
       }
     }
   }
@@ -139,6 +141,8 @@
         z-index: 9;
         top: $null;
         width: $full-size;
+        height: $full-size;
+        overflow-y: visible;
       }
     }
   }
