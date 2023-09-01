@@ -10,7 +10,7 @@
 
   &.mobileOpen {
     @include screen($size: mobile) {
-      height: 100vh;
+      height: $full-size;
       overflow-y: scroll;
     }
   }
