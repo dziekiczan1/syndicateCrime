@@ -11,6 +11,8 @@
   }
 
   .loading {
-    @include flexbox($justify-content: $center, $align-items: $center);
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
   }
 }

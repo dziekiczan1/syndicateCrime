@@ -10,12 +10,12 @@ import { useEffect, useState } from "react";
 import { IMarketDataItem } from "./MarketContent";
 import styles from "./MarketDetails.module.scss";
 
-interface IWhoreDetails {
+interface IMarketDetails {
   company: IMarketDataItem;
   handleMarketAction: (company: any, action: string) => void;
 }
 
-const MarketDetails: React.FC<IWhoreDetails> = ({
+const MarketDetails: React.FC<IMarketDetails> = ({
   company,
   handleMarketAction,
 }) => {

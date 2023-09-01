@@ -11,7 +11,7 @@ export interface IUserWithMarket extends IUser {
 
 export interface MarketCompany {
   name: string;
-  cost: number;
+  averageCost: number;
   count?: number;
 }
 
@@ -37,10 +37,12 @@ export default async function handler(
       return res.status(404).json({ error: "User not found" });
     }
 
-    const { company, action } = req.body;
+    const { company, action, newCurrentCost } = req.body;
+
+    console.log(req.body);
 
     const updatedUser: IUserWithMarket = { ...user };
-    const fixedCurrentCost = company.currentCost.toFixed(2);
+    const fixedCurrentCost = parseFloat(company.currentCost.toFixed(2));
 
     if (action === "buy") {
       const existingCompany = updatedUser.market?.find(
@@ -48,11 +50,15 @@ export default async function handler(
       );
       if (existingCompany) {
         existingCompany.count = (existingCompany.count || 0) + 1;
+        existingCompany.averageCost =
+          ((existingCompany.averageCost || 0) + fixedCurrentCost) /
+          existingCompany.count;
         successMessage = `You have successfully bought the shares of ${company.name}!`;
       } else {
         if (!updatedUser.market) {
           updatedUser.market = [];
         }
+        company.averageCost = fixedCurrentCost;
         updatedUser.market.push({ ...company, count: 1 });
         successMessage = `You have successfully bought the shares of ${company.name}!`;
       }
@@ -92,7 +98,9 @@ export default async function handler(
         );
       }
 
-      updatedUser.defaultParams.money += fixedCurrentCost;
+      const roundedCostSell = parseFloat(newCurrentCost.toFixed(2));
+      console.log(roundedCostSell);
+      updatedUser.defaultParams.money += roundedCostSell;
       successMessage = `You have successfully sold shares of ${company.name}!`;
     }
 
@@ -113,7 +121,7 @@ export default async function handler(
 
     return res.status(200).json(serializedUser);
   } catch (error) {
-    console.error("Error processing bank action:", error);
+    console.error("Error processing market action:", error);
     return res.status(500).json({ error: "Server error" });
   }
 }
