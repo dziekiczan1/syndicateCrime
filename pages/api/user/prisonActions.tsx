@@ -69,7 +69,7 @@ export default async function handler(
     client.close();
     return res.status(200).json(serializedUser);
   } catch (error) {
-    console.error("Error processing bank action:", error);
+    console.error("Error processing prison action:", error);
     return res.status(500).json({ error: "Server error" });
   }
 }

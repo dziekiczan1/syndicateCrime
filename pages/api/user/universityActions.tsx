@@ -126,7 +126,7 @@ export default async function handler(
 
     return res.status(200).json(serializedUser);
   } catch (error) {
-    console.error("Error processing building action:", error);
+    console.error("Error processing university action:", error);
     return res.status(500).json({ error: "Server error" });
   }
 }
