@@ -1,0 +1,56 @@
+@import "../../../styles/_variables.scss";
+
+.card {
+  @include border($color: $color-base-orange, $width: $size-2);
+  width: calc($size-64 * 2);
+  height: calc($size-64 * 3);
+  margin: $size-16;
+  padding: $size-8 $size-12;
+  background: darken($color-base-dark, 10%);
+  border-radius: $size-8;
+  box-shadow: $shadow;
+  cursor: default;
+}
+
+.hiddenCard {
+  @include border($color: $color-base-red-500, $width: $size-4);
+  width: calc($size-64 * 2);
+  height: calc($size-64 * 3);
+  margin: $size-16;
+  padding: $size-8 $size-12;
+  background-color: darken($color-base-dark, 10%);
+  background-image: url("../../../public/assets/logo/desktop.webp");
+  background-size: calc(($size-64 * 2) - $size-8) calc($size-48 + $size-8);
+  background-repeat: no-repeat;
+  background-position: $center;
+  border-radius: $size-8;
+  box-shadow: $shadow;
+  cursor: default;
+}
+
+.black {
+  @include flexbox($flex-direction: column);
+  height: $full-size;
+  h3 {
+    color: $color-base-dark-500;
+  }
+}
+
+.red {
+  @include flexbox($flex-direction: column);
+  height: $full-size;
+  h3 {
+    color: $color-base-red-500;
+  }
+}
+
+.value {
+  font-size: $size-32;
+  height: $half-size;
+}
+
+.suit {
+  font-size: $size-64;
+  height: $half-size;
+  text-align: $center;
+}

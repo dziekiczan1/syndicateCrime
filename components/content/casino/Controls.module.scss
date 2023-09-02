@@ -1,0 +1,23 @@
+@import "../../../styles/_variables.scss";
+
+.controlsContainer {
+  @include flexbox($flex-direction: column);
+  width: $full-size;
+
+  label {
+    span {
+      color: $color-base-orange;
+      margin-left: $size-2;
+    }
+  }
+
+  button {
+    margin-top: $size-16;
+  }
+}
+
+.actionsContainer {
+  @include flexbox($justify-content: space-evenly, $gap: $size-32);
+  width: $full-size;
+  margin: $size-16 $null;
+}

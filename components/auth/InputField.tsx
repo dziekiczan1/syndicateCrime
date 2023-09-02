@@ -8,7 +8,7 @@ export interface IInputProps {
   id: string;
   type: string;
   name?: string;
-  value?: string;
+  value?: string | number;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   register?: any;
