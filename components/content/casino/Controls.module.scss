@@ -4,6 +4,12 @@
   @include flexbox($flex-direction: column);
   width: $full-size;
 
+  .message {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    color: $color-base-red-500;
+    margin-bottom: $size-16;
+  }
+
   label {
     span {
       color: $color-base-orange;
@@ -13,6 +19,13 @@
 
   button {
     margin-top: $size-16;
+    width: $full-size;
+  }
+
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
   }
 }
 
