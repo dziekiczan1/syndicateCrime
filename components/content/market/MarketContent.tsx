@@ -103,7 +103,7 @@ const MarketContent: React.FC = () => {
         </p>
       ) : (
         <>
-          <p className="tableHeading">Your active whores:</p>
+          <p className="tableHeading">Your current market shares:</p>
           <table className="table activeTable">
             <TableThead columns={activeMarketTheads} />
             <tbody>

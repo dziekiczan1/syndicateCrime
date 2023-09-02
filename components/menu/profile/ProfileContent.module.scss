@@ -59,7 +59,7 @@
       padding-top: $size-16;
 
       & > div {
-        width: calc($third-size - $size-8);
+        width: calc($half-size - $size-8);
       }
 
       @include screen($size: mobile) {

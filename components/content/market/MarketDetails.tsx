@@ -43,7 +43,6 @@ const MarketDetails: React.FC<IMarketDetails> = ({
       {percentageChange >= 0 ? (
         <td className={styles.changeUp}>
           <p className={styles.changeName}>
-            {" "}
             <Icon
               component={ArrowUpMarketIcon}
               width={20}

@@ -39,8 +39,6 @@ export default async function handler(
 
     const { company, action, newCurrentCost } = req.body;
 
-    console.log(req.body);
-
     const updatedUser: IUserWithMarket = { ...user };
     const fixedCurrentCost = parseFloat(company.currentCost.toFixed(2));
 
@@ -63,8 +61,7 @@ export default async function handler(
         successMessage = `You have successfully bought the shares of ${company.name}!`;
       }
 
-      const sharesMaxLimit = user.university?.market ? 500 : 100;
-
+      const sharesMaxLimit = user.university?.market ? 10 : 5;
       const totalSharesCount = updatedUser.market?.reduce(
         (total, c) => total + (c.count || 0),
         0
@@ -99,7 +96,6 @@ export default async function handler(
       }
 
       const roundedCostSell = parseFloat(newCurrentCost.toFixed(2));
-      console.log(roundedCostSell);
       updatedUser.defaultParams.money += roundedCostSell;
       successMessage = `You have successfully sold shares of ${company.name}!`;
     }
