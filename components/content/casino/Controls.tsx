@@ -1,5 +1,6 @@
 import InputField from "@/components/auth/InputField";
 import Button from "@/components/ui/button/Button";
+import ErrorMessage from "@/components/ui/error/ErrorMessage";
 import Loading from "@/components/ui/loading/Loading";
 import RequiredText from "@/components/ui/required/RequiredText";
 import useCasinoActions from "@/lib/useCasinoActions";
@@ -30,6 +31,7 @@ const Controls: React.FC<ControlsProps> = ({
     handleAction,
     register,
     handleSubmit,
+    errorMessage,
     errors,
     validationRules,
     isLoading,
@@ -67,6 +69,11 @@ const Controls: React.FC<ControlsProps> = ({
               required
             />
             <RequiredText text="Maximum bet is: $1.000,000" />
+            {errorMessage && (
+              <div className={styles.error}>
+                <ErrorMessage errorMessage={errorMessage} />
+              </div>
+            )}
             {isLoading ? (
               <div className={styles.loading}>
                 <Loading />
@@ -104,7 +111,7 @@ const Controls: React.FC<ControlsProps> = ({
             secondary
             fullSize
           >
-            Reset
+            Play Again
           </Button>
         </div>
       );

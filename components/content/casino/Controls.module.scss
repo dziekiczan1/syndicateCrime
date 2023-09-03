@@ -3,6 +3,7 @@
 .controlsContainer {
   @include flexbox($flex-direction: column);
   width: $full-size;
+  margin-top: $size-16;
 
   .message {
     @include flexbox($justify-content: $center, $align-items: $center);
@@ -22,6 +23,12 @@
     width: $full-size;
   }
 
+  .error {
+    div {
+      margin: $size-16 $null;
+    }
+  }
+
   .loading {
     @include flexbox($justify-content: $center);
     width: $full-size;
@@ -32,5 +39,7 @@
 .actionsContainer {
   @include flexbox($justify-content: space-evenly, $gap: $size-32);
   width: $full-size;
-  margin: $size-16 $null;
+  padding: $size-16;
+  background: darken($color-base-dark, 10%);
+  box-shadow: $shadow;
 }

@@ -34,6 +34,11 @@ export default async function handler(
     const { action, data } = req.body.requestData;
 
     const usersBet = data;
+    const maxBet = 1000000;
+
+    if (usersBet > maxBet) {
+      return res.status(400).json({ error: "Maximum bet is: $1.000,000" });
+    }
 
     if (user.defaultParams.money < usersBet) {
       return res.status(400).json({ error: "Not enough money" });

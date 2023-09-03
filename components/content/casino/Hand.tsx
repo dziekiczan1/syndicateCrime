@@ -9,7 +9,7 @@ type HandProps = {
 const Hand: React.FC<HandProps> = ({ title, cards }) => {
   const getTitle = () => {
     if (cards.length > 0) {
-      return <h1 className={styles.title}>{title}</h1>;
+      return <h4 className={styles.title}>{title}</h4>;
     }
   };
   return (
