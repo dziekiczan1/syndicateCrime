@@ -30,7 +30,7 @@ export enum Message {
 }
 
 const CasinoContent: React.FC = () => {
-  const pageData = pageDescriptions.sabotage;
+  const pageData = pageDescriptions.casino;
   const messageRef = useRef<HTMLDivElement>(null);
   const { handleAction } = useCasinoActions(messageRef);
 

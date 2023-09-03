@@ -100,17 +100,23 @@ const pageDescriptions: IPageDescriptions = {
     title: "Recover and Reclaim Your Life",
     image: sectionsImages.hospital,
   },
-  prison: {
-    description:
-      "Our prison rehabilitation program is dedicated to providing comprehensive support and opportunities for positive change. We believe in the power of rehabilitation to transform lives and pave the way for a brighter future. Through education, vocational training, counseling, and therapeutic interventions, we strive to empower individuals within the prison system to rebuild their lives and reintegrate successfully into society. With a focus on compassion, personal growth, and community support, we are committed to breaking the cycle of reoffending and offering a pathway to a better tomorrow. Join us in our mission to create a safer and more inclusive society by supporting the rehabilitation and reintegration of individuals within the prison community.",
-    title: "A Path to Redemption: Transforming Lives behind Bars",
-    image: sectionsImages.prison,
-  },
   bank: {
     description:
       "Securely manage your hard-earned savings at the Bank. With state-of-the-art security measures and expert financial services, the Bank offers you a reliable and convenient way to stash or withdraw your funds. Whether you're looking to protect your wealth or make strategic investments, the Bank is your trusted partner. Take control of your financial future and let us help you make the most of your hard-earned savings. Discover the benefits of secure, reliable, and convenient banking at the Bank today. Join the millions of satisfied customers who have chosen the Bank as their trusted financial partner.",
     title: "Manage Your Wealth with Confidence",
     image: sectionsImages.bank,
+  },
+  casino: {
+    description:
+      "Step into the electrifying world of casino gaming, where excitement and entertainment know no bounds. At our casino, you'll find a world of opportunity and chance waiting for you. Whether you're a seasoned gambler or trying your luck for the first time, our casino offers an unforgettable experience. The possibilities are endless. Join us for a night of exhilaration, where fortunes can change with the turn of a card. Are you ready to test your luck and embrace the thrill of casino gaming?",
+    title: "Experience the Thrill of Casino Gaming",
+    image: sectionsImages.casino,
+  },
+  prison: {
+    description:
+      "Our prison rehabilitation program is dedicated to providing comprehensive support and opportunities for positive change. We believe in the power of rehabilitation to transform lives and pave the way for a brighter future. Through education, vocational training, counseling, and therapeutic interventions, we strive to empower individuals within the prison system to rebuild their lives and reintegrate successfully into society. With a focus on compassion, personal growth, and community support, we are committed to breaking the cycle of reoffending and offering a pathway to a better tomorrow. Join us in our mission to create a safer and more inclusive society by supporting the rehabilitation and reintegration of individuals within the prison community.",
+    title: "A Path to Redemption: Transforming Lives behind Bars",
+    image: sectionsImages.prison,
   },
 };
 export default pageDescriptions;
