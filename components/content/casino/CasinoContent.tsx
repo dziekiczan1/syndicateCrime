@@ -1,7 +1,8 @@
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import casinoCards from "@/constants/sections/casinocards";
-import React, { useEffect, useState } from "react";
+import useCasinoActions from "@/lib/useCasinoActions";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./CasinoContent.module.scss";
 import Controls from "./Controls";
 import Hand from "./Hand";
@@ -30,6 +31,8 @@ export enum Message {
 
 const CasinoContent: React.FC = () => {
   const pageData = pageDescriptions.sabotage;
+  const messageRef = useRef<HTMLDivElement>(null);
+  const { handleAction } = useCasinoActions(messageRef);
 
   const data = casinoCards;
   const [deck, setDeck]: any[] = useState(data);
@@ -61,16 +64,19 @@ const CasinoContent: React.FC = () => {
       setGameState(GameState.userTurn);
       setMessage(Message.hitStand);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]);
 
   useEffect(() => {
     calculate(userCards, setUserScore);
     setUserCount(userCount + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userCards]);
 
   useEffect(() => {
     calculate(dealerCards, setDealerScore);
     setDealerCount(dealerCount + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealerCards]);
 
   useEffect(() => {
@@ -82,6 +88,7 @@ const CasinoContent: React.FC = () => {
         checkWin();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userCount]);
 
   useEffect(() => {
@@ -92,6 +99,7 @@ const CasinoContent: React.FC = () => {
         drawCard(Deal.dealer);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealerCount]);
 
   const resetGame = () => {
@@ -233,22 +241,41 @@ const CasinoContent: React.FC = () => {
     revealCard();
   };
 
-  const checkWin = () => {
-    if ((userScore <= 21 && userScore > dealerScore) || dealerScore > 21) {
-      setBet(Math.round(bet * 2 * 100) / 100);
-      setMessage(Message.userWin);
-    } else if (dealerScore > userScore) {
-      setMessage(Message.dealerWin);
-    } else {
-      setBet(Math.round(bet * 1 * 100) / 100);
-      if (userScore > 21) {
-        buttonState.hitDisabled = true;
-        buttonState.standDisabled = true;
-        buttonState.resetDisabled = false;
+  const checkWin = async () => {
+    try {
+      if ((userScore <= 21 && userScore > dealerScore) || dealerScore > 21) {
+        buttonState.resetDisabled = true;
+        const userWin = Math.round(bet * 2 * 100) / 100;
+        setBet(userWin);
+        setMessage(Message.userWin);
+        const response = await handleAction(userWin, "winBet");
+        if (response) {
+          buttonState.resetDisabled = false;
+        } else {
+          console.error("Failed to update user data:");
+        }
+      } else if (dealerScore > userScore) {
         setMessage(Message.dealerWin);
       } else {
-        setMessage(Message.tie);
+        setBet(Math.round(bet * 1 * 100) / 100);
+        if (userScore > 21) {
+          buttonState.hitDisabled = true;
+          buttonState.standDisabled = true;
+          buttonState.resetDisabled = false;
+          setMessage(Message.dealerWin);
+        } else {
+          buttonState.resetDisabled = true;
+          setMessage(Message.tie);
+          const response = await handleAction(bet, "tieBet");
+          if (response) {
+            buttonState.resetDisabled = false;
+          } else {
+            console.error("Failed to update user data:");
+          }
+        }
       }
+    } catch (error) {
+      console.error("An error occurred while updating user data:", error);
     }
   };
 

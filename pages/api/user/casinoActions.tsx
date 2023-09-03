@@ -48,6 +48,10 @@ export default async function handler(
       if (user.defaultParams.money >= usersBet) {
         user.defaultParams.money -= usersBet;
       }
+    } else if (action === "winBet") {
+      user.defaultParams.money += usersBet;
+    } else if (action === "tieBet") {
+      user.defaultParams.money += usersBet;
     } else {
       return res.status(400).json({ error: "Invalid action" });
     }
