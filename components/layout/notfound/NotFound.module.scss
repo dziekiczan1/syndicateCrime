@@ -1,6 +1,16 @@
 @import "../../../styles/_variables.scss";
 
 .container {
+  @include flexbox($flex-direction: column, $align-items: $center);
   color: $color-base-light;
-  overflow: hidden;
+  width: $full-size;
+
+  .innerWrapper {
+    @include flexbox($flex-direction: column, $justify-content: $center);
+    background: darken($color-base-dark, 10%);
+    border-radius: $size-8;
+    width: $half-size;
+    margin: $size-32;
+    padding: $size-16;
+  }
 }
