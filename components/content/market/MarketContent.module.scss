@@ -1,0 +1,18 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  color: $color-base-light;
+
+  .tableWrapper {
+    overflow-x: scroll;
+    @include screen($size: mobile) {
+      margin-bottom: $size-16;
+    }
+  }
+
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
+  }
+}

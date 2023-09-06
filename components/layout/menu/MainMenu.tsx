@@ -22,7 +22,7 @@ const MainMenu: React.FC<IMainMenu> = ({
   return (
     <nav className={`${styles.container} ${isMenuOpen && styles.open}`}>
       {isMenuOpen && (
-        <div onClick={handleMobileMenuClick} className={styles.mobileClose}>
+        <div onClick={handleMobileMenuClick} className="mobileClose">
           <Icon
             component={CloseMobileIcon}
             width={48}

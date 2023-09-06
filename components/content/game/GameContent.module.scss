@@ -38,6 +38,10 @@
     a {
       padding: $size-16 $size-32;
       font-size: $size-12;
+
+      @include screen($size: mobile) {
+        padding: $size-12 $size-24;
+      }
     }
   }
 }

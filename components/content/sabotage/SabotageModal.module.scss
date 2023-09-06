@@ -1,5 +1,37 @@
 @import "../../../styles/_variables.scss";
 
 .container {
+  @include flexbox($flex-direction: column, $gap: $size-16);
   color: $color-base-light;
+
+  .mainContentWrapper {
+    @include flexbox($flex-direction: column);
+
+    h3 {
+      margin-bottom: $size-16;
+
+      span {
+        color: $color-base-red-500;
+      }
+    }
+
+    .sabotageTime {
+      margin-bottom: $size-16;
+
+      span {
+        color: $color-base-orange;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .sabotageText {
+      margin-bottom: $size-16;
+    }
+
+    .sabotageDetails {
+      span {
+        color: $color-base-red-500;
+      }
+    }
+  }
 }

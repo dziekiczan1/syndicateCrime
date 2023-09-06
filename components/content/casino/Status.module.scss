@@ -1,0 +1,33 @@
+@import "../../../styles/_variables.scss";
+
+.statusContainer {
+  @include flexbox(
+    $flex-direction: column,
+    $align-items: $center,
+    $gap: $size-16
+  );
+  padding: $size-16 $size-16 $null $size-16;
+  background: darken($color-base-dark, 10%);
+  box-shadow: $shadow;
+
+  .status {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    @include border($color: $color-base-orange, $width: $size-2);
+    border-radius: $size-8;
+    padding: $size-16;
+    width: $half-size;
+  }
+
+  .balance {
+    margin-bottom: $size-16;
+
+    h4 {
+      font-weight: $font-weight-normal;
+    }
+
+    span {
+      font-weight: $font-weight-bold;
+      color: $color-base-orange;
+    }
+  }
+}

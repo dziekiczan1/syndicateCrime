@@ -43,7 +43,7 @@
   @include screen($size: mobile) {
     height: 100vh;
     padding: $size-16;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .content {
@@ -60,23 +60,6 @@
 
   .sidebar {
     display: none;
-  }
-}
-
-.mobileClose {
-  display: none;
-
-  @include screen($size: mobile) {
-    @include flexbox($justify-content: flex-end);
-    width: $full-size;
-
-    svg {
-      fill: $color-base-dark-500;
-
-      &:hover {
-        fill: $color-base-orange;
-      }
-    }
   }
 }
 

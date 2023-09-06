@@ -1,0 +1,45 @@
+@import "../../../styles/_variables.scss";
+
+.controlsContainer {
+  @include flexbox($flex-direction: column);
+  width: $full-size;
+  margin-top: $size-16;
+
+  .message {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    color: $color-base-red-500;
+    margin-bottom: $size-16;
+  }
+
+  label {
+    span {
+      color: $color-base-orange;
+      margin-left: $size-2;
+    }
+  }
+
+  button {
+    margin-top: $size-16;
+    width: $full-size;
+  }
+
+  .error {
+    div {
+      margin: $size-16 $null;
+    }
+  }
+
+  .loading {
+    @include flexbox($justify-content: $center);
+    width: $full-size;
+    margin: $size-32 $null;
+  }
+}
+
+.actionsContainer {
+  @include flexbox($justify-content: space-evenly, $gap: $size-32);
+  width: $full-size;
+  padding: $size-16;
+  background: darken($color-base-dark, 10%);
+  box-shadow: $shadow;
+}

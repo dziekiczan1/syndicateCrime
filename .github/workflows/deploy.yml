@@ -14,6 +14,8 @@ jobs:
       NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
       NEXTAUTH_URL: ${{secrets.NEXTAUTH_URL}}
       NEXT_PUBLIC_WEBSOCKET_URL: ${{secrets.NEXT_PUBLIC_WEBSOCKET_URL}}
+      NEXT_PUBLIC_SOCKET_SERVER_URL: ${{secrets.NEXT_PUBLIC_SOCKET_SERVER_URL}}
+      NEXT_PUBLIC_MARKETAPI_URL: ${{secrets.NEXT_PUBLIC_MARKETAPI_URL}}
     steps:
       - uses: actions/checkout@master
       - name: Use Node.js ${{ matrix.node-version }}
@@ -21,6 +23,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       - run: npm i
       - run: npm run build
       - run: mkdir ~/.ssh

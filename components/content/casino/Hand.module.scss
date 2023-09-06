@@ -1,0 +1,18 @@
+@import "../../../styles/_variables.scss";
+
+.handContainer {
+  @include flexbox($flex-direction: column, $align-items: $center);
+  margin: $size-16;
+}
+
+.cardContainer {
+  @include flexbox(
+    $flex-wrap: wrap,
+    $justify-content: $center,
+    $align-items: $center
+  );
+}
+
+.title {
+  text-align: $center;
+}

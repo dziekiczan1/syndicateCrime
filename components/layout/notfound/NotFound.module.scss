@@ -1,0 +1,69 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  @include flexbox($flex-direction: column, $align-items: $center);
+  color: $color-base-light;
+  width: $full-size;
+
+  .innerWrapper {
+    @include flexbox(
+      $flex-direction: column,
+      $justify-content: $center,
+      $gap: $size-16
+    );
+    background: darken($color-base-dark, 10%);
+    border-radius: $size-8;
+    width: $half-size;
+    margin: $size-32;
+    padding: $size-16;
+
+    img {
+      max-height: 30rem;
+    }
+  }
+
+  .heading {
+    text-align: $center;
+    color: $color-base-orange;
+  }
+
+  .headingMove {
+    @include font-size($size-16);
+    color: $color-base-orange;
+    font-style: italic;
+  }
+
+  .movesListItem {
+    @include flexbox($align-items: $center, $gap: $size-4);
+  }
+
+  .link,
+  .linkBack {
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+    text-underline-offset: $size-2;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .linkBack {
+    @include flexbox(
+      $align-items: $center,
+      $justify-content: flex-end,
+      $gap: $size-4
+    );
+    @include font-size($size-14);
+    width: $full-size;
+  }
+
+  svg {
+    min-width: $size-24;
+    fill: $color-base-orange;
+
+    path {
+      stroke: $color-base-orange;
+    }
+  }
+}

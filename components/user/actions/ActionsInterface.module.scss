@@ -13,27 +13,11 @@
     @include screen($size: mobile) {
       justify-content: space-between;
       gap: $size-8;
-      height: 100vh;
+      height: $full-size;
+      overflow-y: scroll;
       width: $full-size;
       padding: $size-16;
       background-color: $color-base-dark-50;
-    }
-  }
-
-  .mobileClose {
-    display: none;
-
-    @include screen($size: mobile) {
-      @include flexbox($justify-content: flex-end);
-      width: $full-size;
-
-      svg {
-        fill: $color-base-dark-500;
-
-        &:hover {
-          fill: $color-base-orange;
-        }
-      }
     }
   }
 }

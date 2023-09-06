@@ -20,7 +20,7 @@ const ActionsInterface: React.FC<IActionsInterface> = ({
       }`}
     >
       {isActionsInterfaceVisible && (
-        <div onClick={handleActionsClick} className={styles.mobileClose}>
+        <div onClick={handleActionsClick} className="mobileClose">
           <Icon
             component={CloseMobileIcon}
             width={48}

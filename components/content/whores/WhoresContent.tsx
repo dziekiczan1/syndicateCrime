@@ -37,13 +37,13 @@ const WhoresContent: React.FC = () => {
         messageRef={messageRef}
       />
       {user && !user.whores?.length ? (
-        <p className={styles.tableHeading}>
+        <p className="tableHeading">
           You don&apos;t have any active whores at the moment.
         </p>
       ) : (
         <>
-          <p className={styles.tableHeading}>Your active whores:</p>
-          <table className={`table ${styles.activeTable}`}>
+          <p className="tableHeading">Your active whores:</p>
+          <table className="table activeTable">
             <TableThead columns={activeWhoreTheads} />
             <tbody>
               {user &&
@@ -59,13 +59,13 @@ const WhoresContent: React.FC = () => {
         </>
       )}
       {
-        <p className={styles.maxLimit}>
+        <p className="maxLimit">
           Your current maximum limit for whores is:{" "}
           <span>{user?.university && user.university.pimp ? 10 : 5}</span>
         </p>
       }
-      <p className={styles.tableHeading}>All whores:</p>
-      <table className={`table ${styles.activeTable}`}>
+      <p className="tableHeading">All whores:</p>
+      <table className="table activeTable">
         <TableThead columns={allWhoresTheads} />
         <tbody>
           {whoresActions.map((whore, index) => (

@@ -1,5 +1,6 @@
 import { Weapon } from "@/pages/api/user/blackmarketActions";
 import { Buildings } from "@/pages/api/user/buildingsActions";
+import { MarketCompany } from "@/pages/api/user/marketActions";
 import { Sabotage } from "@/pages/api/user/sabotageActions";
 import { University } from "@/pages/api/user/universityActions";
 import { Whore } from "@/pages/api/user/whoresActions";
@@ -36,6 +37,7 @@ export interface IUser {
   buildings?: Buildings[];
   university?: University;
   sabotage?: Sabotage;
+  market?: MarketCompany[];
 }
 
 export interface IUserContextType {

@@ -40,11 +40,11 @@ const GangDetails = ({ gangDetails }: IGangDetails) => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.tableHeading}>
+      <p className="tableHeading">
         {searchQuery ? `Results for: "${searchQuery}"` : "Top 10 Players:"}
       </p>
       <div className={styles.tableWrapper}>
-        <table className={`table ${styles.activeTable}`}>
+        <table className="table activeTable">
           <TableThead columns={gangMembersTheads} />
           <tbody>
             {sortedPlayers?.slice(0, 10).map((player: IUser, index: number) => (

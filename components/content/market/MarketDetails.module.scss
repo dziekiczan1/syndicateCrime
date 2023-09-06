@@ -1,0 +1,22 @@
+@import "../../../styles/_variables.scss";
+
+.changeUp {
+  svg {
+    fill: $color-base-green-500;
+  }
+}
+
+.changeDown {
+  svg {
+    fill: $color-base-red-500;
+  }
+}
+
+.changeName {
+  @include flexbox(
+    $justify-content: $center,
+    $align-items: $center,
+    $gap: $size-8
+  );
+  font-variant-numeric: tabular-nums;
+}

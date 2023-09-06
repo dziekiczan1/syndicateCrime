@@ -3,13 +3,6 @@
 .container {
   color: $color-base-light;
 
-  .tableHeading {
-    @include flexbox($justify-content: $center);
-    color: $color-base-orange;
-    font-weight: $font-weight-bold;
-    margin-bottom: $size-16;
-  }
-
   .actionsContainer {
     @include flexbox(
       $flex-direction: column,

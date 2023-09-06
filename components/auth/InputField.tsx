@@ -8,7 +8,8 @@ export interface IInputProps {
   id: string;
   type: string;
   name?: string;
-  value?: string;
+  value?: string | number | null;
+  defaultValue?: string | number | null;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   register?: any;
@@ -17,6 +18,7 @@ export interface IInputProps {
   children?: ReactNode;
   checkbox?: boolean;
   required?: boolean;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<IInputProps> = ({

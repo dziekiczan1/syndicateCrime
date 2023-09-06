@@ -11,5 +11,9 @@
   .robberyContainer {
     @include flexbox($flex-wrap: wrap);
     column-gap: $size-8;
+
+    @include screen($size: mobile) {
+      @include flexbox($flex-direction: column);
+    }
   }
 }

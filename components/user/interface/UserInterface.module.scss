@@ -10,24 +10,8 @@
 
   &.mobileOpen {
     @include screen($size: mobile) {
-      height: 100vh;
+      height: $full-size;
       overflow-y: scroll;
-    }
-  }
-
-  .mobileClose {
-    display: none;
-
-    @include screen($size: mobile) {
-      @include flexbox($justify-content: flex-end);
-
-      svg {
-        fill: $color-base-dark-500;
-
-        &:hover {
-          fill: $color-base-orange;
-        }
-      }
     }
   }
 }
@@ -85,7 +69,7 @@
   }
 
   & > div {
-    width: calc($third-size - $size-8);
+    width: calc($half-size - $size-8);
 
     @include screen($size: mobile) {
       width: $full-size;
