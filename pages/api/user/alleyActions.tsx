@@ -51,6 +51,8 @@ export default async function handler(
         updatedUser.alley = getDefaultAlley();
       }
 
+      let existingWhore;
+
       switch (mission.short) {
         case "sabotage":
           if (updatedUser.alley.sabotage) {
@@ -68,6 +70,24 @@ export default async function handler(
             earnings: 60000,
             count: 1,
           });
+
+          // existingWhore = updatedUser.whores?.find(
+          //   (w) => w.name === "Victoria"
+          // );
+
+          // if (existingWhore) {
+          //   existingWhore.count = (existingWhore.count || 0) + 1;
+          // } else {
+          //   if (!updatedUser.whores) {
+          //     updatedUser.whores = [];
+          //   }
+          //   updatedUser.whores.push({
+          //     name: "Victoria",
+          //     cost: 5000,
+          //     earnings: 7812,
+          //     count: 1,
+          //   });
+          // }
 
           successMessage = "Successfully completed sabotage mission";
           break;

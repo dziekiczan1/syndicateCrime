@@ -1,6 +1,7 @@
 import Button from "@/components/ui/button/Button";
 import { formatNumber } from "@/lib/money";
 import { Whore } from "@/pages/api/user/whoresActions";
+import styles from "./WhoresContent.module.scss";
 
 interface IActiveWhore {
   active: Whore;
@@ -12,7 +13,7 @@ const ActiveWhores: React.FC<IActiveWhore> = ({
   handleWhoreAction,
 }) => {
   return (
-    <tr>
+    <tr className={active.name === "Lollipop" ? styles.special : ""}>
       <td>
         <p>{active.name}</p>
       </td>
@@ -23,7 +24,11 @@ const ActiveWhores: React.FC<IActiveWhore> = ({
         <p>{formatNumber(active.earnings)}</p>
       </td>
       <td>
-        <Button onClick={() => handleWhoreAction(active, "fire")} fullSize>
+        <Button
+          onClick={() => handleWhoreAction(active, "fire")}
+          fullSize
+          disabled={active.name === "Lollipop"}
+        >
           Fire
         </Button>
       </td>
