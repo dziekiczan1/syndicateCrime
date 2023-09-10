@@ -53,6 +53,8 @@ export default async function handler(
 
       let existingWhore;
 
+      const extraWhore = { name: "Lollipop", cost: 1000, earnings: 60000 };
+
       switch (mission.short) {
         case "sabotage":
           if (updatedUser.alley.sabotage) {
@@ -64,30 +66,44 @@ export default async function handler(
           updatedUser.defaultParams.money += mission.bonus.money;
           updatedUser.defaultParams.respect += mission.bonus.statValue;
 
-          updatedUser.whores?.push({
-            name: "Lollipop",
-            cost: 1000,
-            earnings: 60000,
-            count: 1,
-          });
+          existingWhore = updatedUser.whores?.find(
+            (w) => w.name === extraWhore.name
+          );
 
-          // existingWhore = updatedUser.whores?.find(
-          //   (w) => w.name === "Victoria"
-          // );
+          if (existingWhore) {
+            existingWhore.count = (existingWhore.count || 0) + 1;
+          } else {
+            if (!updatedUser.whores) {
+              updatedUser.whores = [];
+            }
+            updatedUser.whores.push({ ...extraWhore, count: 1 });
+          }
 
-          // if (existingWhore) {
-          //   existingWhore.count = (existingWhore.count || 0) + 1;
-          // } else {
-          //   if (!updatedUser.whores) {
-          //     updatedUser.whores = [];
-          //   }
-          //   updatedUser.whores.push({
-          //     name: "Victoria",
-          //     cost: 5000,
-          //     earnings: 7812,
-          //     count: 1,
-          //   });
-          // }
+          successMessage = "Successfully completed sabotage mission";
+          break;
+
+        case "intelligence":
+          if (updatedUser.alley.intelligence) {
+            return res
+              .status(400)
+              .json({ error: "You already completed this mission." });
+          }
+          updatedUser.alley.intelligence = true;
+          updatedUser.defaultParams.money += mission.bonus.money;
+          updatedUser.defaultParams.intelligence += mission.bonus.statValue;
+
+          existingWhore = updatedUser.whores?.find(
+            (w) => w.name === extraWhore.name
+          );
+
+          if (existingWhore) {
+            existingWhore.count = (existingWhore.count || 0) + 2;
+          } else {
+            if (!updatedUser.whores) {
+              updatedUser.whores = [];
+            }
+            updatedUser.whores.push({ ...extraWhore, count: 2 });
+          }
 
           successMessage = "Successfully completed sabotage mission";
           break;
