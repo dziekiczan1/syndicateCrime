@@ -1,3 +1,4 @@
+import { formatNumber } from "@/lib/money";
 import { StaticImageData } from "next/image";
 import alleyImages from "../images/alley";
 
@@ -5,14 +6,16 @@ export interface IAlleyActions {
   name: string;
   imageSrc: StaticImageData;
   description: string;
-  userValue: number;
-  requiredValue: number;
+  userValue: number | string;
+  requiredValue: number | string;
 }
 
 export const alleyActions = (userStats: any): IAlleyActions[] => {
-  const userUniversityLength = Object.keys(userStats.university).filter(
-    (key) => userStats.university[key] === true
-  ).length;
+  const userUniversityLength =
+    userStats &&
+    Object.keys(userStats?.university).filter(
+      (key) => userStats.university[key] === true
+    ).length;
 
   return [
     {
@@ -20,8 +23,8 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       imageSrc: alleyImages.heist,
       description:
         "A wealthy client needs a million dollars stashed safely in the bank's vault. Are you up for the challenge of pulling off the perfect bank heist and securing the fortune?",
-      userValue: userStats?.bank || 0,
-      requiredValue: 1000000,
+      userValue: formatNumber(userStats?.bank || 0),
+      requiredValue: formatNumber(1000000),
     },
     {
       name: "Great Escape",
@@ -59,7 +62,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       name: "Intellectual Savvy",
       imageSrc: alleyImages.intelligence,
       description:
-        "Intelligence is your greatest weapon. Accumulate 5,000 intelligence points through cunning strategies and astute decision-making to dominate the criminal underworld.",
+        "Accumulate 5,000 intelligence points through cunning strategies and astute decision-making to dominate the criminal underworld.",
       userValue: userStats?.defaultParams.intelligence || 0,
       requiredValue: 5000,
     },
