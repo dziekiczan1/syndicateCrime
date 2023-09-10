@@ -6,7 +6,7 @@
   border-radius: $size-8;
   overflow: hidden;
   width: calc($half-size - $size-8);
-  background-color: $color-base-dark;
+  background-color: darken($color-base-dark, 10%);
 
   @include screen($size: mobile) {
     width: $full-size;
