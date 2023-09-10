@@ -1,4 +1,3 @@
-import { formatNumber } from "@/lib/money";
 import { StaticImageData } from "next/image";
 import alleyImages from "../images/alley";
 
@@ -7,10 +6,10 @@ export interface IAlleyActions {
   name: string;
   imageSrc: StaticImageData;
   description: string;
-  userValue: number | string;
-  requiredValue: number | string;
+  userValue: number;
+  requiredValue: number;
   bonus: {
-    money: number | string;
+    money: number;
     statValue: number;
     stat: string;
     extra: string;
@@ -31,10 +30,10 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       imageSrc: alleyImages.heist,
       description:
         "A wealthy client needs a million dollars stashed safely in the bank's vault. Are you up for the challenge of pulling off the perfect bank heist and securing the fortune?",
-      userValue: formatNumber(userStats?.bank || 0),
-      requiredValue: formatNumber(1000000),
+      userValue: userStats?.bank || 0,
+      requiredValue: 1000000,
       bonus: {
-        money: formatNumber(100000),
+        money: 100000,
         statValue: 100,
         stat: "endurance",
         extra: "1 market share",
@@ -49,7 +48,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       userValue: userStats?.prison?.escapes || 0,
       requiredValue: 50,
       bonus: {
-        money: formatNumber(125000),
+        money: 125000,
         statValue: 250,
         stat: "charisma",
         extra: "1 extra weapon",
@@ -64,7 +63,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       userValue: userStats?.sabotage.totalSabotages || 0,
       requiredValue: 100,
       bonus: {
-        money: formatNumber(150000),
+        money: 150000,
         statValue: 350,
         stat: "respect",
         extra: "1 extra whore",
@@ -79,7 +78,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       userValue: userUniversityLength || 0,
       requiredValue: 4,
       bonus: {
-        money: formatNumber(200000),
+        money: 200000,
         statValue: 500,
         stat: "intelligence",
         extra: "2 market shares",
@@ -94,7 +93,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       userValue: userStats?.defaultParams.respect || 0,
       requiredValue: 10000,
       bonus: {
-        money: formatNumber(250000),
+        money: 250000,
         statValue: 1000,
         stat: "respect",
         extra: "2 extra weapons",
@@ -109,7 +108,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       userValue: userStats?.defaultParams.intelligence || 0,
       requiredValue: 10000,
       bonus: {
-        money: formatNumber(250000),
+        money: 250000,
         statValue: 1000,
         stat: "intelligence",
         extra: "2 extra whores",

@@ -1,6 +1,9 @@
 import Button from "@/components/ui/button/Button";
 import { IAlleyActions } from "@/constants/actions/alleyactions";
+import { formatNumber } from "@/lib/money";
+import UserContext from "@/store/user-context";
 import Image from "next/image";
+import { useContext, useEffect, useState } from "react";
 import styles from "./AlleyAction.module.scss";
 
 interface IAlleyDetails {
@@ -9,6 +12,24 @@ interface IAlleyDetails {
 }
 
 const AlleyAction = ({ mission, handleAlleyAction }: IAlleyDetails) => {
+  const { user } = useContext(UserContext);
+  const [formattedBonusMoney, setFormattedBonusMoney] = useState("");
+  const [formattedHeistUser, setFormattedHeistUser] = useState("");
+  const [formattedHeistReq, setFormattedHeistReq] = useState("");
+
+  useEffect(() => {
+    const bonusMoney = formatNumber(mission.bonus.money);
+    const heistUserValue = formatNumber(
+      mission.short === "heist" ? mission.userValue : mission.userValue
+    );
+    const heistReqValue = formatNumber(
+      mission.short === "heist" ? mission.requiredValue : mission.requiredValue
+    );
+    setFormattedBonusMoney(bonusMoney);
+    setFormattedHeistUser(heistUserValue);
+    setFormattedHeistReq(heistReqValue);
+  }, [mission]);
+
   const isMissionCompleted = (
     userValue: string | number,
     requiredValue: string | number
@@ -16,6 +37,11 @@ const AlleyAction = ({ mission, handleAlleyAction }: IAlleyDetails) => {
 
   return (
     <div className={styles.actionsContent}>
+      {user && user.alley?.[mission.short] && (
+        <div className={styles.courseCompleted}>
+          <h2>Mission completed!</h2>
+        </div>
+      )}
       <div className={styles.actionImage}>
         <Image
           src={mission.imageSrc}
@@ -38,16 +64,20 @@ const AlleyAction = ({ mission, handleAlleyAction }: IAlleyDetails) => {
               }`}
             >
               <span className={styles.costName}>Your value: </span>
-              {mission.userValue}
+              {mission.short === "heist"
+                ? formattedHeistUser
+                : mission.userValue}
             </p>
             <p className={styles.actionCost}>
               <span className={styles.costName}>Required: </span>
-              {mission.requiredValue}
+              {mission.short === "heist"
+                ? formattedHeistReq
+                : mission.requiredValue}
             </p>
           </div>
           <div className={styles.actionCosts}>
             <p className="custom-label">Bonus:</p>
-            <p className={styles.costName}>+ {mission.bonus.money}</p>
+            <p className={styles.costName}>+ {formattedBonusMoney}</p>
             <p className={styles.costName}>
               + {mission.bonus.statValue} {mission.bonus.stat}
             </p>
@@ -58,7 +88,8 @@ const AlleyAction = ({ mission, handleAlleyAction }: IAlleyDetails) => {
             secondary
             fullSize
             disabled={
-              !isMissionCompleted(mission.userValue, mission.requiredValue)
+              !isMissionCompleted(mission.userValue, mission.requiredValue) ||
+              user?.alley?.[mission.short]
             }
           >
             Collect

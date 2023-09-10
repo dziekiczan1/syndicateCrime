@@ -1,3 +1,4 @@
+import { Alley } from "@/pages/api/user/alleyActions";
 import { Weapon } from "@/pages/api/user/blackmarketActions";
 import { Buildings } from "@/pages/api/user/buildingsActions";
 import { MarketCompany } from "@/pages/api/user/marketActions";
@@ -38,6 +39,7 @@ export interface IUser {
   university?: University;
   sabotage?: Sabotage;
   market?: MarketCompany[];
+  alley?: Alley;
 }
 
 export interface IUserContextType {
