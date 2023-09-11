@@ -24,6 +24,24 @@ const BuildingsContent: React.FC = () => {
     await handleAction("/api/user/buildingsActions", { building, action });
   };
 
+  const isAlleyHeist = user?.alley?.heist;
+  const isAlleyUniversity = user?.alley?.university;
+  const isUserArchitecture = user?.university?.architecture;
+
+  let buildingsMaxLimit = 3;
+
+  if (isUserArchitecture) {
+    buildingsMaxLimit = 8;
+  }
+
+  if (isAlleyHeist) {
+    buildingsMaxLimit += 1;
+  }
+
+  if (isAlleyUniversity) {
+    buildingsMaxLimit += 2;
+  }
+
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
@@ -58,9 +76,7 @@ const BuildingsContent: React.FC = () => {
       {
         <p className="maxLimit">
           Your current maximum limit for buildings is:{" "}
-          <span>
-            {user?.university && user.university.architecture ? 8 : 3}
-          </span>
+          <span>{user && buildingsMaxLimit}</span>
         </p>
       }
       <p className="tableHeading">All buildings:</p>

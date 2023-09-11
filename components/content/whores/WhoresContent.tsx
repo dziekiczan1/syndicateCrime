@@ -79,7 +79,7 @@ const WhoresContent: React.FC = () => {
       {
         <p className="maxLimit">
           Your current maximum limit for whores is:{" "}
-          <span>{whoresMaxLimit}</span>
+          <span>{user && whoresMaxLimit}</span>
         </p>
       }
       <p className="tableHeading">All whores:</p>

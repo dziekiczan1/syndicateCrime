@@ -52,10 +52,38 @@ export default async function handler(
       }
 
       let existingWhore;
+      let existingBuilding;
 
       const extraWhore = { name: "Lollipop", cost: 1000, earnings: 60000 };
+      const extraBuilding = { name: "Arena", cost: 1000, bonus: 175000 };
 
       switch (mission.short) {
+        case "heist":
+          if (updatedUser.alley.heist) {
+            return res
+              .status(400)
+              .json({ error: "You already completed this mission." });
+          }
+          updatedUser.alley.heist = true;
+          updatedUser.defaultParams.money += mission.bonus.money;
+          updatedUser.defaultParams.endurance += mission.bonus.statValue;
+
+          existingBuilding = updatedUser.buildings?.find(
+            (b) => b.name === extraBuilding.name
+          );
+
+          if (existingBuilding) {
+            existingBuilding.count = (existingBuilding.count || 0) + 1;
+          } else {
+            if (!updatedUser.buildings) {
+              updatedUser.buildings = [];
+            }
+            updatedUser.buildings.push({ ...extraBuilding, count: 1 });
+          }
+
+          successMessage = "Successfully completed heist mission";
+          break;
+
         case "sabotage":
           if (updatedUser.alley.sabotage) {
             return res
@@ -105,7 +133,7 @@ export default async function handler(
             updatedUser.whores.push({ ...extraWhore, count: 2 });
           }
 
-          successMessage = "Successfully completed sabotage mission";
+          successMessage = "Successfully completed intelligence mission";
           break;
 
         default:

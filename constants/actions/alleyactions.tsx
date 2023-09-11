@@ -36,7 +36,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
         money: 100000,
         statValue: 100,
         stat: "endurance",
-        extra: "1 market share",
+        extra: "1 extra building",
       },
     },
     {
@@ -81,7 +81,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
         money: 200000,
         statValue: 500,
         stat: "intelligence",
-        extra: "2 market shares",
+        extra: "2 extra buildings",
       },
     },
     {
