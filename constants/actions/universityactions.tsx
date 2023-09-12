@@ -23,7 +23,6 @@ export const universityActions: IUniversityActions[] = [
     cost: 250000,
     reqRespect: 1000,
     reqName: "Intelligence",
-
     reqValue: 1500,
     bonus: "Increases your maximum limit for buildings up to 8.",
   },

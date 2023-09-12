@@ -58,7 +58,23 @@ export default async function handler(
         successMessage = `You have successfully bought the whore named ${whore.name}!`;
       }
 
-      const whoresMaxLimit = user.university?.pimp ? 10 : 5;
+      const isAlleySabotage = user.alley?.sabotage;
+      const isAlleyIntelligence = user.alley?.intelligence;
+      const isUserPimp = user.university?.pimp;
+
+      let whoresMaxLimit = 5;
+
+      if (isUserPimp) {
+        whoresMaxLimit = 10;
+      }
+
+      if (isAlleySabotage) {
+        whoresMaxLimit += 1;
+      }
+
+      if (isAlleyIntelligence) {
+        whoresMaxLimit += 2;
+      }
 
       const totalWhoreCount = updatedUser.whores?.reduce(
         (total, w) => total + (w.count || 0),
@@ -84,6 +100,10 @@ export default async function handler(
 
       if (!existingWhore) {
         return res.status(400).json({ error: "Whore not found" });
+      }
+
+      if (whore.name === "Lollipop") {
+        return res.status(400).json({ error: "You can't sell Lollipop!" });
       }
 
       existingWhore.count = (existingWhore.count || 0) - 1;

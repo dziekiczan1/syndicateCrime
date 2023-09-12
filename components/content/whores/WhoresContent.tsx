@@ -17,6 +17,24 @@ const WhoresContent: React.FC = () => {
   const { user } = useContext(UserContext);
   const messageRef = useRef<HTMLDivElement>(null);
 
+  const isAlleySabotage = user?.alley?.sabotage;
+  const isAlleyIntelligence = user?.alley?.intelligence;
+  const isUserPimp = user?.university?.pimp;
+
+  let whoresMaxLimit = 5;
+
+  if (isUserPimp) {
+    whoresMaxLimit = 10;
+  }
+
+  if (isAlleySabotage) {
+    whoresMaxLimit += 1;
+  }
+
+  if (isAlleyIntelligence) {
+    whoresMaxLimit += 2;
+  }
+
   const activeWhoreTheads = ["Name", "Count", "Earnings per day", "Manage"];
   const allWhoresTheads = ["Name", "Cost", "Earnings per day", "Buy"];
 
@@ -61,7 +79,7 @@ const WhoresContent: React.FC = () => {
       {
         <p className="maxLimit">
           Your current maximum limit for whores is:{" "}
-          <span>{user?.university && user.university.pimp ? 10 : 5}</span>
+          <span>{user && whoresMaxLimit}</span>
         </p>
       }
       <p className="tableHeading">All whores:</p>

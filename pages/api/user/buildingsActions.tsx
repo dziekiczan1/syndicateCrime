@@ -58,7 +58,23 @@ export default async function handler(
         successMessage = `You have successfully bought ${building.name}!`;
       }
 
-      const buildingsMaxLimit = user.university?.architecture ? 8 : 3;
+      const isAlleyHeist = user.alley?.heist;
+      const isAlleyUniversity = user.alley?.university;
+      const isUserArchitecture = user.university?.architecture;
+
+      let buildingsMaxLimit = 3;
+
+      if (isUserArchitecture) {
+        buildingsMaxLimit = 8;
+      }
+
+      if (isAlleyHeist) {
+        buildingsMaxLimit += 1;
+      }
+
+      if (isAlleyUniversity) {
+        buildingsMaxLimit += 2;
+      }
 
       const totalBuildingsCount = updatedUser.buildings?.reduce(
         (total, b) => total + (b.count || 0),

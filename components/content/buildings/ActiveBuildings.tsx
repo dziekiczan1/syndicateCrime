@@ -1,6 +1,7 @@
 import Button from "@/components/ui/button/Button";
 import { formatNumber } from "@/lib/money";
 import { Buildings } from "@/pages/api/user/buildingsActions";
+import styles from "./BuildingsContent.module.scss";
 
 interface IActiveBuildings {
   active: Buildings;
@@ -12,7 +13,7 @@ const ActiveBuildings: React.FC<IActiveBuildings> = ({
   handleBuildingsAction,
 }) => {
   return (
-    <tr>
+    <tr className={active.name === "Arena" ? styles.special : ""}>
       <td>
         <p>{active.name}</p>
       </td>
@@ -23,7 +24,11 @@ const ActiveBuildings: React.FC<IActiveBuildings> = ({
         <p>{formatNumber(active.bonus)}</p>
       </td>
       <td>
-        <Button onClick={() => handleBuildingsAction(active, "sell")} fullSize>
+        <Button
+          onClick={() => handleBuildingsAction(active, "sell")}
+          fullSize
+          disabled={active.name === "Arena"}
+        >
           Sell
         </Button>
       </td>

@@ -95,7 +95,10 @@ export default async function handler(
         );
       }
 
-      updatedUser.defaultParams.respect -= weapon.respect;
+      updatedUser.defaultParams.respect = Math.max(
+        updatedUser.defaultParams.respect - weapon.respect,
+        0
+      );
       successMessage = `You have successfully sold ${weapon.name}!`;
     }
 
