@@ -110,6 +110,32 @@ export default async function handler(
           successMessage = "Successfully completed sabotage mission";
           break;
 
+        case "university":
+          if (updatedUser.alley.university) {
+            return res
+              .status(400)
+              .json({ error: "You already completed this mission." });
+          }
+          updatedUser.alley.university = true;
+          updatedUser.defaultParams.money += mission.bonus.money;
+          updatedUser.defaultParams.intelligence += mission.bonus.statValue;
+
+          existingBuilding = updatedUser.buildings?.find(
+            (b) => b.name === extraBuilding.name
+          );
+
+          if (existingBuilding) {
+            existingBuilding.count = (existingBuilding.count || 0) + 2;
+          } else {
+            if (!updatedUser.buildings) {
+              updatedUser.buildings = [];
+            }
+            updatedUser.buildings.push({ ...extraBuilding, count: 2 });
+          }
+
+          successMessage = "Successfully completed heist mission";
+          break;
+
         case "intelligence":
           if (updatedUser.alley.intelligence) {
             return res
