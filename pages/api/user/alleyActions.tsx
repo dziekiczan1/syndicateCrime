@@ -84,6 +84,19 @@ export default async function handler(
           successMessage = "Successfully completed heist mission";
           break;
 
+        case "escape":
+          if (updatedUser.alley.escape) {
+            return res
+              .status(400)
+              .json({ error: "You already completed this mission." });
+          }
+          updatedUser.alley.escape = true;
+          updatedUser.defaultParams.money += mission.bonus.money;
+          updatedUser.defaultParams.charisma += mission.bonus.statValue;
+
+          successMessage = "Successfully completed heist mission";
+          break;
+
         case "sabotage":
           if (updatedUser.alley.sabotage) {
             return res
