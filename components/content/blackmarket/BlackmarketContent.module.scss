@@ -2,4 +2,9 @@
 
 .container {
   color: $color-base-light;
+
+  .special {
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+  }
 }

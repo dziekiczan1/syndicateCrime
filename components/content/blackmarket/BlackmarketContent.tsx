@@ -30,6 +30,24 @@ const BlackmarketContent: React.FC = () => {
     await handleAction("/api/user/blackmarketActions", { weapon, action });
   };
 
+  const isAlleyEscape = user?.alley?.escape;
+  const isAlleyRespect = user?.alley?.respect;
+  const isUserBlackmarket = user?.university?.blackmarket;
+
+  let weaponMaxLimit = 5;
+
+  if (isUserBlackmarket) {
+    weaponMaxLimit = 10;
+  }
+
+  if (isAlleyEscape) {
+    weaponMaxLimit += 1;
+  }
+
+  if (isAlleyRespect) {
+    weaponMaxLimit += 2;
+  }
+
   return (
     <div className={styles.container}>
       <PageHeader pageData={pageData} />
@@ -64,9 +82,7 @@ const BlackmarketContent: React.FC = () => {
       {
         <p className="maxLimit">
           Your current maximum limit for weapons is:{" "}
-          <span>
-            {user?.university && user.university.blackmarket ? 10 : 5}
-          </span>
+          <span>{user && weaponMaxLimit}</span>
         </p>
       }
       <p className="tableHeading">All weapons:</p>

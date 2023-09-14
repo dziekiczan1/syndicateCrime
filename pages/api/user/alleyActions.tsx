@@ -52,9 +52,11 @@ export default async function handler(
       }
 
       let existingWhore;
+      let existingWeapon;
       let existingBuilding;
 
       const extraWhore = { name: "Lollipop", cost: 1000, earnings: 60000 };
+      const extraWeapon = { name: "Venom", cost: 1000, respect: 16000 };
       const extraBuilding = { name: "Arena", cost: 1000, bonus: 175000 };
 
       switch (mission.short) {
@@ -80,6 +82,34 @@ export default async function handler(
             }
             updatedUser.buildings.push({ ...extraBuilding, count: 1 });
           }
+
+          successMessage = "Successfully completed heist mission";
+          break;
+
+        case "escape":
+          if (updatedUser.alley.escape) {
+            return res
+              .status(400)
+              .json({ error: "You already completed this mission." });
+          }
+          updatedUser.alley.escape = true;
+          updatedUser.defaultParams.money += mission.bonus.money;
+          updatedUser.defaultParams.charisma += mission.bonus.statValue;
+
+          existingWeapon = updatedUser.weapons?.find(
+            (w) => w.name === extraWeapon.name
+          );
+
+          if (existingWeapon) {
+            existingWeapon.count = (existingWeapon.count || 0) + 1;
+          } else {
+            if (!updatedUser.weapons) {
+              updatedUser.weapons = [];
+            }
+            updatedUser.weapons.push({ ...extraWeapon, count: 1 });
+          }
+
+          updatedUser.defaultParams.respect += extraWeapon.respect;
 
           successMessage = "Successfully completed heist mission";
           break;
