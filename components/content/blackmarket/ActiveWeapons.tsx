@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button/Button";
 import { Weapon } from "@/pages/api/user/blackmarketActions";
+import styles from "./BlackmarketContent.module.scss";
 
 interface IActiveWeapons {
   active: Weapon;
@@ -11,7 +12,7 @@ const ActiveWeapons: React.FC<IActiveWeapons> = ({
   handleWeaponAction,
 }) => {
   return (
-    <tr>
+    <tr className={active.name === "Venom" ? styles.special : ""}>
       <td>
         <p>{active.name}</p>
       </td>

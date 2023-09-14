@@ -59,7 +59,23 @@ export default async function handler(
         successMessage = `You have successfully bought ${weapon.name}!`;
       }
 
-      const weaponMaxLimit = user.university?.blackmarket ? 10 : 5;
+      const isAlleyEscape = user.alley?.escape;
+      const isAlleyRespect = user.alley?.university;
+      const isUserBlackmarket = user.university?.blackmarket;
+
+      let weaponMaxLimit = 5;
+
+      if (isUserBlackmarket) {
+        weaponMaxLimit = 10;
+      }
+
+      if (isAlleyEscape) {
+        weaponMaxLimit += 1;
+      }
+
+      if (isAlleyRespect) {
+        weaponMaxLimit += 2;
+      }
 
       const totalWeaponsCount = updatedUser.weapons?.reduce(
         (total, w) => total + (w.count || 0),
