@@ -12,6 +12,6 @@
 
   .noResultText {
     @include flexbox($justify-content: $center);
-    margin-top: $size-32;
+    margin-bottom: $size-32;
   }
 }

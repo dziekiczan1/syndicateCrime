@@ -1,7 +1,7 @@
 import PrisonContent from "@/components/content/prison/PrisonContent";
 import GameLayout from "@/components/layout/game/GameLayout";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
+import { withPrisonCheck } from "@/lib/withPrisonCheck";
+import { withSessionCheck } from "@/lib/withSessionCheck";
 
 export default function PrisonScreen() {
   return (
@@ -11,19 +11,10 @@ export default function PrisonScreen() {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
-
-  if (!session) {
+export const getServerSideProps = withPrisonCheck(
+  withSessionCheck(async () => {
     return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
+      props: {},
     };
-  }
-
-  return {
-    props: {},
-  };
-}
+  })
+);

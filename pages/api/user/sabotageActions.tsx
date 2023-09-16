@@ -237,6 +237,9 @@ export default async function handler(
         sabotagedPlayer.defaultParams.life - 20,
         0
       );
+      if (sabotagedPlayer.defaultParams.life <= 0) {
+        sabotagedPlayer.isPlayerDead = true;
+      }
     }
 
     user.defaultParams.energy -= requiredEnergyPoints;
