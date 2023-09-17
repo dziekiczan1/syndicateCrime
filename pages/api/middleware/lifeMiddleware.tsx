@@ -5,20 +5,19 @@ import { authOptions } from "../auth/[...nextauth]";
 import { connectToDatabase } from "@/lib/db";
 import { IUser } from "@/store/user-context";
 
-export interface PrisonMiddlewareResponse {
-  isPrisoner: boolean;
+export interface LifeMiddlewareResponse {
+  isPlayerDead: boolean;
   error?: string;
 }
 
-export async function prisonMiddleware(
+export async function lifeMiddleware(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<PrisonMiddlewareResponse> {
+): Promise<LifeMiddlewareResponse> {
   try {
     const session = await getServerSession(req, res, authOptions);
-
     if (!session) {
-      return { isPrisoner: false, error: "Unauthorized" };
+      return { isPlayerDead: false, error: "Unauthorized" };
     }
     if (session) {
       const { email } = session.user!;
@@ -27,19 +26,19 @@ export async function prisonMiddleware(
       const user = await usersCollection.findOne({ email: email as string });
 
       if (!user) {
-        return { isPrisoner: false, error: "User not found" };
+        return { isPlayerDead: false, error: "User not found" };
       }
 
-      if (user && user.prison?.isPrisoner) {
-        return { isPrisoner: true };
+      if (user && user.defaultParams.life <= 0) {
+        return { isPlayerDead: true };
       }
 
       client.close();
     }
 
-    return { isPrisoner: false };
+    return { isPlayerDead: false };
   } catch (error) {
-    console.error("Error in prisonMiddleware:", error);
-    return { isPrisoner: false, error: "Server error" };
+    console.error("Error in lifeMiddleware:", error);
+    return { isPlayerDead: false, error: "Server error" };
   }
 }

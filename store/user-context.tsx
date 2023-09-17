@@ -40,6 +40,7 @@ export interface IUser {
   sabotage?: Sabotage;
   market?: MarketCompany[];
   alley?: Alley;
+  isPlayerDead?: boolean;
 }
 
 export interface IUserContextType {

@@ -166,6 +166,34 @@ export default async function handler(
           successMessage = "Successfully completed heist mission";
           break;
 
+        case "respect":
+          if (updatedUser.alley.respect) {
+            return res
+              .status(400)
+              .json({ error: "You already completed this mission." });
+          }
+          updatedUser.alley.respect = true;
+          updatedUser.defaultParams.money += mission.bonus.money;
+          updatedUser.defaultParams.respect += mission.bonus.statValue * 2;
+
+          existingWeapon = updatedUser.weapons?.find(
+            (w) => w.name === extraWeapon.name
+          );
+
+          if (existingWeapon) {
+            existingWeapon.count = (existingWeapon.count || 0) + 2;
+          } else {
+            if (!updatedUser.weapons) {
+              updatedUser.weapons = [];
+            }
+            updatedUser.weapons.push({ ...extraWeapon, count: 2 });
+          }
+
+          updatedUser.defaultParams.respect += extraWeapon.respect;
+
+          successMessage = "Successfully completed heist mission";
+          break;
+
         case "intelligence":
           if (updatedUser.alley.intelligence) {
             return res

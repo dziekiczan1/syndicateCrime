@@ -91,7 +91,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       description:
         "Respect is the currency of the streets. Prove your worth by earning 5,000 respect points and solidify your status as a true gangster.",
       userValue: userStats?.defaultParams.respect || 0,
-      requiredValue: 10000,
+      requiredValue: 35000,
       bonus: {
         money: 250000,
         statValue: 1000,
@@ -106,7 +106,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       description:
         "Accumulate 5,000 intelligence points through cunning strategies and astute decision-making to dominate the criminal underworld.",
       userValue: userStats?.defaultParams.intelligence || 0,
-      requiredValue: 10000,
+      requiredValue: 15000,
       bonus: {
         money: 250000,
         statValue: 1000,

@@ -1,26 +1,26 @@
 import {
-  PrisonMiddlewareResponse,
-  prisonMiddleware,
-} from "@/pages/api/middleware/prisonMiddleware";
+  LifeMiddlewareResponse,
+  lifeMiddleware,
+} from "@/pages/api/middleware/lifeMiddleware";
 import {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from "next";
 
-export function withPrisonCheck(
+export function withLifeCheck(
   getPageProps: (context: GetServerSidePropsContext) => Promise<any>
 ) {
   return async function getServerSideProps(context: GetServerSidePropsContext) {
-    const prisonResponse: PrisonMiddlewareResponse = await prisonMiddleware(
+    const lifeResponse: LifeMiddlewareResponse = await lifeMiddleware(
       context.req as NextApiRequest,
       context.res as NextApiResponse
     );
 
-    if (prisonResponse.error || prisonResponse.isPrisoner) {
+    if (lifeResponse.error || lifeResponse.isPlayerDead) {
       return {
         redirect: {
-          destination: "/actions/prison",
+          destination: "/actions/hospital",
           permanent: false,
         },
       };
