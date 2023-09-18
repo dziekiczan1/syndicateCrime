@@ -3,7 +3,7 @@ import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import styles from "./DistrictContent.module.scss";
 
 const DistrictContent = () => {
-  const pageData = pageDescriptions.alley;
+  const pageData = pageDescriptions.districts;
 
   return (
     <div className={styles.container}>

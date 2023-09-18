@@ -88,6 +88,12 @@ const pageDescriptions: IPageDescriptions = {
     title: "Expand Your Empire, Master the Market of Buildings",
     image: sectionsImages.buildings,
   },
+  districts: {
+    description:
+      "Explore the diverse districts of our city, each with its own unique challenges and adventures. In the bustling streets of these neighborhoods, you'll encounter a wide range of missions that will test your skills and determination. Whether you're navigating the labyrinthine alleyways of the Old Quarter or scaling the towering skyscrapers of the Financial District, there's always an opportunity waiting for you. But remember, success in the Districts doesn't come easy. Prepare for thrilling encounters, intricate puzzles, and the race against the clock as you strive to complete your missions and conquer the city, one district at a time.",
+    title: "Embark on District Adventures and Conquer the City",
+    image: sectionsImages.district,
+  },
   alley: {
     description:
       "Dive into the gritty world of the Alley, where opportunities are lurking in the shadows, waiting for a savvy entrepreneur like you. In this dimly lit corner of the city, you'll find a variety of clandestine missions, each with its unique challenges and rewards. But be cautious, for every move you make in the Alley could have consequences. Keep an eye out for rival factions, unexpected twists, and hidden treasures. Only the shrewdest players will rise to the top and become the true master of the Alley.",
