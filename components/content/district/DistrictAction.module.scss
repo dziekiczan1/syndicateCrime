@@ -1,0 +1,65 @@
+@import "../../../styles/_variables.scss";
+
+.actionsContent {
+  @include flexbox($flex-direction: column, $justify-content: space-between);
+  @include border($color: $color-base-orange);
+  position: relative;
+  border-radius: $size-8;
+  overflow: hidden;
+  width: calc($half-size - $size-8);
+  background-color: darken($color-base-dark, 10%);
+
+  @include screen($size: mobile) {
+    width: $full-size;
+  }
+
+  .courseCompleted {
+    position: absolute;
+    top: $null;
+    left: $null;
+    width: $full-size;
+    height: $full-size;
+    background-color: rgba($color-base-dark, 0.9);
+    z-index: 3;
+
+    h2 {
+      position: absolute;
+      width: $full-size;
+      top: $quarter-size;
+      color: $color-base-orange;
+      text-align: $center;
+    }
+  }
+}
+
+.actionImage {
+  @include flexbox($justify-content: $center, $align-items: $center);
+  width: $full-size;
+
+  img {
+    width: $full-size;
+  }
+}
+
+.actionInformation {
+  flex: 1;
+  padding: $size-12;
+
+  .actionName {
+    font-weight: $font-weight-bold;
+    color: $color-base-orange;
+    margin-bottom: $size-8;
+  }
+
+  .actionDetails {
+    @include flexbox($flex-direction: column, $gap: $size-16);
+
+    .costName {
+      color: $color-base-orange;
+    }
+  }
+
+  .actionDescription {
+    @include font-size($size-12);
+  }
+}
