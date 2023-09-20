@@ -8,7 +8,7 @@ import { getSession } from "next-auth/react";
 export default function CasinoScreen() {
   const isUserAuthorized = useUserStatus();
 
-  if (isUserAuthorized === true) {
+  if (isUserAuthorized) {
     return (
       <GameLayout>
         <CasinoContent />

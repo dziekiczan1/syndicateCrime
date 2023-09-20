@@ -46,10 +46,20 @@ export default async function handler(
 
     const updatedUser: IUserWithDistrict = { ...user };
 
+    if (!updatedUser.district) {
+      updatedUser.district ??= {
+        grandmother: { status: "unfinished", timeRemaining: 0 },
+        grandfather: { status: "unfinished", timeRemaining: 0 },
+      };
+    }
+
     if (mission) {
       switch (mission.short) {
         case "grandmother": {
-          console.log("grandmother");
+          updatedUser.district.grandmother = {
+            status: "inprogress",
+            timeRemaining: mission.time,
+          };
 
           break;
         }
