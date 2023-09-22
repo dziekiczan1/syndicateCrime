@@ -24,11 +24,10 @@ const DistrictAction = ({
   const newMissionTime = mission.time;
   const missionPercentage =
     missionSeconds && calculatePercentage(newMissionTime, missionSeconds);
-  console.log(missionPercentage);
 
   return (
     <div className={styles.actionsContent}>
-      {user && user.alley?.[mission.short] && (
+      {user && user.district?.[mission.short]?.status === "finished" && (
         <div className={styles.courseCompleted}>
           <h2>Mission completed!</h2>
         </div>
