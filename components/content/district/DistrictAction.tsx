@@ -1,4 +1,5 @@
 import Button from "@/components/ui/button/Button";
+import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import { IDistrictActions } from "@/constants/actions/districtactions";
 import { calculatePercentage, formatTime } from "@/lib/missionTime";
 import UserContext from "@/store/user-context";
@@ -22,7 +23,8 @@ const DistrictAction = ({
   const missionTime = missionSeconds && formatTime(missionSeconds);
   const newMissionTime = mission.time;
   const missionPercentage =
-    missionSeconds && calculatePercentage(5840, missionSeconds);
+    missionSeconds && calculatePercentage(newMissionTime, missionSeconds);
+  console.log(missionPercentage);
 
   return (
     <div className={styles.actionsContent}>
@@ -43,6 +45,10 @@ const DistrictAction = ({
         <p className={styles.actionName}>{mission.name}</p>
         <div className={styles.actionDetails}>
           <p className={styles.actionDescription}>{mission.description}</p>
+          <p>Time Left: {missionTime}</p>
+          {typeof missionPercentage === "number" && (
+            <ProgressBar name="Progress" completed={missionPercentage} />
+          )}
           <Button
             onClick={() => handleDistrictAction(mission)}
             secondary

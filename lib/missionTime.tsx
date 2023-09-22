@@ -17,6 +17,10 @@ export function calculatePercentage(number1: number, number2: number) {
     return 0;
   }
 
-  const percentage = Math.round((number2 / number1) * 100);
+  const timePercentage = Math.round((number2 / number1) * 100);
+  const maxPercentage = 100;
+
+  const percentage = maxPercentage - timePercentage;
+
   return percentage;
 }
