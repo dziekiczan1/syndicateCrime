@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button/Button";
 import { IDistrictActions } from "@/constants/actions/districtactions";
+import { calculatePercentage, formatTime } from "@/lib/missionTime";
 import UserContext from "@/store/user-context";
 import Image from "next/image";
 import { useContext } from "react";
@@ -15,6 +16,13 @@ const DistrictAction = ({
   handleDistrictAction,
 }: IDistrictDetails) => {
   const { user } = useContext(UserContext);
+
+  const missionSeconds =
+    user && user.district && user.district.grandmother.timeRemaining;
+  const missionTime = missionSeconds && formatTime(missionSeconds);
+  const newMissionTime = mission.time;
+  const missionPercentage =
+    missionSeconds && calculatePercentage(5840, missionSeconds);
 
   return (
     <div className={styles.actionsContent}>
