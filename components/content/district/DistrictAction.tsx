@@ -18,69 +18,84 @@ const DistrictAction = ({
   handleDistrictAction,
 }: IDistrictDetails) => {
   const { user } = useContext(UserContext);
-  const [formattedBonusMoney, setFormattedBonusMoney] = useState("");
+  const [missionTime, setMissionTime] = useState(mission.missionTime);
+  const [missionPercentage, setMissionPercentage] = useState(0);
 
   useEffect(() => {
-    const bonusMoney = formatNumber(mission.bonusOne);
-    setFormattedBonusMoney(bonusMoney);
-  }, [mission]);
+    const missionSeconds = user?.district?.[mission.short]?.timeRemaining;
+    const missionPercentage = calculatePercentage(mission.time, missionSeconds);
+    const missionTime = formatTime(missionSeconds);
+    setMissionTime(missionTime);
+    setMissionPercentage(missionPercentage);
+  }, [user, mission]);
 
-  const missionSeconds =
-    user && user.district && user.district.grandmother.timeRemaining;
-  const missionTime = missionSeconds && formatTime(missionSeconds);
-  const newMissionTime = mission.time;
-  const missionPercentage =
-    missionSeconds && calculatePercentage(newMissionTime, missionSeconds);
+  const formattedBonusMoney = formatNumber(mission.bonusOne);
+
+  const isMissionInProgress =
+    user?.district?.[mission.short]?.status === "inprogress";
+  const missionsInProgress = user?.district?.missionsStatus === "inprogress";
 
   return (
-    <div className={styles.actionsContent}>
-      {user && user.district?.[mission.short]?.status === "finished" && (
-        <div className={styles.courseCompleted}>
-          <h2>Mission completed!</h2>
-        </div>
+    <>
+      {isMissionInProgress && (
+        <p className={`${styles.inProgress} tableHeading`}>
+          Mission in progress:
+        </p>
       )}
-      <div className={styles.actionImage}>
-        <Image
-          src={mission.imageSrc}
-          width={300}
-          height={150}
-          alt={mission.name}
-        />
-      </div>
-      <div className={styles.actionInformation}>
-        <p className={styles.actionName}>{mission.name}</p>
-        <div className={styles.actionDetails}>
-          <p className={styles.actionDescription}>{mission.description}</p>
-          <div className={styles.actionCosts}>
-            <p className="custom-label">Requirements:</p>
-            <p className={styles.actionCost}>
-              <span className={styles.costName}>Time: </span>
-              {mission.missionTime}
-            </p>
-          </div>
-          <div className={styles.actionCosts}>
-            <p className="custom-label">Bonus:</p>
-            <p className={styles.costName}>+ {formattedBonusMoney}</p>
-            <p className={styles.costName}>+ {mission.bonusOne} intelligence</p>
-          </div>
-          <div className={styles.actionProgress}>
-            {typeof missionPercentage === "number" && (
-              <ProgressBar name="Progress:" completed={missionPercentage} />
+      <div
+        className={`${styles.actionsContent} ${
+          isMissionInProgress && styles.activeAction
+        }`}
+      >
+        <div className={styles.actionImage}>
+          <Image
+            src={mission.imageSrc}
+            width={600}
+            height={300}
+            alt={mission.name}
+          />
+        </div>
+        <div className={styles.actionInformation}>
+          <p className={styles.actionName}>{mission.name}</p>
+          <div className={styles.actionDetails}>
+            <p className={styles.actionDescription}>{mission.description}</p>
+            <div className={styles.actionCosts}>
+              <p className="custom-label">Requirements:</p>
+              <p className={styles.actionCost}>
+                <span className={styles.costName}>Time: </span>
+                {mission.missionTime}
+              </p>
+            </div>
+            <div className={styles.actionCosts}>
+              <p className="custom-label">Bonus:</p>
+              <p className={styles.costName}>+ {formattedBonusMoney}</p>
+              <p className={styles.costName}>
+                + {mission.bonusTwo} intelligence
+              </p>
+            </div>
+            {isMissionInProgress && (
+              <div className={styles.actionProgress}>
+                {typeof missionPercentage === "number" && (
+                  <ProgressBar name="Progress:" completed={missionPercentage} />
+                )}
+                <p>
+                  <span className={styles.costName}>Time Left:</span>{" "}
+                  {missionTime}
+                </p>
+              </div>
             )}
-            <p>
-              <span className={styles.costName}>Time Left:</span> {missionTime}
-            </p>
+            <Button
+              onClick={() => handleDistrictAction(mission)}
+              secondary
+              fullSize
+              disabled={missionsInProgress}
+            >
+              Begin
+            </Button>
           </div>
-          <Button
-            onClick={() => handleDistrictAction(mission)}
-            secondary
-            fullSize
-          >
-            Begin
-          </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

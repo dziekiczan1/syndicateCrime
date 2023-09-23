@@ -1,13 +1,24 @@
 @import "../../../styles/_variables.scss";
 
+.inProgress {
+  width: $full-size;
+}
+
 .actionsContent {
   @include flexbox($flex-direction: column, $justify-content: space-between);
   @include border($color: $color-base-orange);
+  order: 1;
   position: relative;
   border-radius: $size-8;
   overflow: hidden;
   width: calc($half-size - $size-8);
   background-color: darken($color-base-dark, 10%);
+
+  &.activeAction {
+    order: 0;
+    width: $full-size;
+    margin-bottom: $size-32;
+  }
 
   @include screen($size: mobile) {
     width: $full-size;
@@ -42,6 +53,7 @@
 }
 
 .actionInformation {
+  @include flexbox($flex-direction: column);
   flex: 1;
   padding: $size-12;
 
@@ -53,9 +65,14 @@
 
   .actionDetails {
     @include flexbox($flex-direction: column, $gap: $size-16);
+    flex: 1;
 
     .costName {
       color: $color-base-orange;
+    }
+
+    button {
+      margin-top: auto;
     }
   }
 

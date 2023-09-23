@@ -3,7 +3,7 @@ export function formatTime(seconds: number) {
   const minutes = Math.floor((seconds % 3600) / 60);
 
   const formattedHours = hours > 0 ? hours.toString() : "";
-  const formattedMinutes = minutes.toString().padStart(1, "0");
+  const formattedMinutes = minutes.toString().padStart(2, "0");
 
   if (formattedHours) {
     return `${formattedHours}:${formattedMinutes}`;

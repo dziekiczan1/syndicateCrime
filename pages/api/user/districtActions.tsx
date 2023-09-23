@@ -11,8 +11,13 @@ export interface IUserWithDistrict extends IUser {
 
 export interface Mission {
   grandmother: MissionStatus;
-  grandfather: MissionStatus;
-  [key: string]: MissionStatus;
+  undercover: MissionStatus;
+  treasure: MissionStatus;
+  racing: MissionStatus;
+  enigma: MissionStatus;
+  heist: MissionStatus;
+  [key: string]: any;
+  missionsStatus: string;
 }
 
 export interface MissionStatus {
@@ -46,28 +51,7 @@ export default async function handler(
 
     const updatedUser: IUserWithDistrict = { ...user };
 
-    if (!updatedUser.district) {
-      updatedUser.district ??= {
-        grandmother: { status: "unfinished", timeRemaining: 0 },
-        grandfather: { status: "unfinished", timeRemaining: 0 },
-      };
-    }
-
-    if (mission) {
-      switch (mission.short) {
-        case "grandmother": {
-          updatedUser.district.grandmother = {
-            status: "inprogress",
-            timeRemaining: mission.time,
-          };
-
-          break;
-        }
-
-        default:
-          break;
-      }
-    }
+    updateUserDistrict(updatedUser, mission);
 
     await usersCollection.updateOne(
       { email: email as string },
@@ -88,5 +72,41 @@ export default async function handler(
   } catch (error) {
     console.error("Error processing university action:", error);
     return res.status(500).json({ error: "Server error" });
+  }
+}
+
+async function updateUserDistrict(user: IUserWithDistrict, mission: any) {
+  if (!user.district) {
+    user.district = {
+      missionsStatus: "unfinished",
+      grandmother: { status: "unfinished", timeRemaining: 0 },
+      undercover: { status: "unfinished", timeRemaining: 0 },
+      treasure: { status: "unfinished", timeRemaining: 0 },
+      racing: { status: "unfinished", timeRemaining: 0 },
+      enigma: { status: "unfinished", timeRemaining: 0 },
+      heist: { status: "unfinished", timeRemaining: 0 },
+    };
+  }
+
+  if (mission) {
+    user.district.missionsStatus = "inprogress";
+
+    switch (mission.short) {
+      case "grandmother":
+      case "undercover":
+      case "treasure":
+      case "racing":
+      case "enigma":
+      case "heist": {
+        user.district[mission.short] = {
+          status: "inprogress",
+          timeRemaining: mission.time,
+        };
+        break;
+      }
+
+      default:
+        break;
+    }
   }
 }
