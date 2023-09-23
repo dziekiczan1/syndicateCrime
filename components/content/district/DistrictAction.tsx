@@ -2,9 +2,10 @@ import Button from "@/components/ui/button/Button";
 import ProgressBar from "@/components/ui/progressbar/ProgressBar";
 import { IDistrictActions } from "@/constants/actions/districtactions";
 import { calculatePercentage, formatTime } from "@/lib/missionTime";
+import { formatNumber } from "@/lib/money";
 import UserContext from "@/store/user-context";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./DistrictAction.module.scss";
 
 interface IDistrictDetails {
@@ -17,6 +18,12 @@ const DistrictAction = ({
   handleDistrictAction,
 }: IDistrictDetails) => {
   const { user } = useContext(UserContext);
+  const [formattedBonusMoney, setFormattedBonusMoney] = useState("");
+
+  useEffect(() => {
+    const bonusMoney = formatNumber(mission.bonusOne);
+    setFormattedBonusMoney(bonusMoney);
+  }, [mission]);
 
   const missionSeconds =
     user && user.district && user.district.grandmother.timeRemaining;
@@ -44,10 +51,26 @@ const DistrictAction = ({
         <p className={styles.actionName}>{mission.name}</p>
         <div className={styles.actionDetails}>
           <p className={styles.actionDescription}>{mission.description}</p>
-          <p>Time Left: {missionTime}</p>
-          {typeof missionPercentage === "number" && (
-            <ProgressBar name="Progress" completed={missionPercentage} />
-          )}
+          <div className={styles.actionCosts}>
+            <p className="custom-label">Requirements:</p>
+            <p className={styles.actionCost}>
+              <span className={styles.costName}>Time: </span>
+              {mission.missionTime}
+            </p>
+          </div>
+          <div className={styles.actionCosts}>
+            <p className="custom-label">Bonus:</p>
+            <p className={styles.costName}>+ {formattedBonusMoney}</p>
+            <p className={styles.costName}>+ {mission.bonusOne} intelligence</p>
+          </div>
+          <div className={styles.actionProgress}>
+            {typeof missionPercentage === "number" && (
+              <ProgressBar name="Progress:" completed={missionPercentage} />
+            )}
+            <p>
+              <span className={styles.costName}>Time Left:</span> {missionTime}
+            </p>
+          </div>
           <Button
             onClick={() => handleDistrictAction(mission)}
             secondary
