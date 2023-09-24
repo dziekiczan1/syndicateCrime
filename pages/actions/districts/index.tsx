@@ -1,26 +1,28 @@
 import DistrictContent from "@/components/content/district/DistrictContent";
 import GameLayout from "@/components/layout/game/GameLayout";
-import Loading from "@/components/ui/loading/Loading";
-import useUserStatus from "@/lib/useUserStatus";
+import UserContext from "@/store/user-context";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useContext } from "react";
 
 export default function DistrictScreen() {
-  const isUserAuthorized = useUserStatus();
+  const router = useRouter();
+  const { user } = useContext(UserContext);
+  const isUserPrisoner = user?.prison?.isPrisoner;
+  const isUserHospitalized = user && user.defaultParams.life <= 0;
 
-  if (isUserAuthorized === true) {
+  if (isUserPrisoner) {
+    router.push("/actions/prison");
+  } else if (isUserHospitalized) {
+    router.push("/actions/hospital");
+  } else {
     return (
       <GameLayout>
         <DistrictContent />
       </GameLayout>
     );
   }
-
-  return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <Loading />
-    </div>
-  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
