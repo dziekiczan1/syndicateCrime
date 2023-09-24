@@ -1,6 +1,7 @@
 import { Alley } from "@/pages/api/user/alleyActions";
 import { Weapon } from "@/pages/api/user/blackmarketActions";
 import { Buildings } from "@/pages/api/user/buildingsActions";
+import { Mission } from "@/pages/api/user/districtActions";
 import { MarketCompany } from "@/pages/api/user/marketActions";
 import { Sabotage } from "@/pages/api/user/sabotageActions";
 import { University } from "@/pages/api/user/universityActions";
@@ -41,6 +42,7 @@ export interface IUser {
   market?: MarketCompany[];
   alley?: Alley;
   isPlayerDead?: boolean;
+  district?: Mission;
 }
 
 export interface IUserContextType {
