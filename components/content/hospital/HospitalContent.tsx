@@ -2,7 +2,10 @@ import { useContext, useRef } from "react";
 
 import PageHeader from "@/components/ui/pageheader/PageHeader";
 import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
-import { hospitalActions } from "@/constants/actions/hospitalactions";
+import {
+  hospitalActions,
+  lifeActions,
+} from "@/constants/actions/hospitalactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
@@ -31,20 +34,33 @@ const HospitalContent: React.FC = () => {
         messageRef={messageRef}
       />
       <div className={styles.actionsContainer}>
-        {user &&
-          hospitalActions.map((action, key) => (
-            <HospitalAction
-              key={key}
-              imageSrc={action.imageSrc}
-              name={action.name}
-              description={action.description}
-              costEnergy={action.costEnergy}
-              costMoney={action.costMoney}
-              bonus={action.bonus}
-              buttonText={action.buttonText}
-              onAction={() => handleHospitalAction(action.onAction)}
-            />
-          ))}
+        {user && user.defaultParams.life === 0
+          ? lifeActions.map((action, key) => (
+              <HospitalAction
+                key={key}
+                imageSrc={action.imageSrc}
+                name={action.name}
+                description={action.description}
+                costEnergy={action.costEnergy}
+                costMoney={action.costMoney}
+                bonus={action.bonus}
+                buttonText={action.buttonText}
+                onAction={() => handleHospitalAction(action.onAction)}
+              />
+            ))
+          : hospitalActions.map((action, key) => (
+              <HospitalAction
+                key={key}
+                imageSrc={action.imageSrc}
+                name={action.name}
+                description={action.description}
+                costEnergy={action.costEnergy}
+                costMoney={action.costMoney}
+                bonus={action.bonus}
+                buttonText={action.buttonText}
+                onAction={() => handleHospitalAction(action.onAction)}
+              />
+            ))}
       </div>
     </div>
   );
