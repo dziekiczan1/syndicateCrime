@@ -2,8 +2,8 @@ import GangContent from "@/components/content/gang/GangContent";
 import GameLayout from "@/components/layout/game/GameLayout";
 import Loading from "@/components/ui/loading/Loading";
 import useUserStatus from "@/lib/useUserStatus";
-import { withPrisonCheck } from "@/lib/withPrisonCheck";
-import { withSessionCheck } from "@/lib/withSessionCheck";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 
 export default function GangScreen() {
   const isUserAuthorized = useUserStatus();
@@ -25,10 +25,19 @@ export default function GangScreen() {
   );
 }
 
-export const getServerSideProps = withPrisonCheck(
-  withSessionCheck(async () => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+
+  if (!session) {
     return {
-      props: {},
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
     };
-  })
-);
+  }
+
+  return {
+    props: {},
+  };
+}
