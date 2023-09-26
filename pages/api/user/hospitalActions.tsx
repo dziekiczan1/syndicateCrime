@@ -64,6 +64,39 @@ export default async function handler(
       } else {
         return res.status(400).json({ error: "Not enough energy!" });
       }
+    } else if (action === "bandaid") {
+      if (
+        user.defaultParams.money >= solutionCost &&
+        user.defaultParams.energy >= 20
+      ) {
+        user.defaultParams.money -= solutionCost;
+        user.defaultParams.energy -= 20;
+        user.defaultParams.life += 20;
+
+        if (user.defaultParams.life > 100) {
+          user.defaultParams.life = 100;
+        }
+
+        successMessage = "You start to feel better now.";
+      } else {
+        return res.status(400).json({ error: "Insufficient funds" });
+      }
+    } else if (action === "firstaidkit") {
+      if (user.defaultParams.energy >= 100) {
+        user.defaultParams.energy -= 100;
+        user.defaultParams.life = 100;
+        successMessage = "You start to feel better now.";
+      } else {
+        return res.status(400).json({ error: "Not enough energy!" });
+      }
+    } else if (action === "lifeelixir") {
+      if (user.defaultParams.money >= injectionCost) {
+        user.defaultParams.money -= injectionCost;
+        user.defaultParams.life = 100;
+        successMessage = "You start to feel better now.";
+      } else {
+        return res.status(400).json({ error: "Insufficient funds" });
+      }
     } else {
       return res.status(400).json({ error: "Invalid action" });
     }
