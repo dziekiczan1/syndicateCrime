@@ -72,6 +72,7 @@ export default async function handler(
         user.defaultParams.money -= solutionCost;
         user.defaultParams.energy -= 20;
         user.defaultParams.life += 20;
+        user.isPlayerDead = false;
 
         if (user.defaultParams.life > 100) {
           user.defaultParams.life = 100;
@@ -85,6 +86,7 @@ export default async function handler(
       if (user.defaultParams.energy >= 100) {
         user.defaultParams.energy -= 100;
         user.defaultParams.life = 100;
+        user.isPlayerDead = false;
         successMessage = "You start to feel better now.";
       } else {
         return res.status(400).json({ error: "Not enough energy!" });
@@ -93,6 +95,8 @@ export default async function handler(
       if (user.defaultParams.money >= injectionCost) {
         user.defaultParams.money -= injectionCost;
         user.defaultParams.life = 100;
+        user.isPlayerDead = false;
+
         successMessage = "You start to feel better now.";
       } else {
         return res.status(400).json({ error: "Insufficient funds" });
