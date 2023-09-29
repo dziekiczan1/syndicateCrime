@@ -23,24 +23,6 @@
   @include screen($size: mobile) {
     width: $full-size;
   }
-
-  .courseCompleted {
-    position: absolute;
-    top: $null;
-    left: $null;
-    width: $full-size;
-    height: $full-size;
-    background-color: rgba($color-base-dark, 0.9);
-    z-index: 3;
-
-    h2 {
-      position: absolute;
-      width: $full-size;
-      top: $quarter-size;
-      color: $color-base-orange;
-      text-align: $center;
-    }
-  }
 }
 
 .actionImage {

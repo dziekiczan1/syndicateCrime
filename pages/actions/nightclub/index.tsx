@@ -1,20 +1,43 @@
 import NightclubContent from "@/components/content/nightclub/NightclubContent";
 import GameLayout from "@/components/layout/game/GameLayout";
-import { withPrisonCheck } from "@/lib/withPrisonCheck";
-import { withSessionCheck } from "@/lib/withSessionCheck";
+import Loading from "@/components/ui/loading/Loading";
+import useUserStatus from "@/lib/useUserStatus";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 
 export default function NightclubScreen() {
+  const isUserAuthorized = useUserStatus();
+
+  if (isUserAuthorized) {
+    return (
+      <GameLayout>
+        <NightclubContent />
+      </GameLayout>
+    );
+  }
+
   return (
     <GameLayout>
-      <NightclubContent />
+      <div className="flex items-center justify-center">
+        <Loading />
+      </div>
     </GameLayout>
   );
 }
 
-export const getServerSideProps = withPrisonCheck(
-  withSessionCheck(async () => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+
+  if (!session) {
     return {
-      props: {},
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
     };
-  })
-);
+  }
+
+  return {
+    props: {},
+  };
+}

@@ -10,8 +10,11 @@ const useUserStatus = () => {
     router.push("/actions/hospital");
     return null;
   } else {
-    if (user && user.prison?.isPrisoner) {
+    if (user && user.prison?.isPrisoner === true) {
       router.push("/actions/prison");
+      return null;
+    } else if (user && user.district?.missionsStatus === "inprogress") {
+      router.push("/actions/districts");
       return null;
     }
   }

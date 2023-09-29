@@ -17,9 +17,11 @@ export default function CasinoScreen() {
   }
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <Loading />
-    </div>
+    <GameLayout>
+      <div className="flex items-center justify-center">
+        <Loading />
+      </div>
+    </GameLayout>
   );
 }
 

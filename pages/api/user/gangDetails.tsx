@@ -62,12 +62,14 @@ export default async function handler(
             "defaultParams.life": { $gte: minLife },
             "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
             "sabotage.lastLostSabotageDetails.date": { $ne: today },
+            "prison.isPrisoner": false,
           },
           {
             "defaultParams.gang": { $exists: false },
             "defaultParams.life": { $gte: minLife },
             "defaultParams.respect": { $gte: minRespect, $lte: maxRespect },
             "sabotage.lastLostSabotageDetails.date": { $ne: today },
+            "prison.isPrisoner": { $exists: false },
           },
         ],
       };
