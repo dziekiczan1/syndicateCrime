@@ -19,7 +19,8 @@ export interface IAlleyActions {
 export const alleyActions = (userStats: any): IAlleyActions[] => {
   const userUniversityLength =
     userStats &&
-    Object.keys(userStats?.university).filter(
+    userStats?.university &&
+    Object.keys(userStats.university).filter(
       (key) => userStats.university[key] === true
     ).length;
 
