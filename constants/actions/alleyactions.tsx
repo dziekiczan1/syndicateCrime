@@ -61,7 +61,7 @@ export const alleyActions = (userStats: any): IAlleyActions[] => {
       imageSrc: alleyImages.sabotage,
       description:
         "Become the master of chaos by sabotaging the plans of your rivals. Your target: at least 100 individuals. The more chaos, the better your reputation in the criminal world.",
-      userValue: userStats?.sabotage.totalSabotages || 0,
+      userValue: userStats?.sabotage?.totalSabotages || 0,
       requiredValue: 100,
       bonus: {
         money: 150000,
