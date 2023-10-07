@@ -25,10 +25,6 @@ const GangAction = ({ gang, handleGangAction }: IGangDetails) => {
                 {gang.minRespect}
               </p>
             </div>
-            <div className={styles.bonus}>
-              <p className="custom-label">Bonus:</p>
-              <p className={styles.costName}>Bonus</p>
-            </div>
           </div>
           <Button onClick={() => handleGangAction(gang)} secondary fullSize>
             Declare your loyalty!
