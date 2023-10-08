@@ -32,7 +32,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
   const [isActionsInterfaceVisible, setActionsInterfaceVisible] =
     useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [stickyClass, setStickyClass] = useState("relative");
+  const [stickyClass, setStickyClass] = useState("hidden");
 
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
@@ -45,8 +45,14 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
   const stickNavbar = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight > 500
-        ? setStickyClass("lg:hidden fixed top-0 left-0 z-50")
+      windowHeight > 250
+        ? setStickyClass(
+            `${
+              isUserInterfaceVisible
+                ? "hidden"
+                : "lg:hidden fixed top-0 left-0 right-0 z-[8]"
+            }`
+          )
         : setStickyClass("hidden");
     }
   };
@@ -107,7 +113,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
         <div className={styles.actions}>
           <div className={styles.sidebar}>
             <div className={stickyClass}>
-              <MobileSticky />
+              <MobileSticky handleProfileClick={handleProfileClick} />
             </div>
             <div className={styles.logoWrapper}>
               <Logo width={674} height={301} />
