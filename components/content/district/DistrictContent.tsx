@@ -1,5 +1,8 @@
 import PageHeader from "@/components/ui/pageheader/PageHeader";
-import { districtActions } from "@/constants/actions/districtactions";
+import {
+  IDistrictActions,
+  districtActions,
+} from "@/constants/actions/districtactions";
 import pageDescriptions from "@/constants/descriptions/pagedescriptions";
 import useResponseHandler from "@/lib/useResponseHandler";
 import UserContext from "@/store/user-context";
@@ -14,8 +17,11 @@ const DistrictContent = () => {
   const { errorMessage, actionMessage, isLoading, handleAction } =
     useResponseHandler(messageRef);
 
-  const handleDistrictAction = async (mission: any) => {
-    await handleAction("/api/user/districtActions", { mission });
+  const handleDistrictAction = async (
+    mission: IDistrictActions,
+    action?: string
+  ) => {
+    await handleAction("/api/user/districtActions", { mission, action });
   };
 
   return (
