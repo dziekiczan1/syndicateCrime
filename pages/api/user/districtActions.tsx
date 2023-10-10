@@ -47,11 +47,11 @@ export default async function handler(
       return res.status(404).json({ error: "User not found" });
     }
 
-    const { mission } = req.body;
+    const { mission, action } = req.body;
 
     const updatedUser: IUserWithDistrict = { ...user };
 
-    updateUserDistrict(updatedUser, mission);
+    updateUserDistrict(updatedUser, mission, action);
 
     await usersCollection.updateOne(
       { email: email as string },
@@ -75,8 +75,12 @@ export default async function handler(
   }
 }
 
-async function updateUserDistrict(user: IUserWithDistrict, mission: any) {
-  if (!user.district) {
+async function updateUserDistrict(
+  user: IUserWithDistrict,
+  mission: any,
+  action?: string
+) {
+  if (!user.district || action === "abort") {
     user.district = {
       missionsStatus: "unfinished",
       grandmother: { status: "unfinished", timeRemaining: 0 },
@@ -88,7 +92,7 @@ async function updateUserDistrict(user: IUserWithDistrict, mission: any) {
     };
   }
 
-  if (mission) {
+  if (mission && !action) {
     user.district.missionsStatus = "inprogress";
 
     switch (mission.short) {

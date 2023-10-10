@@ -10,7 +10,7 @@ import styles from "./DistrictAction.module.scss";
 
 interface IDistrictDetails {
   mission: IDistrictActions;
-  handleDistrictAction: (mission: IDistrictActions) => void;
+  handleDistrictAction: (mission: IDistrictActions, action?: string) => void;
 }
 
 const DistrictAction = ({
@@ -85,12 +85,16 @@ const DistrictAction = ({
               </div>
             )}
             <Button
-              onClick={() => handleDistrictAction(mission)}
+              onClick={() =>
+                isMissionInProgress
+                  ? handleDistrictAction(mission, "abort")
+                  : handleDistrictAction(mission)
+              }
               secondary
               fullSize
-              disabled={missionsInProgress}
+              disabled={!isMissionInProgress && missionsInProgress}
             >
-              Begin
+              {isMissionInProgress ? "Abort" : "Begin"}
             </Button>
           </div>
         </div>

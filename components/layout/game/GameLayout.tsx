@@ -17,6 +17,7 @@ import sliderData from "@/constants/descriptions/sliderdata";
 import UserContext from "@/store/user-context";
 import Footer from "../footer/Footer";
 import Logo from "../logo/Logo";
+import MobileSticky from "../mobilesticky/MobileSticky";
 import styles from "./GameLayout.module.scss";
 
 export interface IGameLayout {
@@ -31,6 +32,30 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
   const [isActionsInterfaceVisible, setActionsInterfaceVisible] =
     useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [stickyClass, setStickyClass] = useState("hidden");
+
+  useEffect(() => {
+    window.addEventListener("scroll", stickNavbar);
+
+    return () => {
+      window.removeEventListener("scroll", stickNavbar);
+    };
+  }, []);
+
+  const stickNavbar = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 250
+        ? setStickyClass(
+            `${
+              isUserInterfaceVisible
+                ? "hidden"
+                : "lg:hidden fixed top-0 left-0 right-0 z-[8]"
+            }`
+          )
+        : setStickyClass("hidden");
+    }
+  };
 
   const handleProfileClick = () => {
     setUserInterfaceVisible((prevState) => !prevState);
@@ -87,6 +112,9 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
           )}
         <div className={styles.actions}>
           <div className={styles.sidebar}>
+            <div className={stickyClass}>
+              <MobileSticky handleProfileClick={handleProfileClick} />
+            </div>
             <div className={styles.logoWrapper}>
               <Logo width={674} height={301} />
             </div>
