@@ -36,9 +36,9 @@ const MobileSticky: React.FC<IMobileSticky> = ({ handleProfileClick }) => {
               </p>
               <div className={styles.divider}></div>
               <p className="custom-label">
-                Respect:{" "}
+                Energy:{" "}
                 <p className={styles.statsValue}>
-                  {user.defaultParams.respect}
+                  {user.defaultParams.energy}%
                 </p>
               </p>
             </div>
