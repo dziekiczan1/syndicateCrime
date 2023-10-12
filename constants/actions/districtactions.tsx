@@ -21,7 +21,7 @@ export const districtActions: IDistrictActions[] = [
       "Embark on an urban adventure with Grandma as your guide. Follow her through the cityscape and enjoy local flavors. This 4-hour mission promises an unforgettable experience.",
     missionTime: "4 hours",
     bonusOne: 2500,
-    bonusTwo: 500,
+    bonusTwo: 50,
     time: 14400,
   },
   {
@@ -32,7 +32,7 @@ export const districtActions: IDistrictActions[] = [
       "Join the ranks of elite agents on a top-secret mission. Infiltrate enemy lines, gather vital intelligence, and unravel a web of espionage. Your 6-hour mission will test your wit and cunning.",
     missionTime: "6 hours",
     bonusOne: 5000,
-    bonusTwo: 750,
+    bonusTwo: 75,
     time: 21600,
   },
   {
@@ -43,7 +43,7 @@ export const districtActions: IDistrictActions[] = [
       "Embark on a thrilling treasure hunt through ancient ruins. Unearth lost relics, solve cryptic puzzles, and face unexpected challenges. Your 8-hour quest promises legendary discoveries.",
     missionTime: "8 hours",
     bonusOne: 7500,
-    bonusTwo: 1000,
+    bonusTwo: 100,
     time: 28800,
   },
   {
@@ -54,7 +54,7 @@ export const districtActions: IDistrictActions[] = [
       "Rev your engines for a high-speed racing showdown. Compete against fierce rivals on twisting tracks, upgrade your car, and aim for victory in this 12-hour race to the finish.",
     missionTime: "12 hours",
     bonusOne: 10000,
-    bonusTwo: 1500,
+    bonusTwo: 150,
     time: 43200,
   },
   {
@@ -65,7 +65,7 @@ export const districtActions: IDistrictActions[] = [
       "Embark on a journey of puzzling enigmas and riddles. Challenge your mind with cryptic conundrums and unlock the secrets hidden within. Your 16-hour adventure into the world of mysteries awaits.",
     missionTime: "16 hours",
     bonusOne: 17500,
-    bonusTwo: 2000,
+    bonusTwo: 200,
     time: 57600,
   },
   {
@@ -76,7 +76,7 @@ export const districtActions: IDistrictActions[] = [
       "Become a master thief on a daring heist through a shadowy metropolis. Outsmart security systems, crack safes, and steal valuable artifacts. Your thrilling 24-hour mission is the ultimate test of stealth.",
     missionTime: "24 hours",
     bonusOne: 25000,
-    bonusTwo: 3000,
+    bonusTwo: 300,
     time: 86400,
   },
 ];
