@@ -24,12 +24,14 @@ export default function Home() {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="no-scrollbar relative flex flex-col items-center h-screen gap-16 lg:gap-32 z-1 overflow-y-scroll overflow-x-hidden px-4 py-8 lg:px-0">
-          <div className="w-full lg:w-1/2 lg:flex lg:justify-center">
-            <Logo width={674} height={301} />
-          </div>
-          <div className="w-full lg:w-1/2">
-            <AuthForm />
+        <div className="no-scrollbar relative h-screen z-1 overflow-y-scroll overflow-x-hidden px-4 py-8 lg:px-0">
+          <div className="w-full flex flex-col items-center gap-16 lg:gap-32 ">
+            <div className="w-3/4 lg:w-1/3 lg:flex lg:justify-center">
+              <Logo width={674} height={301} />
+            </div>
+            <div className="w-full lg:w-1/2">
+              <AuthForm />
+            </div>
           </div>
         </div>
       </div>
