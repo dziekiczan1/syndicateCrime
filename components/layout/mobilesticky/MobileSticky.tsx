@@ -24,24 +24,25 @@ const MobileSticky: React.FC<IMobileSticky> = ({ handleProfileClick }) => {
       </div>
       <div className={styles.stickyStats}>
         {user && (
-          <div className={styles.userStats}>
-            <p className={styles.statsValue}>{user.username}</p>
-
-            <div className={styles.statsContainer}>
-              <p className="custom-label">
-                Money:{" "}
-                <p className={styles.statsValue}>
-                  ${user.defaultParams.money.toLocaleString()}
-                </p>
-              </p>
-              <div className={styles.divider}></div>
-              <p className="custom-label">
-                Energy:{" "}
-                <p className={styles.statsValue}>
-                  {user.defaultParams.energy}%
-                </p>
-              </p>
-            </div>
+          <div className={styles.statsContainer}>
+            <p className="custom-label">
+              Energy:{" "}
+              <span className={styles.statsValue}>
+                {user.defaultParams.energy}%
+              </span>
+            </p>
+            <p className="custom-label">
+              Respect:{" "}
+              <span className={styles.statsValue}>
+                {user.defaultParams.respect}
+              </span>
+            </p>
+            <p className="custom-label">
+              Money:{" "}
+              <span className={styles.statsValue}>
+                ${user.defaultParams.money.toLocaleString()}
+              </span>
+            </p>
           </div>
         )}
       </div>

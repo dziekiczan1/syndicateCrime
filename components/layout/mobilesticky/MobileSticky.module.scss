@@ -14,14 +14,6 @@
   padding: $size-16;
   z-index: 999;
 
-  .userStats {
-    @include flexbox(
-      $flex-direction: column,
-      $justify-content: $center,
-      $gap: $size-6
-    );
-  }
-
   .stickyPhoto {
     @include border($color: $color-base-orange);
     width: $size-54;
@@ -31,16 +23,21 @@
   }
 
   .statsContainer {
-    @include flexbox($flex-direction: row, $flex-wrap: wrap, $gap: $size-16);
+    @include flexbox(
+      $flex-direction: column,
+      $flex-wrap: wrap,
+      $justify-content: space-between,
+      $gap: $size-2
+    );
     width: $full-size;
-  }
 
-  .divider {
-    @include border($color: $color-base-orange, $side: left);
-    width: $size-2;
+    p {
+      @include flexbox($align-items: $center, $gap: $size-4);
+    }
   }
 
   .statsValue {
+    font-size: $size-12;
     font-weight: $font-weight-bold;
     color: $color-base-orange;
   }
