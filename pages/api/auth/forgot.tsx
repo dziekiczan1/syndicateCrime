@@ -34,6 +34,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     await transporter.sendMail({
       ...mailOptions,
+      to: email,
       subject: "Reset Password",
       text: `Reset Password Link: http://localhost:3000/forgot/${user_token}`,
       html: `<p>Reset Password Link: <a href="http://localhost:3000/forgot/${user_token}">Reset Password</a></p>`,

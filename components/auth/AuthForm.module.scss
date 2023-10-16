@@ -160,3 +160,18 @@
     }
   }
 }
+
+.emailSentBox {
+  @include flexbox(
+    $flex-direction: column,
+    $justify-content: $center,
+    $align-items: $center,
+    $gap: $size-32
+  );
+}
+
+.emailSentMessage {
+  text-align: $center;
+  color: $color-base-orange;
+  font-weight: $font-weight-bold;
+}
