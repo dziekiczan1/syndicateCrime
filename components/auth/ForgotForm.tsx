@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
@@ -19,8 +18,20 @@ const ForgotForm: React.FC = () => {
     formState: { errors },
   } = useForm<IForgotPasswordFormInput>();
 
-  const router = useRouter();
-  const onSubmit = (data: any) => {};
+  const onSubmit = async (data: any) => {
+    const { email } = data;
+
+    setIsSendingEmail(true);
+
+    const response = await fetch("/api/auth/forgot", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setIsSendingEmail(false);
+  };
 
   return (
     <section className={styles.auth}>
