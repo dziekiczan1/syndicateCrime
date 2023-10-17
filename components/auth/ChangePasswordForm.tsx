@@ -14,6 +14,10 @@ export interface IChangePasswordFormInput {
 
 const ChangePasswordForm: React.FC = () => {
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [isInvalid, setIsInvalid] = useState<string | null>(null);
+  const [isPasswordChanged, setIsPasswordChanged] = useState<boolean | null>(
+    null
+  );
   const {
     register,
     handleSubmit,
@@ -25,6 +29,7 @@ const ChangePasswordForm: React.FC = () => {
   const onSubmit = async (data: any) => {
     const { password, confirmPassword } = data;
 
+    setIsInvalid(null);
     setIsChangingPassword(true);
 
     const response = await fetch("/api/auth/reset", {
@@ -34,6 +39,15 @@ const ChangePasswordForm: React.FC = () => {
         "Content-Type": "application/json",
       },
     });
+
+    const dataResponse = await response.json();
+
+    if (!response.ok && dataResponse) {
+      setIsInvalid(dataResponse.message);
+    } else if (response.ok) {
+      setIsPasswordChanged(true);
+    }
+
     setIsChangingPassword(false);
   };
 
@@ -46,37 +60,50 @@ const ChangePasswordForm: React.FC = () => {
       ) : (
         <h1>Change Password</h1>
       )}
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <div className={styles.control}>
-          <InputField
-            label="New Password"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="New Password"
-            register={register("password", { required: true })}
-            error={errors.password ? "This field is required" : undefined}
-          />
-          <InputField
-            label="Confirm Password"
-            id="confirmpassword"
-            type="password"
-            name="confirmpassword"
-            placeholder="Confirm Password"
-            register={register("confirmPassword", {
-              required: true,
-            })}
-            error={
-              errors.confirmPassword ? "This field is required" : undefined
-            }
-          />
-        </div>
-        <div className={styles.actionsForgotEmail}>
-          <Button form={true} secondary fullSize>
-            Change Password
+      {isInvalid && <p className={styles.message}>{isInvalid}</p>}
+      {!isPasswordChanged ? (
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <div className={styles.control}>
+            <InputField
+              label="New Password"
+              id="password"
+              type="password"
+              name="password"
+              placeholder="New Password"
+              register={register("password", { required: true })}
+              error={errors.password ? "This field is required" : undefined}
+            />
+            <InputField
+              label="Confirm Password"
+              id="confirmpassword"
+              type="password"
+              name="confirmpassword"
+              placeholder="Confirm Password"
+              register={register("confirmPassword", {
+                required: true,
+              })}
+              error={
+                errors.confirmPassword ? "This field is required" : undefined
+              }
+            />
+          </div>
+          <div className={styles.actionsForgotEmail}>
+            <Button form={true} secondary fullSize>
+              Change Password
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div className={styles.emailSentBox}>
+          <p className={styles.emailSentMessage}>
+            Your password has been successfully updated. Please go to the login
+            page and use your new password to access your account.
+          </p>
+          <Button link="/" secondary>
+            Go To Home Page
           </Button>
         </div>
-      </form>
+      )}
     </section>
   );
 };
