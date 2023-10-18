@@ -20,6 +20,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const client = await connectToDatabase();
   const db = client.db();
 
+  if (!token || !password || !confirmPassword) {
+    return res.status(422).json({ message: "Invalid input." });
+  }
+
+  if (password.trim().length < 8 || confirmPassword.trim().length < 8) {
+    return res.status(400).json({
+      message: "Password must be at least 8 characters long.",
+    });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      message: "Passwords do not match.",
+    });
+  }
+
   let decodedToken: DecodedToken;
   try {
     decodedToken = jwt.verify(
@@ -27,7 +43,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       process.env.NEXTAUTH_SECRET
     ) as DecodedToken;
   } catch (error) {
-    return res.status(401).json({ message: "Invalid or expired token." });
+    return res.status(401).json({
+      message:
+        "Link expired. Please go to the Forgot Password page and resend your email.",
+    });
   }
 
   if (!decodedToken) {

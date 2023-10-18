@@ -30,6 +30,22 @@ const ChangePasswordForm: React.FC = () => {
     const { password, confirmPassword } = data;
 
     setIsInvalid(null);
+
+    if (!password || !confirmPassword) {
+      setIsInvalid("Password can't be empty field.");
+      return;
+    }
+
+    if (password.trim().length < 8 || confirmPassword.trim().length < 8) {
+      setIsInvalid("Passwords must be at least 8 characters long.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setIsInvalid("Passwords do not match.");
+      return;
+    }
+
     setIsChangingPassword(true);
 
     const response = await fetch("/api/auth/reset", {
