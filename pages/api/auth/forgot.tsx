@@ -5,6 +5,8 @@ import { connectToDatabase } from "@/lib/db";
 import { mailOptions, transporter } from "@/lib/nodemailer";
 import { IUser } from "@/store/user-context";
 
+import { forgotPasswordEmail } from "@/constants/emails/forgot-password";
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return;
@@ -31,13 +33,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   );
 
+  const forgotEmailTemplate = forgotPasswordEmail(user_token);
+
   try {
     await transporter.sendMail({
       ...mailOptions,
       to: email,
       subject: "Reset Password",
-      text: `Reset Password Link: http://localhost:3000/forgot/${user_token}`,
-      html: `<p>Reset Password Link: <a href="http://localhost:3000/forgot/${user_token}">Reset Password</a></p>`,
+      html: forgotEmailTemplate,
     });
 
     await db.collection<IUser>("users").updateOne(
