@@ -33,13 +33,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   );
 
-  const forgotEmailTemplate = forgotPasswordEmail(user_token);
+  const user_name = existingUser.username;
+
+  const forgotEmailTemplate = forgotPasswordEmail(user_token, user_name);
 
   try {
     await transporter.sendMail({
       ...mailOptions,
       to: email,
-      subject: "Reset Password",
+      subject: "Password Reset Request",
       html: forgotEmailTemplate,
     });
 
