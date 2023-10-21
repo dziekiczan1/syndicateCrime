@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { w3cwebsocket } from "websocket";
 
 import UserContext, { IUser } from "@/store/user-context";
+import { useRouter } from "next/router";
 
 export default function UserContextProvider({
   children,
@@ -12,6 +13,7 @@ export default function UserContextProvider({
   const [user, setUser] = useState<IUser | null>(null);
   const contextValue = { user, setUser };
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const fetchData = useCallback(async () => {
     try {
@@ -30,8 +32,10 @@ export default function UserContextProvider({
   }, [status, session]);
 
   useEffect(() => {
-    fetchData();
-  }, [status, session, fetchData]);
+    if (router.pathname === "/") {
+      fetchData();
+    }
+  }, [status, session, fetchData, router.pathname]);
 
   useEffect(() => {
     const socket = new w3cwebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
@@ -57,10 +61,12 @@ export default function UserContextProvider({
   }, [status, session, user]);
 
   useEffect(() => {
-    if (status === "authenticated" && session && !user) {
-      fetchData();
+    if (router.pathname === "/") {
+      if (status === "authenticated" && session && !user) {
+        fetchData();
+      }
     }
-  }, [status, session, user, fetchData]);
+  }, [status, session, user, fetchData, router.pathname]);
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

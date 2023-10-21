@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import UserContext from "@/store/user-context";
+import Link from "next/link";
 import Button from "../ui/button/Button";
 import Loading from "../ui/loading/Loading";
 import styles from "./AuthForm.module.scss";
@@ -120,6 +121,14 @@ const AuthForm: React.FC = () => {
           <Button onClick={switchAuthModeHandler}>
             {isLogin ? "New user" : "Existing user"}
           </Button>
+        </div>
+        <div className={styles.actionsForgot}>
+          <p>
+            Forgot Your Password?{" "}
+            <Link href="/forgot">
+              <span>Click Here</span>
+            </Link>
+          </p>
         </div>
       </form>
     </section>

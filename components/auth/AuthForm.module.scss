@@ -100,12 +100,25 @@
 
   button {
     flex-basis: $half-size;
-    margin-top: $size-16;
 
     @include screen($size: mobile) {
       margin-top: $size-8;
     }
   }
+}
+
+.actionsForgot {
+  @include flexbox($justify-content: $center);
+  margin-top: $size-16;
+
+  span {
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.actionsForgotEmail {
+  @include flexbox($justify-content: $center);
 }
 
 .checkbox {
@@ -146,4 +159,19 @@
       opacity: 1;
     }
   }
+}
+
+.emailSentBox {
+  @include flexbox(
+    $flex-direction: column,
+    $justify-content: $center,
+    $align-items: $center,
+    $gap: $size-32
+  );
+}
+
+.emailSentMessage {
+  text-align: $center;
+  color: $color-base-orange;
+  font-weight: $font-weight-bold;
 }
