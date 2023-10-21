@@ -23,8 +23,6 @@ const ForgotForm: React.FC = () => {
   const onSubmit = async (data: any) => {
     const { email } = data;
 
-    console.log(data);
-
     setIsInvalid(null);
     setIsSendingEmail(true);
 

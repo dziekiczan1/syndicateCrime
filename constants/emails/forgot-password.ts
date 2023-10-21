@@ -29,7 +29,7 @@ export const forgotPasswordEmail = (
       <strong>
         Password Reset Link:
         <a
-          href="http://localhost:3000/forgot/${resetPasswordToken}"
+          href="http://152.70.166.180:3001/forgot/${resetPasswordToken}"
           style="color: #cc0303"
           >Click Here!</a
         ></strong
