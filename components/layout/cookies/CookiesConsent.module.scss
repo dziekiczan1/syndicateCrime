@@ -1,0 +1,8 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: $color-base-light;
+}

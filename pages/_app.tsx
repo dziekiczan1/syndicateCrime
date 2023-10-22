@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Manrope, Newsreader, Poppins } from "next/font/google";
 import Head from "next/head";
 
+import CookiesConsent from "@/components/layout/cookies/CookiesConsent";
 import UserContextProvider from "@/components/providers/UserProvider";
 import PrimaryLayout from "../components/layout/primary/PrimaryLayout";
 import "../styles/globals.scss";
@@ -36,6 +37,7 @@ export default function App({
               />
             </Head>
             <Component {...pageProps} />
+            <CookiesConsent />
           </PrimaryLayout>
         </UserContextProvider>
       </SessionProvider>
