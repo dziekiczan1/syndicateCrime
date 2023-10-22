@@ -1,3 +1,4 @@
+import { footer } from "./footer";
 import { header } from "./header";
 
 export const forgotPasswordEmail = (
@@ -49,8 +50,9 @@ export const forgotPasswordEmail = (
         ></strong
       >
     </p>
-    <p style="margin-block-end: 0">Best regards,</p>
-    <p style="margin-block-start: 0">Syndicate Crime</p>
+    <p style="margin: 0; margin-block-end: 0;">Best regards,</p>
+    <p style="margin: 0; margin-block-start: 0;">Syndicate Crime</p>
   </div>
 </div>
+${footer()}
   `;
