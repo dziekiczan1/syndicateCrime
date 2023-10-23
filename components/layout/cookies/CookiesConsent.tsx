@@ -22,13 +22,25 @@ const CookiesConsent: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      This website uses cookies to ensure you get the best experience on our
-      website. By using our website, you consent to our use of cookies. For more
-      information, please see our{" "}
-      <Link href="/privacy-policy">Privacy Policy</Link>.
-      <Button onClick={acceptCookies} disabled={showConsent}>
-        Accept
-      </Button>
+      <div className={styles.innerContainer}>
+        <h3 className={styles.cookieHeading}>Cookie Policy</h3>
+        <p className={styles.cookieConsent}>
+          This website uses cookies to ensure you get the best experience on our
+          website. For more information, please see our{" "}
+          <span className={styles.privacyLink}>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+          </span>
+          .
+        </p>
+        <div className={styles.buttonContainer}>
+          <Button onClick={acceptCookies} disabled={showConsent} secondary>
+            Accept Cookies
+          </Button>
+          {/* <Button>
+            Settings
+          </Button> */}
+        </div>
+      </div>
     </div>
   );
 };

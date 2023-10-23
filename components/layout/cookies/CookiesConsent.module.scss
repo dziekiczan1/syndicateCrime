@@ -2,7 +2,49 @@
 
 .container {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
-  color: $color-base-light;
+  width: $full-size;
+  height: $full-size;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.innerContainer {
+  @include border($size-1, solid, $color-base-orange, top);
+  @include border($size-1, solid, $color-base-orange, bottom);
+  position: fixed;
+  left: $null;
+  right: $null;
+  bottom: $size-16;
+  padding: $size-16;
+  background-color: darken($color-base-dark, 10%);
+  box-shadow: $shadow;
+
+  .cookieHeading,
+  .cookieConsent {
+    margin-bottom: $size-8;
+  }
+
+  .privacyLink {
+    color: $color-base-orange;
+    font-weight: $font-weight-bold;
+  }
+
+  .buttonContainer {
+    @include flexbox(
+      $justify-content: flex-end,
+      $align-items: $center,
+      $gap: $size-16
+    );
+    margin-top: $size-32;
+
+    button {
+      padding: $size-16 $size-32;
+    }
+
+    @include screen($size: mobile) {
+      justify-content: flex-start;
+    }
+  }
 }
