@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "./CookiesConsent.module.scss";
 
 const CookiesConsent: React.FC = () => {
-  const [showConsent, setShowConsent] = useState<boolean>(false);
+  const [showConsent, setShowConsent] = useState<boolean>(true);
 
   useEffect(() => {
     setShowConsent(hasCookie("cookies_consent"));
