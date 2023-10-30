@@ -1,0 +1,6 @@
+@import "../../../styles/_variables.scss";
+
+.container {
+  @include flexbox($flex-direction: column, $gap: $size-16);
+  color: $color-base-light;
+}
