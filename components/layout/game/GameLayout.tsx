@@ -107,12 +107,13 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             <Modal
               isOpen={showSabotageMessage}
               onClose={handleCloseSabotageMessage}
+              closeAble
             >
               <SabotageModal />
             </Modal>
           )}
         {user && !user.hasSeenGuide && (
-          <Modal isOpen={true} onClose={handleCloseSabotageMessage}>
+          <Modal isOpen={true}>
             <GuideModal />
           </Modal>
         )}
