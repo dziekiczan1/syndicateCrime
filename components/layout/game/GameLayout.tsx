@@ -34,6 +34,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
     useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [stickyClass, setStickyClass] = useState("hidden");
+  const isGuideOpen = user && user.hasSeenGuide;
 
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
@@ -112,8 +113,8 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
               <SabotageModal />
             </Modal>
           )}
-        {user && !user.hasSeenGuide && (
-          <Modal isOpen={true}>
+        {user && (
+          <Modal isOpen={!isGuideOpen}>
             <GuideModal />
           </Modal>
         )}

@@ -1,11 +1,16 @@
 import gangImages from "@/constants/images/gang";
 import UserContext from "@/store/user-context";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./GuideModal.module.scss";
 
 const GuideModal = () => {
   const { user } = useContext(UserContext);
+  const [guideComponent, setGuideComponent] = useState(1);
+
+  const handleNextClick = () => {
+    setGuideComponent((prevGuideComponent) => prevGuideComponent + 1);
+  };
 
   return (
     <div className={styles.container}>
@@ -17,6 +22,12 @@ const GuideModal = () => {
         <div className={styles.sabotageTime}>
           <p>Guide</p>
         </div>
+      </div>
+      <div>
+        {guideComponent === 1 && <p>first guide</p>}
+        {guideComponent === 2 && <p>second guide</p>}
+        {guideComponent === 3 && <p>third guide</p>}
+        {guideComponent < 3 && <button onClick={handleNextClick}>Next</button>}
       </div>
     </div>
   );
