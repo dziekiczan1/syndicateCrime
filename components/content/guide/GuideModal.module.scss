@@ -3,4 +3,8 @@
 .container {
   @include flexbox($flex-direction: column, $gap: $size-16);
   color: $color-base-light;
+
+  .buttonWrapper {
+    @include flexbox($gap: $size-16);
+  }
 }

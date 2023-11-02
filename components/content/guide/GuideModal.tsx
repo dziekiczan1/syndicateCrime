@@ -1,33 +1,63 @@
-import gangImages from "@/constants/images/gang";
-import UserContext from "@/store/user-context";
-import Image from "next/image";
-import { useContext, useState } from "react";
+import Button from "@/components/ui/button/Button";
+import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
+import useResponseHandler from "@/lib/useResponseHandler";
+import { useRef, useState } from "react";
+import FirstSlide from "./FirstSlide";
 import styles from "./GuideModal.module.scss";
 
 const GuideModal = () => {
-  const { user } = useContext(UserContext);
   const [guideComponent, setGuideComponent] = useState(1);
+  const messageRef = useRef<HTMLDivElement>(null);
+  const { errorMessage, actionMessage, isLoading, handleAction } =
+    useResponseHandler(messageRef);
 
   const handleNextClick = () => {
     setGuideComponent((prevGuideComponent) => prevGuideComponent + 1);
   };
 
+  const handlePreviousClick = () => {
+    setGuideComponent((prevGuideComponent) => prevGuideComponent - 1);
+  };
+
+  const handleSeenGuide = async () => {
+    await handleAction("/api/user/updateStat", {
+      statToUpdate: "hasSeenGuide",
+      valueToUpdate: true,
+    });
+  };
+
   return (
     <div className={styles.container}>
-      <Image src={gangImages.sabotage} alt="guide" width={640} height={360} />
-      <div className={styles.mainContentWrapper}>
-        <h3>
-          You have been <span>guided!</span>
-        </h3>
-        <div className={styles.sabotageTime}>
-          <p>Guide</p>
-        </div>
-      </div>
-      <div>
-        {guideComponent === 1 && <p>first guide</p>}
-        {guideComponent === 2 && <p>second guide</p>}
-        {guideComponent === 3 && <p>third guide</p>}
-        {guideComponent < 3 && <button onClick={handleNextClick}>Next</button>}
+      {guideComponent === 1 && <FirstSlide />}
+      {guideComponent === 2 && <p>second guide</p>}
+      {guideComponent === 3 && <p>third guide</p>}
+      <ResponseHandler
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        actionMessage={actionMessage}
+        messageRef={messageRef}
+      />
+      <div className={styles.buttonWrapper}>
+        <Button
+          onClick={handlePreviousClick}
+          disabled={guideComponent === 1}
+          fullSize
+        >
+          Previous
+        </Button>
+        {guideComponent === 3 ? (
+          <Button onClick={handleSeenGuide} secondary fullSize>
+            Got it, thanks!
+          </Button>
+        ) : (
+          <Button
+            onClick={handleNextClick}
+            disabled={guideComponent === 3}
+            fullSize
+          >
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );
