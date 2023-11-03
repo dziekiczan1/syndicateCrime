@@ -4,6 +4,18 @@
   @include flexbox($flex-direction: column, $gap: $size-16);
   color: $color-base-light;
 
+  .mainContentWrapper {
+    @include flexbox($flex-direction: column);
+
+    h3 {
+      margin-bottom: $size-16;
+
+      span {
+        color: $color-base-orange;
+      }
+    }
+  }
+
   .buttonWrapper {
     @include flexbox($gap: $size-16);
   }

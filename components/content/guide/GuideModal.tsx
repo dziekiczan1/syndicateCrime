@@ -4,6 +4,7 @@ import useResponseHandler from "@/lib/useResponseHandler";
 import { useRef, useState } from "react";
 import FirstSlide from "./FirstSlide";
 import styles from "./GuideModal.module.scss";
+import SecondSlide from "./SecondSlide";
 
 const GuideModal = () => {
   const [guideComponent, setGuideComponent] = useState(1);
@@ -29,7 +30,7 @@ const GuideModal = () => {
   return (
     <div className={styles.container}>
       {guideComponent === 1 && <FirstSlide />}
-      {guideComponent === 2 && <p>second guide</p>}
+      {guideComponent === 2 && <SecondSlide />}
       {guideComponent === 3 && <p>third guide</p>}
       <ResponseHandler
         isLoading={isLoading}
