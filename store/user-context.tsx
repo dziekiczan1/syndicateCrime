@@ -43,6 +43,7 @@ export interface IUser {
   alley?: Alley;
   isPlayerDead?: boolean;
   district?: Mission;
+  hasSeenGuide?: boolean;
 }
 
 export interface IUserContextType {

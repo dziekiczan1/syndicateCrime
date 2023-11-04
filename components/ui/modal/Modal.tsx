@@ -5,28 +5,33 @@ import styles from "./Modal.module.scss";
 
 export interface IModal {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   children?: ReactNode;
+  closeAble?: boolean;
 }
 
-const Modal: React.FC<IModal> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<IModal> = ({ isOpen, onClose, children, closeAble }) => {
   if (!isOpen) return null;
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <div onClick={onClose} className={styles.mobileClose}>
-          <Icon
-            component={CloseMobileIcon}
-            width={36}
-            height={36}
-            viewBox="24 24"
-          />
-        </div>
+        {closeAble && (
+          <div onClick={onClose} className={styles.mobileClose}>
+            <Icon
+              component={CloseMobileIcon}
+              width={36}
+              height={36}
+              viewBox="24 24"
+            />
+          </div>
+        )}
         <div className={`modal-content ${styles.content}`}>{children}</div>
-        <Button onClick={onClose} fullSize secondary>
-          Got it!
-        </Button>
+        {closeAble && (
+          <Button onClick={onClose} fullSize secondary>
+            Got it!
+          </Button>
+        )}
       </div>
     </div>
   );

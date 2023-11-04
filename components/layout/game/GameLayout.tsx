@@ -3,6 +3,7 @@ import { ReactNode, useContext, useEffect, useState } from "react";
 import MainMenu from "@/components/layout/menu/MainMenu";
 import ActionsInterface from "@/components/user/actions/ActionsInterface";
 
+import GuideModal from "@/components/content/guide/GuideModal";
 import SabotageModal from "@/components/content/sabotage/SabotageModal";
 import {
   HamburgerMenuIcon,
@@ -33,6 +34,7 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
     useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [stickyClass, setStickyClass] = useState("hidden");
+  const isGuideOpen = user && user.hasSeenGuide;
 
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
@@ -106,10 +108,16 @@ const GameLayout: React.FC<IGameLayout> = ({ children }) => {
             <Modal
               isOpen={showSabotageMessage}
               onClose={handleCloseSabotageMessage}
+              closeAble
             >
               <SabotageModal />
             </Modal>
           )}
+        {user && (
+          <Modal isOpen={!isGuideOpen}>
+            <GuideModal />
+          </Modal>
+        )}
         <div className={styles.actions}>
           <div className={styles.sidebar}>
             <div className={stickyClass}>

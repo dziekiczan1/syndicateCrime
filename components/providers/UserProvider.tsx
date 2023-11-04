@@ -32,9 +32,7 @@ export default function UserContextProvider({
   }, [status, session]);
 
   useEffect(() => {
-    if (router.pathname === "/") {
-      fetchData();
-    }
+    fetchData();
   }, [status, session, fetchData, router.pathname]);
 
   useEffect(() => {
@@ -59,14 +57,6 @@ export default function UserContextProvider({
       socket.close();
     };
   }, [status, session, user]);
-
-  useEffect(() => {
-    if (router.pathname === "/") {
-      if (status === "authenticated" && session && !user) {
-        fetchData();
-      }
-    }
-  }, [status, session, user, fetchData, router.pathname]);
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

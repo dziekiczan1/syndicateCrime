@@ -62,6 +62,10 @@ export default async function handler(
         user.defaultParams.charisma = valueToUpdate;
         successMessage = "Your charisma stats has been updated.";
         break;
+      case "hasSeenGuide":
+        user.hasSeenGuide = valueToUpdate;
+        successMessage = "Thank you for reading our guide.";
+        break;
       default:
         return res
           .status(400)
