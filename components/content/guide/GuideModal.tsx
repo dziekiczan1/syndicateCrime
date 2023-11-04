@@ -1,10 +1,10 @@
 import Button from "@/components/ui/button/Button";
 import ResponseHandler from "@/components/ui/responsehandler/ResponseHandler";
+import { guideContent } from "@/constants/guide/guide";
 import useResponseHandler from "@/lib/useResponseHandler";
 import { useRef, useState } from "react";
-import FirstSlide from "./FirstSlide";
 import styles from "./GuideModal.module.scss";
-import SecondSlide from "./SecondSlide";
+import GuideSlide from "./GuideSlide";
 
 const GuideModal = () => {
   const [guideComponent, setGuideComponent] = useState(1);
@@ -29,9 +29,9 @@ const GuideModal = () => {
 
   return (
     <div className={styles.container}>
-      {guideComponent === 1 && <FirstSlide />}
-      {guideComponent === 2 && <SecondSlide />}
-      {guideComponent === 3 && <p>third guide</p>}
+      {guideComponent <= guideContent.length && (
+        <GuideSlide guideChapter={guideContent[guideComponent - 1]} />
+      )}
       <ResponseHandler
         isLoading={isLoading}
         errorMessage={errorMessage}
@@ -46,14 +46,14 @@ const GuideModal = () => {
         >
           Previous
         </Button>
-        {guideComponent === 3 ? (
+        {guideComponent === guideContent.length ? (
           <Button onClick={handleSeenGuide} secondary fullSize>
             Got it, thanks!
           </Button>
         ) : (
           <Button
             onClick={handleNextClick}
-            disabled={guideComponent === 3}
+            disabled={guideComponent === guideContent.length}
             fullSize
           >
             Next
