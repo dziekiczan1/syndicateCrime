@@ -32,32 +32,37 @@ const GuideModal = () => {
       {guideComponent <= guideContent.length && (
         <GuideSlide guideChapter={guideContent[guideComponent - 1]} />
       )}
-      <ResponseHandler
-        isLoading={isLoading}
-        errorMessage={errorMessage}
-        actionMessage={actionMessage}
-        messageRef={messageRef}
-      />
       <div className={styles.buttonWrapper}>
-        <Button
-          onClick={handlePreviousClick}
-          disabled={guideComponent === 1}
-          fullSize
-        >
-          Previous
-        </Button>
-        {guideComponent === guideContent.length ? (
-          <Button onClick={handleSeenGuide} secondary fullSize>
-            Got it, thanks!
-          </Button>
+        {isLoading ? (
+          <ResponseHandler
+            isLoading={isLoading}
+            errorMessage={errorMessage}
+            actionMessage={actionMessage}
+            messageRef={messageRef}
+          />
         ) : (
-          <Button
-            onClick={handleNextClick}
-            disabled={guideComponent === guideContent.length}
-            fullSize
-          >
-            Next
-          </Button>
+          <>
+            <Button
+              onClick={handlePreviousClick}
+              disabled={guideComponent === 1}
+              fullSize
+            >
+              Previous
+            </Button>
+            {guideComponent === guideContent.length ? (
+              <Button onClick={handleSeenGuide} secondary fullSize>
+                Got it, thanks!
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNextClick}
+                disabled={guideComponent === guideContent.length}
+                fullSize
+              >
+                Next
+              </Button>
+            )}
+          </>
         )}
       </div>
     </div>
