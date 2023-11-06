@@ -29,7 +29,7 @@ export default async function handler(
 
     const { statToUpdate, valueToUpdate } = req.body;
 
-    if (!valueToUpdate) {
+    if (valueToUpdate === undefined || valueToUpdate === null) {
       return res.status(404).json({ error: `Choose your ${statToUpdate}!` });
     }
 
