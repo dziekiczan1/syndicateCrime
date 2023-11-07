@@ -17,6 +17,11 @@
   }
 
   .buttonWrapper {
-    @include flexbox($gap: $size-16);
+    @include flexbox(
+      $justify-content: $center,
+      $align-items: $center,
+      $gap: $size-16
+    );
+    max-height: $size-32;
   }
 }

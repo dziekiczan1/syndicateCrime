@@ -3,5 +3,11 @@
 .container {
   .faq {
     @include flexbox($flex-direction: column, $gap: $size-16);
+    margin-top: $size-32;
+  }
+
+  .guide {
+    @include flexbox($justify-content: $center, $align-items: $center);
+    max-height: $size-32;
   }
 }
