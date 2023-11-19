@@ -7,4 +7,4 @@ This is a code repository for the **Syndicate Crime game** project
 
 This is Syndicate Crime game.
 
-Stack used for this project: NextJS, Websockets
+Stack used for this project: NextJS, Node.Js, Websockets
